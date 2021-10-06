@@ -1,5 +1,5 @@
 try:
-    from typing import Tuple
+    from typing import Union, Tuple, Dict
     from math import sqrt, pow, log
     from . import Base
     import matplotlib.pyplot as plt
@@ -31,6 +31,7 @@ class Explonential(Base):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
+        - keys for returning a dictionary of summary statistics.
 
     References:
     - Weisstein, Eric W. "Exponential Distribution." From MathWorld--A Wolfram Web Resource.
@@ -220,3 +221,16 @@ class Explonential(Base):
             return (f"mean: {self.mean()}", f"median: {self.median()}",
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
+
+    def keys(self) -> Dict[str, Union[float, int]]:
+        """
+        Summary statistic regarding the Exponential-distribution which contains the following parts of the distribution:
+        (mean, median, mode, var, std, skewness, kurtosis).
+
+        Returns:
+            Dict[str, Union[float, int]]: [description]
+        """
+        return {
+            'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }

@@ -1,6 +1,6 @@
 try:
     from scipy.special import beta, betainc, gamma, digamma
-    from typing import Tuple
+    from typing import Union, Tuple, Dict
     from math import sqrt, log
     from . import Base
     import matplotlib.pyplot as plt
@@ -33,6 +33,7 @@ class F(Base):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
+        - keys for returning a dictionary of summary statistics.
 
     References:
     - Mood, Alexander; Franklin A. Graybill; Duane C. Boes (1974).
@@ -218,7 +219,7 @@ class F(Base):
                 (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
                 and prints out the summary of the distribution. 
         """
-        if display == True:
+        if display:
             cstr = " summary statistics "
             print(cstr.center(40, "="))
             print(f"mean: {self.mean()}", f"median: {self.median()}",
@@ -230,3 +231,16 @@ class F(Base):
             return (f"mean: {self.mean()}", f"median: {self.median()}",
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
+
+    def keys(self) -> Dict[str, Union[float, int]]:
+        """
+        Summary statistic regarding the F-distribution which contains the following parts of the distribution:
+        (mean, median, mode, var, std, skewness, kurtosis).
+
+        Returns:
+            Dict[str, Union[float, int]]: [description]
+        """
+        return {
+            'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
