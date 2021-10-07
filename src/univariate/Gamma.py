@@ -1,17 +1,23 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, pi
+    from math import sqrt, pow, log
+    from scipy.special import gamma, gammainc, digamma
     from . import Base
     import matplotlib.pyplot as plt
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
-class Arcsine(Base):
+
+
+class Gamma(Base):
     """
-    This class contains methods concerning Arcsine Distirbution.
+    This class contains methods concerning a variant of Gamma distribution.
+
     Args:
 
-        randvar(float in [0, 1]): random variable
+        a(float | [0, infty)): shape
+        b(float | [0, infty)): scale
+        x(float | [0, infty)): random variable
 
     Methods:
 
@@ -29,16 +35,24 @@ class Arcsine(Base):
         - summary for printing the summary statistics of the distribution.
         - keys for returning a dictionary of summary statistics.
 
-    Reference:
-    - Wikipedia contributors. (2020, October 30). Arcsine distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 05:19, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Arcsine_distribution&oldid=986131091
+    References:
+    - Matlab(2020). Gamma Distribution.
+    Retrieved from: https://www.mathworks.com/help/stats/gamma-distribution.html?searchHighlight=gamma%20distribution&s_tid=srchtitle
     """
 
-    def __init__(self, randvar: float):
-        if randvar > 0 or randvar > 1:
+    def __init__(self, a: float, b: float, x: float):
+        if a < 0:
             raise ValueError(
-                f'random variable should have values between [0,1]. The value of randvar was: {randvar}')
-        self.randvar = randvar
+                f'shape should be greater than 0. Entered value for a:{a}')
+        if b < 0:
+            raise ValueError(
+                f'scale should be greater than 0. Entered value for b:{b}')
+        if x < 0:
+            raise ValueError(
+                f'random variable should be greater than 0. Entered value for x:{b}')
+        self.a = a
+        self.b = b
+        self.x = x
 
     def pdf(self,
             plot=False,
@@ -61,15 +75,17 @@ class Arcsine(Base):
 
 
         Returns:
-            either probability density evaluation for some point or plot of Arcsine distribution.
+            either probability density evaluation for some point or plot of Gamma-distribution.
         """
-        def __generator(x): return 1/(pi* sqrt(x*(1-x)))
+        # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
+        def __generator(a, b, x):
+            return (1 / (b**a * gamma(a))) * np.power(x, a - 1) * np.exp(-x / b)
 
         if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i) for i in x])
+            x = np.linspace(-interval, interval, threshold)
+            y = np.array([__generator(self.a, self.b, i) for i in x])
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.randvar)
+        return __generator(self.a, self.b, self.x)
 
     def cdf(self,
             plot=False,
@@ -92,17 +108,19 @@ class Arcsine(Base):
 
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Arcsine distribution.
+            either cumulative distribution evaluation for some point or plot of Gamma-distribution.
         """
-        def __generator(x): return (2/pi)*np.arcsin(sqrt(x))
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.location, self.scale, i)
-                         for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.location, self.scale, self.randvar)
+        # there is no apparent explanation for reversing gammainc's parameter, but it works quite perfectly in my prototype
+        def __generator(a, b, x):
+            return 1 - gammainc(a, x / b)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[number]:
+        if plot:
+            x = np.linspace(-interval, interval, threshold)
+            y = np.array([__generator(self.a, self.b, i) for i in x])
+            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        return __generator(self.a, self.b, self.x)
+
+    def pvalue(self, x_lower=0, x_upper=None) -> Union[float, int]:
         """
         Args:
 
@@ -113,65 +131,74 @@ class Arcsine(Base):
             Otherwise, the default random variable is x.
 
         Returns:
-            p-value of the Arcsine distribution evaluated at some random variable.
+            p-value of the Gamma distribution evaluated at some random variable.
         """
-        if x_lower < 0 or x_lower > 1:
+        if x_lower < 0:
             raise ValueError(
-                f'x_lower should only be in between 0 and 1. X_lower:{x_lower}')
-        if x_upper == None:
-            x_upper = self.randvar
-        if x_lower > x_upper:
-            raise ValueError(
-                f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
+                f'x_lower cannot be lower than 0. Entered value: {x_lower}')
+        if x_upper is None:
+            x_upper = self.x
 
-        def __cdf(x): return (2/pi)*np.arcsin(sqrt(x))
-        return __cdf(self.location, self.scale, x_upper)-__cdf(self.location, self.scale, x_lower)
+        def __cdf(a, b, x): return 1 - gammainc(a, x / b)
 
-    def mean(self) -> float:
-        """
-        Returns: Mean of the Arcsine distribution.
-        """
-        return 1/2
+        return __cdf(self.a, self.b, x_upper, self.lambda_) - __cdf(self.a, self.b, x_lower, self.lambda_)
 
-    def median(self) -> float:
+    def mean(self) -> Union[float, int]:
         """
-        Returns: Median of the Arcsine distribution.
+        Returns: Mean of the Gamma distribution
         """
-        return 1/2
+        return self.a * self.b
 
-    def mode(self) -> Tuple[float]:
+    def median(self) -> str:
         """
-        Returns: Mode of the Arcsine distribution. Mode is within the set {0,1}
+        Returns: Median of the Gamma distribution.
         """
-        return (0, 1)
+        return "No simple closed form."
 
-    def var(self) -> float:
+    def mode(self) -> Union[float, int]:
         """
-        Returns: Variance of the Arcsine distribution.
+        Returns: Mode of the Gamma distribution
         """
-        return 1/8
+        return (self.a - 1) * self.b
+
+    def var(self) -> Union[float, int]:
+        """
+        Returns: Variance of the Gamma distribution
+        """
+        return self.a * pow(self.b, 2)
 
     def std(self) -> float:
         """
-        Returns: Standard deviation of the Arcsine distribution.
+        Returns: Standard deviation of the Gamma distribution
         """
-        return sqrt(1/8)
+        return sqrt(self.var())
 
     def skewness(self) -> float:
         """
-        Returns: Skewness of the Arcsine distribution.
+        Returns: Skewness of the Gamma distribution
         """
-        return 0.0
+        return 2 / sqrt(self.a)
 
     def kurtosis(self) -> float:
         """
-        Returns: Kurtosis of the Arcsine distribution.
+        Returns: Kurtosis of the Gamma distribution
         """
-        return 3/2
+        return 6 / self.a
+
+    def entropy(self) -> float:
+        """
+        Returns: differential entropy of the Gamma distribution
+
+        Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
+        link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
+        """
+        k = self.a
+        theta = self.b
+        return k + log(theta)+log(gamma(k))-(1-k)*digamma(k)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
-        Returns:  summary statistic regarding the Arcsine distribution which contains the following parts of the distribution:
+        Returns:  summary statistic regarding the Gamma distribution which contains the following parts of the distribution:
                 (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
                 and prints out the summary of the distribution. 
         """
@@ -188,16 +215,15 @@ class Arcsine(Base):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
+    def keys(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the Arcsine distribution which contains the following parts of the distribution:
+        Summary statistic regarding the Gamma distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, Tuple[float]]]: [description]
+            Dict[str, Union[float, int, str]]: [description]
         """
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

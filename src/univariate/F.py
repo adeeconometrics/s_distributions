@@ -82,7 +82,7 @@ class F(Base):
             either probability density evaluation for some point or plot of F-distribution.
         """
 
-        # Because math.pow is limited for bigger numbers, this can be done better.
+        # Because math.pow is limited for bigger numbers, numpy alternatives were chosed.
         def __generator(x, df1, df2): return (1 / beta(
             df1 / 2, df2 / 2)) * np.power(df1 / df2, df1 / 2) * np.power(
                 x, df1 / 2 - 1) * np.power(1 +
@@ -232,13 +232,13 @@ class F(Base):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def keys(self) -> Dict[str, Union[float, int, str]]:
         """
         Summary statistic regarding the F-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, Union[float, int, str]]: [description]
         """
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),

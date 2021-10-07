@@ -1,17 +1,13 @@
 try:
-    from typing import NewType, Optional
+    from typing import Union
+    from math import sqrt, pow, log, pi
+    from scipy.special import erfinv
+    from scipy.integrate import quad
     from abc import ABC
-    import numpy as np
-    from math import sqrt, pow, log
-    import scipy as sp
-    import scipy.special as ss
+    from numpy import exp, inf
     import matplotlib.pyplot as plt
 except Exception as e:
-    print("some modules are missing {}".format(e))
-
-T = [int, float, np.int16, np.int32, np.int64,
-     np.float16, np.float32, np.float64]
-number = NewType('number', T)
+    print(f"some modules are missing {e}")
 
 
 class Base(ABC):
@@ -38,10 +34,10 @@ class Base(ABC):
     def logcdf(self, cdf) -> number:
         return log(cdf)
 
-    def pvalue(self) -> Union[number, str]:
+    def pvalue(self) -> str:
         return "unsupported"
 
-    def confidence_interval(self) -> Union[number, str]:
+    def confidence_interval(self) -> str:
         return "currently unsupported"
 
     def rvs(self):  # (adaptive) rejection sampling implementation
@@ -50,64 +46,64 @@ class Base(ABC):
         """
         return "currently unsupported"
 
-    def mean(self) -> Union[number, str]:
+    def mean(self) -> str:
         """
         returns mean default (unsupported)
         """
         return "unsupported"
 
-    def median(self) -> Union[number, str]:
+    def median(self) -> str:
         """
         returns median default (unsupported)
         """
         return "unsupported"
 
-    def mode(self) -> Union[number, str]:
+    def mode(self) -> str:
         """
         returns mode default (unsupported)
         """
         return "unsupported"
 
-    def var(self) -> Union[number, str]:
+    def var(self) -> str:
         """
         returns variance default (unsupported)
         """
         return "unsupported"
 
-    def std(self) -> Union[number, str]:
+    def std(self) -> str:
         """
         returns the std default (undefined)
         """
         return "unsupported"
 
-    def skewness(self) -> Union[number, str]:
+    def skewness(self) -> str:
         """
         returns skewness default (unsupported)
         """
         return "unsupported"
 
-    def kurtosis(self) -> Union[number, str]:
+    def kurtosis(self) -> str:
         """
         returns kurtosis default (unsupported)
         """
         return "unsupported"
 
-    def entropy(self) -> Union[number, str]:
+    def entropy(self) -> str:
         """
         returns entropy default (unsupported)
         """
         return "unsupported"
 
     # special functions for ϕ(x), and Φ(x) functions: should this be reorganized?
-    def stdnorm_pdf(self, x) -> number:
-        return np.exp(-pow(x, 2)/2)/sqrt(2*np.pi)
+    def stdnorm_pdf(self, x) -> float:
+        return exp(-pow(x, 2)/2)/sqrt(2*pi)
 
-    def stdnorm_cdf(self, x) -> number:
-        return sp.integrate.quad(self.stdnorm_pdf, -np.inf, x)[0]
+    def stdnorm_cdf(self, x) -> float:
+        return quad(self.stdnorm_pdf, -inf, x)[0]
 
-    def stdnorm_cdf_inv(self, x, p, mean=0, std=1) -> number:
+    def stdnorm_cdf_inv(self, x, p, mean=0, std=1) -> float:
         """
         qunatile function of the normal cdf. Note thatn p can only have values between (0,1).
         defaults to standard normal but can be expressed more generally.
         """
-        return mean + std*sqrt(2)*ss.erfinv(2*p-1)
+        return mean + std*sqrt(2)*erfinv(2*p-1)

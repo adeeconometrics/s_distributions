@@ -146,11 +146,11 @@ class Explonential(Base):
         if x_upper is None:
             x_upper = x
 
-        def _cdf_def(x, lambda_):
+        def __cdf(x, lambda_):
             if x > 0:
                 return 1 - np.exp(-lambda_ * x)
             return 0
-        return _cdf_def(x_upper, lambda_) - _cdf_def(x_lower, lambda_)
+        return __cdf(x_upper, lambda_) - __cdf(x_lower, lambda_)
 
     def mean(self) -> float:
         """

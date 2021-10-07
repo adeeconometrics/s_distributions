@@ -75,7 +75,7 @@ class ChiSquare(Base):
             either probability density evaluation for some point or plot of Chi square-distribution.
 
         """
-        # Because of the limitations of math.pow() and math.exp() for bigger numbers.
+        # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
         def __generator(x, df): return (1 / (np.power(2, (df / 2) - 1) * gamma(
             df / 2))) * np.power(x, df - 1) * np.exp(-x**2 / 2)
         if plot:
@@ -129,12 +129,12 @@ class ChiSquare(Base):
         Returns:
             p-value of the Chi square distribution evaluated at some random variable.
         """
-        def _cdf_def(x, df): return gammainc(df / 2, x / 2)
+        def __cdf(x, df): return gammainc(df / 2, x / 2)
         if x_upper != None:
             if x_lower > x_upper:
                 raise Exception('x_lower should be less than x_upper.')
-            return _cdf_def(x_upper, self.df) - _cdf_def(x_lower, self.df)
-        return _cdf_def(self.randvar, self.df)
+            return __cdf(x_upper, self.df) - __cdf(x_lower, self.df)
+        return __cdf(self.randvar, self.df)
 
     def mean(self) -> Union[float, int]:
         """
@@ -201,13 +201,13 @@ class ChiSquare(Base):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def keys(self) -> Dict[str, Union[float, int, str]]:
         """
         Summary statistic regarding the ChiSquare-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, Union[float, int, str]]: [description]
         """
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
