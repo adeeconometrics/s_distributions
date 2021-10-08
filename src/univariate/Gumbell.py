@@ -2,7 +2,6 @@ try:
     from typing import Union, Tuple, Dict
     from math import sqrt, pow, log, pi
     from . import Base
-    import matplotlib.pyplot as plt
     from numpy import euler_gamma
     import numpy as np
 except Exception as e:

@@ -1,15 +1,20 @@
 try:
     from typing import Union
-    from math import sqrt, pow, log, pi
+    from math import sqrt, pow, log
     from scipy.special import erfinv
     from scipy.integrate import quad
     from abc import ABC
-    from numpy import exp, inf
     import matplotlib.pyplot as plt
 except Exception as e:
     print(f"some modules are missing {e}")
 
-
+"""
+Alternative design routes:
+- remove logpdf, logcdf and implement it directly on concrete class
+- raise NotImplementedError on functions in this class
+- remove plot option and place it elsewhere
+- make arguments private and add getter-setter decorators
+"""
 class Base(ABC):
     def __init__(self, data: Union[list[number], np.ndarray]):
         self.data = data
@@ -103,7 +108,7 @@ class Base(ABC):
 
     def stdnorm_cdf_inv(self, x, p, mean=0, std=1) -> float:
         """
-        qunatile function of the normal cdf. Note thatn p can only have values between (0,1).
-        defaults to standard normal but can be expressed more generally.
+        quantile function of the normal cdf. Note that p can only have values between (0,1).
+        `stdnorm_cdf_int` defaults to standard normal but can be expressed more generally.
         """
         return mean + std*sqrt(2)*erfinv(2*p-1)

@@ -3,7 +3,6 @@ try:
     from math import sqrt, pow, log
     from scipy.special import gamma, gammainc, digamma
     from . import Base
-    import matplotlib.pyplot as plt
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")

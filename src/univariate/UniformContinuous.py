@@ -3,7 +3,6 @@ try:
     from . import Base
     from math import sqrt, log
     import numpy as np
-    import matplotlib.pyplot as plt
 except Exception as e:
     print(f"some modules are missing {e}")
 

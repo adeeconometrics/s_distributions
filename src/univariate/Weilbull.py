@@ -4,7 +4,6 @@ try:
     from math import sqrt, pow, log
     from . import Base
     from numpy import euler_gamma
-    import matplotlib.pyplot as plt
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")

@@ -2,7 +2,6 @@ try:
     from typing import Union, Tuple, Dict
     from math import sqrt, pow, log, log10, pi
     from . import Base
-    import matplotlib.pyplot as plt
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
