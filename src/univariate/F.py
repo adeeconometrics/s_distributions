@@ -176,7 +176,7 @@ class F(Base):
         df1 = self.df1
         df2 = self.df2
         if df2 > 4:
-            return (2 * (df2**2) * (df1 + df2 - 2)) / (df1 * ((df2 - 2)**2) *
+            return (2 * pow(df2,2) * (df1 + df2 - 2)) / (df1 * (pow(df2 - 2, 2) *
                                                        (df2 - 4))
         return "undefined"
 
@@ -187,7 +187,7 @@ class F(Base):
         df1 = self.df1
         df2 = self.df2
         if df2 > 4:
-            return sqrt((2 * (df2**2) * (df1 + df2 - 2)) / (df1 * ((df2 - 2)**2) *
+            return sqrt((2 * pow(df2, 2) * (df1 + df2 - 2)) / (df1 * (pow(df2 - 2,2) *
                                                             (df2 - 4)))
         return "undefined"
 

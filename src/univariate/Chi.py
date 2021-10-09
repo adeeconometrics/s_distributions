@@ -77,7 +77,7 @@ class Chi(Base):
 
         # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
         def __generator(x, df): return (1 / (np.power(2, (df / 2) - 1) * gamma(
-            df / 2))) * np.power(x, df - 1) * np.exp(-x**2 / 2)
+            df / 2))) * np.power(x, df - 1) * np.exp(pow(-x,2) / 2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -108,7 +108,7 @@ class Chi(Base):
         Returns:
             either cumulative distribution evaluation for some point or plot of Chi-distribution.
         """
-        def __generator(x, df): return gammainc(df/2, x**2/2)
+        def __generator(x, df): return gammainc(df/2, pow(x, 2)/2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -129,7 +129,7 @@ class Chi(Base):
         Returns:
             p-value of the Chi distribution evaluated at some random variable.
         """
-        def __cdf(x, df): return gammainc(df/2, x**2/2)
+        def __cdf(x, df): return gammainc(df/2, pow(x, 2)/2)
         if x_upper != None:
             if x_lower > x_upper:
                 raise Exception('x_lower should be less than x_upper.')

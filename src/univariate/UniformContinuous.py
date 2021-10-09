@@ -66,7 +66,7 @@ class Uniform(Base):
             x = np.linspace(a, b, threshold)
             y = np.array([__generator(a, b, i) for i in x])
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(a, b, np.abs(b - a))
+        return __generator(a, b, abs(b - a))
 
     def cdf(self, plot=False, xlim=None, ylim=None, xlabel=None, ylabel=None) -> Union[number, np.ndarray, None]:
         """
@@ -123,13 +123,13 @@ class Uniform(Base):
         """
         Returns: Variance of the Uniform distribution.
         """
-        return (1 / 12) * (self.b - self.a)**2
+        return 1 / 12 * pow(self.b - self.a,2)
 
     def std(self) -> float:
         """
         Returns: Standard deviation of the Uniform distribution.
         """
-        return sqrt((1 / 12) * (self.b - self.a)**2)
+        return sqrt(1 / 12 * pow(self.b - self.a,2))
 
     def skewness(self) -> int:
         """

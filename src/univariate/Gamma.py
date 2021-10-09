@@ -78,7 +78,7 @@ class Gamma(Base):
         """
         # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
         def __generator(a, b, x):
-            return (1 / (b**a * gamma(a))) * np.power(x, a - 1) * np.exp(-x / b)
+            return (1 / (pow(b,a) * gamma(a))) * np.power(x, a - 1) * np.exp(-x / b)
 
         if plot:
             x = np.linspace(-interval, interval, threshold)

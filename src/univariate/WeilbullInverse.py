@@ -138,7 +138,7 @@ class WeilbullInverse(Base):
             raise ValueError(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(a, s, m, x): return np.exp(-((x-m)/s)**-a)
+        def __cdf(a, s, m, x): return np.exp(-pow((x-m)/s,-a))
         return __cdf(self.shape, self.scale, self.location, x_upper)-__cdf(self.shape, self.scale, self.location, x_lower)
 
     def mean(self) -> float:
