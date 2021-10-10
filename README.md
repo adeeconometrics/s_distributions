@@ -14,10 +14,10 @@ currently supported features:
 - standard deviation
 ----
 features to be developed:
-- plotting probability distribution
+<!-- - plotting probability distribution
     - fill-in between gradient 
     - vlines
-    - annotation 
+    - annotation  -->
 - likelihood function
     - log-likelihood function
     - Maximum likelihood estimate
@@ -29,15 +29,6 @@ features to be developed:
 - entropy
 - fisher information
 - point-percentage function 
-
-----
-to clean:
-- comments
-- replace " ** " to pow(x,y)
-- replace `np.log(x)` to `math.log(x,y)`
-- add title of printing summary:
-    - title of the distribution
-    - list of parameters used 
 
 # List of supported distributions 
 ---
