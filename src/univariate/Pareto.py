@@ -1,6 +1,6 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
+    from math import sqrt as _sqrt, log as _log
     from . import Base
     import numpy as np
 except ValueError as e:
@@ -191,7 +191,7 @@ class Pareto(Base):
         """
         Returns: Variance of the Pareto distribution
         """
-        return sqrt(self.var())
+        return _sqrt(self.var())
 
     def skewness(self) -> Union[float, str]:
         """
@@ -201,7 +201,7 @@ class Pareto(Base):
         x_m = self.scale
         if a > 3:
             scale = (2 * (1 + a)) / (a - 3)
-            return scale * sqrt((a - 2) / a)
+            return scale * _sqrt((a - 2) / a)
         return "undefined"
 
     def kurtosis(self) -> Union[float, str]:
@@ -223,7 +223,7 @@ class Pareto(Base):
         """
         a = self.shape
         x_m = self.scale
-        return log(x_m/a)+1+(1/a)
+        return _log(x_m/a)+1+(1/a)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

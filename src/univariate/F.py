@@ -1,7 +1,7 @@
 try:
-    from scipy.special import beta, betainc, gamma, digamma
+    from scipy.special import beta as _beta, betainc as _betainc, gamma as _gamma, digamma as _digamma
     from typing import Union, Tuple, Dict
-    from math import sqrt, log
+    from math import sqrt as _sqrt, log as _log
     from . import Base
     import numpy as np
 except Exception as e:
@@ -82,9 +82,9 @@ class F(Base):
         """
 
         # Because math.pow is limited for bigger numbers, numpy alternatives were chosed.
-        def __generator(x, df1, df2): return (1 / beta(
-            df1 / 2, df2 / 2)) * np.power(df1 / df2, df1 / 2) * np.power(
-                x, df1 / 2 - 1) * np.power(1 +
+        def __generator(x, df1, df2): return (1 / _beta(
+            df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2) * pow(
+                x, df1 / 2 - 1) * pow(1 +
                                            (df1 / df2) * x, -((df1 + df2) / 2))
 
         if plot:
@@ -117,7 +117,7 @@ class F(Base):
             either cumulative distribution evaluation for some point or plot of F-distribution.
         """
         k = self.df2/(self.df2 + self.df1*self.x)
-        def __generator(x, df1, df2): return 1 - betainc(df1/2, df2/2, x)
+        def __generator(x, df1, df2): return 1 - _betainc(df1/2, df2/2, x)
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -144,7 +144,7 @@ class F(Base):
             x_upper = self.x
 
         def _cdf_def(x, df1, df2): return 1 - \
-            betainc(df1/2, df2/2, df2/(df2+df1*x))
+            _betainc(df1/2, df2/2, df2/(df2+df1*x))
 
         return _cdf_def(x_upper, self.df1, self.df2) - _cdf_def(x_lower, self.df1, self.df2)
 
@@ -187,7 +187,7 @@ class F(Base):
         df1 = self.df1
         df2 = self.df2
         if df2 > 4:
-            return sqrt((2 * pow(df2, 2) * (df1 + df2 - 2)) / (df1 * (pow(df2 - 2,2) *
+            return _sqrt((2 * pow(df2, 2) * (df1 + df2 - 2)) / (df1 * (pow(df2 - 2,2) *
                                                             (df2 - 4)))
         return "undefined"
 
@@ -198,8 +198,8 @@ class F(Base):
         df1 = self.df1
         df2 = self.df2
         if df2 > 6:
-            return ((2 * df1 + df2 - 2) * sqrt(8 * (df2 - 4))) / (
-                (df2 - 6) * sqrt(df1 * (df1 + df2 - 2)))
+            return ((2 * df1 + df2 - 2) * _sqrt(8 * (df2 - 4))) / (
+                (df2 - 6) * _sqrt(df1 * (df1 + df2 - 2)))
         return "undefined"
 
     def entropy(self) -> Union[float, int]:
@@ -210,7 +210,9 @@ class F(Base):
         """
         df1 = self.df1
         df2 = self.df2
-        return log(gamma(df1/2)) + log(gamma(df2/2)) - log(gamma((df1+df2)/2))+(1-df1/2)*digamma(1+df1/2)-(1-df2/2)*digamma(1+df2/2)+(df1+df2)/2*digamma((df1+df2)/2) + log(df1/df2)
+        return _log(_gamma(df1/2)) + _log(_gamma(df2/2)) - \
+            _log(_gamma((df1+df2)/2)) + (1-df1/2)*_digamma(1+df1/2) - \ 
+            (1-df2/2)* _digamma(1+df2/2) + (df1+df2)/2*_digamma((df1+df2)/2) + _log(df1/df2)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

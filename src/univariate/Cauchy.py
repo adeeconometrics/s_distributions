@@ -1,6 +1,6 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log, log10, pi
+    from math import log as _log, log10 as _log10, pi as _pi
     from . import Base
     import numpy as np
 except Exception as e:
@@ -109,7 +109,7 @@ class Cauchy(Base):
         x=self.x
         location=self.location
         scale=self.scale
-        def __generator(x, location, scale): return (1 / pi) * np.arctan(
+        def __generator(x, location, scale): return (1 / _pi) * np.arctan(
             (x - location) / scale) + 1 / 2
         if plot:
             x=np.linspace(-interval, interval, int(threshold))
@@ -132,7 +132,7 @@ class Cauchy(Base):
             p-value of the Cauchy distribution evaluated at some random variable.
         """
         def __cdf(x, location, scale): return (
-            1 / pi) * np.arctan((x - location) / scale) + 1 / 2
+            1 / _pi) * np.arctan((x - location) / scale) + 1 / 2
         if x_upper != None:
             if x_lower > x_upper:
                 raise ValueError('x_lower should be less than x_upper.')
@@ -182,7 +182,7 @@ class Cauchy(Base):
         """
         Returns: Kurtosis of the Cauchy distribution
         """
-        return log(4 * pi * self.scale)
+        return _log(4 * _pi * self.scale)
 
     def entropy(self) -> float:
         """
@@ -191,7 +191,7 @@ class Cauchy(Base):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return log10(4*pi*self.scale)
+        return _log10(4*_pi*self.scale)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

@@ -1,8 +1,8 @@
 try:
-    from scipy.special import beta, digamma
-    from scipy.integrate import quad
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
+    from scipy.special import beta as _beta, digamma as _digamma
+    from scipy.integrate import quad as _quad
+    from math import sqrt as _sqrt, log as _log
     from . import Base
     import numpy as np
 except Exception as e:
@@ -76,7 +76,7 @@ class T(Base):
         df = self.df
         randvar = self.randvar
 
-        def __generator(x, df): return (1 / (sqrt(df) * beta(
+        def __generator(x, df): return (1 / (_sqrt(df) * _beta(
             1 / 2, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -113,9 +113,9 @@ class T(Base):
         # Test this!
 
         def __generator(x, df):
-            def ___generator(x, df): return (1 / (sqrt(df) * beta(
+            def ___generator(x, df): return (1 / (_sqrt(df) * _beta(
                 1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
-            return quad(___generator, -np.inf, x, args=df)[0]
+            return _quad(___generator, -np.inf, x, args=df)[0]
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -143,9 +143,9 @@ class T(Base):
             x_upper = self.randvar
 
         def __generator(x, df) -> float:
-            return (1 / (sqrt(df) * beta(1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
+            return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
 
-        return quad(__generator, x_lower, x_upper, args=df)[0]
+        return _quad(__generator, x_lower, x_upper, args=df)[0]
 
     # for single means and multiple means
     def confidence_interval(self) -> Union[number, str]:
@@ -192,7 +192,7 @@ class T(Base):
         """
         if self.var() == "undefined":
             return "undefined"
-        return sqrt(self.var())
+        return _sqrt(self.var())
 
     def skewness(self) -> Union[float, str]:
         """
@@ -222,7 +222,7 @@ class T(Base):
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
         df = self.df
-        return (df+1)/2 * (digamma((df+1)/2)-digamma(df/2)) + log(sqrt(df)*beta(df/2, 1/2))
+        return (df+1)/2 * (_digamma((df+1)/2)-_digamma(df/2)) + _log(_sqrt(df)*_beta(df/2, 1/2))
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

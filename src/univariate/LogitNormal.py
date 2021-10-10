@@ -1,7 +1,7 @@
 try:
-    from scipy.special import logit, erf
+    from scipy.special import logit as _logit, erf as _erf
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, pi
+    from math import sqrt as _sqrt, pi as _pi
     from . import Base
     import numpy as np
 except Exception as e:
@@ -69,7 +69,7 @@ class LogitNormal(Base):
             either probability density evaluation for some point or plot of Logit Normal distribution.
         """
         def __generator(mu, sig, x):
-            return (1/(sig*sqrt(2*pi))) * np.exp(-(pow(logit(x)-mu, 2)/(2*pow(sig, 2))) * (1/(x*(1-x)))
+            return (1/(sig*_sqrt(2*_pi))) * np.exp(-(pow(_logit(x)-mu, 2)/(2*pow(sig, 2))) * (1/(x*(1-x)))
 
         if plot:
             x=np.linspace(-interval, interval, int(threshold))
@@ -103,7 +103,7 @@ class LogitNormal(Base):
             either cumulative distribution evaluation for some point or plot of Logit Normal distribution.
         """
         def __generator(mu, sig, x):
-            return 1/2 * (1+erf((logit(x)-mu)/sqrt(2*pow(sig,2))))
+            return 1/2 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig,2))))
 
         if plot:
             x=np.linspace(-interval, interval, int(threshold))
@@ -135,7 +135,7 @@ class LogitNormal(Base):
             raise ValueError(
                 f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
         def __cdf(mu, sig, x):
-            return 1/2 * (1+erf((logit(x)-mu)/(sqrt(2*pow(sig,2)))))
+            return 1/2 * (1+_erf((_logit(x)-mu)/(_sqrt(2*pow(sig,2)))))
         return __cdf(self.location, self.sq_scale, x_upper)-__cdf(self.location, self.sq_scale, x_lower)
 
     def mean(self) -> str:

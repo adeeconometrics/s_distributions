@@ -1,7 +1,7 @@
 try:
-    from scipy.special import gammainc, gamma, digamma
+    from scipy.special import gammainc as _gammainc, gamma as _gamma, digamma as _digamma
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
+    from math import sqrt as _sqrt, log as _log
     from . import Base
     import numpy as np
 except Exception as e:
@@ -75,8 +75,8 @@ class ChiSquare(Base):
 
         """
         # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
-        def __generator(x, df): return (1 / (np.power(2, (df / 2) - 1) * gamma(
-            df / 2))) * np.power(x, df - 1) * np.exp(-pow(x,2) / 2)
+        def __generator(x, df): return (1 / (pow(2, (df / 2) - 1) * _gamma(
+            df / 2))) * pow(x, df - 1) * np.exp(-pow(x,2) / 2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -107,7 +107,7 @@ class ChiSquare(Base):
         Returns:
             either cumulative distribution evaluation for some point or plot of Chi square-distribution.
         """
-        def __generator(x, df): return gammainc(df / 2, x / 2)
+        def __generator(x, df): return _gammainc(df / 2, x / 2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -128,7 +128,7 @@ class ChiSquare(Base):
         Returns:
             p-value of the Chi square distribution evaluated at some random variable.
         """
-        def __cdf(x, df): return gammainc(df / 2, x / 2)
+        def __cdf(x, df): return _gammainc(df / 2, x / 2)
         if x_upper != None:
             if x_lower > x_upper:
                 raise Exception('x_lower should be less than x_upper.')
@@ -157,13 +157,13 @@ class ChiSquare(Base):
         """
         Returns: Standard deviation of the Chi-square distribution.
         """
-        return sqrt(2 * self.df)
+        return _sqrt(2 * self.df)
 
     def skewness(self) -> float:
         """
         Returns: Skewness of the Chi-square distribution.
         """
-        return sqrt(8 / self.df)
+        return _sqrt(8 / self.df)
 
     def kurtosis(self) -> float:
         """
@@ -179,7 +179,7 @@ class ChiSquare(Base):
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
         df = self.df
-        return df/2 + log(2*gamma(df/2)) + (1-df/2)*digamma(df/2)
+        return df/2 + _log(2*_gamma(df/2)) + (1-df/2)*_digamma(df/2)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

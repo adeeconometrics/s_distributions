@@ -1,7 +1,7 @@
 try:
-    from scipy.special import gammainc, gamma, digamma
+    from scipy.special import gammainc as _gammainc, gamma as _gamma
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
+    from math import sqrt as _sqrt, log as _log
     from . import Base
     import numpy as np
 except Exception as e:
@@ -75,9 +75,8 @@ class Chi(Base):
 
         """
 
-        # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
-        def __generator(x, df): return (1 / (np.power(2, (df / 2) - 1) * gamma(
-            df / 2))) * np.power(x, df - 1) * np.exp(pow(-x,2) / 2)
+        def __generator(x, df): return (1 / (pow(2, (df / 2) - 1) * _gamma(
+            df / 2))) * pow(x, df - 1) * np.exp(pow(-x,2) / 2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -108,7 +107,7 @@ class Chi(Base):
         Returns:
             either cumulative distribution evaluation for some point or plot of Chi-distribution.
         """
-        def __generator(x, df): return gammainc(df/2, pow(x, 2)/2)
+        def __generator(x, df): return _gammainc(df/2, pow(x, 2)/2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -129,7 +128,7 @@ class Chi(Base):
         Returns:
             p-value of the Chi distribution evaluated at some random variable.
         """
-        def __cdf(x, df): return gammainc(df/2, pow(x, 2)/2)
+        def __cdf(x, df): return _gammainc(df/2, pow(x, 2)/2)
         if x_upper != None:
             if x_lower > x_upper:
                 raise Exception('x_lower should be less than x_upper.')
@@ -140,7 +139,7 @@ class Chi(Base):
         """
         Returns: Mean of the Chi distribution.
         """
-        return sqrt(2)*gamma((self.df+1)/2)/gamma(self.df/2)
+        return _sqrt(2)*_gamma((self.df+1)/2)/_gamma(self.df/2)
 
     def median(self) -> Union[float, int]:
         """
@@ -153,7 +152,7 @@ class Chi(Base):
         Returns: Mode of the Chi distribution.
         """
         if self.df >= 1:
-            return sqrt(self.df-1)
+            return _sqrt(self.df-1)
         return "undefined"
 
     def var(self) -> Union[float, int]:
@@ -185,7 +184,7 @@ class Chi(Base):
         std = self.df - mean
         sk = (mean - 2*pow(std, 2))/pow(std, 3)
 
-        return 2*(1-mean*sqrt(var)*sk-var)/var
+        return 2*(1-mean*_sqrt(var)*sk-var)/var
 
     def entropy(self) -> float:
         """
@@ -195,7 +194,7 @@ class Chi(Base):
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
         df = self.df
-        return log(gamma(df/2)/sqrt(2)) - (df-1)/2*digamma(df/2) + df/2
+        return _log(_gamma(df/2)/_sqrt(2)) - (df-1)/2*digamma(df/2) + df/2
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

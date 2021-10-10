@@ -1,9 +1,9 @@
 try:
-    from scipy.special import gamma
+    from scipy.special import gamma as _gamma
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
+    from math import sqrt as _sqrt, log as _log
     from . import Base
-    from numpy import euler_gamma
+    from numpy import euler_gamma as _euler_gamma
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -150,13 +150,13 @@ class Weibull(Base):
         """
         Returns: Mean of the Weibull distribution.
         """
-        return self.scale*gamma(1+(1/self.shape))
+        return self.scale*_gamma(1+(1/self.shape))
 
     def median(self) -> float:
         """
         Returns: Median of the Weibull distribution.
         """
-        return self.scale*pow(log(2), 1/self.shape)
+        return self.scale*pow(_log(2), 1/self.shape)
 
     def mode(self) -> Union[float, int]:
         """
@@ -170,13 +170,13 @@ class Weibull(Base):
         """
         Returns: Variance of the Weibull distribution.
         """
-        return pow(self.scale, 2) * pow(gamma(1+2/self.shape) - gamma(1+1/self.shape), 2)
+        return pow(self.scale, 2) * pow(_gamma(1+2/self.shape) - _gamma(1+1/self.shape), 2)
 
     def std(self) -> float:
         """
         Returns: Standard deviation of the Weilbull distribution
         """
-        return sqrt(pow(self.scale, 2) * pow(gamma(1+2/self.shape) - gamma(1+1/self.shape), 2))
+        return _sqrt(pow(self.scale, 2) * pow(_gamma(1+2/self.shape) - _gamma(1+1/self.shape), 2))
 
     def entropy(self) -> float:
         """
@@ -185,7 +185,7 @@ class Weibull(Base):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return (self.scale+1)*euler_gamma/self.scale + log(self.shape/self.scale) + 1
+        return (self.scale+1)* _euler_gamma/self.scale + _log(self.shape/self.scale) + 1
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

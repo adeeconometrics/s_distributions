@@ -1,8 +1,8 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log, pi
+    from math import sqrt as _sqrt, log as _log, pi as _pi
     from . import Base
-    from numpy import euler_gamma
+    from numpy import euler_gamma as _euler_gamma
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -131,13 +131,13 @@ class Gumbel(Base):
         """
         Returns: Mean of the Gumbel distribution.
         """
-        return self.location+(self.scale*euler_gamma)
+        return self.location+(self.scale*_euler_gamma)
 
     def median(self) -> float:
         """
         Returns: Median of the Gumbel distribution.
         """
-        return self.location - (self.scale*log(log(2)))
+        return self.location - (self.scale*_log(_log(2)))
 
     def mode(self) -> float:
         """
@@ -149,13 +149,13 @@ class Gumbel(Base):
         """
         Returns: Variance of the Gumbel distribution.
         """
-        return pow(pi, 2/6)*pow(self.scale, 2)
+        return pow(_pi, 2/6)*pow(self.scale, 2)
 
     def std(self) -> float:
         """
         Returns: Standard deviation of the Gumbel distribution.
         """
-        return sqrt(self.var())
+        return _sqrt(self.var())
 
     def skewness(self) -> float:
         """

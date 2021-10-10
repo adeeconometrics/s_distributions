@@ -1,6 +1,6 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, pi
+    from math import sqrt as _sqrt, pi as _pi
     from . import Base
     import numpy as np
 except Exception as e:
@@ -62,7 +62,7 @@ class Arcsine(Base):
         Returns:
             either probability density evaluation for some point or plot of Arcsine distribution.
         """
-        def __generator(x): return 1/(pi* sqrt(x*(1-x)))
+        def __generator(x): return 1/(_pi* _sqrt(x*(1-x)))
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -93,7 +93,7 @@ class Arcsine(Base):
         Returns:
             either cumulative distribution evaluation for some point or plot of Arcsine distribution.
         """
-        def __generator(x): return (2/pi)*np.arcsin(sqrt(x))
+        def __generator(x): return (2/_pi)*np.arcsin(_sqrt(x))
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(self.location, self.scale, i)
@@ -123,7 +123,7 @@ class Arcsine(Base):
             raise ValueError(
                 f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
 
-        def __cdf(x): return (2/pi)*np.arcsin(sqrt(x))
+        def __cdf(x): return (2/_pi)*np.arcsin(_sqrt(x))
         return __cdf(self.location, self.scale, x_upper)-__cdf(self.location, self.scale, x_lower)
 
     def mean(self) -> float:
@@ -154,7 +154,7 @@ class Arcsine(Base):
         """
         Returns: Standard deviation of the Arcsine distribution.
         """
-        return sqrt(1/8)
+        return _sqrt(1/8)
 
     def skewness(self) -> float:
         """

@@ -1,7 +1,7 @@
 try:
     from typing import Union, Tuple, Dict
     from . import Base
-    from math import sqrt, log
+    from math import sqrt as _sqrt, log as _log
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -129,7 +129,7 @@ class Uniform(Base):
         """
         Returns: Standard deviation of the Uniform distribution.
         """
-        return sqrt(1 / 12 * pow(self.b - self.a,2))
+        return _sqrt(1 / 12 * pow(self.b - self.a,2))
 
     def skewness(self) -> int:
         """
@@ -150,7 +150,7 @@ class Uniform(Base):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return log(self.b-self-a)
+        return _log(self.b-self-a)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

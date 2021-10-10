@@ -1,8 +1,8 @@
 try:
     from typing import Union
-    from math import sqrt, pow, log
-    from scipy.special import erfinv
-    from scipy.integrate import quad
+    from math import sqrt as _sqrt, log as _log, exp as _exp
+    from scipy.special import erfinv as _erfinv
+    from scipy.integrate import quad as _quad
     from abc import ABC
     import matplotlib.pyplot as plt
 except Exception as e:
@@ -34,10 +34,10 @@ class Base(ABC):
         plt.show()
 
     def logpdf(self, pdf) -> number:
-        return log(pdf)
+        return _log(pdf)
 
     def logcdf(self, cdf) -> number:
-        return log(cdf)
+        return _log(cdf)
 
     def pvalue(self) -> str:
         return "unsupported"
@@ -101,14 +101,14 @@ class Base(ABC):
 
     # special functions for ϕ(x), and Φ(x) functions: should this be reorganized?
     def stdnorm_pdf(self, x) -> float:
-        return exp(-pow(x, 2)/2)/sqrt(2*pi)
+        return _exp(-pow(x, 2)/2)/_sqrt(2*_pi)
 
     def stdnorm_cdf(self, x) -> float:
-        return quad(self.stdnorm_pdf, -inf, x)[0]
+        return _quad(self.stdnorm_pdf, -inf, x)[0]
 
     def stdnorm_cdf_inv(self, x, p, mean=0, std=1) -> float:
         """
         quantile function of the normal cdf. Note that p can only have values between (0,1).
         `stdnorm_cdf_int` defaults to standard normal but can be expressed more generally.
         """
-        return mean + std*sqrt(2)*erfinv(2*p-1)
+        return mean + std*_sqrt(2)*_erfinv(2*p-1)

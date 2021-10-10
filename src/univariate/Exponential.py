@@ -1,6 +1,6 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
+    from math import sqrt as _sqrt, log as _log
     from . import Base
     import numpy as np
 except Exception as e:
@@ -161,7 +161,7 @@ class Explonential(Base):
         """
         Returns: Median of the Exponential distribution
         """
-        return log(2) / self.lambda_
+        return _log(2) / self.lambda_
 
     def mode(self) -> int:
         """
@@ -179,7 +179,7 @@ class Explonential(Base):
         """
         Returns: Standard deviation of the Exponential distribution
         """
-        return sqrt(self.var())
+        return _sqrt(self.var())
 
     def skewness(self) -> int:
         """
@@ -200,7 +200,7 @@ class Explonential(Base):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return 1 - log(self.lambda_)
+        return 1 - _log(self.lambda_)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

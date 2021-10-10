@@ -1,7 +1,7 @@
 try:
-    from scipy.special import gamma
+    from scipy.special import gamma as _gamma
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log, exp
+    from math import sqrt as _sqrt, log as _log, exp as _exp
     from . import Base
     import numpy as np
 except Exception as e:
@@ -75,7 +75,7 @@ class WeilbullInverse(Base):
             either probability density evaluation for some point or plot of Fréchet distribution.
         """
         def __generator(a, s, m, x):
-            return (a/s) * pow((x-m)/s, -1-a)*exp(-pow((x-m)/s, -a))
+            return (a/s) * pow((x-m)/s, -1-a)*_exp(-pow((x-m)/s, -a))
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -107,7 +107,7 @@ class WeilbullInverse(Base):
         Returns:
             either cumulative distribution evaluation for some point or plot of Fréchet distribution.
         """
-        def __generator(a, s, m, x): return np.exp(-pow((x-m)/s, -a))
+        def __generator(a, s, m, x): return _exp(-pow((x-m)/s, -a))
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -138,7 +138,7 @@ class WeilbullInverse(Base):
             raise ValueError(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(a, s, m, x): return np.exp(-pow((x-m)/s,-a))
+        def __cdf(a, s, m, x): return _exp(-pow((x-m)/s,-a))
         return __cdf(self.shape, self.scale, self.location, x_upper)-__cdf(self.shape, self.scale, self.location, x_lower)
 
     def mean(self) -> float:
@@ -146,14 +146,14 @@ class WeilbullInverse(Base):
         Returns: Mean of the Fréchet distribution.
         """
         if self.shape > 1:
-            return self.location + (self.scale*gamma(1 - 1/self.shape))
+            return self.location + (self.scale*_gamma(1 - 1/self.shape))
         return np.inf
 
     def median(self) -> float:
         """
         Returns: Median of the Fréchet distribution.
         """
-        return self.location + (self.scale/pow(log(2), 1/self.shape))
+        return self.location + (self.scale/pow(_log(2), 1/self.shape))
 
     def mode(self) -> float:
         """
@@ -168,7 +168,7 @@ class WeilbullInverse(Base):
         a = self.shape
         s = self.scale
         if a > 2:
-            return pow(s, 2)*(gamma(1-2/a)-pow(gamma(1-1/a), 2))
+            return pow(s, 2)*(_gamma(1-2/a)-pow(_gamma(1-1/a), 2))
         return "infinity"
 
     def std(self) -> Union[float, str]:
@@ -177,7 +177,7 @@ class WeilbullInverse(Base):
         """
         if self.var() == "infinity":
             return "infinity"
-        return sqrt(self.var())
+        return _sqrt(self.var())
 
     def skewness(self) -> Union[float, str]:
         """
@@ -185,7 +185,7 @@ class WeilbullInverse(Base):
         """
         a = self.shape
         if a > 3:
-            return (gamma(1-3/a)-3*gamma(1-2/a)*gamma(1-1/a)+2*gamma(1-1/a)**3)/pow(gamma(1-2/a)-pow(gamma(1-1/a), 2), 3/2)
+            return (_gamma(1-3/a)-3*_gamma(1-2/a)*_gamma(1-1/a)+2*_gamma(1-1/a)**3)/pow(_gamma(1-2/a)-pow(_gamma(1-1/a), 2), 3/2)
         return "infinity"
 
     def kurtosis(self) -> Union[float, str]:
@@ -194,7 +194,7 @@ class WeilbullInverse(Base):
         """
         a = self.shape
         if a > 4:
-            return -6+(gamma(1-4/a)-4*gamma(1-3/a)*gamma(1-1/a)+3*pow(gamma(1-2/a), 2))/pow(gamma(1-2/a)-pow(gamma(1-1/a), 2), 2)
+            return -6+(_gamma(1-4/a)-4*_gamma(1-3/a)*_gamma(1-1/a)+3*pow(_gamma(1-2/a), 2))/pow(_gamma(1-2/a)-pow(_gamma(1-1/a), 2), 2)
         return "infinity"
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:

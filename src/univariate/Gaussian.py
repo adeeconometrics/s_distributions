@@ -1,9 +1,9 @@
 # Test Gaussian PDF
 
 try:
-    from scipy.special import erf
+    from scipy.special import erf as _erf
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log, pi, e, exp
+    from math import sqrt as _sqrt, log as _log, pi as _pi, e as _e, exp as _exp
     from . import Base
     import numpy as np
 except Exception as e:
@@ -77,8 +77,8 @@ class Gaussian(Base):
         mean = self.mean_val
         std = self.std_val
 
-        def __generator(mean, std, x): return np.power(
-            1 / (std * sqrt(2 * pi)), exp(((x - mean) / 2 * std)**2))
+        def __generator(mean, std, x): 
+            return pow(1 / (std * _sqrt(2 * pi)), exp(((x - mean) / 2 * std)**2))
 
         if plot:
             x = np.linspace(-interval, interval, threshold)
@@ -109,7 +109,7 @@ class Gaussian(Base):
         Returns:
             either plot of the distirbution or cumulative density evaluation at randvar.
         """
-        def __generator(mu, sig, x): return 1/2*(1+erf((x-mu)/(sig*sqrt(2))))
+        def __generator(mu, sig, x): return 1/2*(1+_erf((x-mu)/(sig*_sqrt(2))))
         if plot:
             x = np.linspace(-interval, interval, threshold)
             y = np.array([__generator(self.mean_val, self.std_val, x_temp)
@@ -130,7 +130,7 @@ class Gaussian(Base):
         Returns:
             p-value of the Gaussian distribution evaluated at some random variable.
         """
-        def __cdf(mu, sig, x): return 1/2*(1+erf((x-mu)/(sig*sqrt(2))))
+        def __cdf(mu, sig, x): return 1/2*(1+_erf((x-mu)/(sig*_sqrt(2))))
         if x_upper != None:
             if x_lower > x_upper:
                 raise ValueError('x_lower should be less than x_upper.')
@@ -190,7 +190,7 @@ class Gaussian(Base):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return log(self.std*sqrt(2*pi*e))
+        return _log(self.std*_sqrt(2 * _pi* _e))
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

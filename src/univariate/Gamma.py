@@ -1,7 +1,7 @@
 try:
     from typing import Union, Tuple, Dict
-    from math import sqrt, pow, log
-    from scipy.special import gamma, gammainc, digamma
+    from math import sqrt as _sqrt, log as _log, exp as _exp
+    from scipy.special import gamma as _gamma, gammainc as _gammainc, digamma as _digamma
     from . import Base
     import numpy as np
 except Exception as e:
@@ -78,7 +78,7 @@ class Gamma(Base):
         """
         # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
         def __generator(a, b, x):
-            return (1 / (pow(b,a) * gamma(a))) * np.power(x, a - 1) * np.exp(-x / b)
+            return (1 / (pow(b,a) * _gamma(a))) * _log(x, a - 1) * _exp(-x / b)
 
         if plot:
             x = np.linspace(-interval, interval, threshold)
@@ -111,7 +111,7 @@ class Gamma(Base):
         """
         # there is no apparent explanation for reversing gammainc's parameter, but it works quite perfectly in my prototype
         def __generator(a, b, x):
-            return 1 - gammainc(a, x / b)
+            return 1 - _gammainc(a, x / b)
 
         if plot:
             x = np.linspace(-interval, interval, threshold)
@@ -138,7 +138,7 @@ class Gamma(Base):
         if x_upper is None:
             x_upper = self.x
 
-        def __cdf(a, b, x): return 1 - gammainc(a, x / b)
+        def __cdf(a, b, x): return 1 - _gammainc(a, x / b)
 
         return __cdf(self.a, self.b, x_upper, self.lambda_) - __cdf(self.a, self.b, x_lower, self.lambda_)
 
@@ -170,13 +170,13 @@ class Gamma(Base):
         """
         Returns: Standard deviation of the Gamma distribution
         """
-        return sqrt(self.var())
+        return _sqrt(self.var())
 
     def skewness(self) -> float:
         """
         Returns: Skewness of the Gamma distribution
         """
-        return 2 / sqrt(self.a)
+        return 2 / _sqrt(self.a)
 
     def kurtosis(self) -> float:
         """
@@ -193,7 +193,7 @@ class Gamma(Base):
         """
         k = self.a
         theta = self.b
-        return k + log(theta)+log(gamma(k))-(1-k)*digamma(k)
+        return k + _log(theta)+_log(_gamma(k))-(1-k)*_digamma(k)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
