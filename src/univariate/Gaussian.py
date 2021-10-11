@@ -77,8 +77,8 @@ class Gaussian(Base):
         mean = self.mean_val
         std = self.std_val
 
-        def __generator(mean, std, x): 
-            return pow(1 / (std * _sqrt(2 * pi)), exp(((x - mean) / 2 * std)**2))
+        def __generator(mean, std, x):
+            return pow(1 / (std * _sqrt(2 * _pi)), _exp(((x - mean) / 2 * std)**2))
 
         if plot:
             x = np.linspace(-interval, interval, threshold)
@@ -190,7 +190,7 @@ class Gaussian(Base):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return _log(self.std*_sqrt(2 * _pi* _e))
+        return _log(self.std*_sqrt(2 * _pi * _e))
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
