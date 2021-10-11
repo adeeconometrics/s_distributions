@@ -37,7 +37,7 @@ class Gumbel(Base):
     Retrieved 09:22, December 29, 2020, from https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&oldid=990718796
     """
 
-    def __init__(self, location: float, scale: float, randvar: float):
+    def __init__(self, location: Union[float, int], scale: Union[float, int], randvar: Union[float, int]):
         if scale < 0:
             raise ValueError(
                 'scale parameter should be greater than 0. The value of the scale parameter is: {scale}')

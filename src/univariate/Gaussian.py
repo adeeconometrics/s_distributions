@@ -43,7 +43,7 @@ class Gaussian(Base):
 
     """
 
-    def __init__(self, x: float, mean=0, std_val=1):
+    def __init__(self, x: float, mean: Union[int, float] = 0, std_val: Union[int, float] = 1):
         if std_val < 0:
             raise ValueError(
                 f"std_val parameter must not be less than 0. Entered value std_val {std_val}")

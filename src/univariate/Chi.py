@@ -40,9 +40,11 @@ class Chi(Base):
     Retrieved 10:35, January 2, 2021, from https://en.wikipedia.org/w/index.php?title=Chi_distribution&oldid=983750392
     """
 
-    def __init__(self, df: int, randvar: float):
+    def __init__(self, df: int, randvar: Union[float, int]):
         if type(df) is not int:
             raise TypeError('degrees of freedom(df) should be a whole number.')
+        # if type(randvar) not in (float, int):
+        #     raise TypeError('randvar should be a real number of type float')
         if df <= 0:
             raise ValueError(
                 f'Entered value for df: {df}, it should be a positive integer.')

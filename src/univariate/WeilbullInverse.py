@@ -39,7 +39,7 @@ class WeilbullInverse(Base):
     Retrieved 07:28, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&oldid=992938143
     """
 
-    def __init__(self,  shape: float, scale: float, location: float, randvar: float):
+    def __init__(self,  shape: Union[float, int], scale: Union[float, int], location: Union[float, int], randvar: Union[float, int]):
         if shape < 0 or scale < 0:
             raise ValueError(
                 f'the value of scale and shape should be greater than 0. Entered values scale was:{scale}, shape:{shape}')

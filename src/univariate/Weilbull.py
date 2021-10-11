@@ -39,7 +39,7 @@ class Weibull(Base):
     Retrieved 11:32, December 28, 2020, from https://en.wikipedia.org/w/index.php?title=Weibull_distribution&oldid=993879185
     """
 
-    def __init__(self, shape: float, scale: float, randvar=0.5):
+    def __init__(self, shape: Union[float, int], scale: Union[float, int], randvar : Union[float, int] = 0.5):
         if shape < 0 or scale < 0 or randvar < 0:
             raise ValueError(
                 f'all parameters should be a positive number. Entered values: shape: {shape}, scale{scale}, randvar{randvar}')

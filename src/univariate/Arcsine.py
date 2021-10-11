@@ -5,6 +5,7 @@ try:
     import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
+
 class Arcsine(Base):
     """
     This class contains methods concerning Arcsine Distirbution.
@@ -33,7 +34,10 @@ class Arcsine(Base):
     Retrieved 05:19, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Arcsine_distribution&oldid=986131091
     """
 
-    def __init__(self, randvar: float):
+    def __init__(self, randvar: Union[float, int]):
+        # if type(randvar) not in (float, int):
+        #     raise TypeError('randvar should be in type float or int')
+
         if randvar > 0 or randvar > 1:
             raise ValueError(
                 f'random variable should have values between [0,1]. The value of randvar was: {randvar}')
@@ -138,7 +142,7 @@ class Arcsine(Base):
         """
         return 1/2
 
-    def mode(self) -> Tuple[float]:
+    def mode(self) -> Tuple[float, float]:
         """
         Returns: Mode of the Arcsine distribution. Mode is within the set {0,1}
         """

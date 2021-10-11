@@ -37,7 +37,7 @@ class LogitNormal(Base):
     Retrieved 07:44, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Logit-normal_distribution&oldid=993237113
     """
 
-    def __init__(self, sq_scale: float, location: float, randvar: float):
+    def __init__(self, sq_scale: Union[float, int], location: Union[float, int], randvar: Union[float, int]):
         if randvar < 0 or randvar > 1:
             raise ValueError(
                 f'random variable should only be in between (0,1). Entered value: randvar:{randvar}')

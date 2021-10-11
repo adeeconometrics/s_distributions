@@ -39,7 +39,9 @@ class Explonential(Base):
     Retrieved 04:38, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Exponential_distribution&oldid=994779060
     """
 
-    def __init__(self, lambda_: float, x: float = 1.0):
+    def __init__(self, lambda_: Union[float, int], x: Union[float, int] = 1.0):
+        # if type(lambda_) and type(x) not in (int, float):
+        #     raise TypeError('arguments must be a real number of type float (or int)')
         if lambda_ < 0:
             raise ValueError(
                 f'lambda parameter should be greater than 0. Entered value for lambda_:{lambda_}')

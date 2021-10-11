@@ -39,7 +39,7 @@ class Pareto(Base):
     Retrieved 05:00, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
     """
 
-    def __init__(self, shape: float, scale: float, x: float):
+    def __init__(self, shape: Union[float, int], scale: Union[float, int], x: Union[float, int]):
         if scale < 0:
             raise ValueError(
                 f'scale should be greater than 0. Entered value for scale:{scale}')

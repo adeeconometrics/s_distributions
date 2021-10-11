@@ -40,7 +40,7 @@ class ChiSquare(Base):
     Retrieved 04:37, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&oldid=994056539
     """
 
-    def __init__(self, df: int, randvar: float = 0.0):
+    def __init__(self, df: int, randvar: Union[float, int] = 0.0):
         if type(df) is not int:
             raise TypeError('degrees of freedom(df) should be a whole number.')
         if df < 0:

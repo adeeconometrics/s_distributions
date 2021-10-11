@@ -38,7 +38,7 @@ class Uniform(Base):
     """
 
     def __init__(self, a: int, b: int) -> None:
-        if (type(a) is not int) or (type(b) is not int):
+        if type(a) and type(b) is int:
             raise TypeError('parameters a, b must be of type int.')
         self.a = a
         self.b = b

@@ -38,7 +38,9 @@ class Cauchy(Base):
     - Weisstein, Eric W. "Cauchy Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/CauchyDistribution.html
     """
 
-    def __init__(self, x: float, location: float, scale: float):
+    def __init__(self, x: Union[float, int], location: Union[float, int], scale: Union[float, int]):
+        # if (type(x) and type(location) and type(scale)) not in (int, float):
+        #     raise TypeError('arguments must be of type int or float.')
         if scale < 0:
             raise ValueError(
                 f'scale should be greater than 0. Entered value for scale:{scale}')
