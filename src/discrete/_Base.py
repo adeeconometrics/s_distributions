@@ -1,7 +1,7 @@
 try:
     import matplotlib.pyplot as plt
 except Exception as e:
-    print("some modules are missing {}".format(e))
+    print(f"some modules are missing {e}")
 
 
 class Base:  # add histograms

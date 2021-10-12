@@ -3,7 +3,7 @@ try:
     from typing import Union, Typing, Dict
     from ._Base import Base
 except Exception as e:
-    print("some modules are missing {}".format(e))
+    print(f"some modules are missing {e}")
 
 
 class Uniform(Base):

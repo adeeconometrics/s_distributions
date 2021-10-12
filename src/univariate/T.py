@@ -1,10 +1,10 @@
 try:
-    from typing import Union, Tuple, Dict
     from scipy.special import beta as _beta, digamma as _digamma
     from scipy.integrate import quad as _quad
-    from math import sqrt as _sqrt, log as _log
-    from . import Base
     import numpy as np
+    from math import sqrt as _sqrt, log as _log
+    from typing import Union, Tuple, Dict
+    from . import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 

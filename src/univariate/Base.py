@@ -1,10 +1,10 @@
 try:
-    from typing import Union
-    from math import sqrt as _sqrt, log as _log, exp as _exp
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
-    from abc import ABC
     import matplotlib.pyplot as plt
+    from math import sqrt as _sqrt, log as _log, exp as _exp
+    from typing import Union
+    from abc import ABC
 except Exception as e:
     print(f"some modules are missing {e}")
 

@@ -1,9 +1,9 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc, gamma as _gamma, digamma as _digamma
+    import numpy as np
     from typing import Union, Tuple, Dict
     from math import sqrt as _sqrt, log as _log
     from . import Base
-    import numpy as np
 except Exception as e:
     print(f"some modules are missing {e}")
 

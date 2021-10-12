@@ -1,8 +1,8 @@
 try:
-    from typing import Union, Tuple, Dict
-    from math import log as _log, log10 as _log10, pi as _pi
-    from . import Base
     import numpy as np
+    from math import log as _log, log10 as _log10, pi as _pi
+    from typing import Union, Tuple, Dict
+    from . import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 

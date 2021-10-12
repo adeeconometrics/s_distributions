@@ -1,9 +1,9 @@
 try:
     from scipy.special import logit as _logit, erf as _erf
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, pi as _pi
-    from . import Base
     import numpy as np
+    from math import sqrt as _sqrt, pi as _pi
+    from typing import Union, Tuple, Dict
+    from . import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
