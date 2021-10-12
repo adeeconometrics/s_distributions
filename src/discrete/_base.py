@@ -7,8 +7,8 @@ except Exception as e:
 class Base:  # add histograms
     def __init__(self, data):
         if type(self) is Base:
-            raise TypeError('Continuous Univariate Base class cannot be instantiated.')
-            
+            raise TypeError('Discrete Univariate Base class cannot be instantiated.')
+
         self.data = data
 
     def scatter(self, x, y, xlim=None, ylim=None, xlabel=None, ylabel=None):
