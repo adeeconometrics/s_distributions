@@ -2,7 +2,7 @@ try:
     import numpy as np
     from math import log as _log, log10 as _log10, pi as _pi
     from typing import Union, Tuple, Dict
-    from . import Base
+    from _base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -225,4 +225,4 @@ class Cauchy(Base):
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
-    }
+        }

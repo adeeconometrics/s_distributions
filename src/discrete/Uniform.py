@@ -1,7 +1,7 @@
 try:
     import numpy as np
     from typing import Union, Typing, Dict
-    from ._Base import Base
+    from _base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 

@@ -2,7 +2,7 @@ try:
     import numpy as np
     from math import sqrt as _sqrt, log as _log
     from typing import Union, Tuple, Dict
-    from . import Base
+    from _base import Base
 except ValueError as e:
     print(f"some modules are missing {e}")
 

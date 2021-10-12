@@ -5,7 +5,7 @@ try:
     import numpy as np
     from math import sqrt as _sqrt, log as _log, pi as _pi, e as _e, exp as _exp
     from typing import Union, Tuple, Dict
-    from . import Base
+    from _base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
