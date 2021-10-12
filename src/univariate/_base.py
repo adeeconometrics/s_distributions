@@ -17,6 +17,9 @@ Alternative design routes:
 """
 class Base(ABC):
     def __init__(self, data: Union[list[number], np.ndarray]):
+        if type(self) is Base:
+            raise TypeError('Continuous Univariate Base class cannot be instantiated.')
+            
         self.data = data
 
     # add fill-color function given some condition
