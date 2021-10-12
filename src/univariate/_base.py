@@ -1,8 +1,9 @@
 try:
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
+    from numpy import inf as _inf
     import matplotlib.pyplot as plt
-    from math import sqrt as _sqrt, log as _log, exp as _exp
+    from math import sqrt as _sqrt, log as _log, exp as _exp, pi as _pi
     from typing import Union
     from abc import ABC
 except Exception as e:
@@ -15,11 +16,14 @@ Alternative design routes:
 - remove plot option and place it elsewhere
 - make arguments private and add getter-setter decorators
 """
+
+
 class Base(ABC):
     def __init__(self, data: Union[list[number], np.ndarray]):
         if type(self) is Base:
-            raise TypeError('Continuous Univariate Base class cannot be instantiated.')
-            
+            raise TypeError(
+                'Continuous Univariate Base class cannot be instantiated.')
+
         self.data = data
 
     # add fill-color function given some condition
@@ -42,72 +46,72 @@ class Base(ABC):
     def logcdf(self, cdf) -> number:
         return _log(cdf)
 
-    def pvalue(self) -> str:
-        return "unsupported"
+    def pvalue(self) -> NotImplemented:
+        return NotImplemented
 
-    def confidence_interval(self) -> str:
+    def confidence_interval(self) -> NotImplemented:
         return "currently unsupported"
 
     def rvs(self):  # (adaptive) rejection sampling implementation
         """
-        returns random variate samples default (unsupported)
+        returns random variate samples default NotImplemented
         """
         return "currently unsupported"
 
-    def mean(self) -> str:
+    def mean(self) -> NotImplemented:
         """
-        returns mean default (unsupported)
+        returns mean default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
-    def median(self) -> str:
+    def median(self) -> NotImplemented:
         """
-        returns median default (unsupported)
+        returns median default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
-    def mode(self) -> str:
+    def mode(self) -> NotImplemented:
         """
-        returns mode default (unsupported)
+        returns mode default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
-    def var(self) -> str:
+    def var(self) -> NotImplemented:
         """
-        returns variance default (unsupported)
+        returns variance default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
-    def std(self) -> str:
+    def std(self) -> NotImplemented:
         """
         returns the std default (undefined)
         """
-        return "unsupported"
+        return NotImplemented
 
-    def skewness(self) -> str:
+    def skewness(self) -> NotImplemented:
         """
-        returns skewness default (unsupported)
+        returns skewness default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
-    def kurtosis(self) -> str:
+    def kurtosis(self) -> NotImplemented:
         """
-        returns kurtosis default (unsupported)
+        returns kurtosis default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
-    def entropy(self) -> str:
+    def entropy(self) -> NotImplemented:
         """
-        returns entropy default (unsupported)
+        returns entropy default NotImplemented
         """
-        return "unsupported"
+        return NotImplemented
 
     # special functions for ϕ(x), and Φ(x) functions: should this be reorganized?
     def stdnorm_pdf(self, x) -> float:
-        return _exp(-pow(x, 2)/2)/_sqrt(2*_pi)
+        return _exp(-pow(x, 2)/2) / _sqrt(2*_pi)
 
     def stdnorm_cdf(self, x) -> float:
-        return _quad(self.stdnorm_pdf, -inf, x)[0]
+        return _quad(self.stdnorm_pdf, -_inf, x)[0]
 
     def stdnorm_cdf_inv(self, x, p, mean=0, std=1) -> float:
         """
@@ -115,3 +119,36 @@ class Base(ABC):
         `stdnorm_cdf_int` defaults to standard normal but can be expressed more generally.
         """
         return mean + std*_sqrt(2)*_erfinv(2*p-1)
+
+
+class Infinite(Base):
+    """
+    Description:
+        Base class for probability tags.
+    """
+
+    def __init__(self):
+        if type(self) is Infinite:
+            raise TypeError('base class cannot be instantiated.')
+
+
+class SemiInfinite(Base):
+    """
+    Description:
+        Base class for probability tags.
+    """
+
+    def __init__(self):
+        if type(self) is SemiInfinite:
+            raise TypeError('base class cannot be instantiated.')
+
+
+class BoundedInterval(Base):
+    """
+    Description:
+        Base class for probability tags.
+    """
+
+    def __init__(self):
+        if type(self) is BoundedInterval:
+            raise TypeError('base class cannot be instantiated.')
