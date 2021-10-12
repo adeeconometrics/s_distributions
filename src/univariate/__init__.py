@@ -4,7 +4,7 @@ There are two ways we can deal about it:
 - using __all__ = [`DO_NOT_WILD_IMPORT`] to avoid `from [module] import *
 - specify which class you are importing e.g. `from .Base import Base`
 """
-from .Base import *
+from ._base import *
 from .Arcsine import *
 from .Cauchy import *
 from .Chi import *

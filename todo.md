@@ -11,6 +11,7 @@ Reminders
 Efforts on maintaining class invariance
 -  only do type checking when necessary assumptions need be satisfied e.g. in `df` types are required to be `int`
 -  do value checking for prescribe domains of probability distributions
+- find out if math.exp is more flexible than np.exp in terms of its limitationss
 
 [PEP 8 style guide compliance](https://www.python.org/dev/peps/pep-0008/)
 
