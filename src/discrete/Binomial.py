@@ -2,7 +2,7 @@ try:
     from scipy.special import binom as _binom
     import numpy as np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor
-    from typing import Union, Typing, Dict
+    from typing import Union, Tuple, Dict
     from _base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -215,6 +215,6 @@ class Binomial(Base):
             Dict[str, Union[float, int]]: [description]
         """
         return {
-            'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
-            'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }

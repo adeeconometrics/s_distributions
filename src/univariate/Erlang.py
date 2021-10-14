@@ -193,18 +193,35 @@ class Erlang(Base):
         _lambda = self.rate
         return (1-k)*_digamma(k)+_log(_gamma(k)/_lambda)+k
 
-    def summary(self) -> None:
+    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
-        Returns: Summary statistic regarding the Erlang distribution
+        Returns:  summary statistic regarding the Erlang distribution which contains the following parts of the distribution:
+                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
+                and prints out the summary of the distribution. 
         """
-        mean = self.mean()
-        median = self.median()
-        mode = self.mode()
-        var = self.var()
-        std = self.std()
-        skewness = self.skewness()
-        kurtosis = self.kurtosis()
-        cstr = " summary statistics "
-        print(cstr.center(40, "="))
-        print("mean: ", mean, "\nmedian: ", median, "\nmode: ", mode, "\nvar: ",
-              var, "\nstd: ", std, "\nskewness: ", skewness, "\nkurtosis: ", kurtosis)
+        if display == True:
+            cstr = " summary statistics "
+            print(cstr.center(40, "="))
+            print(f"mean: {self.mean()}", f"median: {self.median()}",
+                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
+                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
+
+            return None
+        else:
+            return (f"mean: {self.mean()}", f"median: {self.median()}",
+                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
+                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
+
+    def keys(self) -> Dict[str, Union[float, int, str]]:
+        """
+        Summary statistic regarding the Erlang distribution which contains the following parts of the distribution:
+        (mean, median, mode, var, std, skewness, kurtosis).
+
+        Returns:
+            Dict[str, Union[float, int, str]]: [description]
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
+

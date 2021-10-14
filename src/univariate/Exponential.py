@@ -232,6 +232,6 @@ class Explonential(Base):
             Dict[str, Union[float, int]]: [description]
         """
         return {
-            'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
-            'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
