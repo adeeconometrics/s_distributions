@@ -51,4 +51,8 @@ currently supported features:
 - Weilbull inverse distribution
 - Gumbell distribution
 - Arcsine distribution
-
+- Triangular distribution
+- Trapezoidal distribution
+- Beta distribution
+- Beta-prime distribution
+- Erlang distribution

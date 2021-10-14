@@ -52,11 +52,6 @@ Efforts on maintaining class invariance
 
 ### Continuous
 - staged for review
-    - triangular distribution
-    - trapezoidal distribution
-    - beta distribution
-    - beta-prime distribution
-    - Erlang distribution
     - Rayleigh distribution
     - Maxwell-Boltzmann distribution
     - Wigner semicircle distribution
