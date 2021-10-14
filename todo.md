@@ -52,12 +52,6 @@ Efforts on maintaining class invariance
 
 ### Continuous
 - staged for review
-    - Rayleigh distribution
-    - Maxwell-Boltzmann distribution
-    - Wigner semicircle distribution
-    - beta rectangular distribution
-    - Bates distribution
-    - continuous Bernoulli distribution
     - Balding-Nichols distribution
 
 Semi-infinite class

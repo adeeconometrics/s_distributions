@@ -56,3 +56,9 @@ currently supported features:
 - Beta distribution
 - Beta-prime distribution
 - Erlang distribution
+- Rayleigh distribution
+- Maxwell-Boltzmann distribution
+- Wigner semicircle distribution
+- beta rectangular distribution
+- Bates distribution
+- continuous Bernoulli distribution
