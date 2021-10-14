@@ -6,6 +6,7 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
+
 class Arcsine(Base):
     """
     This class contains methods concerning Arcsine Distirbution.
@@ -66,7 +67,7 @@ class Arcsine(Base):
         Returns:
             either probability density evaluation for some point or plot of Arcsine distribution.
         """
-        def __generator(x): return 1/(_pi* _sqrt(x*(1-x)))
+        def __generator(x): return 1/(_pi * _sqrt(x*(1-x)))
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
@@ -203,4 +204,3 @@ class Arcsine(Base):
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

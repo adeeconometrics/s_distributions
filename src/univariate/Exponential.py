@@ -59,7 +59,7 @@ class Explonential(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -96,7 +96,7 @@ class Explonential(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -126,7 +126,7 @@ class Explonential(Base):
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
         return __generator(x, lambda_)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[Number]:
+    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
         Args:
 

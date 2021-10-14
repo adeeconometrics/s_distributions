@@ -1,21 +1,21 @@
 try:
     import numpy as np
-    from math import sqrt as _sqrt, log as _log
     from typing import Union, Tuple, Dict
+    from math import sqrt as _sqrt, log as _log
     from _base import Base
-except ValueError as e:
+except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Pareto(Base):
+class Triangular(Base):
     """
-    This class contains methods concerning the Pareto Distribution Type 1.
-
+    This class contains methods concerning Triangular Distirbution.
     Args:
 
-        scale(float | x>0): scale parameter.
-        shape(float | x>0): shape parameter.
-        x(float | [shape, infty]): random variable.
+        a(float): lower limit
+        b(float | a<b): upper limit
+        c(float| a≤c≤b): mode
+        randvar(float | a≤randvar≤b): random variable
 
     Methods:
 
@@ -31,28 +31,27 @@ class Pareto(Base):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
-    References:
-    - Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.
-    - Wikipedia contributors. (2020, December 1). Pareto distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 05:00, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
+    Reference:
+    - Wikipedia contributors. (2020, December 19). Triangular distribution. In Wikipedia, The Free Encyclopedia.
+    Retrieved 05:41, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Triangular_distribution&oldid=995101682
     """
 
-    def __init__(self, shape: Union[float, int], scale: Union[float, int], x: Union[float, int]):
-        if scale < 0:
+    def __init__(self, a: float, b: float, c: float, randvar: float):
+        if a > b:
             raise ValueError(
-                f'scale should be greater than 0. Entered value for scale:{scale}')
-        if shape < 0:
+                'lower limit(a) should be less than upper limit(b).')
+        if a > c and c > b:
             raise ValueError(
-                f'shape should be greater than 0. Entered value for shape:{shape}')
-        if x > shape:
+                'lower limit(a) should be less than or equal to mode(c) where c is less than or equal to upper limit(b).')
+        if a > randvar and randvar > b:
             raise ValueError(
-                f'random variable x should be greater than or equal to shape. Entered value for x:{x}')
+                f'random variable is bounded between a: {a} and b: {b}')
 
-        self.shape = shape
-        self.scale = scale
-        self.x = x
+        self.a = a
+        self.b = b
+        self.c = c
+        self.randvar = randvar
 
     def pdf(self,
             plot=False,
@@ -75,21 +74,25 @@ class Pareto(Base):
 
 
         Returns:
-            either probability density evaluation for some point or plot of Pareto distribution.
+            either probability density evaluation for some point or plot of Triangular distribution.
         """
-        x_m = self.scale
-        alpha = self.shape
-
-        def __generator(x, x_m, alpha):
-            if x >= x_m:
-                return (alpha * pow(x_m, alpha)) / pow(x, alpha + 1)
-            return 0
+        def __generator(a, b, c, x):
+            if x < a:
+                return 0
+            if a <= x and x < c:
+                return (2*(x-a))/((b-a)*(c-a))
+            if x == c:
+                return 2/(b-a)
+            if c < x and x <= b:
+                return (2*(b-x))/((b-a)((b-c)))
+            if b < x:
+                return 0
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, x_m, alpha) for i in x])
+            y = np.array([__generator(self.a, self.b, self.c, i) for i in x])
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.x, x_m, alpha)
+        return __generator(self.a, self.b, self.c, self.randvar)
 
     def cdf(self,
             plot=False,
@@ -112,21 +115,23 @@ class Pareto(Base):
 
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Pareto distribution.
+            either cumulative distribution evaluation for some point or plot of Triangular distribution.
         """
-        x_m = self.scale
-        alpha = self.shape
-
-        def __generator(x, x_m, alpha):
-            if x >= x_m:
-                return 1 - pow(x_m / x, alpha)
-            return 0
+        def __generator(a, b, c, x):
+            if x <= a:
+                return 0
+            if a < x and x <= c:
+                return pow(x-a, 2)/((b-a)*(c-a))
+            if c < x and x < b:
+                return 1 - pow(b-x, 2)/((b-c)*(b-c))
+            if b <= x:
+                return 1
 
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, x_m, alpha) for i in x])
+            y = np.array([__generator(self.a, self.b, self.c, i) for i in x])
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.x, x_m, alpha)
+        return __generator(self.a, self.b, self.c, self.randvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -139,95 +144,92 @@ class Pareto(Base):
             Otherwise, the default random variable is x.
 
         Returns:
-            p-value of the Pareto distribution evaluated at some random variable.
+            p-value of the Triangular distribution evaluated at some random variable.
         """
-        if x_lower < 0:
-            x_lower = 0
-        if x_upper is None:
-            x_upper = self.x
+        if x_upper == None:
+            x_upper = self.randvar
+        if x_lower > x_upper:
+            raise ValueError(
+                f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
 
-        def __cdf(x, x_m, alpha):
-            if x >= x_m:
-                return 1 - pow(x_m / x, alpha)
-            return 0
-        return __cdf(x_upper, self.scale, self.alpha)+__cdf(x_lower, self.scale, self.alpha)
+        def __cdf(a, b, c, x):
+            if x <= a:
+                return 0
+            if a < x and x <= c:
+                return pow(x-a, 2)/((b-a)*(c-a))
+            if c < x and x < b:
+                return 1 - pow(b-x, 2)/((b-c)*(b-c))
+            if b <= x:
+                return 1
+        return __cdf(self.a, self.b, self.c, x_upper)-__cdf(self.a, self.b, self.c, x_lower)
 
-    def mean(self) -> Union[float, int]:
+    def mean(self) -> float:
         """
-        Returns: Mean of the Pareto distribution.
+        Returns: Mean of the Triangular distribution.
         """
-        a = self.shape
-        x_m = self.scale
+        return (self.a+self.b+self.c)/3
 
-        if a <= 1:
-            return np.inf
-        return (a * x_m) / (a - 1)
-
-    def median(self) -> Union[float, int]:
+    def median(self) -> float:
         """
-        Returns: Median of the Pareto distribution.
+        Returns: Median of the Triangular distribution.
         """
-        a = self.shape
-        x_m = self.scale
-        return x_m * pow(2, 1 / a)
+        a = self.a
+        b = self.b
+        c = self.c
+        if c >= (a+b)/2:
+            return a + _sqrt(((b-a)*(c-a))/2)
+        if c <= (a+b)/2:
+            return b + _sqrt((b-a)*(b-c)/2)
 
     def mode(self) -> float:
         """
-        Returns: Mode of the Pareto distribution.
+        Returns: Mode of the Triangular distribution.
         """
-        return self.scale
+        return self.c
 
     def var(self) -> float:
         """
-        Returns: Variance of the Pareto distribution.
+        Returns: Variance of the Triangular distribution.
         """
-        a = self.shape
-        x_m = self.scale
-        if a <= 2:
-            return np.inf
-        return (pow(x_m, 2) * a) / (pow(a - 1, 2) * (a - 2))
+        a = self.a
+        b = self.b
+        c = self.c
+        return (1/18)*(pow(a, 2)+pow(b, 2)+pow(c, 2)-a*b-a*c-b*c)
 
     def std(self) -> float:
         """
-        Returns: Variance of the Pareto distribution
+        Returns: Standard deviation of the Triangular distribution.
         """
         return _sqrt(self.var())
 
-    def skewness(self) -> Union[float, str]:
+    def skewness(self) -> float:
         """
-        Returns: Skewness of the Pareto distribution.
+        Returns: Skewness of the Triangular distribution.
         """
-        a = self.shape
-        x_m = self.scale
-        if a > 3:
-            scale = (2 * (1 + a)) / (a - 3)
-            return scale * _sqrt((a - 2) / a)
-        return "undefined"
+        a = self.a
+        b = self.b
+        c = self.c
+        return _sqrt(2)*(a+b-2*c) * ((2*a-b-c)*(a-2*b+c)) / \
+            (5*pow(a**2+b**2+c**2-a*b-a*c-b*c, 3/2))
 
-    def kurtosis(self) -> Union[float, str]:
+    def kurtosis(self) -> float:
         """
-        Returns: Kurtosis of the Pareto distribution.
+        Returns: Kurtosis of the Triangular distribution.
         """
-        a = self.shape
-        x_m = self.scale
-        if a > 4:
-            return (6 * (a**3 + a**2 - 6 * a - 2)) / (a * (a - 3) * (a - 4))
-        return "undefined"
+        return -3/5
 
     def entropy(self) -> float:
         """
-        Returns: differential entropy of the Pareto distribution.
+        Returns: differential entropy of the Triangular distribution.
 
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        a = self.shape
-        x_m = self.scale
-        return _log(x_m/a)+1+(1/a)
+        return 0.5 + _log((self.b-self.a)*0.5)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
-        Returns:  summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
+        Returns:  summary statistic regarding the Triangular distribution which contains the following parts of the distribution:
                 (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
                 and prints out the summary of the distribution. 
         """
@@ -244,13 +246,13 @@ class Pareto(Base):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
-        Summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
+        Summary statistic regarding the Triangular distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int, str]]: [description]
+            Dict[str, Union[float, Tuple[float]]]: [description]
         """
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),

@@ -55,7 +55,7 @@ class Cauchy(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -92,7 +92,7 @@ class Cauchy(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -141,7 +141,7 @@ class Cauchy(Base):
             return __cdf(x_upper, self.location, self.scale) - __cdf(x_lower, self.location, self.scale)
         return __cdf(self.x, self.location, self.scale)
 
-    def confidence_interval(self) -> Union[number, str]:
+    def confidence_interval(self) -> Union[float, str]:
         pass
 
     def mean(self) -> str:

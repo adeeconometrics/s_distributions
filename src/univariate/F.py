@@ -64,7 +64,7 @@ class F(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -100,7 +100,7 @@ class F(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -176,7 +176,7 @@ class F(Base):
         df1 = self.df1
         df2 = self.df2
         if df2 > 4:
-            return (2 * pow(df2,2) * (df1 + df2 - 2)) / (df1 * (pow(df2 - 2, 2) *
+            return (2 * pow(df2, 2) * (df1 + df2 - 2)) / (df1 * (pow(df2 - 2, 2) *
                                                        (df2 - 4)))
         return "undefined"
 
@@ -187,20 +187,19 @@ class F(Base):
         df1 = self.df1
         df2 = self.df2
         if df2 > 4:
-            return _sqrt((2 * pow(df2, 2) * (df1 + df2 - 2)) / 
-                    (df1 * (pow(df2 - 2,2) * (df2 - 4)))
-        
+            return _sqrt((2 * pow(df2, 2) * (df1 + df2 - 2)) /
+                    (df1 * (pow(df2 - 2, 2) * (df2 - 4)))
+
         return "undefined"
 
     def skewness(self) -> Union[float, str]:
         """
         Returns: Skewness of the F-distribution.
         """
-        df1 = self.df1
-        df2 = self.df2
+        df1=self.df1
+        df2=self.df2
         if df2 > 6:
-            return ((2 * df1 + df2 - 2) * _sqrt(8 * (df2 - 4))) / (
-                (df2 - 6) * _sqrt(df1 * (df1 + df2 - 2)))
+            return ((2 * df1 + df2 - 2) * _sqrt(8 * (df2 - 4))) / ((df2 - 6) * _sqrt(df1 * (df1 + df2 - 2)))
         return "undefined"
 
     def entropy(self) -> Union[float, int]:
@@ -209,20 +208,21 @@ class F(Base):
 
         Reference: Lazo, A.V.; Rathie, P. (1978). "On the entropy of continuous probability distributions". IEEE Transactions on Information Theory
         """
-        df1 = self.df1
-        df2 = self.df2
-        return _log(_gamma(df1/2)) + _log(_gamma(df2/2)) - \
-            _log(_gamma((df1+df2)/2)) + (1-df1/2)*_digamma(1+df1/2) - \ 
-            (1-df2/2)* _digamma(1+df2/2) + (df1+df2)/2*_digamma((df1+df2)/2) + _log(df1/df2)
+        df1=self.df1
+        df2=self.df2
+        return _log(_gamma(df1/2)) + _log(_gamma(df2/2)) -
+            _log(_gamma((df1+df2)/2)) + (1-df1/2)*_digamma(1+df1/2) -
+            (1-df2/2) * _digamma(1+df2/2) + (df1+df2) /
+             2*_digamma((df1+df2)/2) + _log(df1/df2)
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
         Returns:  summary statistic regarding the F-distribution which contains the following parts of the distribution:
                 (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
+                and prints out the summary of the distribution.
         """
         if display:
-            cstr = " summary statistics "
+            cstr=" summary statistics "
             print(cstr.center(40, "="))
             print(f"mean: {self.mean()}", f"median: {self.median()}",
                   f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",

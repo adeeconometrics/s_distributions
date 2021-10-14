@@ -1,21 +1,21 @@
 try:
+    from scipy.special import beta as _beta, betainc as _betainc, digamma as _digamma
     import numpy as np
-    from math import sqrt as _sqrt, log as _log
     from typing import Union, Tuple, Dict
+    from math import sqrt as _sqrt, log as _log
     from _base import Base
-except ValueError as e:
+except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Pareto(Base):
+class Beta(Base):
     """
-    This class contains methods concerning the Pareto Distribution Type 1.
-
+    This class contains methods concerning Beta Distirbution.
     Args:
 
-        scale(float | x>0): scale parameter.
-        shape(float | x>0): shape parameter.
-        x(float | [shape, infty]): random variable.
+        alpha(float | x>0): shape
+        beta(float | x>0): shape
+        randvar(float | [0,1]): random variable
 
     Methods:
 
@@ -31,32 +31,29 @@ class Pareto(Base):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
-    References:
-    - Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.
-    - Wikipedia contributors. (2020, December 1). Pareto distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 05:00, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
+    Reference:
+    - Wikipedia contributors. (2021, January 8). Beta distribution. In Wikipedia, The Free Encyclopedia.
+    Retrieved 07:21, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Beta_distribution&oldid=999043368
     """
 
-    def __init__(self, shape: Union[float, int], scale: Union[float, int], x: Union[float, int]):
-        if scale < 0:
+    def __init__(self, alpha: float, beta: float, randvar: float):
+        if randvar < 0 | randvar > 1:
             raise ValueError(
-                f'scale should be greater than 0. Entered value for scale:{scale}')
-        if shape < 0:
+                f'random variable should only be in between 0 and 1. Entered value: {randvar}')
+        if alpha < 0:
             raise ValueError(
-                f'shape should be greater than 0. Entered value for shape:{shape}')
-        if x > shape:
+                f'alpha parameter(shape) should be a positive number. Entered value:{alpha}')
+        if beta < 0:
             raise ValueError(
-                f'random variable x should be greater than or equal to shape. Entered value for x:{x}')
+                f'beta parameter(shape) should be a positive number. Entered value:{beta}')
 
-        self.shape = shape
-        self.scale = scale
-        self.x = x
+        self.alpha = alpha
+        self.beta = beta
+        self.randvar = randvar
 
     def pdf(self,
             plot=False,
-            interval=1,
             threshold=1000,
             xlim=None,
             ylim=None,
@@ -75,25 +72,19 @@ class Pareto(Base):
 
 
         Returns:
-            either probability density evaluation for some point or plot of Pareto distribution.
+            either probability density evaluation for some point or plot of Beta distribution.
         """
-        x_m = self.scale
-        alpha = self.shape
-
-        def __generator(x, x_m, alpha):
-            if x >= x_m:
-                return (alpha * pow(x_m, alpha)) / pow(x, alpha + 1)
-            return 0
+        def __generator(a, b, x): return (
+            pow(x, a-1)*pow(1-x, b-1))/_beta(a, b)
 
         if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, x_m, alpha) for i in x])
+            x = np.linspace(0, 1, int(threshold))
+            y = np.array([__generator(self.alpha, self.beta, i) for i in x])
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.x, x_m, alpha)
+        return __generator(self.alpha, self.beta, self.randvar)
 
     def cdf(self,
             plot=False,
-            interval=1,
             threshold=1000,
             xlim=None,
             ylim=None,
@@ -112,21 +103,14 @@ class Pareto(Base):
 
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Pareto distribution.
+            either cumulative distribution evaluation for some point or plot of Beta distribution.
         """
-        x_m = self.scale
-        alpha = self.shape
-
-        def __generator(x, x_m, alpha):
-            if x >= x_m:
-                return 1 - pow(x_m / x, alpha)
-            return 0
-
+        def __generator(a, b, x): return _betainc(a, b, x)
         if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, x_m, alpha) for i in x])
+            x = np.linspace(0, 1, int(threshold))
+            y = np.array([__generator(self.a, self.b, self.c, i) for i in x])
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.x, x_m, alpha)
+        return __generator(self.a, self.b, self.c, self.randvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -139,95 +123,73 @@ class Pareto(Base):
             Otherwise, the default random variable is x.
 
         Returns:
-            p-value of the Pareto distribution evaluated at some random variable.
+            p-value of the Beta distribution evaluated at some random variable.
         """
-        if x_lower < 0:
-            x_lower = 0
-        if x_upper is None:
-            x_upper = self.x
+        if x_upper == None:
+            x_upper = self.randvar
+        if x_lower > x_upper:
+            raise ValueError(
+                'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(x, x_m, alpha):
-            if x >= x_m:
-                return 1 - pow(x_m / x, alpha)
-            return 0
-        return __cdf(x_upper, self.scale, self.alpha)+__cdf(x_lower, self.scale, self.alpha)
+        def __cdf(a, b, x): return _betainc(a, b, x)
+        return __cdf(self.alpha, self.beta, x_upper)-__cdf(self.alpha, self.beta, x_lower)
 
-    def mean(self) -> Union[float, int]:
+    def mean(self) -> str:
         """
-        Returns: Mean of the Pareto distribution.
+        Returns: Mean of the Beta distribution.
         """
-        a = self.shape
-        x_m = self.scale
+        return "currently unsupported."
 
-        if a <= 1:
-            return np.inf
-        return (a * x_m) / (a - 1)
+    def median(self) -> float:
+        """
+        Returns: Median of the Beta distribution.
+        """
+        # warning: not yet validated.
+        return _betainc(self.alpha, self.beta, 0.5)
 
-    def median(self) -> Union[float, int]:
+    def mode(self) -> str:
         """
-        Returns: Median of the Pareto distribution.
+        Returns: Mode of the Beta distribution.
         """
-        a = self.shape
-        x_m = self.scale
-        return x_m * pow(2, 1 / a)
+        return "currently unsupported"
 
-    def mode(self) -> float:
+    def var(self) -> str:
         """
-        Returns: Mode of the Pareto distribution.
+        Returns: Variance of the Beta distribution.
         """
-        return self.scale
+        return "currently unsupported"
 
-    def var(self) -> float:
+    def skewness(self) -> float:
         """
-        Returns: Variance of the Pareto distribution.
+        Returns: Skewness of the Beta distribution.
         """
-        a = self.shape
-        x_m = self.scale
-        if a <= 2:
-            return np.inf
-        return (pow(x_m, 2) * a) / (pow(a - 1, 2) * (a - 2))
+        alpha = self.alpha
+        beta = self.beta
+        return (2*(beta-alpha)*_sqrt(alpha+beta+1))/((alpha+beta+2)*_sqrt(alpha*beta))
 
-    def std(self) -> float:
+    def kurtosis(self) -> float:
         """
-        Returns: Variance of the Pareto distribution
+        Returns: Kurtosis of the Beta distribution.
         """
-        return _sqrt(self.var())
-
-    def skewness(self) -> Union[float, str]:
-        """
-        Returns: Skewness of the Pareto distribution.
-        """
-        a = self.shape
-        x_m = self.scale
-        if a > 3:
-            scale = (2 * (1 + a)) / (a - 3)
-            return scale * _sqrt((a - 2) / a)
-        return "undefined"
-
-    def kurtosis(self) -> Union[float, str]:
-        """
-        Returns: Kurtosis of the Pareto distribution.
-        """
-        a = self.shape
-        x_m = self.scale
-        if a > 4:
-            return (6 * (a**3 + a**2 - 6 * a - 2)) / (a * (a - 3) * (a - 4))
-        return "undefined"
+        alpha = self.alpha
+        beta = self.beta
+        temp_up = 6*((alpha-beta)**2*(alpha+beta+1)-alpha*beta*(alpha+beta+2))
+        return temp_up/(alpha*beta*(alpha+beta+2)*(alpha+beta+3))
 
     def entropy(self) -> float:
         """
-        Returns: differential entropy of the Pareto distribution.
+        Returns: differential entropy of the Beta distribution.
 
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        a = self.shape
-        x_m = self.scale
-        return _log(x_m/a)+1+(1/a)
+        alpha = self.alpha
+        beta = self.beta
+        return _log(_beta(alpha, beta))-(alpha-1)*(_digamma(alpha)-_digamma(alpha+beta))-(beta-1)*(_digamma(beta)-_digamma(alpha+beta))
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
-        Returns:  summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
+        Returns:  summary statistic regarding the Beta distribution which contains the following parts of the distribution:
                 (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
                 and prints out the summary of the distribution. 
         """
@@ -244,13 +206,13 @@ class Pareto(Base):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
-        Summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
+        Summary statistic regarding the Beta distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int, str]]: [description]
+            Dict[str, Union[float, Tuple[float]]]: [description]
         """
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),

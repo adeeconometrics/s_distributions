@@ -59,7 +59,7 @@ class Chi(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -78,7 +78,7 @@ class Chi(Base):
         """
 
         def __generator(x, df): return (1 / (pow(2, (df / 2) - 1) * _gamma(
-            df / 2))) * pow(x, df - 1) * np.exp(pow(-x,2) / 2)
+            df / 2))) * pow(x, df - 1) * np.exp(pow(-x, 2) / 2)
         if plot:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array([__generator(i, self.df) for i in x])
@@ -93,7 +93,7 @@ class Chi(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -116,7 +116,7 @@ class Chi(Base):
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
         return __generator(self.randvar, self.df)
 
-    def p_val(self, x_lower=-np.inf, x_upper=None) -> Optional[number]:
+    def p_val(self, x_lower=-np.inf, x_upper=None) -> Optional[float]:
         """
         Args:
 

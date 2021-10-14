@@ -59,7 +59,7 @@ class Gaussian(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -94,7 +94,7 @@ class Gaussian(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 

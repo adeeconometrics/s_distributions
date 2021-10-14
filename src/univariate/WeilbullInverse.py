@@ -58,7 +58,7 @@ class WeilbullInverse(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -91,7 +91,7 @@ class WeilbullInverse(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -116,7 +116,7 @@ class WeilbullInverse(Base):
             return super().plot(x, y, xlim, ylim, xlabel, ylabel)
         return __generator(self.shape, self.scale, self.location, self.randvar)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[number]:
+    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
         Args:
 
@@ -138,7 +138,7 @@ class WeilbullInverse(Base):
             raise ValueError(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(a, s, m, x): return _exp(-pow((x-m)/s,-a))
+        def __cdf(a, s, m, x): return _exp(-pow((x-m)/s, -a))
         return __cdf(self.shape, self.scale, self.location, x_upper)-__cdf(self.shape, self.scale, self.location, x_lower)
 
     def mean(self) -> float:

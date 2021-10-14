@@ -60,7 +60,7 @@ class Gamma(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -78,7 +78,7 @@ class Gamma(Base):
         """
         # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
         def __generator(a, b, x):
-            return (1 / (pow(b,a) * _gamma(a))) * _log(x, a - 1) * _exp(-x / b)
+            return (1 / (pow(b, a) * _gamma(a))) * _log(x, a - 1) * _exp(-x / b)
 
         if plot:
             x = np.linspace(-interval, interval, threshold)

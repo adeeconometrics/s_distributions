@@ -52,7 +52,7 @@ class LogitNormal(Base):
             xlim=None,
             ylim=None,
             xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+            ylabel=None) -> Union[float, np.ndarray, None]:
         """
         Args:
 
@@ -103,7 +103,7 @@ class LogitNormal(Base):
             either cumulative distribution evaluation for some point or plot of Logit Normal distribution.
         """
         def __generator(mu, sig, x):
-            return 1/2 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig,2))))
+            return 1/2 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig, 2))))
 
         if plot:
             x=np.linspace(-interval, interval, int(threshold))
@@ -135,7 +135,7 @@ class LogitNormal(Base):
             raise ValueError(
                 f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
         def __cdf(mu, sig, x):
-            return 1/2 * (1+_erf((_logit(x)-mu)/(_sqrt(2*pow(sig,2)))))
+            return 1/2 * (1+_erf((_logit(x)-mu)/(_sqrt(2*pow(sig, 2)))))
         return __cdf(self.location, self.sq_scale, x_upper)-__cdf(self.location, self.sq_scale, x_lower)
 
     def mean(self) -> str:
