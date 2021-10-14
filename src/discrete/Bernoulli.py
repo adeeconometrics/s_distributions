@@ -1,7 +1,6 @@
 try:
-    import numpy as np
     from math import sqrt as _sqrt
-    from typing import Union, Typing, Dict
+    from typing import Union, Tuple, Dict, List
     from ._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -17,8 +16,8 @@ class Bernoulli(Base):
         - k(float ∈[0,1]): possible outcomes
     Methods:
 
-        - pmf for evaluating or plotting probability mass function
-        - cdf for evaluating or plotting cumulative distribution function
+        - pmf for evaluating or list for plotting probability mass function
+        - cdf for evaluating or list for plotting cumulative distribution function
         - mean for evaluating the mean of the distribution.
         - median for evaluating the median of the distribution.
         - mode for evaluating the mode of the distribution.
@@ -34,7 +33,7 @@ class Bernoulli(Base):
         Retrieved 10:18, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&oldid=996380822
     """
 
-    def __init__(self, p: int, k: Union[int, float]):
+    def __init__(self, p: int, k: float):
         if type(p) is not int:
             raise TypeError('parameter p must be of type int')
         if k < 0 or k > 1:
@@ -43,66 +42,38 @@ class Bernoulli(Base):
         self.p = p
         self.k = k
 
-    def pmf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def pmf(self, x:List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
-
+            x: List[int] - random variable or list of random variables
 
         Returns: 
-            either probability mass evaluation for some point or scatter plot of Bernoulli distribution.
-        """
-        p = self.p
-        k = self.k
-        def generator(p, k): return p**k * np.power(1 - p, 1 - k)
-        if plot == True:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([generator(p, i) for i in x])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-
-        return generator(p, k)
-
-    def cdf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
-        """
-        Args:
-
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
-
-
-        Returns: 
-            either cumulative distribution evaluation for some point or scatter plot of Bernoulli distribution.
+            point or list of points in a Bernoulli distribution's pdf.
         """
         p = self.p
         k = self.k
 
-        def generator(k, p):
+        def __generator(p, k): return p**k * pow(1 - p, 1 - k)
+
+        if x is not None and issubclass(x, List):
+            return [__generator(p, i) for i in x]
+
+        return __generator(p, x)
+
+    def cdf(self, x:List[int] = None):
+        """
+        Args:
+
+            x: List[int] - random variable or list of random variables
+
+        Returns: 
+            point or list of points in a Bernoulli distribution's cdf.
+        """
+        p = self.p
+        k = self.k
+
+        def __generator(k, p):
             if k < 0:
                 return 0
             elif k >= 0 and k < 1:
@@ -110,12 +81,10 @@ class Bernoulli(Base):
             elif k >= 1:
                 return 1
 
-        if plot == True:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([generator(p, i) for i in x])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
+        if x is not None and issubclass(x, List):
+            return [__generator(p, i) for i in x]
 
-        return generator(p, k)
+        return __generator(p, k)
 
     def mean(self) -> int:
         """
@@ -154,6 +123,14 @@ class Bernoulli(Base):
         p = self.p
         q = 1 - p
         return p * q
+
+    def var(self) -> float:
+        """
+        Returns the variance of Bernoulli Distribution.
+        """
+        p = self.p
+        q = 1 - p
+        return _sqrt(p * q)
 
     def skewness(self) -> float:
         """
@@ -200,5 +177,5 @@ class Bernoulli(Base):
         """
         return {
             'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
-            'var': self.main(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }

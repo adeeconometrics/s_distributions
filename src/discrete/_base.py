@@ -1,26 +1,7 @@
-try:
-    import matplotlib.pyplot as plt
-except Exception as e:
-    print(f"some modules are missing {e}")
-
-
-class Base:  # add histograms
-    def __init__(self, data):
+class Base:  
+    def __init__(self):
         if type(self) is Base:
             raise TypeError('Discrete Univariate Base class cannot be instantiated.')
-
-        self.data = data
-
-    def scatter(self, x, y, xlim=None, ylim=None, xlabel=None, ylabel=None):
-        if ylim is not None:
-            plt.ylim(0, ylim)  # scales from 0 to ylim
-        if xlim is not None:
-            plt.xlim(-xlim, xlim)
-        if xlabel is not None:
-            plt.xlabel(xlabel)
-        if ylabel is not None:
-            plt.ylabel(ylabel)
-        plt.scatter(x, y)
 
     def pvalue(self) -> NotImplemented:
         return NotImplemented
