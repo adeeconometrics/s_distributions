@@ -40,7 +40,7 @@ class Binomial(Base):
     https://mathworld.wolfram.com/BinomialDistribution.html
     """
 
-    def __init__(self, n: int, p: Union[float, int], k: int):
+    def __init__(self, n: int, p: float, k: int):
         if type(n) and type(k) is not int:
             raise TypeError('parameters n and k must be of type int')
 
@@ -51,25 +51,10 @@ class Binomial(Base):
         self.p = p
         self.k = k
 
-    def pmf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def pmf(self, x:List[int]):
         """
         Args:
-
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
-
+            - x:List[int] - default to None. List of random variables.
 
         Returns: 
             either probability mass evaluation for some point or scatter plot of binomial distribution.
@@ -78,19 +63,17 @@ class Binomial(Base):
         p = self.p
         k = self.k
 
-        def generator(n, p, k):
-            def bin_coef(n, k): return _binom(n, k)  # assumes n>k
-            if isinstance(k, list) == True:
-                k_list = [i + 1 for i in range(0, len(k))]
-                y = np.array([(bin_coef(n, k_) * pow(p, k_)) *
-                              pow(1 - p, n - k_) for k_ in k_list])
-                return y
-            return (bin_coef(n, k) * pow(p, k)) * pow(1 - p, n - k)
+        # def generator(n, p, k):
+        #     def bin_coef(n, k): return _binom(n, k)  # assumes n>k
+        #     if isinstance(k, List):
+        #         k_list = [i + 1 for i in range(len(k))]
+        #         y = np.array([(bin_coef(n, k_) * pow(p, k_)) *
+        #                       pow(1 - p, n - k_) for k_ in k_list])
+        #         return y
+        #     return (bin_coef(n, k) * pow(p, k)) * pow(1 - p, n - k)
 
-        if plot == True:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = generator(n, p, x)
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
+        # if x is not None and issubclass(x,List):
+        #     return generator(n,p,x)
 
         return generator(n, p, k)
 
@@ -127,7 +110,7 @@ class Binomial(Base):
                 (np.math.factorial(n) /
                  (np.math.factorial(x) * np.math.factorial(np.abs(n - x)))) *
                 (pow(p, x) * pow((1 - p), n - x)))
-            return np.cumsum([bin_coef(j) for j in range(0, k)], dtype=float)
+            return np.cumsum([bin_coef(j) for j in range(0, k)], dtype=int)
 
         if plot == True:
             x = np.linspace(-interval, interval, int(threshold))
