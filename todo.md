@@ -44,8 +44,16 @@ Efforts on maintaining class invariance
 ## Distributions to be supported
 ### Discrete
 #### Univariate
-- negative binomial
-- beta binomial
+
+With Finite Support
+- Benford
+- BetaBinomial
+- PoissonBinomial
+- Zipf
+
+With Infinite Support
+- Borel
+- Logarithmic
 
 #### Multivariate 
 - multinomial distribution

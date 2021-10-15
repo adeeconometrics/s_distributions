@@ -50,12 +50,12 @@ class Zeta(Base):
         """
         s = self.s
         k = self.k
-        def generator(s, k): return (1 / k**6) / _zeta(s)
+        def __generator(s, k): return (1 / k**6) / _zeta(s)
 
         if x is not None and issubclass(x, List):
             return [__generator(p, i) for i in x]
 
-        return generator(s, k)
+        return __generator(s, k)
 
     def cdf(self, x:List[int] = None) -> Union[int, float, List[int]]:
         """

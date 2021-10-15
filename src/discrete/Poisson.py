@@ -64,13 +64,13 @@ class Poisson(Base):
         k = self.k
         λ = self.λ
 
-        def generator(k, λ): return (pow(λ, k) * np.exp(-λ)
+        def __generator(k, λ): return (pow(λ, k) * np.exp(-λ)
                                      ) / np.math.factorial(k)
 
         if x is not None and issubclass(x, List):
             return [__generator(p, i) for i in x]
 
-        return generator(k, λ)
+        return __generator(k, λ)
 
     def cdf(self, x:List[int] = None) -> Union[int, float, List[int]]:
         """
@@ -85,12 +85,12 @@ class Poisson(Base):
         """
         k = self.k
         λ = self.λ
-        def generator(k, λ): return _gammainc(_floor(k + 1), λ
+        def __generator(k, λ): return _gammainc(_floor(k + 1), λ
                                               ) / np.math.factorial(_floor(k))
         if x is not None and issubclass(x, List):
             return [__generator(p, i) for i in x]
             
-        return generator(k, λ)
+        return __generator(k, λ)
 
     def mean(self) -> float:
         """

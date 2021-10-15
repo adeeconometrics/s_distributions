@@ -63,7 +63,7 @@ class Binomial(Base):
         p = self.p
         k = self.k
 
-        # def generator(n, p, k):
+        # def __generator(n, p, k):
         #     def bin_coef(n, k): return _binom(n, k)  # assumes n>k
         #     if isinstance(k, List):
         #         k_list = [i + 1 for i in range(len(k))]
@@ -73,9 +73,9 @@ class Binomial(Base):
         #     return (bin_coef(n, k) * pow(p, k)) * pow(1 - p, n - k)
 
         # if x is not None and issubclass(x,List):
-        #     return generator(n,p,x)
+        #     return __generator(n,p,x)
 
-        return generator(n, p, k)
+        return __generator(n, p, k)
 
     def cdf(self,
             interval=0,
@@ -105,7 +105,7 @@ class Binomial(Base):
         p = self.p
         k = self.k
 
-        def generator(n, p, k):
+        def __generator(n, p, k):
             def bin_coef(x): return np.array(
                 (np.math.factorial(n) /
                  (np.math.factorial(x) * np.math.factorial(np.abs(n - x)))) *
@@ -114,10 +114,10 @@ class Binomial(Base):
 
         if plot == True:
             x = np.linspace(-interval, interval, int(threshold))
-            y = generator(n, p, len(x))
+            y = __generator(n, p, len(x))
             return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
 
-        return generator(n, p, point)[
+        return __generator(n, p, point)[
             point -
             1]  # will this output the cumulative sum at point requested?
 

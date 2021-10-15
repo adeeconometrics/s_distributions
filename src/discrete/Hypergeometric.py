@@ -66,16 +66,16 @@ class Hypergeometric(Base):
         N = self.N
         K = self.K
 
-        def generator(N, n, K, k): return (_binom(n, k) * _binom(
+        def __generator(N, n, K, k): return (_binom(n, k) * _binom(
             N - K, n - k)) / _binom(N, n)  # assumes n>k
 
         if plot == True:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.array(
-                [generator(N, n, K, x_temp) for x_temp in range(0, len(x))])
+                [__generator(N, n, K, x_temp) for x_temp in range(0, len(x))])
             return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
 
-        return generator(N, n, K, k)
+        return __generator(N, n, K, k)
 
     def cdf(self,
             interval=None,
@@ -104,15 +104,15 @@ class Hypergeometric(Base):
         N = self.N
         K = self.K
 
-        def generator(N, n, K, k): return (_binom(n, k) * _binom(
+        def __generator(N, n, K, k): return (_binom(n, k) * _binom(
             N - K, n - k)) / _binom(N, n)  # assumes n>k
 
         if plot == True:
             x = np.linspace(-interval, interval, int(threshold))
             y = np.cumsum(
-                [generator(N, n, K, x_temp) for x_temp in range(0, len(x))])
+                [__generator(N, n, K, x_temp) for x_temp in range(0, len(x))])
             return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-        return np.cumsum(generator(N, n, K, k))[k - 1]
+        return np.cumsum(__generator(N, n, K, k))[k - 1]
 
     def mean(self) -> float:
         """
