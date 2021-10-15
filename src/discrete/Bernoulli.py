@@ -62,7 +62,7 @@ class Bernoulli(Base):
 
         return __generator(p, x)
 
-    def cdf(self, x:List[int] = None):
+    def cdf(self, x:List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 

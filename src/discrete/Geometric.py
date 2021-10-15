@@ -78,7 +78,7 @@ class Geometric(Base):
         Args: 
      
             type(keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.
-
+            x (List[int]): list of random variables
 
             for context see: https://en.wikipedia.org/wiki/Geometric_distribution
 

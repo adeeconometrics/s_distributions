@@ -49,73 +49,47 @@ class Poisson(Base):
         self.k = k
         self.λ = λ
 
-    def pmf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def pmf(self, x:List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
-
+            x (List[int]): random variable or list of random variables
             Reference: https://en.wikipedia.org/wiki/Poisson_distribution
 
         Returns: 
-            either probability mass evaluation for some point or scatter plot of poisson distribution.
+            probability mass evaluation of Poisson distribution to some point specified by the random variable
+            or a list of its corresponding value specified by the parameter x.
         """
+
         k = self.k
         λ = self.λ
 
         def generator(k, λ): return (pow(λ, k) * np.exp(-λ)
                                      ) / np.math.factorial(k)
-        if plot == True:
-            x = np.linspace(1, interval, threshold)
-            y = np.array([generator(x_temp, λ) for x_temp in x])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
+
+        if x is not None and issubclass(x, List):
+            return [__generator(p, i) for i in x]
+
         return generator(k, λ)
 
-    def cdf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def cdf(self, x:List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
-
+            x (List[int]): random variable or list of random variables
             Reference: https://en.wikipedia.org/wiki/Poisson_distribution
 
         Returns: 
-            either cumulative distribution evaluation for some point or scatter plot of poisson distribution.
+            commulative density function of Poisson distribution to some point specified by the random variable
+            or a list of its corresponding value specified by the parameter x.
         """
         k = self.k
         λ = self.λ
-        def generator(k, λ): return _gammainc(np.floor(k + 1), λ
-                                              ) / np.math.factorial(np.floor(k))
-        if plot == True:
-            x = np.linspace(1, interval, threshold)
-            y = np.array([generator(x_temp, λ) for x_temp in x])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
+        def generator(k, λ): return _gammainc(_floor(k + 1), λ
+                                              ) / np.math.factorial(_floor(k))
+        if x is not None and issubclass(x, List):
+            return [__generator(p, i) for i in x]
+            
         return generator(k, λ)
 
     def mean(self) -> float:

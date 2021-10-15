@@ -51,27 +51,15 @@ class Hypergeometric(Base):
         self.k = k
         self.n = n
 
-    def pmf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def pmf(self, x:List[int] = None):
         """
-        Args:
+        Args: 
 
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
 
         Returns: 
-            either probability mass evaluation for some point or scatter plot of hypergeometric distribution.
+            cumulative distribution evaluation to some point specified by k or scatter plot of geometric distribution.
+            
+        Note: there are two configurations of cdf. 
         """
         n = self.n
         k = self.k
