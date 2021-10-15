@@ -106,7 +106,7 @@ class Cauchy(Base):
 
 
         Returns:
-            either cumulative distirbution evaluation for some point or plot of Cauchy distribution.
+            either cumulative distribution evaluation for some point or plot of Cauchy distribution.
         """
         x=self.x
         location=self.location

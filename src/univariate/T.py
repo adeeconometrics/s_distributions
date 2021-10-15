@@ -12,7 +12,7 @@ except Exception as e:
 class T(Base):
     """
     This class contains implementation of the Student's Distribution for calculating the
-    probablity density function and cumulative distirbution function. Additionally,
+    probablity density function and cumulative distribution function. Additionally,
     a t-table __generator is also provided by p-value method. Note that the implementation
     of T(Student's) distribution is defined by beta-functions.
 
@@ -106,7 +106,7 @@ class T(Base):
 
 
         Returns:
-            either cumulative distirbution evaluation for some point or plot of the T distribution.
+            either cumulative distribution evaluation for some point or plot of the T distribution.
         """
         df = self.df
         randvar = self.randvar

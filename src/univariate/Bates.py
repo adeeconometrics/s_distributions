@@ -12,7 +12,7 @@ class Bates(Base):
     This class contains methods concerning Bates Distirbution. Also referred to as the regular mean distribution.
 
     Note that the Bates distribution is a probability distribution of the mean of a number of statistically indipendent uniformly
-    distirbuted random variables on the unit interval. This is often confused with the Irwin-Hall distirbution which is
+    distirbuted random variables on the unit interval. This is often confused with the Irwin-Hall distribution which is
     the distribution of the sum (not the mean) of n independent random variables. The two distributions are simply versions of
     each other as they only differ in scale.
     Args:

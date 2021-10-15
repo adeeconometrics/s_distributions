@@ -9,7 +9,7 @@ except Exception as e:
 class Uniform(Base):
     """
     This contains methods for finding the probability mass function and 
-    cumulative distirbution function of Uniform distribution. Incudes scatter plot. 
+    cumulative distribution function of Uniform distribution. Incudes scatter plot. 
 
     Args: 
 
@@ -45,7 +45,7 @@ class Uniform(Base):
             ylabel(string): sets label in y axis. Only relevant when plot is true. 
 
         Returns:
-            either probability mass value of Uniform distirbution or scatter plot
+            either probability mass value of Uniform distribution or scatter plot
         """
         if plot == True:
             x = np.array([i for i in range(0, len(self.data))])
@@ -66,7 +66,7 @@ class Uniform(Base):
         """
         Args:
 
-            a(int): lower limit of the distirbution
+            a(int): lower limit of the distribution
             b(int): upper limit of the distribution
             point(int): point at which cumulative value is evaluated. Optional. 
             plot(bool): returns plot if true.

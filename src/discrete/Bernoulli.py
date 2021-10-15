@@ -46,10 +46,11 @@ class Bernoulli(Base):
         """
         Args:
 
-            x: List[int] - random variable or list of random variables
+            x (List[int]): random variable or list of random variables
 
         Returns: 
-            point or list of points in a Bernoulli distribution's pdf.
+            probability mass evaluation of Bernoulli distribution to some point specified by the random variable
+            or a list of its corresponding value specified by the parameter x.
         """
         p = self.p
         k = self.k
@@ -65,10 +66,11 @@ class Bernoulli(Base):
         """
         Args:
 
-            x: List[int] - random variable or list of random variables
+            x (List[int]): list of random variables
 
         Returns: 
-            point or list of points in a Bernoulli distribution's cdf.
+            commulative density function of Bernoulli distribution to some point specified by the random variable
+            or a list of its corresponding value specified by the parameter x.
         """
         p = self.p
         k = self.k
@@ -124,7 +126,7 @@ class Bernoulli(Base):
         q = 1 - p
         return p * q
 
-    def var(self) -> float:
+    def std(self) -> float:
         """
         Returns the variance of Bernoulli Distribution.
         """

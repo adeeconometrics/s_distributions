@@ -107,7 +107,7 @@ class Gaussian(Base):
             ylabel(string): sets label in y axis. Only relevant when plot is true.
 
         Returns:
-            either plot of the distirbution or cumulative density evaluation at randvar.
+            either plot of the distribution or cumulative density evaluation at randvar.
         """
         def __generator(mu, sig, x): return 1/2*(1+_erf((x-mu)/(sig*_sqrt(2))))
         if plot:
