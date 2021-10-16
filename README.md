@@ -5,6 +5,8 @@ Library for statistical distributions
 currently supported features:
 - pdf
 - cdf
+- logpdf
+- logcdf
 - central moments 
     - mean 
     - median

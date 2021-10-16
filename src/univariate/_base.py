@@ -1,32 +1,51 @@
 try:
-    from numpy import inf as _inf, ndarray as _ndarray
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
-    import matplotlib.pyplot as plt
-    from math import sqrt as _sqrt, exp as _exp, pi as _pi
+    import numpy as _np
+    from math import sqrt as _sqrt, exp as _exp, pi as _pi, log as _log
     from typing import Union
     from abc import ABC
 except Exception as e:
     print(f"some modules are missing {e}")
-
-"""
-Alternative design routes:
-- remove logpdf, logcdf and implement it directly on concrete class
-- remove plot option and place it elsewhere
-- make arguments private and add getter-setter decorators
-"""
-
 
 class Base(ABC):
     def __init__(self):
         if type(self) is Base:
             raise TypeError('Continuous Univariate Base class cannot be instantiated.')
 
-    def logpdf(self) -> NotImplemented:
-        return NotImplemented
+    def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
 
-    def logcdf(self) -> NotImplemented:
-        return NotImplemented
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logpdf of Beta prime distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.pdf(x))
+        return _log(self.pdf())
+
+    def logcdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logcdf of Beta prime distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.cdf(x))
+        return _log(self.cdf())
 
     def pvalue(self) -> NotImplemented:
         return NotImplemented
@@ -95,7 +114,7 @@ class Base(ABC):
 
     @staticmethod
     def stdnorm_cdf(x:float) -> float:
-        return _quad(self.stdnorm_pdf, -_inf, x)[0]
+        return _quad(self.stdnorm_pdf, -_np.inf, x)[0]
 
     @staticmethod
     def stdnorm_cdf_inv(x:float, p:float, mean:float = 0.0, std:float = 1.0) -> float:

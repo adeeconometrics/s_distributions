@@ -96,40 +96,6 @@ class BetaPrime(SemiInfinite):
 
         return _betainc(a, b, randvar/(1+randvar))
 
-    def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
-        """
-        Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
-
-        Returns:
-            logpdf of Beta prime distribution.
-        """
-
-        if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return _np.log(self.pdf(x))
-        return _log(self.pdf())
-
-    def logcdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
-        """
-        Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
-
-        Returns:
-            logcdf of Beta prime distribution.
-        """
-
-        if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return _np.log(self.cdf(x))
-        return _log(self.cdf())
-
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
         Args:

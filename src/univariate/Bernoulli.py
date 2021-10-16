@@ -97,40 +97,6 @@ class Bernoulli(BoundedInterval):
 
         return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
 
-    def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
-        """
-        Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
-
-        Returns:
-            logpdf of Bernoulli distribution.
-        """
-
-        if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return _np.log(self.pdf(x))
-        return _log(self.pdf())
-
-    def logcdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
-        """
-        Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
-
-        Returns:
-            logcdf of Bernoulli distribution.
-        """
-
-        if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return _np.log(self.cdf(x))
-        return _log(self.cdf())
-
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
         Args:
