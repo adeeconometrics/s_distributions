@@ -1,7 +1,7 @@
 try:
+    from numpy import inf as _inf, ndarray as _ndarray
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
-    from numpy import inf as _inf
     import matplotlib.pyplot as plt
     from math import sqrt as _sqrt, log as _log, exp as _exp, pi as _pi
     from typing import Union
@@ -12,21 +12,18 @@ except Exception as e:
 """
 Alternative design routes:
 - remove logpdf, logcdf and implement it directly on concrete class
-- raise NotImplementedError on functions in this class
 - remove plot option and place it elsewhere
 - make arguments private and add getter-setter decorators
 """
 
 
 class Base(ABC):
-    def __init__(self, data: Union[list[number], np.ndarray]):
+    def __init__(self, data: Union[list[Union[int, float]], _ndarray]):
         if type(self) is Base:
             raise TypeError(
                 'Continuous Univariate Base class cannot be instantiated.')
 
         self.data = data
-
-    # add fill-color function given some condition
 
     def plot(self, x, y, xlim=None, ylim=None, xlabel=None, ylabel=None):
         if ylim is not None:
@@ -40,17 +37,17 @@ class Base(ABC):
         plt.plot(x, y, "black", alpha=0.5)
         plt.show()
 
-    def logpdf(self, pdf) -> number:
+    def logpdf(self, pdf) -> Union[int, float]:
         return _log(pdf)
 
-    def logcdf(self, cdf) -> number:
+    def logcdf(self, cdf) -> Union[int, float]:
         return _log(cdf)
 
     def pvalue(self) -> NotImplemented:
         return NotImplemented
 
     def confidence_interval(self) -> NotImplemented:
-        return "currently unsupported"
+        return NotImplemented
 
     def rvs(self):  # (adaptive) rejection sampling implementation
         """

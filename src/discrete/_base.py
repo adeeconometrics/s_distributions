@@ -7,7 +7,7 @@ class Base:
         return NotImplemented
 
     def confidence_interval(self) -> NotImplemented:
-        return "currently unsupported"
+        return NotImplemented
 
     def rvs(self):  # (adaptive) rejection sampling implementation
         """
