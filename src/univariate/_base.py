@@ -3,7 +3,7 @@ try:
     from scipy.integrate import quad as _quad
     import numpy as _np
     from math import sqrt as _sqrt, exp as _exp, pi as _pi, log as _log
-    from typing import Union
+    from typing import Union, Tuple, List
     from abc import ABC
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -46,6 +46,15 @@ class Base(ABC):
             else:
                 return _np.log(self.cdf(x))
         return _log(self.cdf())
+
+    # test for performance consideration 
+    @classmethod
+    def likelihood(cls, theta:Tuple, x:List[float])->float:
+        pass
+
+    @classmethod
+    def log_likelihood(cls, theta:Tuple, x:List[float])->float:
+        pass
 
     def pvalue(self) -> NotImplemented:
         return NotImplemented
