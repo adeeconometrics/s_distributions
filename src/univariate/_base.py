@@ -103,14 +103,17 @@ class Base(ABC):
         """
         return NotImplemented
 
-    # special functions for ϕ(x), and Φ(x) functions: should this be reorganized?
-    def stdnorm_pdf(self, x) -> float:
+    # special functions for ϕ(x), and Φ(x) functions
+    @staticmethod
+    def stdnorm_pdf(x) -> float:
         return _exp(-pow(x, 2)/2) / _sqrt(2*_pi)
 
-    def stdnorm_cdf(self, x) -> float:
+    @staticmethod
+    def stdnorm_cdf(x) -> float:
         return _quad(self.stdnorm_pdf, -_inf, x)[0]
 
-    def stdnorm_cdf_inv(self, x, p, mean=0, std=1) -> float:
+    @staticmethod
+    def stdnorm_cdf_inv(x, p, mean=0, std=1) -> float:
         """
         quantile function of the normal cdf. Note that p can only have values between (0,1).
         `stdnorm_cdf_int` defaults to standard normal but can be expressed more generally.
