@@ -1,13 +1,14 @@
 try:
+    from scipy.special import binom as _binom
     import numpy as np
     from typing import Union, Tuple, Dict
     from math import sqrt as _sqrt, factorial as _factorial
-    from _base import Base
+    from _base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Bates(Base):
+class Bates(BoundedInterval):
     """
     This class contains methods concerning Bates Distirbution. Also referred to as the regular mean distribution.
 
@@ -58,59 +59,31 @@ class Bates(Base):
         self.n = n
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Bates distribution.
         """
-        def __generator(a, b, n, x):
-            if a < x | x < b:
-                def bincoef(n, k): return _factorial(
-                    n)/(_factorial(k)*(_factorial(n-k)))
-                return sum(pow(-1, i)*bincoef(n, i)*pow(((x-a)/(b-a) - i/n), n-1)*np.sign((x-a)/(b-1)-i/n) for i in range(1, n+1))
-            return 0
+        # def __generator(a, b, n, x):
+        #     if a < x or x < b:
+        #         return sum(pow(-1, i)*_binom(n, i)*pow(((x-a)/(b-a) - i/n), n-1)*np.sign((x-a)/(b-1)-i/n) for i in range(1, n+1))
+        #     return 0
 
-        if plot:
-            x = np.linspace(0, 1, int(threshold))
-            y = np.array([__generator(self.a, self.b, self.n, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.b, self.n, self.randvar)
+        # if plot:
+        #     x = np.linspace(0, 1, int(threshold))
+        #     y = np.array([__generator(self.a, self.b, self.n, i) for i in x])
+        #     return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        # return __generator(self.a, self.b, self.n, self.randvar)
 
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Bates distribution.

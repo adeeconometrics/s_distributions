@@ -1,13 +1,13 @@
 try:
-    import numpy as np
+    import numpy as _np
     from typing import Union, Tuple, Dict
     from math import sqrt as _sqrt, log as _log
-    from _base import Base
+    from _base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Bernoulli(Base):
+class Bernoulli(BoundedInterval):
     """
     This class contains methods concerning Continuous Bernoulli Distirbution.
     The continuous Bernoulli distribution arises in deep learning and computer vision,
@@ -55,74 +55,47 @@ class Bernoulli(Base):
         self.shape = shape
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Continuous Bernoulli distribution.
         """
-        def C(shape): return (2*np.arctanh(1-2*shape)) / \
-            (1-2*shape) if shape != 0.5 else 2
+        def __C(shape:float): 
+            return (2*_np.arctanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2
 
-        def __generator(shape, x):
-            return C(shape)*pow(shape, x)*pow(1-shape, 1-x)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return __C(self.shape) *_np.power(shape, x)*_np.power(1-shape, 1-x)
 
-        if plot:
-            x = np.linspace(0, 1, int(threshold))
-            y = np.array([__generator(self.shape, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.shape, self.randvar)
+        return __C(self.shape)*pow(shape, self.randvar)*pow(1-shape, 1- self.randvar)
 
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            interval=1,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Continuous Bernoulli distribution.
         """
-        def __generator(shape, x): return (
-            shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
+        shape = self.shape
+        randvar = self.randvar
 
-        if plot:
-            if interval < 0:
-                raise ValueError(
-                    'interval parameter should be a positive number. Entered Value {}'.format(interval))
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.shape, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.shape, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return (_np.power(shape,x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
+
+        return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -157,7 +130,7 @@ class Bernoulli(Base):
         shape = self.shape
         if shape == 0.5:
             return 0.5
-        return shape/(2*shape-1)+(1/(2*np.arctanh(1-2*shape)))
+        return shape/(2*shape-1)+(1/(2*_np.arctanh(1-2*shape)))
 
     def var(self) -> float:
         """
@@ -166,7 +139,7 @@ class Bernoulli(Base):
         shape = self.shape
         if shape == 0.5:
             return 1/12
-        return shape/((2*shape-1)**2)+1/(2*np.arctanh(1-2*shape))**2
+        return shape/((2*shape-1)**2)+1/(2*_np.arctanh(1-2*shape))**2
 
     def std(self) -> float:
         """

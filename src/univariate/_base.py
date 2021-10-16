@@ -3,7 +3,7 @@ try:
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
     import matplotlib.pyplot as plt
-    from math import sqrt as _sqrt, log as _log, exp as _exp, pi as _pi
+    from math import sqrt as _sqrt, exp as _exp, pi as _pi
     from typing import Union
     from abc import ABC
 except Exception as e:
@@ -18,30 +18,15 @@ Alternative design routes:
 
 
 class Base(ABC):
-    def __init__(self, data: Union[list[Union[int, float]], _ndarray]):
+    def __init__(self):
         if type(self) is Base:
-            raise TypeError(
-                'Continuous Univariate Base class cannot be instantiated.')
+            raise TypeError('Continuous Univariate Base class cannot be instantiated.')
 
-        self.data = data
+    def logpdf(self) -> NotImplemented:
+        return NotImplemented
 
-    def plot(self, x, y, xlim=None, ylim=None, xlabel=None, ylabel=None):
-        if ylim is not None:
-            plt.ylim(0, ylim)  # scales from 0 to ylim
-        if xlim is not None:
-            plt.xlim(-xlim, xlim)
-        if xlabel is not None:
-            plt.xlabel(xlabel)
-        if ylabel is not None:
-            plt.ylabel(ylabel)
-        plt.plot(x, y, "black", alpha=0.5)
-        plt.show()
-
-    def logpdf(self, pdf) -> Union[int, float]:
-        return _log(pdf)
-
-    def logcdf(self, cdf) -> Union[int, float]:
-        return _log(cdf)
+    def logcdf(self) -> NotImplemented:
+        return NotImplemented
 
     def pvalue(self) -> NotImplemented:
         return NotImplemented

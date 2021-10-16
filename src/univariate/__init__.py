@@ -4,14 +4,28 @@ There are two ways we can deal about it:
 - using __all__ = [`DO_NOT_WILD_IMPORT`] to avoid `from [module] import *
 - specify which class you are importing e.g. `from .Base import Base`
 """
-from ._base import *
-from .Arcsine import *
-from .Cauchy import *
-from .Chi import *
-from .ChiSquare import *
-from .Exponential import *
-from .F import *
-from .Gaussian import *
-from .Gumbell import *
-from .Laplace import *
-from .Logistic import *
+from . import Base, Infinite, SemiInfinite, BoundedInterval
+from . import Arcsine
+from . import Bates
+from . import Beta
+from . import BetaPrime
+from . import BetaRectangular
+from . import Cauchy
+from . import Chi
+from . import ChiSquare
+from . import Erlang
+from . import Exponential
+from . import F
+from . import Gamma
+from . import Gaussian
+from . import Gumbell
+from . import Laplace
+from . import Logistic
+from . import LogitNormal
+from . import LogNormal
+from . import MaxwellBoltzmann
+from . import Pareto
+from . import Raylegh
+from . import T
+from . import Trapezoidal
+from . import Triangular

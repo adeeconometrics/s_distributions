@@ -1,6 +1,6 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc
-    import numpy as np
+    import numpy as _np
     from typing import Union, Tuple, Dict
     from math import sqrt as _sqrt
     from _base import Base
@@ -53,69 +53,48 @@ class BetaPrime(Base):
         self.beta = beta
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=0,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Beta prime distribution.
         """
-        def __generator(a, b, x): return (
-            pow(x, a-1)*pow(1+x, -a-b))/_beta(a, b)
+        a = self.alpha
+        b = self.beta
+        randvar = self.randvar
 
-        if plot:
-            if interval < 0:
-                raise ValueError(
-                    'random variable should not be less then 0. Entered value: {}'.format(interval))
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.alpha, self.beta, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.alpha, self.beta, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return _np.power(x, a-1)*_np.power(1+x, -a-b)/_beta(a, b)
 
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+        return pow(randvar, a-1)*pow(1+randvar, -a-b)/_beta(a, b)
+
+    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Beta prime distribution.
         """
-        def __generator(a, b, x): return _betainc(a, b, x/(1+x))
-        if plot:
-            x = np.linspace(0, 1, int(threshold))
-            y = np.array([__generator(self.alpha, self.beta, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.alpha, self.beta, self.randvar)
+        a = self.alpha
+        b = self.beta
+        randvar = self.randvar
+
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _betainc(a, b, x/(1+x))
+
+        return _betainc(a, b, randvar/(1+randvar))
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """

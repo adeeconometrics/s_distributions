@@ -1,13 +1,14 @@
 try:
-    import numpy as np
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, pi as _pi
-    from _base import Base
+    import numpy as _np
+    from numpy import ndarray as _ndarray
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, pi as _pi, asin as _asin
+    from _base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Arcsine(Base):
+class Arcsine(BoundedInterval):
     """
     This class contains methods concerning Arcsine Distirbution.
     Args:
@@ -36,77 +37,51 @@ class Arcsine(Base):
     """
 
     def __init__(self, randvar: Union[float, int]):
-        # if type(randvar) not in (float, int):
-        #     raise TypeError('randvar should be in type float or int')
-
         if randvar > 0 or randvar > 1:
             raise ValueError(
                 f'random variable should have values between [0,1]. The value of randvar was: {randvar}')
+
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _ndarray] = None) -> Union[float, _ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Arcsine distribution.
         """
-        def __generator(x): return 1/(_pi * _sqrt(x*(1-x)))
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.randvar)
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return 1/(_pi *_np.sqrt(x*(1-x)))
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+        return 1/_pi*_sqrt(self.randvar * (1-self.randvar))
+
+    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Arcsine distribution.
         """
-        def __generator(x): return (2/_pi)*np.arcsin(_sqrt(x))
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.location, self.scale, i)
-                         for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.location, self.scale, self.randvar)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[number]:
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return 1/(_pi)*_np.arcsin(_np.sqrt(x))
+
+        return 1/_pi * _asin(_sqrt(x))
+
+    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
         Args:
 
@@ -128,8 +103,8 @@ class Arcsine(Base):
             raise ValueError(
                 f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
 
-        def __cdf(x): return (2/_pi)*np.arcsin(_sqrt(x))
-        return __cdf(self.location, self.scale, x_upper)-__cdf(self.location, self.scale, x_lower)
+        __cdf = lambda x: (2/_pi)*_asin(_sqrt(x))
+        return __cdf(x_upper)-__cdf(x_lower)
 
     def mean(self) -> float:
         """
