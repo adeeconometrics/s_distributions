@@ -1,8 +1,8 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc
     import numpy as _np
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, log as _log
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -31,7 +31,7 @@ class BetaPrime(SemiInfinite):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.vv
+        - keys for returning a dictionary of summary statistics.
 
     Reference:
     - Wikipedia contributors. (2020, October 8). Beta prime distribution. In Wikipedia, The Free Encyclopedia.
@@ -53,7 +53,7 @@ class BetaPrime(SemiInfinite):
         self.beta = beta
         self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -67,7 +67,7 @@ class BetaPrime(SemiInfinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -75,7 +75,7 @@ class BetaPrime(SemiInfinite):
 
         return pow(randvar, a-1)*pow(1+randvar, -a-b)/_beta(a, b)
 
-    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -89,12 +89,46 @@ class BetaPrime(SemiInfinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return _betainc(a, b, x/(1+x))
 
         return _betainc(a, b, randvar/(1+randvar))
+
+    def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logpdf of Beta prime distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.pdf(x))
+        return _log(self.pdf())
+
+    def logcdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logcdf of Beta prime distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.cdf(x))
+        return _log(self.cdf())
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """

@@ -1,6 +1,6 @@
 try:
     import numpy as _np
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, log as _log
     from _base import BoundedInterval
 except Exception as e:
@@ -55,7 +55,7 @@ class Bernoulli(BoundedInterval):
         self.shape = shape
         self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -76,7 +76,7 @@ class Bernoulli(BoundedInterval):
 
         return __C(self.shape)*pow(shape, self.randvar)*pow(1-shape, 1- self.randvar)
 
-    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -96,6 +96,40 @@ class Bernoulli(BoundedInterval):
                 return (_np.power(shape,x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
         return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
+
+    def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logpdf of Bernoulli distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.pdf(x))
+        return _log(self.pdf())
+
+    def logcdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logcdf of Bernoulli distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.cdf(x))
+        return _log(self.cdf())
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """

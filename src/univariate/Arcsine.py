@@ -1,6 +1,5 @@
 try:
     import numpy as _np
-    from numpy import ndarray as _ndarray
     from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, pi as _pi, asin as _asin
     from _base import BoundedInterval
@@ -43,7 +42,7 @@ class Arcsine(BoundedInterval):
 
         self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _ndarray] = None) -> Union[float, _ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -54,7 +53,7 @@ class Arcsine(BoundedInterval):
         """
 
         if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -73,7 +72,7 @@ class Arcsine(BoundedInterval):
         """
 
         if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)

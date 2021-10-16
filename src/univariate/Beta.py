@@ -1,7 +1,7 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc, digamma as _digamma
     import numpy as _np
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, log as _log
     from _base import BoundedInterval
 except Exception as e:
@@ -53,24 +53,11 @@ class Beta(BoundedInterval):
         self.beta = beta
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, _np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Beta distribution.
@@ -81,7 +68,7 @@ class Beta(BoundedInterval):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -89,7 +76,7 @@ class Beta(BoundedInterval):
 
         return (pow(randvar, a-1)*pow(1-randvar, b-1))/_beta(a, b)
 
-    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -104,12 +91,47 @@ class Beta(BoundedInterval):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return _betainc(a, b, x)
 
         return _betainc(a, b, x)
+
+    def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logpdf of Beta distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.pdf(x))
+        return _log(self.pdf())
+
+    def logcdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        """
+        Args:
+
+            x (List[float], numpy.ndarray): random variable or list of random variables
+
+        Returns:
+            logcdf of Beta distribution.
+        """
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return _np.log(self.cdf(x))
+        return _log(self.cdf())
+
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -124,7 +146,7 @@ class Beta(BoundedInterval):
         Returns:
             p-value of the Beta distribution evaluated at some random variable.
         """
-        if x_upper == None:
+        if x_upper is None:
             x_upper = self.randvar
         if x_lower > x_upper:
             raise ValueError(
@@ -153,6 +175,12 @@ class Beta(BoundedInterval):
         return "currently unsupported"
 
     def var(self) -> str:
+        """
+        Returns: Variance of the Beta distribution.
+        """
+        return "currently unsupported"
+    
+    def std(self) -> str:
         """
         Returns: Variance of the Beta distribution.
         """

@@ -1,7 +1,7 @@
 try:
     from scipy.special import binom as _binom
     import numpy as np
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, factorial as _factorial
     from _base import BoundedInterval
 except Exception as e:
@@ -59,7 +59,7 @@ class Bates(BoundedInterval):
         self.n = n
         self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -79,7 +79,7 @@ class Bates(BoundedInterval):
         #     return super().plot(x, y, xlim, ylim, xlabel, ylabel)
         # return __generator(self.a, self.b, self.n, self.randvar)
 
-    def cdf(self, x: Union[List[float], numpy.ndarray] = None) -> Union[float, numpy.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
