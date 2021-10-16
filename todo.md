@@ -35,13 +35,11 @@ Efforts on maintaining class invariance
 
 ## Features to be developed:
 - [ ] likelihood function
-    - [ ] log-likelihood function
-    - [ ] Maximum likelihood estimate
-    - [ ] maximum-likelihood function
-- [ ] logcdf
-- [ ] logpdf
-- [ ] random variable generator 
-- [ ] moment generating functions 
+- [ ] log-likelihood function
+- [ ] Maximum likelihood estimate
+- [ ] maximum-likelihood function
+- [x] logcdf
+- [x] logpdf
 - [ ] random number generator
 - [ ] point-percentage function 
 
@@ -69,70 +67,70 @@ With Infinite Support
 
 Semi-infinite class
 - staged for review
-    - Benini distribution
-    - Folded Normal distribution
-    - Half Logistic distribution
-    - Half Normal distribution
-    - Inverse Gaussian distribution
-    - Inverse Gamma distribution
-    - Dagum distribution
-    - Davis distribution
-    - Rayleigh distribution
-    - Benktander Type 1 distribution
-    - Benktander Type 2 distribution
-    - hypoexponential distribution
-    - log-Cauchy distribution
-    - log-Laplace distribution
-    - log-Logistic distribution
-    - Inverse chi-squared distribution
-    - Lévy distribution
-    - Pareto distribution
-    - Nakagami distribution
-    - Lomax distribution
-    - Gumbel distribution
-    - Weibull distribution
-    - truncated normal type 2 distribution 
-    - Burr distribution 
-    - Generalized Gamma distribution
+    - [ ] Benini distribution
+    - [ ] Folded Normal distribution
+    - [ ] Half Logistic distribution
+    - [ ] Half Normal distribution
+    - [ ] Inverse Gaussian distribution
+    - [ ] Inverse Gamma distribution
+    - [ ] Dagum distribution
+    - [ ] Davis distribution
+    - [ ] Rayleigh distribution
+    - [ ] Benktander Type 1 distribution
+    - [ ] Benktander Type 2 distribution
+    - [ ] hypoexponential distribution
+    - [ ] log-Cauchy distribution
+    - [ ] log-Laplace distribution
+    - [ ] log-Logistic distribution
+    - [ ] Inverse chi-squared distribution
+    - [ ] Lévy distribution
+    - [ ] Pareto distribution
+    - [ ] Nakagami distribution
+    - [ ] Lomax distribution
+    - [ ] Gumbel distribution
+    - [ ] Weibull distribution
+    - [ ] truncated normal type 2 distribution 
+    - [ ] Burr distribution 
+    - [ ] Generalized Gamma distribution
 
 Real line
 - Staged for review:
-- [ ] Gumbel  distribution
-- [ ] Fisher's z-distribution
-- [ ] Asymmetric Laplace distribution
-- [ ] Generalized normal v1 distribution
-- [ ] Generalized normal v2 distribution
-- [ ] Generalized hyperbolic - resolve cdf and pvalue
-- [ ] Hyperbolic secant distribution
-- [ ] Slash distribution
-- [ ] Skew Normal distribution
-- [ ] Landau distribution
-- [ ] Johnson's SU distribution
-- [ ] variance-gamma distribution
-- [ ] generalized hyperbolic: add support for CDF and pvalue
-- [ ] Cauchy distribution
-- [ ] Laplace distribution
-- [ ] Logistic distribution
-- [ ] Normal distribution
-- [ ] T distribution
+    - [ ] Gumbel  distribution
+    - [ ] Fisher's z-distribution
+    - [ ] Asymmetric Laplace distribution
+    - [ ] Generalized normal v1 distribution
+    - [ ] Generalized normal v2 distribution
+    - [ ] Generalized hyperbolic - resolve cdf and pvalue
+    - [ ] Hyperbolic secant distribution
+    - [ ] Slash distribution
+    - [ ] Skew Normal distribution
+    - [ ] Landau distribution
+    - [ ] Johnson's SU distribution
+    - [ ] variance-gamma distribution
+    - [ ] generalized hyperbolic: add support for CDF and pvalue
+    - [ ] Cauchy distribution
+    - [ ] Laplace distribution
+    - [ ] Logistic distribution
+    - [ ] Normal distribution
+    - [ ] T distribution
     
 - change category:
     - Gumbel Type 1 distribution
 
 Varying Type Support
 - Staged for review:
-- [ ] q-Gaussian distribution
-- [ ] q-Weibull distribution
-- [ ] generalized extreme value distribution
-- [ ] generalized Pareto distribution
-- [ ] q-exponential distribution
+    - [ ] q-Gaussian distribution
+    - [ ] q-Weibull distribution
+    - [ ] generalized extreme value distribution
+    - [ ] generalized Pareto distribution
+    - [ ] q-exponential distribution
 
 ----
 in progress
 - Continuous univariate 
     - bounded interval
-        [] ARGUS
-        [] non-central beta
+        - [ ] ARGUS
+        - [ ] non-central beta
 
     - semi-infinite interval
         - [ ] relativistic Breit–Wigner 
