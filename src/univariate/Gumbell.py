@@ -31,6 +31,7 @@ class Gumbel(Base):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
+        - keys for returning a dictionary of summary statistics.
 
     Reference:
     - Wikipedia contributors. (2020, November 26). Gumbel distribution. In Wikipedia, The Free Encyclopedia.

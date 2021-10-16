@@ -29,6 +29,7 @@ class Laplace(Base):
         - kurtosis for evaluating the kurtosis of the distribution.
         - entropy for differential entropy of the distribution.
         - summary for printing the summary statistics of the distribution.
+        - keys for returning a dictionary of summary statistics.
 
     Reference:
         - Wikipedia contributors. (2020, December 21). Laplace distribution. In Wikipedia, The Free Encyclopedia.

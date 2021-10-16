@@ -24,7 +24,8 @@ class Bernoulli(Base):
         - var for evaluating the variance of the distribution.
         - skewness for evaluating the skewness of the distribution.
         - kurtosis for evaluating the kurtosis of the distribution.
-        - print_summary for printing summary statistics.
+        - summary for printing the summary statistics of the distribution.
+        - keys for returning a dictionary of summary statistics.
 
     References:
         - Weisstein, Eric W. "Bernoulli Distribution." From MathWorld--A Wolfram Web Resource. 
