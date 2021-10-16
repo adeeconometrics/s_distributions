@@ -1,12 +1,12 @@
 try:
     import numpy as np
     from typing import Union, Tuple, Dict
-    from _base import Base
+    from _base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Trapezoidal(Base):
+class Trapezoidal(BoundedInterval):
     """
     This class contains methods concerning Trapezoidal Distirbution.
     Args:

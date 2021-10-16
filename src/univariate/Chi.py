@@ -3,12 +3,12 @@ try:
     import numpy as np
     from math import sqrt as _sqrt, log as _log
     from typing import Union, Tuple, Dict
-    from _base import Base
+    from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Chi(Base):
+class Chi(SemiInfinite):
     """
     This class contains methods concerning the Chi distribution.
 

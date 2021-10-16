@@ -2,11 +2,11 @@ try:
     import numpy as np
     from math import sqrt as _sqrt, pi as _pi
     from typing import Union, Tuple, Dict
-    from _base import Base
+    from _base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
-class Logistic(Base):
+class Logistic(Infinite):
     """
     This class contains methods concerning Logistic Distirbution.
     Args:

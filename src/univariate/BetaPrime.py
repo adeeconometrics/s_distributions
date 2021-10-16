@@ -3,12 +3,12 @@ try:
     import numpy as _np
     from typing import Union, Tuple, Dict
     from math import sqrt as _sqrt
-    from _base import Base
+    from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class BetaPrime(Base):
+class BetaPrime(SemiInfinite):
     """
     This class contains methods concerning Beta prime Distirbution.
     Args:

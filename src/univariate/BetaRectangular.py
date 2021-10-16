@@ -4,12 +4,12 @@ try:
     import numpy as np
     from typing import Union, Tuple, Dict
     from math import sqrt as _sqrt, log as _log
-    from _base import Base
+    from _base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class BetaRectangular(Base):
+class BetaRectangular(BoundedInterval):
     """
     This class contains methods concerning Beta-rectangular Distirbution.
     Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution.
