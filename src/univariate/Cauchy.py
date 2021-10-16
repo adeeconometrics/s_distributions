@@ -1,7 +1,7 @@
 try:
-    import numpy as np
-    from math import log as _log, log10 as _log10, pi as _pi
-    from typing import Union, Tuple, Dict
+    import numpy as _np
+    from math import log as _log, log10 as _log10, pi as _pi, atan as _atan
+    from typing import Union, Tuple, Dict, List
     from _base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -49,83 +49,58 @@ class Cauchy(Infinite):
         self.location = location
         self.x = x
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Cauchy distribution.
         """
-        x = self.x
+        randvar = self.x
         location = self.location
         scale = self.scale
 
-        def __generator(x, location, scale):
-            return 1 / (pi * scale * (1 + pow((x - location) / scale, 2))
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return 1/(_pi * scale * (1 + _np.power((x - location) / scale, 2)))
 
-        if plot:
-            x=np.linspace(-interval, interval, int(threshold))
-            y=np.array([__generator(i, location, scale) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        return 1/(_pi * scale * (1 + pow((randvar - location) / scale, 2)))
 
-        return __generator(x, location, scale)
-
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Cauchy distribution.
         """
-        x=self.x
-        location=self.location
-        scale=self.scale
-        def __generator(x, location, scale): return (1 / _pi) * np.arctan(
-            (x - location) / scale) + 1 / 2
-        if plot:
-            x=np.linspace(-interval, interval, int(threshold))
-            y=np.array([__generator(i, location, scale) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        randvar = self.x
+        location = self.location
+        scale = self.scale
 
-        return __generator(x, location, scale)
+        def __generator(x, location, scale): 
+            return (1 / _pi) * _np.arctan((x - location) / scale) + 1 / 2
 
-    def pvalue(self, x_lower=-np.inf, x_upper=None):
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return (1 / _pi) * _np.arctan((x - location) / scale) + 1 / 2
+
+        return (1 / _pi) * _atan((x - location) / scale) + 1 / 2
+
+    def pvalue(self, x_lower=-_np.inf, x_upper=None):
         """
         Args:
 
-            x_lower(float): defaults to -np.inf. Defines the lower value of the distribution. Optional.
+            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
             x_upper(float | x_upper>x_lower): defaults to None. Defines the upper value of the distribution. Optional.
 
             Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
@@ -135,7 +110,7 @@ class Cauchy(Infinite):
             p-value of the Cauchy distribution evaluated at some random variable.
         """
         def __cdf(x, location, scale): return (
-            1 / _pi) * np.arctan((x - location) / scale) + 1 / 2
+            1 / _pi) * _np.arctan((x - location) / scale) + 1 / 2
         if x_upper != None:
             if x_lower > x_upper:
                 raise ValueError('x_lower should be less than x_upper.')

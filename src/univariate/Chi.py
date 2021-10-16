@@ -1,8 +1,8 @@
 try:
     from scipy.special import gammainc as _gammainc, gamma as _gamma
-    import numpy as np
+    import numpy as __np
     from math import sqrt as _sqrt, log as _log
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -40,11 +40,10 @@ class Chi(SemiInfinite):
     Retrieved 10:35, January 2, 2021, from https://en.wikipedia.org/w/index.php?title=Chi_distribution&oldid=983750392
     """
 
-    def __init__(self, df: int, randvar: Union[float, int]):
+    def __init__(self, df:int, randvar:float):
         if type(df) is not int:
             raise TypeError('degrees of freedom(df) should be a whole number.')
-        # if type(randvar) not in (float, int):
-        #     raise TypeError('randvar should be a real number of type float')
+
         if df <= 0:
             raise ValueError(
                 f'Entered value for df: {df}, it should be a positive integer.')
@@ -52,75 +51,53 @@ class Chi(SemiInfinite):
         self.randvar = randvar
         self.df = df
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Chi-distribution.
 
         """
+        df = self.df
+        randvar = self.randvar
+        
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * _np.power(x, df - 1) * _np.exp(_np.power(-x, 2) / 2)
 
-        def __generator(x, df): return (1 / (pow(2, (df / 2) - 1) * _gamma(
-            df / 2))) * pow(x, df - 1) * np.exp(pow(-x, 2) / 2)
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, self.df) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * pow(randvar, df - 1) * _np.exp(pow(-randvar, 2) / 2)
 
-        return __generator(self.randvar, self.df)
-
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Chi-distribution.
         """
-        def __generator(x, df): return _gammainc(df/2, pow(x, 2)/2)
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, self.df) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.randvar, self.df)
+        randvar = self.randvar
+        df = self.df
 
-    def p_val(self, x_lower=-np.inf, x_upper=None) -> Optional[float]:
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return _gammainc(df/2, _np.power(x, 2)/2)
+        return _gammainc(df/2, pow(randvar, 2)/2)
+
+    def p_val(self, x_lower=-_np.inf, x_upper=None) -> Optional[float]:
         """
         Args:
 
-            x_lower(float): defaults to -np.inf. Defines the lower value of the distribution. Optional.
+            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
             x_upper(float | x_upper>x_lower): defaults to None. If not defined defaults to random variable x. Optional.
             args(list of float): pvalues of each elements from the list
 
