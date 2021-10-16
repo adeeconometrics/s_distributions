@@ -105,15 +105,15 @@ class Base(ABC):
 
     # special functions for ϕ(x), and Φ(x) functions
     @staticmethod
-    def stdnorm_pdf(x) -> float:
+    def stdnorm_pdf(x:float) -> float:
         return _exp(-pow(x, 2)/2) / _sqrt(2*_pi)
 
     @staticmethod
-    def stdnorm_cdf(x) -> float:
+    def stdnorm_cdf(x:float) -> float:
         return _quad(self.stdnorm_pdf, -_inf, x)[0]
 
     @staticmethod
-    def stdnorm_cdf_inv(x, p, mean=0, std=1) -> float:
+    def stdnorm_cdf_inv(x:float, p:float, mean:float = 0.0, std:float = 1.0) -> float:
         """
         quantile function of the normal cdf. Note that p can only have values between (0,1).
         `stdnorm_cdf_int` defaults to standard normal but can be expressed more generally.
