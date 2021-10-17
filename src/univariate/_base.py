@@ -52,6 +52,16 @@ class Base(ABC):
     @classmethod
     def likelihood(cls, theta:Union[List[Tuple], Tuple], 
                         x:Union[List[float], float]) -> Union[float, List[float]]:
+        """
+        Generic method for log likelihood.
+        
+        Args:
+            theta (Union[List[Tuple], Tuple]): population parameter 
+            x (Union[List[float], float]): data
+
+        Returns:
+            log-likelihood of a probability distribution given a data defined in x.
+        """
 
         if not (isinstance(theta, (Tuple, List)) and isinstance(x, (List, float))):
             raise TypeError('invalid type parameters')
@@ -69,6 +79,17 @@ class Base(ABC):
     @classmethod
     def log_likelihood(cls, theta:Union[List[Tuple], Tuple], 
                         x:Union[List[float], float]) -> Union[float, List[float]]:
+        
+        """
+        Generic method for log likelihood.
+        
+        Args:
+            theta (Union[List[Tuple], Tuple]): population parameter 
+            x (Union[List[float], float]): data
+
+        Returns:
+            log-likelihood of a probability distribution given a data defined in x.
+        """
 
         if not (isinstance(theta, (Tuple, List)) and isinstance(x, (List, float))):
             raise TypeError('invalid type parameters')
@@ -84,12 +105,24 @@ class Base(ABC):
             return [_np.log(cls(*_theta).pdf(x)).sum() for _theta in theta]
 
     def mle(self) -> NotImplemented:
+        """
+        Default implementation of Maximum Likelihood Estimator.
+        Returns NotImplemented.
+        """
         return NotImplemented
 
     def pvalue(self) -> NotImplemented:
+        """
+        Default implementation of p-value.
+        Returns NotImplemented.
+        """
         return NotImplemented
 
     def confidence_interval(self) -> NotImplemented:
+        """
+        Default implementation of confidence interval.
+        Returns NotImplemented.
+        """
         return NotImplemented
 
     def rvs(self):  # (adaptive) rejection sampling implementation
@@ -100,59 +133,79 @@ class Base(ABC):
 
     def mean(self) -> NotImplemented:
         """
-        returns mean default NotImplemented
+        Default implementation of the mean.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def median(self) -> NotImplemented:
         """
-        returns median default NotImplemented
+        Default implementation of the median.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def mode(self) -> NotImplemented:
         """
-        returns mode default NotImplemented
+        Default implementation of the mode.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def var(self) -> NotImplemented:
         """
-        returns variance default NotImplemented
+        Default implementation of the variance.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def std(self) -> NotImplemented:
         """
-        returns the std default (undefined)
+        Default implementation of the standard deviation.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def skewness(self) -> NotImplemented:
         """
-        returns skewness default NotImplemented
+        Default implementation of skewness.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def kurtosis(self) -> NotImplemented:
         """
-        returns kurtosis default NotImplemented
+        Default implementation of kurtosis.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     def entropy(self) -> NotImplemented:
         """
-        returns entropy default NotImplemented
+        Default implementation of entropy.
+        Returns NotImplemented.
         """
         return NotImplemented
 
     # special functions for ϕ(x), and Φ(x) functions
     @staticmethod
     def stdnorm_pdf(x:float) -> float:
+        """
+        Generic method for standard normal pdf.
+
+        Args: x(float)
+        Return: float
+        """
         return _exp(-pow(x, 2)/2) / _sqrt(2*_pi)
 
     @staticmethod
     def stdnorm_cdf(x:float) -> float:
+        """
+        Generic method for standard normal cdf.
+
+        Args: x(float)
+        Return: float
+        """
         return _quad(self.stdnorm_pdf, -_np.inf, x)[0]
 
     @staticmethod

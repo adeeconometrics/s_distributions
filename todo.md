@@ -34,12 +34,12 @@ Efforts on maintaining class invariance
 
 
 ## Features to be developed:
-- [ ] likelihood function
-- [ ] log-likelihood function
+- [x] likelihood function
+- [x] log-likelihood function
 - [ ] Maximum likelihood estimate
 - [ ] maximum-likelihood function
-- [x] logcdf
 - [x] logpdf
+- [x] logcdf
 - [ ] random number generator
 - [ ] point-percentage function 
 
