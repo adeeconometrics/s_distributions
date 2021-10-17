@@ -48,13 +48,43 @@ class Base(ABC):
         return _log(self.cdf())
 
     # test for performance consideration 
+    # concrete class should not ask for random variable as ctor parameter
     @classmethod
-    def likelihood(cls, theta:Tuple, x:List[float])->float:
-        pass
+    def likelihood(cls, theta:Union[List[Tuple], Tuple], 
+                        x:Union[List[float], float]) -> Union[float, List[float]]:
+
+        if not (isinstance(theta, (Tuple, List)) and isinstance(x, (List, float))):
+            raise TypeError('invalid type parameters')
+
+        if isinstance(theta, Tuple):
+            if type(x) is float:
+                return cls(*theta).pdf(x)
+            return _np.prod(cls(*theta).pdf(x))
+
+        if isinstance(theta, List):
+            if type(x) is float:
+                return [cls(*_theta).pdf(x) for _theta in theta]
+            return [_np.prod(cls(*_theta).pdf(x)) for _theta in theta]
 
     @classmethod
-    def log_likelihood(cls, theta:Tuple, x:List[float])->float:
-        pass
+    def log_likelihood(cls, theta:Union[List[Tuple], Tuple], 
+                        x:Union[List[float], float]) -> Union[float, List[float]]:
+
+        if not (isinstance(theta, (Tuple, List)) and isinstance(x, (List, float))):
+            raise TypeError('invalid type parameters')
+        
+        if isinstance(theta, Tuple):
+            if type(x) is float:
+                return _log(cls(*theta).pdf(x))
+            return _np.log(cls(*theta).pdf(x)).sum()
+
+        if isinstance(theta, List):
+            if type(x) is float:
+                return [_log(cls(*_theta).pdf(x)) for _theta in theta]
+            return [_np.log(cls(*_theta).pdf(x)).sum() for _theta in theta]
+
+    def mle(self) -> NotImplemented:
+        return NotImplemented
 
     def pvalue(self) -> NotImplemented:
         return NotImplemented
