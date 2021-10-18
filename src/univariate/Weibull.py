@@ -1,9 +1,9 @@
 try:
     from scipy.special import gamma as _gamma
     from numpy import euler_gamma as _euler_gamma
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, log as _log
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -47,74 +47,59 @@ class Weibull(SemiInfinite):
         self.shape = shape
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Weibull distribution.
         """
-        def __generator(_lambda, k, x):
-            if x < 0:
-                return 0
-            if x >= 0:
-                return pow((k/_lambda)*(x/_lambda), k-1)*np.exp(-pow(x/_lambda, k))
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.scale, self.shape, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.scale, self.shape, self.randvar)
+        scale = self.scale
+        shape = self.shape
+        randvar = self.randvar
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+        def __generator(_lambda:float, k:float, x:float) -> float:
+            if x < 0:
+                return 0.0
+            if x >= 0:
+                return pow((k/_lambda)*(x/_lambda), k-1)*_np.exp(-pow(x/_lambda, k))
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(scale, shape, i) for i in x]
+
+        return __generator(scale, shape, randvar)
+
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Weibull distribution.
         """
-        def __generator(_lambda, k, x):
-            if x < 0:
-                return 0
-            if x >= 0:
-                return 1-np.exp(-pow(x/_lambda, k))
+        scale = self.scale
+        shape = self.shape
+        randvar = self.randvar
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.scale, self.shape, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.scale, self.shape, self.randvar)
+        def __generator(_lambda:float, k:float, x:float) -> float:
+            if x < 0:
+                return 0.0
+            if x >= 0:
+                return 1-_np.exp(-pow(x/_lambda, k))
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(scale, shape, i) for i in x]
+
+        return __generator(scale, shape, randvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -142,7 +127,7 @@ class Weibull(SemiInfinite):
             if x < 0:
                 return 0
             if x >= 0:
-                return 1-np.exp(-pow(x/_lambda, k))
+                return 1-_np.exp(-pow(x/_lambda, k))
 
         return __cdf(self.location, self.shape, x_upper)-__cdf(self.location, self.shape, x_lower)
 

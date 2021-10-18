@@ -65,6 +65,7 @@ class LogitNormal(BoundedInterval):
             else:
                 x = _np.array(x)
                 return (1/(sig*_sqrt(2*_pi)))* _np.exp(-(_np.power(_logit(x)-mu, 2)/(2*pow(sig, 2)))) * 1/(x*(1-x))
+        
         return (1/(sig*_sqrt(2*_pi)))* _exp(-pow(_logit(x)-mu, 2)/(2*pow(sig, 2))) * 1/(x*(1-x))
 
     def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:

@@ -1,7 +1,7 @@
 try:
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, log as _log
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from _base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -40,64 +40,59 @@ class Uniform(BoundedInterval):
     def __init__(self, a: int, b: int) -> None:
         if type(a) and type(b) is int:
             raise TypeError('parameters a, b must be of type int.')
+
         self.a = a
         self.b = b
 
-    def pdf(self, plot=False, xlim=None, ylim=None, xlabel=None, ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            plot (bool): returns plot if true.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either plot of the distribution or probability density evaluation at a to b.
+            either probability density evaluation for some point or plot of Uniform distribution.
         """
         a = self.a
         b = self.b
-        threshold = b - a
 
-        def __generator(a, b, x): return 1 / \
-            (b - a) if a <= x and x <= b else 0
-        if plot:
-            x = np.linspace(a, b, threshold)
-            y = np.array([__generator(a, b, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        def __generator(a:int, b:int, x:float) -> float: 
+            return 1 / (b - a) if a <= x and x <= b else 0.0
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(a,b,i) for i in x]
+
         return __generator(a, b, abs(b - a))
 
-    def cdf(self, plot=False, xlim=None, ylim=None, xlabel=None, ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            plot (bool): returns plot if true.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either plot of the distribution or probability density evaluation at a to b.
+            either cumulative distribution evaluation for some point or plot of Uniform distribution.
         """
         a = self.a
         b = self.b
-        threshold = b - a
 
-        def __generator(a, b, x):
+        def __generator(a:int, b:int, x:float) -> float:
             if x < a:
-                return 0
+                return 0.0
             if (a <= x and x <= b):
                 return (x - a) / (b - a)
             if x > b:
-                return 1
+                return 1.0
 
-        if plot:
-            x = np.linspace(a, b, threshold)
-            y = np.array([__generator(a, b, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(a, b, threshold)  # what does it really say?
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(a,b,i) for i in x]
+        return __generator(a, b, abs(b - a))  # what does it really say?
 
     def mean(self) -> float:
         """
