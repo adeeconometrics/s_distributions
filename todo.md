@@ -3,34 +3,43 @@
 Efforts on maintaining class invariance
 - only do type checking when necessary assumptions need be satisfied e.g. in `df` types are required to be `int`
 - do value checking for prescribe domains of probability distributions
-- find out if math.exp is more flexible than np.exp in terms of its limitations
 - for list operations, built-in math functions should be used, for numpy.array operations, numpy.math functions should be used.
 
 
 [PEP 8 style guide compliance](https://www.python.org/dev/peps/pep-0008/)
 
 ## Guidelines on editing P-distributions
-1. check special functions
-2. check efficient use of numpy math functions
-    - for operations involving scalar values, use math functions
-    - for operations involving array values, use numpy
-    - Q: is it most efficient to use them together?
-    - N: scipy works quite efficiently for array and most effectively on scalar values
-3. check functions that may use built-in math operations
-4. exception handling: change to f-strings
-5. change summary and add keys function
-6. check return types and mgf functions
-    - if `float` is required, do not use `Union[float, int]`
+
+1. Check for use of special functions, import only as needed in the SciPy library.
+2. Properly annotate namespace that we intent to use in private use `__dunder`s to enforce name mangling.
+3. Check for the efficient use of numpy math functions
+   - For operations involving scalar values, use math functions
+   - For operations involving array values, use numpy
+   - For an expression that involve a mixture of scalar-valued operations and array-valued operations, it is best to use numpy functions when the subexpression involves at least one array, and math functions if it involves scalar values
+   - Remember that SciPy works quite efficiently for array and most effectively on scalar values
+4. Properly format Exceptions and use f-strings instead of string format. 
+5. Change class documentation summary and add keys function.
+6. When there is a logic involved in computing `pdf` or `cdf`
+   - Alternatively, see if filtering in numpy performs better over list comprehension of a function
+     - Iteratively evaluating a value inside a list comprehension does not have a significant overhead on defining the function inside the list comprehension; hence calling a function inside it is preferred for maintainability.
+   - When the computation of `pdf` or `cdf` does not vary in regards to positioning the numpy array e.g. the expression `1 - _gammainc(a, x / b)` in computing the `cdf` of gamma distribution, it is best to put it inside a function called `__generator([params])`.
+7. Always annotate functions, for value restriction, enforce value-checking.
+   - if `float` is required, do not use `Union[float, int]` because it is understood.
 
 ## Possible Development Route
-- remove support of plot in `pdf` and `cdf`; instead result list to be processed in its raw form
-    - reason: incurs unecessary overhead with lesser control on plotting
-- independent helper functions defined on the base class
-    - reason: there is no strict rule against violating private functions, it may as well be public for everyone to see. Besides, the overhead of calling from parent class costs more than just calling a function outside of it. Alternatively, they may be implemented as `@staticmethod`
-    - proposed helper functions:
-        - `standardnorm_pdf`
-        - `standardnorm_cdf`
-        - `standard_cdf_inv`
+
+- Remove support of plot in `pdf ` and `cdf`; instead result list to be processed in its raw form
+
+  - reason: incurs unnecessary overhead with lesser control on plotting
+
+- Independent helper functions defined on the base class
+
+  - reason: there is no strict rule against violating private functions, it may as well be public for everyone to see. Besides, the overhead of calling from parent class costs more than just calling a function outside of it. Alternatively, they may be implemented as `@staticmethod`
+  - proposed helper functions:
+    - `standardnorm_pdf` - declared as `@staticmethod`
+    - `standardnorm_cdf`  - declared as `@staticmethod`
+    - `standard_cdf_inv`  - declared as `@staticmethod`
+
 
 
 ## Features to be developed:
