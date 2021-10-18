@@ -1,12 +1,14 @@
 # s_distributions
 
-Library for statistical distributions
+Library for statistical distributions. 
 
 currently supported features:
 - pdf
 - cdf
 - logpdf
 - logcdf
+- likelihood
+- loglikelihood
 - central moments 
     - mean 
     - median
@@ -25,42 +27,41 @@ currently supported features:
 ---
 ## Discrete 
 ### Univariate 
-- uniform distribution
-- binomial distribution
-- bernoulli distribution
-- hypergeometric distribution
-- geometric distribution
-- poisson distribution
-- zeta 
+- Uniform 
+- Binomial 
+- Bernoulli 
+- Hypergeometric 
+- Geometric 
+- Poisson 
+- Zeta 
 ----
 ## Continuous
 ### Univariate 
 
-- Uniform continuous
-- Gaussian distribution
-- T-distribution
-- Cauchy distribution
-- F distribution
-- Chi-square
-- Chi distribution
-- Exponential distribution
-- Pareto distribution
-- Log-normal distribution
-- Laplace distribution
-- Logistic distribution
-- Logit-normal distribution
-- Weilbull distribution
-- Weilbull inverse distribution
-- Gumbell distribution
-- Arcsine distribution
-- Triangular distribution
-- Trapezoidal distribution
-- Beta distribution
-- Beta-prime distribution
-- Erlang distribution
-- Rayleigh distribution
-- Maxwell-Boltzmann distribution
-- Wigner semicircle distribution
-- beta rectangular distribution
-- Bates distribution
-- continuous Bernoulli distribution
+- Arcsine
+- Bates
+- Bernoulli
+- Beta
+- BetaPrime
+- BetaRectangular
+- Cauchy
+- Chi
+- ChiSquare
+- Erlang
+- Exponential
+- F
+- Gamma
+- Gaussian
+- Gumbell
+- Laplace
+- Logistic
+- LogicNormal
+- MaxwellBoltzmann
+- Pareto
+- Rayleigh
+- T
+- Trapezoidal
+- UniormContinous
+- Weibull
+- WeibullInverse
+- WignerSemicircle

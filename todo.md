@@ -45,10 +45,10 @@ Efforts on maintaining class invariance
 ## Features to be developed:
 - [x] likelihood function
 - [x] log-likelihood function
+- [x] logcdf
+- [x] logpdf
 - [ ] Maximum likelihood estimate
 - [ ] maximum-likelihood function
-- [x] logpdf
-- [x] logcdf
 - [ ] random number generator
 - [ ] point-percentage function 
 
@@ -117,11 +117,11 @@ Real line
     - [ ] Johnson's SU distribution
     - [ ] variance-gamma distribution
     - [ ] generalized hyperbolic: add support for CDF and pvalue
-    - [ ] Cauchy distribution
-    - [ ] Laplace distribution
-    - [ ] Logistic distribution
-    - [ ] Normal distribution
-    - [ ] T distribution
+    - [X] Cauchy distribution
+    - [X] Laplace distribution
+    - [X] Logistic distribution
+    - [X] Normal distribution
+    - [X] T distribution
     
 - change category:
     - Gumbel Type 1 distribution
