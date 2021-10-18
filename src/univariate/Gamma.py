@@ -1,8 +1,8 @@
 try:
     from scipy.special import gamma as _gamma, gammainc as _gammainc, digamma as _digamma
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, log as _log, exp as _exp
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -53,71 +53,51 @@ class Gamma(SemiInfinite):
         self.b = b
         self.x = x
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either probability density evaluation for some point or plot of Gamma-distribution.
+            either probability density evaluation for some point or plot of Gamma distribution.
         """
-        # Because of the limitations of math.pow() and math.exp() for bigger numbers, numpy alternatives were chosen.
-        def __generator(a, b, x):
-            return (1 / (pow(b, a) * _gamma(a))) * _log(x, a - 1) * _exp(-x / b)
+        a = self.a
+        b = self.b
+        randvar = self.x
 
-        if plot:
-            x = np.linspace(-interval, interval, threshold)
-            y = np.array([__generator(self.a, self.b, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.b, self.x)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return (1 / (pow(b, a) * _gamma(a))) * _np.log(x, a - 1) * _np.exp(-x / b)
+        return (1 / (pow(b, a) * _gamma(a))) * _log(randvar, a - 1) * _exp(-randvar / b)
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Gamma-distribution.
+            either cumulative distribution evaluation for some point or plot of Gamma distribution.
         """
+        a = self.a
+        b = self.b
+        randvar = self.x
+
         # there is no apparent explanation for reversing gammainc's parameter, but it works quite perfectly in my prototype
-        def __generator(a, b, x):
+        def __generator(a:float, b:float, x:Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
             return 1 - _gammainc(a, x / b)
 
-        if plot:
-            x = np.linspace(-interval, interval, threshold)
-            y = np.array([__generator(self.a, self.b, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.b, self.x)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return __generator(a,b,x)
+        return __generator(a,b,randvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Union[float, int]:
         """

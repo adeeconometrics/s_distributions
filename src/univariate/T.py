@@ -1,9 +1,9 @@
 try:
     from scipy.special import beta as _beta, digamma as _digamma
     from scipy.integrate import quad as _quad
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, log as _log
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from _base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -50,85 +50,58 @@ class T(Infinite):
         self.df = df
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either probability density evaluation for randvar or plot of the T distribution.
-        """
+            either probability density evaluation for some point or plot of T distribution.
+        """ 
         df = self.df
         randvar = self.randvar
 
-        def __generator(x, df): return (1 / (_sqrt(df) * _beta(
-            1 / 2, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, df) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * _np.power((1 + _np.power(x, 2) / df), -(df + 1) / 2)
 
-        return __generator(randvar, df)
+        return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[number, np.ndarray, None]:  # cdf definition is not used due to unsupported hypergeometric function 2f1
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of the T distribution.
-        """
+            either cumulative distribution evaluation for some point or plot of T distribution.
+        """ 
         df = self.df
         randvar = self.randvar
-        # Test this!
+        # Test this for possible performance penalty. See if there is better way to do this.
 
-        def __generator(x, df):
-            def ___generator(x, df): return (1 / (_sqrt(df) * _beta(
-                1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
-            return _quad(___generator, -np.inf, x, args=df)[0]
+        def __generator(x:float, df:int) -> float:
+            def ___generator(x:float, df:int) -> float: 
+                return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
+            return _quad(___generator, -_np.inf, x, args=df)[0]
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, df) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(i, df) for i in x]
 
         return __generator(randvar, df)
 
-    def pvalue(self, x_lower=-np.inf, x_upper=None):
+    def pvalue(self, x_lower=-_np.inf, x_upper=None):
         """
         Args:
 
-            x_lower(float): defaults to -np.inf. Defines the lower value of the distribution. Optional.
+            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
             x_upper(float): defaults to None. Defines the upper value of the distribution. Optional.
 
             Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
@@ -142,7 +115,7 @@ class T(Infinite):
         if x_upper == None:
             x_upper = self.randvar
 
-        def __generator(x, df) -> float:
+        def __generator(x:float, df:int) -> float:
             return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
 
         return _quad(__generator, x_lower, x_upper, args=df)[0]
@@ -183,7 +156,7 @@ class T(Infinite):
         if df > 2:
             return df / (df - 2)
         if df > 1 and df <= 2:
-            return np.inf
+            return _np.inf
         return "undefined"
 
     def std(self) -> Union[float, str]:
@@ -211,7 +184,7 @@ class T(Infinite):
         if df > 4:
             return 6 / (df - 4)
         if df > 2 and df <= 4:
-            return np.inf
+            return _np.inf
         return "undefined"
 
     def entropy(self) -> float:

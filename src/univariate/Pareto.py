@@ -1,7 +1,7 @@
 try:
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, log as _log
-    from typing import Union, Tuple, Dict
+    from typing import Union, Tuple, Dict, List
     from _base import SemiInfinite
 except ValueError as e:
     print(f"some modules are missing {e}")
@@ -54,79 +54,56 @@ class Pareto(SemiInfinite):
         self.scale = scale
         self.x = x
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Pareto distribution.
-        """
+        """ 
         x_m = self.scale
         alpha = self.shape
+        randvar = self.x
 
-        def __generator(x, x_m, alpha):
+        def __generator(x:float, x_m:float, alpha:float) -> float:
             if x >= x_m:
                 return (alpha * pow(x_m, alpha)) / pow(x, alpha + 1)
-            return 0
+            return 0.0
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, x_m, alpha) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.x, x_m, alpha)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(i, x_m, alpha) for i in x]
+        return __generator(randvar, x_m, alpha)
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Pareto distribution.
-        """
+        """ 
         x_m = self.scale
         alpha = self.shape
+        randvar = self.x
 
-        def __generator(x, x_m, alpha):
+
+        def __generator(x:float, x_m:float, alpha:float) -> float:
             if x >= x_m:
                 return 1 - pow(x_m / x, alpha)
-            return 0
+            return 0.0
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, x_m, alpha) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.x, x_m, alpha)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(i, x_m, alpha) for i in x]
+        return __generator(randvar, x_m, alpha)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -160,7 +137,7 @@ class Pareto(SemiInfinite):
         x_m = self.scale
 
         if a <= 1:
-            return np.inf
+            return _np.inf
         return (a * x_m) / (a - 1)
 
     def median(self) -> Union[float, int]:
@@ -184,7 +161,7 @@ class Pareto(SemiInfinite):
         a = self.shape
         x_m = self.scale
         if a <= 2:
-            return np.inf
+            return _np.inf
         return (pow(x_m, 2) * a) / (pow(a - 1, 2) * (a - 2))
 
     def std(self) -> float:

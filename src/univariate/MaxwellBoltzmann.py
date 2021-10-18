@@ -1,9 +1,9 @@
 try:
     from scipy.special import erf as _erf
     from numpy import euler_gamma as _euler_gamma
-    import numpy as np
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, log as _log, pi as _pi
+    import numpy as _np
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -51,74 +51,50 @@ class Maxwell_Boltzmann(SemiInfinite):
         self.a = a
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            threshold=1000,
-            interval=1,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Maxwell-Boltzmann distribution.
-        """
-        def __generator(a, x): return _sqrt(
-            2/_pi)*(x**2*np.exp(-x**2/(2*a**2)))/(a**3)
+        """ 
+        a = self.a
+        randvar = self.randvar
 
-        if plot:
-            if interval < 0:
-                raise ValueError(
-                    'interval should be a positive number. Entered value: {}'.format(interval))
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.a, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.randvar)
+        def __generator(a, x): return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/(a**3)
 
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            interval=1,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/a**3
+
+        return _sqrt(2/_pi)*(randvar**2*_exp(-randvar**2/(2*a**2)))/a**3
+
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Maxwell-Boltzmann distribution.
-        """
-        def __generator(a, x): return _erf(
-            x/(_sqrt(2)*a))-_sqrt(2/_pi)*(x**2*np.exp(-x**2/(2*a**2)))/(a)
-        if plot:
-            if interval < 0:
-                raise ValueError(
-                    'interval parameter should be a positive number. Entered Value {}'.format(interval))
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.a, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.randvar)
+            either cumulative distirbution evaluation for some point or plot of Maxwell-Boltzmann distribution.
+        """ 
+        a = self.a
+        randvar = self.randvar
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                _x = _np.power(x,2)
+                return _erf(x/(_sqrt(2)*a))-_sqrt(2/_pi)*(_x*_np.exp(-_x/(2*a**2)))/(a)
+
+        return _erf(x/(_sqrt(2)*a))- _sqrt(2/_pi)*(randvar**2*_exp(-randvar**2/(2*a**2)))/(a)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -139,8 +115,8 @@ class Maxwell_Boltzmann(SemiInfinite):
             raise Exception(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(a, x): return _erf(
-            x/(_sqrt(2)*a))-_sqrt(2/_pi)*(x**2*np.exp(-x**2/(2*a**2)))/(a)
+        def __cdf(a:float, x:float) -> float: 
+            return _erf(x/(_sqrt(2)*a))-_sqrt(2/_pi)*(x**2*_exp(-x**2/(2*a**2)))/(a)
         return __cdf(self.a, x_upper)-__cdf(self.a, x_lower)
 
     def mean(self) -> float:
@@ -177,7 +153,7 @@ class Maxwell_Boltzmann(SemiInfinite):
         """
         Returns: Skewness of the Maxwell-Boltzmann distribution.
         """
-        return (2*_sqrt(2)*(16-5*_pi))/np.power((3*_pi-8), 3/2)
+        return (2*_sqrt(2)*(16-5*_pi))/_np.power((3*_pi-8), 3/2)
 
     def kurtosis(self) -> float:
         """
@@ -197,7 +173,7 @@ class Maxwell_Boltzmann(SemiInfinite):
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """
-        Returns:  summary statistic regarding the Maxwell Boltzmann distribution which contains the following parts of the distribution:
+        Returns:  summary statistic regarding the Maxwell-Boltzmanndistribution which contains the following parts of the distribution:
                 (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
                 and prints out the summary of the distribution. 
         """
@@ -216,7 +192,7 @@ class Maxwell_Boltzmann(SemiInfinite):
 
     def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
-        Summary statistic regarding the Maxwell Boltzmann distribution which contains the following parts of the distribution:
+        Summary statistic regarding the Maxwell-Boltzmanndistribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:

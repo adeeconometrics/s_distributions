@@ -51,7 +51,7 @@ class ChiSquare(SemiInfinite):
         self.randvar = randvar
         self.df = df
 
-    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 

@@ -1,7 +1,7 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc, gamma as _gamma, digamma as _digamma
-    import numpy as np
-    from typing import Union, Tuple, Dict
+    import numpy as _np
+    from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, log as _log
     from _base import SemiInfinite
 except Exception as e:
@@ -57,72 +57,52 @@ class F(SemiInfinite):
         self.df1 = df1
         self.df2
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of F-distribution.
         """
 
-        # Because math.pow is limited for bigger numbers, numpy alternatives were chosed.
-        def __generator(x, df1, df2): return (1 / _beta(
-            df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2) * pow(
-                x, df1 / 2 - 1) * pow(1 +
-                                           (df1 / df2) * x, -((df1 + df2) / 2))
+        def __generator(x:Union[float, _np.ndarray], df1:int, df2:int) -> Union[float, _np.ndarray]: 
+            if type(x) is __np.ndarray:
+                return (1 / _beta(df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2) * \
+                    _np.power(x, df1 / 2 - 1) * _np.power(1 + (df1 / df2) * x, -((df1 + df2) / 2))
+            return (1 / _beta(df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2) * \
+                    pow(x, df1 / 2 - 1) * pow(1 + (df1 / df2) * x, -((df1 + df2) / 2))
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, self.df1, self.df2) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return __generator(self.rx, self.df1, self.df2)
+
         return __generator(self.randvar, self.df1, self.df2)
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of F-distribution.
-        """
-        k = self.df2/(self.df2 + self.df1*self.x)
-        def __generator(x, df1, df2): return 1 - _betainc(df1/2, df2/2, x)
+        """ 
+        def __generator(x:Union[float, _np.ndarray], df1:int, df2:int) -> Union[float, _np.ndarray]: 
+            return 1 - _betainc(df1/2, df2/2, x)
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(i, self.df1, self.df2) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return __generator(k, self.df1, self.df2)
+
+        k = self.df2/(self.df2 + self.df1*self.x)
         return __generator(k, self.df1, self.df2)
 
     def pvalue(self, x_lower=0, x_upper=None) -> number:
@@ -143,8 +123,8 @@ class F(SemiInfinite):
         if x_upper is None:
             x_upper = self.x
 
-        def _cdf_def(x, df1, df2): return 1 - \
-            _betainc(df1/2, df2/2, df2/(df2+df1*x))
+        def _cdf_def(x, df1, df2): 
+            return 1 - _betainc(df1/2, df2/2, df2/(df2+df1*x))
 
         return _cdf_def(x_upper, self.df1, self.df2) - _cdf_def(x_lower, self.df1, self.df2)
 

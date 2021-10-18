@@ -1,8 +1,8 @@
 try:
-    import numpy as np
+    import numpy as _np
     from numpy import euler_gamma as _euler_gamma
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, log as _log, pi as _pi
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -50,70 +50,47 @@ class Rayleigh(SemiInfinite):
         self.scale = scale
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=0,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either probability density evaluation for some point or plot of Rayleigh distribution.
-        """
-        def __generator(sig, x): return (x/pow(sig, 2)) * \
-            np.exp(pow(-x, 2)/(2*pow(sig, 2)))
+            either probability density evaluation for some point or plot of Raylegh distribution.
+        """ 
+        scale = self.scale
+        randvar = self.randvar
 
-        if plot:
-            if interval < 0:
-                raise ValueError(
-                    'interval should not be less then 0. Entered value: {}'.format(interval))
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.scale, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.scale, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return x/pow(sig, 2) *_np.exp(_np.power(-x, 2)/(2*pow(sig, 2)))
 
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            interval=1,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+        return randvar/pow(sig, 2) *_exp(pow(-randvar, 2)/(2*pow(sig, 2)))
+
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Rayleigh distribution.
-        """
-        def __generator(sig, x): return 1-np.exp(-x**2/(2*sig**2))
-        if plot:
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.scale, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.scale, self.randvar)
+            either cumulative distribution evaluation for some point or plot of Raylegh distribution.
+        """ 
+        scale = self.scale
+        randvar = self.randvar
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return 1-_np.exp(-_np.power(x,2)/(2*sig**2))
+
+        return 1-_exp(-randvar**2/(2*sig**2))
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -134,7 +111,8 @@ class Rayleigh(SemiInfinite):
             raise Exception(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(sig, x): return 1-np.exp(-x**2/(2*sig**2))
+        def __cdf(sig:float, x:float) -> float: 
+            return 1-_np.exp(-x**2/(2*sig**2))
         return __cdf(self.scale, x_upper)-__cdf(self.scale, x_lower)
 
     def mean(self) -> float:

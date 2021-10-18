@@ -1,8 +1,8 @@
 try:
     from numpy import euler_gamma as _euler_gamma
-    import numpy as np
-    from math import sqrt as _sqrt, log as _log, pi as _pi
-    from typing import Union, Tuple, Dict
+    import numpy as _np
+    from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
+    from typing import Union, Tuple, Dict, List
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -47,71 +47,50 @@ class Gumbel(SemiInfinite):
         self.scale = scale
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either probability density evaluation for some point or plot of Gumbel distribution.
+            either probability density evaluation for some point or plot of Gumbell distribution.
         """
-        def __generator(mu, beta, x):
-            z = (x-mu)/beta
-            return (1/beta)*np.exp(-(z+np.exp(-z)))
+        mu = self.location
+        beta = self.scale
+        randvar = self.randvar
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.location, self.scale, i)
-                         for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.location, self.scale, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                z = (x-mu)/beta
+                return (1/beta)*_np.exp(-(z+_np.exp(-z)))
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+        z = (randvar-mu)/beta
+        return (1/beta)*_exp(-(z+_exp(-z)))
+
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Gumbel distribution.
+            either cumulative distribution evaluation for some point or plot of Gumbell distribution.
         """
-        def __generator(mu, beta, x):
-            return np.exp(-np.exp(-(x-mu)/beta))
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.location, self.scale, i)
-                         for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.location, self.scale, self.randvar)
+        mu = self.location
+        beta = self.scale
+        randvar = self.randvar
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return _np.exp(-_np.exp(-(x-mu)/beta))
+        return _exp(-_exp(-(randvar - mu)/beta))
 
     def pvalue(self) -> float:
         """

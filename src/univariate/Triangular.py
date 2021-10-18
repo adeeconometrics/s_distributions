@@ -1,6 +1,6 @@
 try:
-    import numpy as np
-    from typing import Union, Tuple, Dict
+    import numpy as _np
+    from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, log as _log
     from _base import BoundedInterval
 except Exception as e:
@@ -54,32 +54,21 @@ class Triangular(BoundedInterval):
         self.c = c
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Triangular distribution.
-        """
-        def __generator(a, b, c, x):
+        """ 
+        a,b,c,d = self.a, self.b, self.c, self.d
+        randvar = self.randvar
+
+        def __generator(a:float, b:float, c:float, x:float)->float:
             if x < a:
-                return 0
+                return 0.0
             if a <= x and x < c:
                 return (2*(x-a))/((b-a)*(c-a))
             if x == c:
@@ -87,52 +76,43 @@ class Triangular(BoundedInterval):
             if c < x and x <= b:
                 return (2*(b-x))/((b-a)((b-c)))
             if b < x:
-                return 0
+                return 0.0
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.a, self.b, self.c, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.b, self.c, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(a,b,c,d,i) for i in x]
+        return __generator(a,b,c,d,radvar)
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Triangular distribution.
-        """
-        def __generator(a, b, c, x):
+            either cumulative density evaluation for some point or plot of Triangular distribution.
+        """ 
+        a,b,c,d = self.a, self.b, self.c, self.d
+        randvar = self.randvar
+
+        def __generator(a:float, b:float, c:float, x:float)->float:
             if x <= a:
-                return 0
+                return 0.0
             if a < x and x <= c:
                 return pow(x-a, 2)/((b-a)*(c-a))
             if c < x and x < b:
                 return 1 - pow(b-x, 2)/((b-c)*(b-c))
             if b <= x:
-                return 1
+                return 1.0
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(self.a, self.b, self.c, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.a, self.b, self.c, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(a,b,c,d,i) for i in x]
+        return __generator(a,b,c,d,radvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """

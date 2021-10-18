@@ -1,7 +1,7 @@
 try:
-    import numpy as np
-    from math import sqrt as _sqrt, pi as _pi
-    from typing import Union, Tuple, Dict
+    import numpy as _np
+    from math import sqrt as _sqrt, pi as _pi, exp as _exp
+    from typing import Union, Tuple, Dict, List
     from _base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -43,68 +43,52 @@ class Logistic(Infinite):
         self.location = location
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, int, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Logistic distribution.
         """
-        __generator=lambda mu, s, x: np.exp(-(x - mu) / s) / (s * (1 + np.exp(
-            -(x - mu) / s))**2)
-        if plot:
-            x=np.linspace(-interval, interval, int(threshold))
-            y=np.array([__generator(self.location, self.scale, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.location, self.scale, self.randvar)
+        mu = self.location
+        s = self.scale
+        randvar = self.randvar
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, int, np.ndarray, None]:
+        __generator=lambda mu, s, x: _np.exp(-(x - mu) / s) / (s * (1 + _np.exp(
+            -(x - mu) / s))**2)
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return _np.exp(-(x - mu) / s) / (s * (1 + _np.power(_np.exp(-(x - mu) / s)), 2))
+        return _exp(-(randvar - mu) / s) / (s * (1 + pow(_exp(-(randvar - mu) / s)), 2))
+
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Logistic distribution.
         """
-        __generator=lambda mu, s, x: 1 / (1 + np.exp(-(x - mu) / s))
-        if plot:
-            x=np.linspace(-interval, interval, int(threshold))
-            y=np.array([__generator(self.location, self.scale, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.location, self.scale, self.randvar)
+        mu = self.location
+        s = self.scale
+        randvar = self.randvar
 
-    def pvalue(self, x_lower=-np.inf, x_upper=None):
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return 1 / (1 + _np.exp(-(x - mu) / s))
+        return 1 / (1 + _exp(-(randvar - mu) / s))
+
+    def pvalue(self, x_lower=-_np.inf, x_upper=None):
         """
         Args:
 
@@ -122,7 +106,7 @@ class Logistic(Infinite):
         if x_lower > x_upper:
             raise ValueError(f'lower bound should be less than upper bound. \
                             Entered values: x_lower:{x_lower} x_upper:{x_upper}')
-        __cdf=lambda mu, s, x: 1 / (1 + np.exp(-(x - mu) / s))
+        __cdf=lambda mu, s, x: 1 / (1 + _np.exp(-(x - mu) / s))
         return __cdf(self.location, self.scale, x_upper) - __cdf(self.location, self.scale, x_lower)
 
     def mean(self) -> float:

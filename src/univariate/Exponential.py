@@ -1,7 +1,7 @@
 try:
-    import numpy as np
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, log as _log
+    import numpy as _np
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, log as _log, exp as _exp
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -39,9 +39,7 @@ class Explonential(SemiInfinite):
     Retrieved 04:38, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Exponential_distribution&oldid=994779060
     """
 
-    def __init__(self, lambda_: Union[float, int], x: Union[float, int] = 1.0):
-        # if type(lambda_) and type(x) not in (int, float):
-        #     raise TypeError('arguments must be a real number of type float (or int)')
+    def __init__(self, lambda_: float, x: float = 1.0):
         if lambda_ < 0:
             raise ValueError(
                 f'lambda parameter should be greater than 0. Entered value for lambda_:{lambda_}')
@@ -52,79 +50,53 @@ class Explonential(SemiInfinite):
         self.lambda_ = lambda_
         self.x = x
 
-    def pdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either probability density evaluation for some point or plot of exponential-distribution.
+            either cumulative distribution evaluation for some point or plot of Exponential distribution.
         """
         lambda_ = self.lambda_
-        x = self.x
 
-        def __generator(lambda_, x):
+        def __generator(lambda_:float, x:float) -> float:
             if x >= 0:
-                return lambda_ * np.exp(-(lambda_ * x))
+                return lambda_ * _exp(-(lambda_ * x))
             return 0
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(lambda_, x_i) for x_i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(lambda_, x)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(lambda_, i) for i in x]
+                
+        return __generator(lambda_, self.x)
 
-    def cdf(self,
-            plot=False,
-            interval=1,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def cdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of  exponential distribution.
-        """
+            either comulative distribution evaluation for some point or plot of Exponential distribution.
+        """ 
         lambda_ = self.lambda_
-        x = self.x
 
-        def __generator(x, lambda_):
+        def __generator(lambda_:float, x:float) -> float:
             if x > 0:
-                return 1 - np.exp(-lambda_ * x)
+                return 1 - _exp(-lambda_ * x)
             return 0
 
-        if plot:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array([__generator(x_i, lambda_) for x_i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(x, lambda_)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                return [__generator(lambda_, i) for i in x]
+
+        return __generator(lambda_, self.x)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -149,7 +121,7 @@ class Explonential(SemiInfinite):
 
         def __cdf(x, lambda_):
             if x > 0:
-                return 1 - np.exp(-lambda_ * x)
+                return 1 - _exp(-lambda_ * x)
             return 0
         return __cdf(x_upper, lambda_) - __cdf(x_lower, lambda_)
 

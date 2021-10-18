@@ -1,8 +1,8 @@
 try:
     from scipy.special import gamma as _gamma, gammainc as _gammainc, digamma as _digamma
-    import numpy as np
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, log as _log
+    import numpy as _np
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, log as _log, factorial as _factorial
     from _base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -55,67 +55,52 @@ class Erlang(SemiInfinite):
         self.rate = rate
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either probability density evaluation for some point or plot of Erlang distribution.
-        """
-        def __generator(shape, rate, x): return (
-            pow(rate, shape)*pow(x, shape-1)*np.exp(-rate*x))/np.math.factorial((shape-1))
+        """ 
+        shape = self.shape
+        rate = self.rate
+        randvar = self.randvar
 
-        if plot:
-            x = np.linspace(0, 1, int(threshold))
-            y = np.array([__generator(self.shape, self.rate, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.shape, self.rate, self.randvar)
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return pow(rate, shape)* _np.power(x, shape-1)*_np.exp(-rate*x) / _factorial(shape-1)
 
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
+        return pow(rate, shape)*pow(randvar, shape-1)*_exp(-rate*randvar)/_factorial(shape-1)
+
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
+            x (List[float], numpy.ndarray): random variable or list of random variables
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Erlang distribution.
         """
-        def __generator(shape, rate, x): return _gammainc(
-            shape, rate*x)/np.math.factorial(shape-1)
-        if plot:
-            x = np.linspace(0, 1, int(threshold))
-            y = np.array([__generator(self.shape, self.rate, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
+        shape = self.shape
+        rate = self.rate
+        randvar = self.randvar
 
-        return __generator(self.shape, self.rate, self.randvar)
+        def __generator(shape, rate, x): 
+            return _gammainc(shape, rate*x)/_factorial(shape-1)
+
+        if x is not None:
+            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+            else:
+                x = _np.array(x)
+                return __generator(shape, rate, x)
+
+        return __generator(shape, rate, randvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -137,7 +122,7 @@ class Erlang(SemiInfinite):
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
         def __cdf(shape, rate, x): return _gammainc(
-            shape, rate*x)/np.math.factorial(shape-1)
+            shape, rate*x)/_np.math.factorial(shape-1)
 
         return __cdf(self.shape, self.rate, x_upper)-__cdf(self.shape, self.rate, x_lower)
 
