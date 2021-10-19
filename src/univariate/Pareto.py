@@ -2,7 +2,7 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, log as _log
     from typing import Union, Tuple, Dict, List
-    from _base import SemiInfinite
+    from univariate._base import SemiInfinite
 except ValueError as e:
     print(f"some modules are missing {e}")
 
@@ -62,19 +62,20 @@ class Pareto(SemiInfinite):
 
         Returns:
             either probability density evaluation for some point or plot of Pareto distribution.
-        """ 
+        """
         x_m = self.scale
         alpha = self.shape
         randvar = self.x
 
-        def __generator(x:float, x_m:float, alpha:float) -> float:
+        def __generator(x: float, x_m: float, alpha: float) -> float:
             if x >= x_m:
                 return (alpha * pow(x_m, alpha)) / pow(x, alpha + 1)
             return 0.0
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(i, x_m, alpha) for i in x]
         return __generator(randvar, x_m, alpha)
@@ -87,20 +88,20 @@ class Pareto(SemiInfinite):
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Pareto distribution.
-        """ 
+        """
         x_m = self.scale
         alpha = self.shape
         randvar = self.x
 
-
-        def __generator(x:float, x_m:float, alpha:float) -> float:
+        def __generator(x: float, x_m: float, alpha: float) -> float:
             if x >= x_m:
                 return 1 - pow(x_m / x, alpha)
             return 0.0
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(i, x_m, alpha) for i in x]
         return __generator(randvar, x_m, alpha)
@@ -233,4 +234,3 @@ class Pareto(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-
