@@ -2,9 +2,10 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, log as _log, exp as _exp
     from typing import Union, Tuple, Dict, List
-    from _base import Infinite
+    from univariate._base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
+
 
 class Laplace(Infinite):
     """
@@ -35,15 +36,17 @@ class Laplace(Infinite):
         - Wikipedia contributors. (2020, December 21). Laplace distribution. In Wikipedia, The Free Encyclopedia.
         Retrieved 10:53, December 28, 2020, from https://en.wikipedia.org/w/index.php?title=Laplace_distribution&oldid=995563221
     """
+
     def __init__(self, location: float, scale: float, randvar: float):
         if scale < 0:
-            raise ValueError(f'scale should be greater than 0. Entered value for Scale:{scale}')
+            raise ValueError(
+                f'scale should be greater than 0. Entered value for Scale:{scale}')
 
-        self.scale=scale
-        self.location=location
-        self.randvar=randvar
+        self.scale = scale
+        self.location = location
+        self.randvar = randvar
 
-    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -58,7 +61,8 @@ class Laplace(Infinite):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 (1 / (2 * b)) * _np.exp(_np.abs(x - mu) / b)
@@ -77,12 +81,13 @@ class Laplace(Infinite):
         b = self.scale
         randvar = self.randvar
 
-        def __generator (mu:float, b:float, x: Union[float, _np.ndarray])-> Union[float, _np.ndarray]: 
+        def __generator(mu: float, b: float, x: Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
             return 1 / 2 + ((1 / 2) * _np.sign(x - mu) * (1 - _np.exp(_np.abs(x - mu) / b)))
-        
+
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return __generator(mu, b, x)
@@ -103,11 +108,11 @@ class Laplace(Infinite):
             p-value of the Laplace distribution evaluated at some random variable.
         """
         if x_upper == None:
-            x_upper=self.randvar
+            x_upper = self.randvar
         if x_lower > x_upper:
             raise Exception(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
-        __cdf=lambda mu, b, x: 1 / 2 + \
+        def __cdf(mu, b, x): return 1 / 2 + \
             ((1 / 2) * _np.sign(x - mu) * (1 - _np.exp(abs(x - mu) / b)))
 
         return __cdf(self.location, self.scale, x_upper)-__cdf(self.location, self.scale, x_lower)
@@ -194,4 +199,3 @@ class Laplace(Infinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

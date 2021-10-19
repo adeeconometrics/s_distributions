@@ -3,7 +3,7 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, log as _log
     from typing import Union, Tuple, Dict, List
-    from _base import SemiInfinite
+    from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -59,13 +59,14 @@ class ChiSquare(SemiInfinite):
 
         Returns:
             either probability density evaluation for some point or plot of Chi square-distribution.
-        """ 
+        """
         randvar = self.randvar
         df = self.df
-        
+
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return (1 / (_np.pow(2, (df / 2) - 1) * _gamma(df / 2))) * _np.pow(x, df - 1) * _np.exp(-_np.pow(x, 2) / 2)
@@ -83,10 +84,11 @@ class ChiSquare(SemiInfinite):
         """
         randvar = self.randvar
         df = self.df
-        
+
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return _gammainc(df/2, x/2)

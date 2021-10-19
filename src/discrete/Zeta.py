@@ -2,8 +2,8 @@ try:
     from scipy.special import zeta as _zeta
     import numpy as np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
-    from typing import Union, Tuple, Dict
-    from _base import Base
+    from typing import Union, Tuple, Dict, List
+    from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -40,7 +40,7 @@ class Zeta(Base):
         s = self.s
         k = self.k
 
-    def pmf(self, x:List[int] = None) -> Union[int, float, List[int]]:
+    def pmf(self, x: List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 
@@ -54,11 +54,11 @@ class Zeta(Base):
         def __generator(s, k): return (1 / k**6) / _zeta(s)
 
         if x is not None and issubclass(x, List):
-            return [__generator(p, i) for i in x]
+            return [__generator(s, i) for i in x]  # double check this function
 
         return __generator(s, k)
 
-    def cdf(self, x:List[int] = None) -> Union[int, float, List[int]]:
+    def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 

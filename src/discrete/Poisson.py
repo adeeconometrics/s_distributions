@@ -2,8 +2,8 @@ try:
     import numpy as np
     from scipy.special import gammainc as _gammainc
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
-    from typing import Union, Tuple, Dict
-    from _base import Base
+    from typing import Union, Tuple, Dict, List
+    from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -50,7 +50,7 @@ class Poisson(Base):
         self.k = k
         self.λ = λ
 
-    def pmf(self, x:List[int] = None) -> Union[int, float, List[int]]:
+    def pmf(self, x: List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 
@@ -66,14 +66,14 @@ class Poisson(Base):
         λ = self.λ
 
         def __generator(k, λ): return (pow(λ, k) * np.exp(-λ)
-                                     ) / np.math.factorial(k)
+                                       ) / np.math.factorial(k)
 
         if x is not None and issubclass(x, List):
             return [__generator(p, i) for i in x]
 
         return __generator(k, λ)
 
-    def cdf(self, x:List[int] = None) -> Union[int, float, List[int]]:
+    def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
 
@@ -87,10 +87,10 @@ class Poisson(Base):
         k = self.k
         λ = self.λ
         def __generator(k, λ): return _gammainc(_floor(k + 1), λ
-                                              ) / np.math.factorial(_floor(k))
+                                                ) / np.math.factorial(_floor(k))
         if x is not None and issubclass(x, List):
             return [__generator(p, i) for i in x]
-            
+
         return __generator(k, λ)
 
     def mean(self) -> float:

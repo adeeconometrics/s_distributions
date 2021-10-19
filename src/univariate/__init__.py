@@ -4,28 +4,31 @@ There are two ways we can deal about it:
 - using __all__ = [`DO_NOT_WILD_IMPORT`] to avoid `from [module] import *
 - specify which class you are importing e.g. `from .Base import Base`
 """
-from . import Base, Infinite, SemiInfinite, BoundedInterval
-from . import Arcsine
-from . import Bates
-from . import Beta
-from . import BetaPrime
-from . import BetaRectangular
-from . import Cauchy
-from . import Chi
-from . import ChiSquare
-from . import Erlang
-from . import Exponential
-from . import F
-from . import Gamma
-from . import Gaussian
-from . import Gumbell
-from . import Laplace
-from . import Logistic
-from . import LogitNormal
-from . import LogNormal
-from . import MaxwellBoltzmann
-from . import Pareto
-from . import Raylegh
-from . import T
-from . import Trapezoidal
-from . import Triangular
+from univariate._base import Base, Infinite, SemiInfinite, BoundedInterval
+from univariate.Arcsine import Arcsine
+from univariate.Bates import Bates
+from univariate.Beta import Beta
+from univariate.BetaPrime import BetaPrime
+from univariate.BetaRectangular import BetaRectangular
+from univariate.Cauchy import Cauchy
+from univariate.Chi import Chi
+from univariate.ChiSquare import ChiSquare
+from univariate.Erlang import Erlang
+from univariate.Exponential import Exponential
+from univariate.F import F
+from univariate.Gamma import Gamma
+from univariate.Gaussian import Gaussian
+from univariate.Gumbell import Gumbell
+from univariate.Laplace import Laplace
+from univariate.Logistic import Logistic
+from univariate.LogitNormal import LogitNormal
+from univariate.LogNormal import LogNormal
+from univariate.MaxwellBoltzmann import MaxwellBoltzmann
+from univariate.Pareto import Pareto
+from univariate.Rayleigh import Rayleigh
+from univariate.T import T
+from univariate.Trapezoidal import Trapezoidal
+from univariate.Triangular import Triangular
+from univariate.UniformContinuous import Uniform
+from univariate.Weibull import Weibull
+from univariate.WeibullInverse import WeilbullInverse

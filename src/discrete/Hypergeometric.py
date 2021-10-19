@@ -2,8 +2,8 @@ try:
     from scipy.special import binom as _binom
     import numpy as np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor
-    from typing import Union, Typing, Dict
-    from _base import Base
+    from typing import Union, Typing, Dict, List
+    from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -52,53 +52,34 @@ class Hypergeometric(Base):
         self.k = k
         self.n = n
 
-    def pmf(self, x:List[int] = None):
+    def pmf(self, x: List[int] = None) -> Union[float, List[float]]:
         """
         Args: 
-
-
+            x (List[int]): list of random variables
         Returns: 
-            cumulative distribution evaluation to some point specified by k or scatter plot of geometric distribution.
-            
-        Note: there are two configurations of cdf. 
+            cumulative distribution evaluation to some point specified by k or scatter plot of Hypergeometric distribution.
         """
         n = self.n
         k = self.k
         N = self.N
         K = self.K
 
-        def __generator(N, n, K, k): return (_binom(n, k) * _binom(
-            N - K, n - k)) / _binom(N, n)  # assumes n>k
+        def __generator(N, n, K, k): return _binom(n, k) * \
+            _binom(N - K, n - k) / _binom(N, n)
+        # assumes n>k
 
-        if plot == True:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.array(
-                [__generator(N, n, K, x_temp) for x_temp in range(0, len(x))])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-
+        if x is not None and issubclass(x, List):
+            return [__generator(N, n, K, i) for i in x]
         return __generator(N, n, K, k)
 
-    def cdf(self,
-            interval=None,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):  # np.cumsum()
+    def cdf(self, x: List[float] = None) -> Union[float, List[float]]:
         """
         Args:
 
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
+            x (List[int]): random variable or list of random variables
 
         Returns: 
-            either cumulative distribution evaluation for some point or scatter plot of hypergeometric distribution.
+            either cumulative density evaluation for some point or scatter plot of Hypergeometric distribution.
         """
         n = self.n
         k = self.k
@@ -108,11 +89,8 @@ class Hypergeometric(Base):
         def __generator(N, n, K, k): return (_binom(n, k) * _binom(
             N - K, n - k)) / _binom(N, n)  # assumes n>k
 
-        if plot == True:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = np.cumsum(
-                [__generator(N, n, K, x_temp) for x_temp in range(0, len(x))])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
+        if x is None and issubclass(x, (List, np.ndarray)):
+            return np.cumsum([__generator(N, n, K, i) for i in x])
         return np.cumsum(__generator(N, n, K, k))[k - 1]
 
     def mean(self) -> float:

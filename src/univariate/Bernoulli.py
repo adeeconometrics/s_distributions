@@ -2,7 +2,7 @@ try:
     import numpy as _np
     from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, log as _log
-    from _base import BoundedInterval
+    from univariate._base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -64,17 +64,18 @@ class Bernoulli(BoundedInterval):
         Returns:
             either probability density evaluation for some point or plot of Continuous Bernoulli distribution.
         """
-        def __C(shape:float): 
+        def __C(shape: float):
             return (2*_np.arctanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return __C(self.shape) *_np.power(shape, x)*_np.power(1-shape, 1-x)
+                return __C(self.shape) * _np.power(shape, x)*_np.power(1-shape, 1-x)
 
-        return __C(self.shape)*pow(shape, self.randvar)*pow(1-shape, 1- self.randvar)
+        return __C(self.shape)*pow(shape, self.randvar)*pow(1-shape, 1 - self.randvar)
 
     def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
@@ -90,10 +91,11 @@ class Bernoulli(BoundedInterval):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return (_np.power(shape,x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
+                return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
         return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
 

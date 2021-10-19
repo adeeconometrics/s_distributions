@@ -3,7 +3,7 @@ try:
     from numpy import euler_gamma as _euler_gamma
     from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
-    from _base import SemiInfinite
+    from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -58,18 +58,19 @@ class Rayleigh(SemiInfinite):
 
         Returns:
             either probability density evaluation for some point or plot of Raylegh distribution.
-        """ 
-        scale = self.scale
+        """
+        sig = self.scale  # scale to sig
         randvar = self.randvar
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return x/pow(sig, 2) *_np.exp(_np.power(-x, 2)/(2*pow(sig, 2)))
+                return x/pow(sig, 2) * _np.exp(_np.power(-x, 2)/(2*pow(sig, 2)))
 
-        return randvar/pow(sig, 2) *_exp(pow(-randvar, 2)/(2*pow(sig, 2)))
+        return randvar/pow(sig, 2) * _exp(pow(-randvar, 2)/(2*pow(sig, 2)))
 
     def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
@@ -79,16 +80,17 @@ class Rayleigh(SemiInfinite):
 
         Returns:
             either cumulative distribution evaluation for some point or plot of Raylegh distribution.
-        """ 
-        scale = self.scale
+        """
+        sig = self.scale
         randvar = self.randvar
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return 1-_np.exp(-_np.power(x,2)/(2*sig**2))
+                return 1-_np.exp(-_np.power(x, 2)/(2*sig**2))
 
         return 1-_exp(-randvar**2/(2*sig**2))
 
@@ -111,7 +113,7 @@ class Rayleigh(SemiInfinite):
             raise Exception(
                 'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
 
-        def __cdf(sig:float, x:float) -> float: 
+        def __cdf(sig: float, x: float) -> float:
             return 1-_np.exp(-x**2/(2*sig**2))
         return __cdf(self.scale, x_upper)-__cdf(self.scale, x_lower)
 
@@ -197,4 +199,3 @@ class Rayleigh(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

@@ -3,7 +3,7 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, log as _log, exp as _exp
     from typing import Union, Tuple, Dict, List
-    from _base import SemiInfinite
+    from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -68,7 +68,8 @@ class Gamma(SemiInfinite):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return (1 / (pow(b, a) * _gamma(a))) * _np.log(x, a - 1) * _np.exp(-x / b)
@@ -88,16 +89,17 @@ class Gamma(SemiInfinite):
         randvar = self.x
 
         # there is no apparent explanation for reversing gammainc's parameter, but it works quite perfectly in my prototype
-        def __generator(a:float, b:float, x:Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
+        def __generator(a: float, b: float, x: Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
             return 1 - _gammainc(a, x / b)
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return __generator(a,b,x)
-        return __generator(a,b,randvar)
+                return __generator(a, b, x)
+        return __generator(a, b, randvar)
 
     def pvalue(self, x_lower=0, x_upper=None) -> Union[float, int]:
         """
@@ -206,4 +208,3 @@ class Gamma(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

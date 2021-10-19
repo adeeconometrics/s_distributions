@@ -3,7 +3,7 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
     from typing import Union, Tuple, Dict, List
-    from _base import SemiInfinite
+    from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -47,7 +47,7 @@ class Gumbel(SemiInfinite):
         self.scale = scale
         self.randvar = randvar
 
-    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -62,7 +62,8 @@ class Gumbel(SemiInfinite):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 z = (x-mu)/beta
@@ -86,7 +87,8 @@ class Gumbel(SemiInfinite):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return _np.exp(-_np.exp(-(x-mu)/beta))
@@ -180,4 +182,3 @@ class Gumbel(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

@@ -5,7 +5,7 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, log as _log, pi as _pi, e as _e, exp as _exp
     from typing import Union, Tuple, Dict, List
-    from _base import Infinite
+    from univariate._base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
 

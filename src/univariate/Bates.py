@@ -3,7 +3,7 @@ try:
     import numpy as np
     from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, factorial as _factorial
-    from _base import BoundedInterval
+    from univariate._base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 

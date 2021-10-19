@@ -2,8 +2,8 @@ try:
     from scipy.special import binom as _binom
     import numpy as np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor
-    from typing import Union, Tuple, Dict
-    from _base import Base
+    from typing import Union, Tuple, Dict, List
+    from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -52,17 +52,17 @@ class Binomial(Base):
         self.p = p
         self.k = k
 
-    def pmf(self, x:List[int]):
-        """
-        Args:
-            - x:List[int] - default to None. List of random variables.
+    # def pmf(self, x: List[int]):
+    #     """
+    #     Args:
+    #         - x:List[int] - default to None. List of random variables.
 
-        Returns: 
-            either probability mass evaluation for some point or scatter plot of binomial distribution.
-        """
-        n = self.n
-        p = self.p
-        k = self.k
+    #     Returns:
+    #         either probability mass evaluation for some point or scatter plot of binomial distribution.
+    #     """
+    #     n = self.n
+    #     p = self.p
+    #     k = self.k
 
         # def __generator(n, p, k):
         #     def bin_coef(n, k): return _binom(n, k)  # assumes n>k
@@ -76,51 +76,50 @@ class Binomial(Base):
         # if x is not None and issubclass(x,List):
         #     return __generator(n,p,x)
 
-        return __generator(n, p, k)
+        # return __generator(n, p, k)
 
-    def cdf(self,
-            interval=0,
-            point=0,
-            threshold=100,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
-        """
-        Args:
+    # def cdf(self,
+    #         interval=0,
+    #         point=0,
+    #         threshold=100,
+    #         plot=False,
+    #         xlim=None,
+    #         ylim=None,
+    #         xlabel=None,
+    #         ylabel=None):
+    #     """
+    #     Args:
 
-            interval(int): defaults to none. Only necessary for defining scatter plot.
-            threshold(int): defaults to 100. Defines the sample points in scatter plot.
-            plot(bool): if true, returns scatter plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
+    #         interval(int): defaults to none. Only necessary for defining scatter plot.
+    #         threshold(int): defaults to 100. Defines the sample points in scatter plot.
+    #         plot(bool): if true, returns scatter plot.
+    #         xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
+    #         ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
+    #         xlabel(string): sets label in x axis. Only relevant when plot is true.
+    #         ylabel(string): sets label in y axis. Only relevant when plot is true.
 
+    #     Returns:
+    #         either cumulative distirbution evaluation for some point or scatter plot of binomial distribution.
+    #     """
+    #     n = self.n
+    #     p = self.p
+    #     k = self.k
 
-        Returns: 
-            either cumulative distirbution evaluation for some point or scatter plot of binomial distribution.
-        """
-        n = self.n
-        p = self.p
-        k = self.k
+    #     def __generator(n, p, k):
+    #         def bin_coef(x): return np.array(
+    #             (np.math.factorial(n) /
+    #              (np.math.factorial(x) * np.math.factorial(np.abs(n - x)))) *
+    #             (pow(p, x) * pow((1 - p), n - x)))
+    #         return np.cumsum([bin_coef(j) for j in range(0, k)], dtype=int)
 
-        def __generator(n, p, k):
-            def bin_coef(x): return np.array(
-                (np.math.factorial(n) /
-                 (np.math.factorial(x) * np.math.factorial(np.abs(n - x)))) *
-                (pow(p, x) * pow((1 - p), n - x)))
-            return np.cumsum([bin_coef(j) for j in range(0, k)], dtype=int)
+    #     if plot == True:
+    #         x = np.linspace(-interval, interval, int(threshold))
+    #         y = __generator(n, p, len(x))
+    #         return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
 
-        if plot == True:
-            x = np.linspace(-interval, interval, int(threshold))
-            y = __generator(n, p, len(x))
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-
-        return __generator(n, p, point)[
-            point -
-            1]  # will this output the cumulative sum at point requested?
+    #     return __generator(n, p, point)[
+    #         point -
+    #         1]  # will this output the cumulative sum at point requested?
 
     def mean(self) -> int:
         """

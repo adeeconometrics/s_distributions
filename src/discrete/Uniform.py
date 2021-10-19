@@ -1,7 +1,7 @@
 try:
-    import numpy as np
-    from typing import Union, Tuple, Dict
-    from _base import Base
+    import numpy as _np
+    from typing import Union, Tuple, Dict, List
+    from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -32,62 +32,40 @@ class Uniform(Base):
     - NIST/SEMATECH e-Handbook of Statistical Methods (2012). Uniform Distribution. Retrieved from http://www.itl.nist.gov/div898/handbook/, December 26, 2020.
     """
 
-    def __init__(self, data):
-        self.data = np.ones(data)
+    def __init__(self, a: int, b: int):
+        if type(a) and type(b) is not int:
+            raise TypeError(f'parameter a and b should be of type integer')
 
-    def pmf(self, plot=False, xlim=None, ylim=None, xlabel=None, ylabel=None):
+        self.a = a
+        self.b = b
+        self.n = abs(b-a+1)
+
+    def pmf(self, x: List[float] = None) -> Union[float, List[float]]:
         """
         Args:
 
-            plot (bool): returns scatter plot if true. 
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
+            x (List[int]): random variable or list of random variables
 
-        Returns:
-            either probability mass value of Uniform distribution or scatter plot
+        Returns: 
+            either probability mass evaluation for some point or scatter plot of Uniform distribution.
         """
-        if plot == True:
-            x = np.array([i for i in range(0, len(self.data))])
-            y = np.array(
-                [1 / len(self.data) for i in range(0, len(self.data))])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-        return 1 / len(self.data)
+        if x is not None and issubclass(x, List):
+            return [1/self.n]*len(x)
+        return 1 / self.n
 
-    def cdf(self,
-            a,
-            b,
-            point=0,
-            plot=False,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None):
+    def cdf(self, x: Union[List[float], int]) -> Union[float, List[float]]:
         """
         Args:
 
-            a(int): lower limit of the distribution
-            b(int): upper limit of the distribution
-            point(int): point at which cumulative value is evaluated. Optional. 
-            plot(bool): returns plot if true.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true. 
-            xlabel(string): sets label in x axis. Only relevant when plot is true. 
-            ylabel(string): sets label in y axis. Only relevant when plot is true. 
+            x (List[int]): random variable or list of random variables
 
-
-        Retruns:
-            either cumulative distribution evaluation at some point or scatter plot.
+        Returns: 
+            either cumulative density evaluation for some point or scatter plot of Unifom distribution.
         """
 
-        def cdf_function(x, _a, _b): return (
-            np.floor(x) - _a + 1) / (_b - _a + 1)
-        if plot == True:
-            x = np.array([i + 1 for i in range(a, b)])
-            y = np.array([cdf_function(i, a, b) for i in x])
-            return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-        return cdf_function(point, a, b)
+        if issubclass(x, List):
+            return [i/self.n for i in x]
+        return x/self.n
 
     def mean(self) -> float:
         """
@@ -119,7 +97,7 @@ class Uniform(Base):
         """
         return 0
 
-    def kurtosis(self) ->float:
+    def kurtosis(self) -> float:
         """
         Returns the kurtosis of Uniform Distribution.
         """

@@ -2,7 +2,7 @@ try:
     import numpy as _np
     from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt, pi as _pi, asin as _asin
-    from _base import BoundedInterval
+    from univariate._base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -54,10 +54,11 @@ class Arcsine(BoundedInterval):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return 1/(_pi *_np.sqrt(x*(1-x)))
+                return 1/(_pi * _np.sqrt(x*(1-x)))
 
         return 1/_pi*_sqrt(self.randvar * (1-self.randvar))
 
@@ -73,7 +74,8 @@ class Arcsine(BoundedInterval):
 
         if x is not None:
             if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError(
+                    f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return 1/(_pi)*_np.arcsin(_np.sqrt(x))
@@ -102,7 +104,7 @@ class Arcsine(BoundedInterval):
             raise ValueError(
                 f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
 
-        __cdf = lambda x: (2/_pi)*_asin(_sqrt(x))
+        def __cdf(x): return (2/_pi)*_asin(_sqrt(x))
         return __cdf(x_upper)-__cdf(x_lower)
 
     def mean(self) -> float:
