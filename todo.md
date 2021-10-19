@@ -28,19 +28,23 @@ Efforts on maintaining class invariance
 
 ## Possible Development Route
 
-- Remove support of plot in `pdf ` and `cdf`; instead result list to be processed in its raw form
+- [x] Remove support of plot in `pdf ` and `cdf`; instead result list to be processed in its raw form
 
   - reason: incurs unnecessary overhead with lesser control on plotting
 
-- Independent helper functions defined on the base class
+- [x] Independent helper functions defined on the base class
 
   - reason: there is no strict rule against violating private functions, it may as well be public for everyone to see. Besides, the overhead of calling from parent class costs more than just calling a function outside of it. Alternatively, they may be implemented as `@staticmethod`
   - proposed helper functions:
-    - `standardnorm_pdf` - declared as `@staticmethod`
-    - `standardnorm_cdf`  - declared as `@staticmethod`
-    - `standard_cdf_inv`  - declared as `@staticmethod`
-
-
+    - [x] `standardnorm_pdf` - declared as `@staticmethod`
+    - [x] `standardnorm_cdf`  - declared as `@staticmethod`
+    - [x] `standard_cdf_inv`  - declared as `@staticmethod`
+- [ ] impose optional value checking on random variables
+- [ ] move the need for random variables only to functions that need them `pdf`, `cdf`
+- [ ] implementation of generic PRNG either:
+    - [MCMC implementation of Metropolis-Hatings](https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm)
+    - [Adaptive Reject Sampling](https://en.wikipedia.org/wiki/Rejection_sampling#Adaptive_rejection_sampling)
+    Note: see which one is more generic `rvs` for Univariate distributions and which one is more efficient to compute.
 
 ## Features to be developed:
 - [x] likelihood function
