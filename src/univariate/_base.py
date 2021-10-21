@@ -1,3 +1,6 @@
+from abc import abstractmethod
+
+
 try:
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
@@ -104,83 +107,91 @@ class Base(ABC):
                 return [_log(cls(*_theta).pdf(x)) for _theta in theta]
             return [_np.log(cls(*_theta).pdf(x)).sum() for _theta in theta]
 
-    def mle(self) -> NotImplemented:
+    def mle(self):
         """
         Default implementation of Maximum Likelihood Estimator.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def pvalue(self) -> NotImplemented:
+    @abstractmethod
+    def pdf(self): # guarantee that all concrete class will have a defined pdf
+        pass
+
+    @abstractmethod
+    def cdf(self): # guarantee that all concrete class will have a defined cdf
+        pass
+
+    def pvalue(self):
         """
         Default implementation of p-value.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def confidence_interval(self) -> NotImplemented:
+    def confidence_interval(self): # staged for removing
         """
         Default implementation of confidence interval.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def rvs(self):  # (adaptive) rejection sampling implementation
+    def rvs(self):  # MH algorithm
         """
         returns random variate samples default NotImplemented
         """
         return "currently unsupported"
 
-    def mean(self) -> NotImplemented:
+    def mean(self):
         """
         Default implementation of the mean.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def median(self) -> NotImplemented:
+    def median(self):
         """
         Default implementation of the median.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def mode(self) -> NotImplemented:
+    def mode(self):
         """
         Default implementation of the mode.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def var(self) -> NotImplemented:
+    def var(self):
         """
         Default implementation of the variance.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def std(self) -> NotImplemented:
+    def std(self): # make this generic
         """
         Default implementation of the standard deviation.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def skewness(self) -> NotImplemented:
+    def skewness(self):
         """
         Default implementation of skewness.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def kurtosis(self) -> NotImplemented:
+    def kurtosis(self):
         """
         Default implementation of kurtosis.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def entropy(self) -> NotImplemented:
+    def entropy(self):
         """
         Default implementation of entropy.
         Returns NotImplemented.
