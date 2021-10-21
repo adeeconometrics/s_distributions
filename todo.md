@@ -91,7 +91,7 @@ Semi-infinite class
     - [ ] Inverse Gamma distribution
     - [ ] Dagum distribution
     - [ ] Davis distribution
-    - [ ] Rayleigh distribution
+    - [x] Rayleigh distribution
     - [ ] Benktander Type 1 distribution
     - [ ] Benktander Type 2 distribution
     - [ ] hypoexponential distribution
@@ -100,11 +100,11 @@ Semi-infinite class
     - [ ] log-Logistic distribution
     - [ ] Inverse chi-squared distribution
     - [ ] Lévy distribution
-    - [ ] Pareto distribution
+    - [x] Pareto distribution
     - [ ] Nakagami distribution
     - [ ] Lomax distribution
-    - [ ] Gumbel distribution
-    - [ ] Weibull distribution
+    - [ ] Gumbel distribution*
+    - [x] Weibull distribution
     - [ ] truncated normal type 2 distribution 
     - [ ] Burr distribution 
     - [ ] Generalized Gamma distribution
@@ -175,8 +175,7 @@ in progress
         - [ ] normal-inverse Gaussian - req: Bassel function of the third kind
         - [ ] stable - find numerical counterparts, no analytical expression is defined
         - [ ] Tracy–Widom - needs further reading
-        - [ ] Voigt -  find numerical counterparts, as analytical expression is deemed [complicated](https://en.wikipedia.org/wiki/Voigt_profile)
-        
+                
     - varying types supported
         - [ ] generalized chi-squared  - needs further reading for numerical counterparts
         - [ ] shifted log-logistic - doable
