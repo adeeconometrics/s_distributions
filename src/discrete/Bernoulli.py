@@ -58,10 +58,10 @@ class Bernoulli(Base):
 
         def __generator(p, k): return p**k * pow(1 - p, 1 - k)
 
-        if x is not None and issubclass(x, List):
+        if x is not None and isinstance(x, List):
             return [__generator(p, i) for i in x]
 
-        return __generator(p, x)
+        return __generator(p, k)
 
     def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
         """
@@ -84,7 +84,7 @@ class Bernoulli(Base):
             elif k >= 1:
                 return 1
 
-        if x is not None and issubclass(x, List):
+        if x is not None and isinstance(x, List):
             return [__generator(p, i) for i in x]
 
         return __generator(p, k)

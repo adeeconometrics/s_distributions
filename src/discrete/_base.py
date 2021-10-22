@@ -3,14 +3,14 @@ class Base:
         if type(self) is Base:
             raise TypeError('Discrete Univariate Base class cannot be instantiated.')
 
-    def pvalue(self) -> NotImplemented:
+    def pvalue(self):
         """
         Default implementation of p-value.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def confidence_interval(self) -> NotImplemented:
+    def confidence_interval(self):
         """
         Default implementation of confidence interval.
         Returns NotImplemented.
@@ -23,56 +23,56 @@ class Base:
         """
         return "currently unsupported"
 
-    def mean(self) -> NotImplemented:
+    def mean(self):
         """
         Default implementation of the mean.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def median(self) -> NotImplemented:
+    def median(self):
         """
         Default implementation of the median.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def mode(self) -> NotImplemented:
+    def mode(self):
         """
         Default implementation of the mode.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def var(self) -> NotImplemented:
+    def var(self):
         """
         Default implementation of the variance.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def std(self) -> NotImplemented:
+    def std(self):
         """
         Default implementation of the standard deviation.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def skewness(self) -> NotImplemented:
+    def skewness(self):
         """
         Default implementation of skewness.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def kurtosis(self) -> NotImplemented:
+    def kurtosis(self):
         """
         Default implementation of kurtosis.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def entropy(self) -> NotImplemented:
+    def entropy(self):
         """
         Default implementation of entropy.
         Returns NotImplemented.
