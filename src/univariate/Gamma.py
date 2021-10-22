@@ -67,7 +67,7 @@ class Gamma(SemiInfinite):
         randvar = self.x
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray,List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:
@@ -93,7 +93,7 @@ class Gamma(SemiInfinite):
             return 1 - _gammainc(a, x / b)
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray,List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:

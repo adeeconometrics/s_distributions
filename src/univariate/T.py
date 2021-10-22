@@ -63,7 +63,7 @@ class T(Infinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -90,7 +90,7 @@ class T(Infinite):
             return _quad(___generator, -_np.inf, x, args=df)[0]
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(i, df) for i in x]

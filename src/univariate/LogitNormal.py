@@ -60,7 +60,7 @@ class LogitNormal(BoundedInterval):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -85,7 +85,7 @@ class LogitNormal(BoundedInterval):
             return 1/2 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig, 2))))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)

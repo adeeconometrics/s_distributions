@@ -79,7 +79,7 @@ class Trapezoidal(BoundedInterval):
                 return (2/(d+c-a-b))*(d-x)/(d-c)
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(a,b,c,d,i) for i in x]
@@ -103,7 +103,7 @@ class Trapezoidal(BoundedInterval):
                 return 1 - (d-x)**2/((d+c-a-b)*(d-c))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(a,b,c,d,i) for i in x]

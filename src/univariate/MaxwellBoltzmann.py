@@ -66,7 +66,7 @@ class Maxwell_Boltzmann(SemiInfinite):
         def __generator(a, x): return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/(a**3)
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -87,7 +87,7 @@ class Maxwell_Boltzmann(SemiInfinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)

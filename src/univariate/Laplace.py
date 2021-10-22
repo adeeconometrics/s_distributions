@@ -60,7 +60,7 @@ class Laplace(Infinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:
@@ -85,7 +85,7 @@ class Laplace(Infinite):
             return 1 / 2 + ((1 / 2) * _np.sign(x - mu) * (1 - _np.exp(_np.abs(x - mu) / b)))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:

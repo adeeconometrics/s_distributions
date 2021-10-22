@@ -69,7 +69,7 @@ class Gaussian(Infinite):
             return pow(1 / (std * _sqrt(2 * _pi)), _exp(((x - mean) / 2 * std)**2))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -90,7 +90,7 @@ class Gaussian(Infinite):
             return 1/2*(1+_erf((x-mu)/(sig*_sqrt(2))))
             
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)

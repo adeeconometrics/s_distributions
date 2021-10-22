@@ -67,7 +67,7 @@ class Weibull(SemiInfinite):
                 return pow((k/_lambda)*(x/_lambda), k-1)*_np.exp(-pow(x/_lambda, k))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(scale, shape, i) for i in x]
@@ -94,7 +94,7 @@ class Weibull(SemiInfinite):
                 return 1-_np.exp(-pow(x/_lambda, k))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(scale, shape, i) for i in x]
