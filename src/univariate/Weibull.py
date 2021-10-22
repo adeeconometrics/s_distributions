@@ -39,7 +39,7 @@ class Weibull(SemiInfinite):
     Retrieved 11:32, December 28, 2020, from https://en.wikipedia.org/w/index.php?title=Weibull_distribution&oldid=993879185
     """
 
-    def __init__(self, shape: Union[float, int], scale: Union[float, int], randvar: Union[float, int] = 0.5):
+    def __init__(self, shape: float, scale: float, randvar: float = 0.5):
         if shape < 0 or scale < 0 or randvar < 0:
             raise ValueError(
                 f'all parameters should be a positive number. Entered values: shape: {shape}, scale{scale}, randvar{randvar}')
@@ -143,7 +143,7 @@ class Weibull(SemiInfinite):
         """
         return self.scale*pow(_log(2), 1/self.shape)
 
-    def mode(self) -> Union[float, int]:
+    def mode(self) -> float:
         """
         Returns: Mode of the Weibull distribution.
         """

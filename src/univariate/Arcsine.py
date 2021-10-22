@@ -36,13 +36,13 @@ class Arcsine(BoundedInterval):
     """
 
     def __init__(self, randvar: Union[float, int]):
-        if randvar > 0 or randvar > 1:
+        if randvar < 0 or randvar > 1:
             raise ValueError(
                 f'random variable should have values between [0,1]. The value of randvar was: {randvar}')
 
         self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float] = None) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -54,8 +54,7 @@ class Arcsine(BoundedInterval):
 
         if x is not None:
             if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError('parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return 1/(_pi * _np.sqrt(x*(1-x)))
@@ -74,13 +73,12 @@ class Arcsine(BoundedInterval):
 
         if x is not None:
             if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
+                raise TypeError('parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
                 return 1/(_pi)*_np.arcsin(_np.sqrt(x))
 
-        return 1/_pi * _asin(_sqrt(x))
+        return 1/_pi * _asin(_sqrt(self.randvar))
 
     def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
         """
@@ -111,13 +109,13 @@ class Arcsine(BoundedInterval):
         """
         Returns: Mean of the Arcsine distribution.
         """
-        return 1/2
+        return 0.5
 
     def median(self) -> float:
         """
         Returns: Median of the Arcsine distribution.
         """
-        return 1/2
+        return 0.5
 
     def mode(self) -> Tuple[float, float]:
         """
@@ -129,13 +127,13 @@ class Arcsine(BoundedInterval):
         """
         Returns: Variance of the Arcsine distribution.
         """
-        return 1/8
+        return 0.125
 
     def std(self) -> float:
         """
         Returns: Standard deviation of the Arcsine distribution.
         """
-        return _sqrt(1/8)
+        return _sqrt(0.125)
 
     def skewness(self) -> float:
         """
@@ -147,7 +145,7 @@ class Arcsine(BoundedInterval):
         """
         Returns: Kurtosis of the Arcsine distribution.
         """
-        return 3/2
+        return 1.5
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

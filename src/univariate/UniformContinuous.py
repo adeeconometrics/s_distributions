@@ -126,11 +126,11 @@ class Uniform(BoundedInterval):
         """
         return _sqrt(1 / 12 * pow(self.b - self.a, 2))
 
-    def skewness(self) -> int:
+    def skewness(self) -> float:
         """
         Returns: Skewness of the Uniform distribution.
         """
-        return 0
+        return 0.0
 
     def kurtosis(self) -> float:
         """
@@ -166,13 +166,13 @@ class Uniform(BoundedInterval):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def keys(self) -> Dict[str, float]:
         """
         Summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, float]: [description]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

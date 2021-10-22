@@ -140,7 +140,7 @@ class Bernoulli(BoundedInterval):
         """
         shape = self.shape
         if shape == 0.5:
-            return 1/12
+            return 0.08333333333333333
         return shape/((2*shape-1)**2)+1/(2*_np.arctanh(1-2*shape))**2
 
     def std(self) -> float:

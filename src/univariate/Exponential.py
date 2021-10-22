@@ -64,7 +64,7 @@ class Explonential(SemiInfinite):
         def __generator(lambda_:float, x:float) -> float:
             if x >= 0:
                 return lambda_ * _exp(-(lambda_ * x))
-            return 0
+            return 0.0
 
         if x is not None:
             if not isinstance(x, (_np.ndarray, List)):
@@ -88,7 +88,7 @@ class Explonential(SemiInfinite):
         def __generator(lambda_:float, x:float) -> float:
             if x > 0:
                 return 1 - _exp(-lambda_ * x)
-            return 0
+            return 0.0
 
         if x is not None:
             if not isinstance(x, (_np.ndarray, List)):
@@ -119,10 +119,10 @@ class Explonential(SemiInfinite):
         if x_upper is None:
             x_upper = x
 
-        def __cdf(x, lambda_):
+        def __cdf(x, lambda_) -> float:
             if x > 0:
                 return 1 - _exp(-lambda_ * x)
-            return 0
+            return 0.0
         return __cdf(x_upper, lambda_) - __cdf(x_lower, lambda_)
 
     def mean(self) -> float:
@@ -137,11 +137,11 @@ class Explonential(SemiInfinite):
         """
         return _log(2) / self.lambda_
 
-    def mode(self) -> int:
+    def mode(self) -> float:
         """
         Returns: Mode of the Exponential distribution
         """
-        return 0
+        return 0.0
 
     def var(self) -> float:
         """
@@ -155,17 +155,17 @@ class Explonential(SemiInfinite):
         """
         return _sqrt(self.var())
 
-    def skewness(self) -> int:
+    def skewness(self) -> float:
         """
         Returns: Skewness of the Exponential distribution
         """
-        return 2
+        return 2.0
 
-    def kurtosis(self) -> int:
+    def kurtosis(self) -> float:
         """
         Returns: Kurtosis of the Exponential distribution
         """
-        return 6
+        return 6.0
 
     def entorpy(self) -> float:
         """

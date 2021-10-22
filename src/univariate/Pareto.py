@@ -39,7 +39,7 @@ class Pareto(SemiInfinite):
     Retrieved 05:00, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
     """
 
-    def __init__(self, shape: Union[float, int], scale: Union[float, int], x: Union[float, int]):
+    def __init__(self, shape: float, scale: float, x: float):
         if scale < 0:
             raise ValueError(
                 f'scale should be greater than 0. Entered value for scale:{scale}')
@@ -130,7 +130,7 @@ class Pareto(SemiInfinite):
             return 0
         return __cdf(x_upper, self.scale, self.alpha)+__cdf(x_lower, self.scale, self.alpha)
 
-    def mean(self) -> Union[float, int]:
+    def mean(self) -> float:
         """
         Returns: Mean of the Pareto distribution.
         """
@@ -141,7 +141,7 @@ class Pareto(SemiInfinite):
             return _np.inf
         return (a * x_m) / (a - 1)
 
-    def median(self) -> Union[float, int]:
+    def median(self) -> float:
         """
         Returns: Median of the Pareto distribution.
         """
@@ -222,13 +222,13 @@ class Pareto(SemiInfinite):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def keys(self) -> Dict[str, Union[float, str]]:
         """
         Summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int, str]]: [description]
+            Dict[str, Union[float, str]]: [description]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

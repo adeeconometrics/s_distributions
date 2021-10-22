@@ -149,7 +149,7 @@ class Gumbel(SemiInfinite):
         """
         Returns: Kurtosis of the Gumbel distribution.
         """
-        return 12/5
+        return 2.4
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

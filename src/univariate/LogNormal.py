@@ -116,25 +116,25 @@ class LogNormal(SemiInfinite):
 
         return __cdf(self.mean_val, self.std_val, x_upper) - __cdf(self.mean_val, self.std_val, x_lower)
 
-    def mean(self) -> Union[float, int]:
+    def mean(self) -> float:
         """
         Returns: Mean of the log normal distribution.
         """
         return _exp(self.mean_val + pow(self.std_val, 2) / 2)
 
-    def median(self) -> Union[float, int]:
+    def median(self) -> float:
         """
         Returns: Median of the log normal distribution.
         """
         return _exp(self.mean_val)
 
-    def mode(self) -> Union[float, int]:
+    def mode(self) -> float:
         """
         Returns: Mode of the log normal distribution.
         """
         return _exp(self.mean_val - pow(self.std_val, 2))
 
-    def var(self) -> Union[float, int]:
+    def var(self) -> float:
         """
         Returns: Variance of the log normal distribution.
         """
@@ -142,13 +142,13 @@ class LogNormal(SemiInfinite):
         mean=self.mean_val
         return (_exp(pow(std, 2)) - 1) * _exp(2 * mean + pow(std, 2))
 
-    def std(self) -> Union[float, int]:
+    def std(self) -> float:
         """
         Returns: Standard deviation of the log normal distribution
         """
         return self.std_val
 
-    def skewness(self) -> Union[float, int]:
+    def skewness(self) -> float:
         """
         Returns: Skewness of the log normal distribution.
         """
@@ -156,7 +156,7 @@ class LogNormal(SemiInfinite):
         mean=self.mean_val
         return (_exp(pow(std, 2)) + 2) * _sqrt(_exp(pow(std, 2)) - 1)
 
-    def kurtosis(self) -> Union[float, int]:
+    def kurtosis(self) -> float:
         """
         Returns: Kurtosis of the log normal distribution.
         """
@@ -164,7 +164,7 @@ class LogNormal(SemiInfinite):
         return _exp(
             4 * pow(std, 2)) + 2 * _exp(3 * pow(std, 2)) + 3 * _exp(2 * pow(std, 2)) - 6
 
-    def entropy(self) -> Union[float, int]:
+    def entropy(self) -> float:
         """
         Returns: differential entropy of the log normal distribution.
 
@@ -198,7 +198,7 @@ class LogNormal(SemiInfinite):
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, float]: [description]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

@@ -227,13 +227,13 @@ class Triangular(BoundedInterval):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
+    def keys(self) -> Dict[str, Union[float]]:
         """
         Summary statistic regarding the Triangular distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, Tuple[float]]]: [description]
+            Dict[str, Union[float]: [description]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

@@ -187,7 +187,7 @@ class Laplace(Infinite):
                     f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
                     f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def keys(self) -> Dict[str, Union[float, str]]:
         """
         Summary statistic regarding the Laplace distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
