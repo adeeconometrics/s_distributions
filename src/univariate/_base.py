@@ -4,7 +4,7 @@ try:
     import numpy as _np
     from math import sqrt as _sqrt, exp as _exp, pi as _pi, log as _log
     from typing import Union, Tuple, List
-    from abc import ABC
+    from abc import ABC, abstractmethod
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -107,9 +107,17 @@ class Base(ABC):
     def mle(self):
         """
         Default implementation of Maximum Likelihood Estimator.
-        Returns NotImplemented.
+        Raise NotImplementedError.
         """
-        return NotImplemented
+        raise NotImplementedError('Maximum likelihood Estimator is not implemented.')
+
+    @abstractmethod
+    def pdf(self): # guarantee that all concrete class will have a defined pdf
+        pass
+
+    @abstractmethod
+    def cdf(self): # guarantee that all concrete class will have a defined cdf
+        pass
 
     def pvalue(self):
         """
@@ -118,14 +126,14 @@ class Base(ABC):
         """
         return NotImplemented
 
-    def confidence_interval(self):
+    def confidence_interval(self): # staged for removing
         """
         Default implementation of confidence interval.
         Returns NotImplemented.
         """
         return NotImplemented
 
-    def rvs(self):  # (adaptive) rejection sampling implementation
+    def rvs(self):  # MH algorithm
         """
         returns random variate samples default NotImplemented
         """
@@ -159,7 +167,7 @@ class Base(ABC):
         """
         return NotImplemented
 
-    def std(self):
+    def std(self): # make this generic
         """
         Default implementation of the standard deviation.
         Returns NotImplemented.

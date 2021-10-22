@@ -61,7 +61,7 @@ class Gumbel(SemiInfinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:
@@ -86,7 +86,7 @@ class Gumbel(SemiInfinite):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:

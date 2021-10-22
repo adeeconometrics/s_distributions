@@ -40,7 +40,10 @@ Efforts on maintaining class invariance
     - [x] `standardnorm_cdf`  - declared as `@staticmethod`
     - [x] `standard_cdf_inv`  - declared as `@staticmethod`
 - [ ] impose optional value checking on random variables
+- [x] guarantee that all concrete class will define a pdf/cdf
 - [ ] move the need for random variables only to functions that need them `pdf`, `cdf`
+- [ ] make a staticmethod for computing pdf only if it performs well on iterations in defined in the 
+    likelihood functions
 - [ ] implementation of generic PRNG either:
     - [MCMC implementation of Metropolis-Hatings](https://en.wikipedia.org/wiki/Metropolis%E2%80%93Hastings_algorithm)
     - [Adaptive Reject Sampling](https://en.wikipedia.org/wiki/Rejection_sampling#Adaptive_rejection_sampling)
@@ -88,7 +91,7 @@ Semi-infinite class
     - [ ] Inverse Gamma distribution
     - [ ] Dagum distribution
     - [ ] Davis distribution
-    - [ ] Rayleigh distribution
+    - [x] Rayleigh distribution
     - [ ] Benktander Type 1 distribution
     - [ ] Benktander Type 2 distribution
     - [ ] hypoexponential distribution
@@ -97,11 +100,11 @@ Semi-infinite class
     - [ ] log-Logistic distribution
     - [ ] Inverse chi-squared distribution
     - [ ] Lévy distribution
-    - [ ] Pareto distribution
+    - [x] Pareto distribution
     - [ ] Nakagami distribution
     - [ ] Lomax distribution
-    - [ ] Gumbel distribution
-    - [ ] Weibull distribution
+    - [ ] Gumbel distribution*
+    - [x] Weibull distribution
     - [ ] truncated normal type 2 distribution 
     - [ ] Burr distribution 
     - [ ] Generalized Gamma distribution
@@ -172,8 +175,7 @@ in progress
         - [ ] normal-inverse Gaussian - req: Bassel function of the third kind
         - [ ] stable - find numerical counterparts, no analytical expression is defined
         - [ ] Tracy–Widom - needs further reading
-        - [ ] Voigt -  find numerical counterparts, as analytical expression is deemed [complicated](https://en.wikipedia.org/wiki/Voigt_profile)
-        
+                
     - varying types supported
         - [ ] generalized chi-squared  - needs further reading for numerical counterparts
         - [ ] shifted log-logistic - doable

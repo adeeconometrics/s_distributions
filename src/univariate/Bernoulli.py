@@ -68,7 +68,7 @@ class Bernoulli(BoundedInterval):
             return (2*_np.arctanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:
@@ -90,7 +90,7 @@ class Bernoulli(BoundedInterval):
         randvar = self.randvar
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(
                     f'parameter x only accepts List types or numpy.ndarray')
             else:

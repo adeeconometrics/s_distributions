@@ -75,7 +75,7 @@ class F(SemiInfinite):
                     pow(x, df1 / 2 - 1) * pow(1 + (df1 / df2) * x, -((df1 + df2) / 2))
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
@@ -96,7 +96,7 @@ class F(SemiInfinite):
             return 1 - _betainc(df1/2, df2/2, x)
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)

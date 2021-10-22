@@ -60,7 +60,7 @@ class Uniform(BoundedInterval):
             return 1 / (b - a) if a <= x and x <= b else 0.0
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(a,b,i) for i in x]
@@ -88,7 +88,7 @@ class Uniform(BoundedInterval):
                 return 1.0
 
         if x is not None:
-            if not (isinstance(x, _np.ndarray)) and issubclass(x, List):
+            if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(a,b,i) for i in x]
