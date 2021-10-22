@@ -1,13 +1,10 @@
-from abc import abstractmethod
-
-
 try:
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
     import numpy as _np
     from math import sqrt as _sqrt, exp as _exp, pi as _pi, log as _log
     from typing import Union, Tuple, List
-    from abc import ABC
+    from abc import ABC, abstractmethod
 except Exception as e:
     print(f"some modules are missing {e}")
 
@@ -110,9 +107,9 @@ class Base(ABC):
     def mle(self):
         """
         Default implementation of Maximum Likelihood Estimator.
-        Returns NotImplemented.
+        Raise NotImplementedError.
         """
-        return NotImplemented
+        raise NotImplementedError('Maximum likelihood Estimator is not implemented.')
 
     @abstractmethod
     def pdf(self): # guarantee that all concrete class will have a defined pdf
