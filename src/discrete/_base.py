@@ -1,3 +1,5 @@
+from math import sqrt as _sqrt
+
 class Base:  
     def __init__(self):
         if type(self) is Base:
@@ -56,6 +58,8 @@ class Base:
         Default implementation of the standard deviation.
         Returns NotImplemented.
         """
+        if type(self.var()) in (int, float):
+            return _sqrt(self.var())
         return NotImplemented
 
     def skewness(self):
@@ -85,7 +89,7 @@ class Finite(Base):
         Base class for probability tags.
     """
     def __init__(self):
-        if type(self) is Infinite:
+        if type(self) is Finite:
             raise TypeError('base class cannot be instantiated.')
 
 class Infinite(Base):

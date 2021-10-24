@@ -2,12 +2,12 @@ try:
     import numpy as np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
     from typing import Union, Tuple, Dict, List
-    from discrete._base import Base
+    from discrete._base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Geometric(Base):
+class Geometric(Finite):
     """
     This class contains functions for finding the probability mass function and 
     cumulative distribution function for geometric distribution. We consider two definitions 
@@ -39,20 +39,17 @@ class Geometric(Base):
     Retrieved 12:05, December 27, 2020, from https://en.wikipedia.org/w/index.php?title=Geometric_distribution&oldid=996517676
     """
 
-    def __init__(self, p, k):
-        if type(k) is not int:
-            raise TypeError('parameter k must be of type int')
+    def __init__(self, p:float):
         if p < 0 or p > 1:
             raise ValueError('parameter p is constrained at')
 
         self.p = p
-        self.k = k
 
-    def pmf(self, x: List[int] = None, _type: str = 'first') -> Union[List[int], int, float]:
+    def pmf(self, x: Union[List[int], int], _type: str = 'first') -> Union[List[float], float]:
         """
         Args:         
             type (keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.
-            x (List[int]): list of random variables
+            x (Union[List[int], int]): list of random variables
 
             Reference: https://en.wikipedia.org/wiki/Geometric_distribution
 
@@ -63,26 +60,30 @@ class Geometric(Base):
         Note: there are two configurations of pmf. 
         """
         p = self.p
-        k = self.k
+
         if _type == "first":
-            def __generator(p, k): return pow(1 - p, k - 1) * p
+            def __generator(p:float, k:int) -> float: return pow(1 - p, k - 1) * p
         elif _type == "second":
-            def __generator(p, k): return pow(1 - p, k) * p
+            def __generator(p:float, k:int) -> float: return pow(1 - p, k) * p
         else:
             raise ValueError(
                 "Invalid argument. Type is either 'first' or 'second'.")
 
-        if x is not None and issubclass(x, List):
+        if isinstance(x, List):
+            if any(type(i) is not int for i in x):
+                raise TypeError('parameter k must be of type int')
             return [__generator(p, k_i) for k_i in x]
 
-        return __generator(p, k)
+        if type(x) is not int:
+            raise TypeError('parameter k must be of type int')
+        return __generator(p, x)
 
-    def cdf(self, x: List[int] = None, _type: str = 'first') -> Union[List[int], int, float]:
+    def cdf(self, x: Union[List[int], int], _type: str = 'first') -> Union[List[float], float]:
         """
         Args: 
 
             type(keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.
-            x (List[int]): list of random variables
+            x (Union[List[int], int]): list of random variables
 
             for context see: https://en.wikipedia.org/wiki/Geometric_distribution
 
@@ -92,52 +93,54 @@ class Geometric(Base):
         Note: there are two configurations of cdf. 
         """
         p = self.p
-        k = self.k
+
         if _type == "first":
-            def __generator(p, k): return 1 - pow(1 - p, k)
+            def __generator(p:float, k:int) -> float: return 1 - pow(1 - p, k)
         elif _type == "second":
-            def __generator(p, k): return 1 - pow(1 - p, k + 1)
-        else:  # supposed to raise exception when failed
+            def __generator(p:float, k:int) -> float: return 1 - pow(1 - p, k + 1)
+        else: 
             raise ValueError(
                 "Invalid argument. Type is either 'first' or 'second'.")
 
-        if x is not None and issubclass(x, List):
+        if isinstance(x, List):
+            if any(type(i) is not int for i in x):
+                raise TypeError('parameter k must be of type int')
             return [__generator(p, k_i) for k_i in x]
 
-        return __generator(p, k)
+        if type(x) is not int:
+            raise TypeError('parameter k must be of type int')
+        return __generator(p, x)
 
-    def mean(self, _type='first') -> Union[int, str]:
+    def mean(self, _type='first') -> float:
         """
         Args:
 
             type(string): defaults to first type. Valid types: "first", "second".
         Returns the mean of Geometric Distribution.
         """
-        p = self.p
-        if _type == "first":
-            return 1 / p
-        elif _type == "second":
-            return (1 - p) / p
-        else:  # supposed to raise exception when failed
-            return print(
-                "Invalid argument. Type is either 'first' or 'second'.")
 
-    def median(self, _type='first') -> Union[int, str]:
+        if _type == "first":
+            return 1 / self.p
+        elif _type == "second":
+            return (1 - self.p) / self.p
+        else:  
+            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
+
+    def median(self, _type='first') -> int:
         """
         Args:
 
             type(string): defaults to first type. Valid types: "first", "second".
         Returns the median of Geometric Distribution.
         """
-        if type == "first":
-            return _ceil(1 / (_log2(1 - self.p)))
-        elif type == "second":
-            return _ceil(1 / (_log2(1 - self.p))) - 1
-        else:  # supposed to raise exception when failed
-            return print(
-                "Invalid argument. Type is either 'first' or 'second'.")
+        if _type == "first":
+            return _ceil(-1 / (_log2(1 - self.p)))
+        elif _type == "second":
+            return _ceil(-1 / (_log2(1 - self.p))) - 1
+        else: 
+            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
 
-    def mode(self, _type: str = 'first') -> Union[int, str]:
+    def mode(self, _type: str = 'first') -> int:
         """
         Args:
 
@@ -148,9 +151,8 @@ class Geometric(Base):
             return 1
         elif _type == "second":
             return 0
-        else:  # supposed to raise exception when failed
-            return print(
-                "Invalid argument. Type is either 'first' or 'second'.")
+        else: 
+            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
 
     def var(self) -> float:
         """

@@ -1,14 +1,14 @@
 try:
-    import numpy as np
+    import numpy as _np
     from scipy.special import gammainc as _gammainc
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
     from typing import Union, Tuple, Dict, List
-    from discrete._base import Base
+    from discrete._base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Poisson(Base):
+class Poisson(Infinite):
     """
     This class contains methods for evaluating some properties of the poisson distribution. 
     As lambda increases to sufficiently large values, the normal distribution (λ, λ) may be used to 
@@ -43,14 +43,10 @@ class Poisson(Base):
          Retrieved 08:53, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Poisson_distribution&oldid=994605766
     """
 
-    def __init__(self, λ: Union[int, float], k: int):
-        if type(k) is not int:
-            raise TypeError('parameter k should be of type int')
-
-        self.k = k
+    def __init__(self, λ:float):
         self.λ = λ
 
-    def pmf(self, x: List[int] = None) -> Union[int, float, List[int]]:
+    def pmf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -62,18 +58,19 @@ class Poisson(Base):
             or a list of its corresponding value specified by the parameter x.
         """
 
-        k = self.k
-        λ = self.λ
+        def __generator(k, λ): 
+            return (_np.power(λ, k) * _np.exp(-λ)) / _np.math.factorial(k)
 
-        def __generator(k, λ): return (pow(λ, k) * np.exp(-λ)
-                                       ) / np.math.factorial(k)
+        if isinstance(x, (List, _np.ndarray)):
+            if any(type(i) is not int or i < 0 for i in x):
+                raise TypeError('parameter x must be a positive integer')
+            return _np.vectorize(__generator)(x, self.λ)
 
-        if x is not None and issubclass(x, List):
-            return [__generator(p, i) for i in x]
+        if x < 0:
+            raise ValueError('parameter x must be a positive integer')
+        return __generator(x, self.λ)
 
-        return __generator(k, λ)
-
-    def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
+    def cdf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -84,14 +81,18 @@ class Poisson(Base):
             commulative density function of Poisson distribution to some point specified by the random variable
             or a list of its corresponding value specified by the parameter x.
         """
-        k = self.k
         λ = self.λ
-        def __generator(k, λ): return _gammainc(_floor(k + 1), λ
-                                                ) / np.math.factorial(_floor(k))
-        if x is not None and issubclass(x, List):
-            return [__generator(p, i) for i in x]
+        def __generator(k, λ): 
+            return _gammainc(_floor(k + 1), λ) / _np.math.factorial(_floor(k))
 
-        return __generator(k, λ)
+        if isinstance(x, (List, _np.ndarray)):
+            if any(type(i) is not int or i < 0 for i in x):
+                raise TypeError('parameter x must be a positive integer')
+            return _np.vectorize(__generator)(x, self.λ)
+
+        if x < 0:
+            raise ValueError('parameter x must be a positive integer')
+        return __generator(x, self.λ)
 
     def mean(self) -> float:
         """
@@ -123,13 +124,13 @@ class Poisson(Base):
         """
         Returns the skewness of Poisson Distribution.
         """
-        return pow(self.λ, -1 / 2)
+        return pow(self.λ, -0.5)
 
     def kurtosis(self) -> float:
         """
         Returns the kurtosis of Poisson Distribution.
         """
-        return pow(self.λ, -1)
+        return 1/self.λ
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

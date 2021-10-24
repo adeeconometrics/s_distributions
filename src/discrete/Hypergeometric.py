@@ -1,14 +1,14 @@
 try:
     from scipy.special import binom as _binom
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor
-    from typing import Union, Typing, Dict, List
-    from discrete._base import Base
+    from typing import Union, Tuple, Dict, List
+    from discrete._base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Hypergeometric(Base):
+class Hypergeometric(Finite):
     """
     This class contains methods concerning pmf and cdf evaluation of the hypergeometric distribution. 
     Describes the probability if k successes (random draws for which the objsect drawn has specified deature)
@@ -46,13 +46,16 @@ class Hypergeometric(Base):
     def __init__(self, N: int, K: int, k: int, n: int):
         if type(N) and type(n) and type(K) and type(k) is not int:
             raise TypeError('all parameters must be of type int')
+        
+        if any(i < 0 for i in [N,K,k,n]):
+            raise ValueError('parameters must be positive integer')
 
         self.N = N
         self.K = K
         self.k = k
         self.n = n
 
-    def pmf(self, x: List[int] = None) -> Union[float, List[float]]:
+    def pmf(self) -> float:
         """
         Args: 
             x (List[int]): list of random variables
@@ -64,15 +67,11 @@ class Hypergeometric(Base):
         N = self.N
         K = self.K
 
-        def __generator(N, n, K, k): return _binom(n, k) * \
-            _binom(N - K, n - k) / _binom(N, n)
         # assumes n>k
+        return _binom(K,k)*_binom(N-K, n-k)/_binom(N,n)
 
-        if x is not None and issubclass(x, List):
-            return [__generator(N, n, K, i) for i in x]
-        return __generator(N, n, K, k)
 
-    def cdf(self, x: List[float] = None) -> Union[float, List[float]]:
+    def cdf(self):
         """
         Args:
 
@@ -81,17 +80,7 @@ class Hypergeometric(Base):
         Returns: 
             either cumulative density evaluation for some point or scatter plot of Hypergeometric distribution.
         """
-        n = self.n
-        k = self.k
-        N = self.N
-        K = self.K
-
-        def __generator(N, n, K, k): return (_binom(n, k) * _binom(
-            N - K, n - k)) / _binom(N, n)  # assumes n>k
-
-        if x is None and issubclass(x, (List, np.ndarray)):
-            return np.cumsum([__generator(N, n, K, i) for i in x])
-        return np.cumsum(__generator(N, n, K, k))[k - 1]
+        return NotImplemented
 
     def mean(self) -> float:
         """
@@ -145,10 +134,10 @@ class Hypergeometric(Base):
         N = self.N
         k = self.k
         K = self.K
-        scale = 1 / (n * k(N - K) * (N - n) * (N - 2) * (N - 3))
+        scale = 1 / (n * k*(N - K) * (N - n) * (N - 2) * (N - 3))
         return scale * ((N - 1) * N**2 * (N * (N + 1) - (6 * K * (N - K)) -
                                           (6 * n * (N - n))) +
-                        (6 * n * K(N - K) * (N - n) * (5 * N - 6)))
+                        (6 * n * K*(N - K) * (N - n) * (5 * N - 6)))
 
     def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
         """

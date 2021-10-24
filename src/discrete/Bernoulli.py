@@ -1,12 +1,12 @@
 try:
     from math import sqrt as _sqrt
     from typing import Union, Tuple, Dict, List
-    from discrete._base import Base
+    from discrete._base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Bernoulli(Base):
+class Bernoulli(Finite):
     """
     This class contains methods concerning the Bernoulli Distribution. Bernoulli Distirbution is a special
     case of Binomial Distirbution. 
@@ -34,16 +34,12 @@ class Bernoulli(Base):
         Retrieved 10:18, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&oldid=996380822
     """
 
-    def __init__(self, p: int, k: float):
-        if type(p) is not int:
-            raise TypeError('parameter p must be of type int')
-        if k < 0 or k > 1:
+    def __init__(self, p:float):
+        if p < 0 or p > 1:
             raise ValueError('parameter k is constrained in ∈ [0,1]')
-
         self.p = p
-        self.k = k
 
-    def pmf(self, x: List[int] = None) -> Union[int, float, List[int]]:
+    def pmf(self, x: Union[List[int], int]) -> Union[int, float, List[Union[int, float]]]:
         """
         Args:
 
@@ -54,16 +50,50 @@ class Bernoulli(Base):
             or a list of its corresponding value specified by the parameter x.
         """
         p = self.p
-        k = self.k
 
-        def __generator(p, k): return p**k * pow(1 - p, 1 - k)
+        def __generator(p, k) -> Union[int, float]: 
+            if k == 0:
+                return 1-p
+            return p
 
-        if x is not None and isinstance(x, List):
+        if isinstance(x, List):
+            if any(i != 0 and i != 1 for i in x):
+                raise ValueError('all x must either be 1 or 0')
             return [__generator(p, i) for i in x]
 
-        return __generator(p, k)
+        if x != 1 and x != 0:
+            raise ValueError('all x must either be 1 or 0')
+        return __generator(p, x)
 
-    def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
+    @staticmethod
+    def pmf_s(p:float, x: Union[List[int], int]) -> Union[int, float, List[Union[int, float]]]:
+        """
+        Args:
+
+            x (List[int]): random variable or list of random variables
+
+        Returns: 
+            probability mass evaluation of Bernoulli distribution to some point specified by the random variable
+            or a list of its corresponding value specified by the parameter x.
+        """
+        if p < 0 or p > 1:
+            raise ValueError('parameter p is constrained in ∈ [0,1]')
+
+        def __generator(p, k) -> Union[int, float]: 
+            if k == 0:
+                return 1-p
+            return p
+
+        if isinstance(x, List):
+            if any(i != 0 and i != 1 for i in x):
+                raise ValueError('all x must either be 1 or 0')
+            return [__generator(p, i) for i in x]
+
+        if x != 1 and x != 0:
+            raise ValueError('all x must either be 1 or 0')
+        return __generator(p, x)
+
+    def cdf(self, x: Union[List[int], int]) -> Union[int, float, List[Union[int, float]]]:
         """
         Args:
 
@@ -74,22 +104,25 @@ class Bernoulli(Base):
             or a list of its corresponding value specified by the parameter x.
         """
         p = self.p
-        k = self.k
 
-        def __generator(k, p):
+        def __generator(p, k) -> Union[int, float]: 
             if k < 0:
                 return 0
             elif k >= 0 and k < 1:
                 return 1 - p
-            elif k >= 1:
+            else:
                 return 1
 
-        if x is not None and isinstance(x, List):
+        if isinstance(x, List):
+            if any(i != 0 and i != 1 for i in x):
+                raise ValueError('all x must either be 1 or 0')
             return [__generator(p, i) for i in x]
 
-        return __generator(p, k)
+        if x != 1 and x != 0:
+            raise ValueError('all x must either be 1 or 0')
+        return __generator(p, x)
 
-    def mean(self) -> int:
+    def mean(self) -> float:
         """
         Returns the mean of Bernoulli Distribution.
         """
@@ -100,11 +133,11 @@ class Bernoulli(Base):
         Returns the median of Bernoulli Distribution.
         """
         p = self.p
-        if p < 1 / 2:
+        if p < 0.5:
             return 0
-        if p == 1 / 2:
+        if p == 0.5:
             return (0, 1)
-        if p > 1 / 2:
+        if p > 0.5:
             return 1
 
     def mode(self) -> Union[Tuple[int, int], int]:
@@ -112,11 +145,11 @@ class Bernoulli(Base):
         Returns the mode of Bernoulli Distribution.
         """
         p = self.p
-        if p < 1 / 2:
+        if p < 0.5:
             return 0
-        if p == 1 / 2:
+        if p == 0.5:
             return (0, 1)
-        if p > 1 / 2:
+        if p > 0.5:
             return 1
 
     def var(self) -> float:
