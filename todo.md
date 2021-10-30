@@ -58,7 +58,65 @@ Efforts on maintaining class invariance
 - [ ] maximum-likelihood function
 - [ ] random number generator
 - [ ] point-percentage function 
+- [ ] string representation, pretty printing
 
+
+## New Design Proposal
+Proceed only if:
+- Python cost significant overhead for looking up on superclass functions
+- It is possible to reference concrete class attributes without specifying it in the base
+	`self.function()` / `self.attribute`
+- Remove `pvalue`
+
+```python
+class ConcreteDistribution(BaseCategory):
+	is_initialized:bool = True # staged for abstraction, see if it degrades performance
+
+	def __init__(self, *params, enable_cache=True):
+        ... # typecheck and valuecheck
+		if (is_initialized := is_cached):
+			__initialize_moments()
+
+	def __initialize_moments(self, *params)->None:
+		"""
+		initialization that is cheaper to compute, avoids code duplication
+		"""
+		self.__mean = ...
+		self.__median = ...
+		self.__mode = ...
+		self.__var = ...
+		self.__sk = ...
+		self.__ku = ... 
+
+	def __str__(self)->str: # can be defined as default in base, regardless of performance overhead
+        pairs = self.summary()
+		return tabulate([[k,v] for k,v in zip(pairs.keys(), pairs.values())],
+                        tablefmt="github")
+
+	def pdf(self, x:Union[List[numeric], 
+			np.ndarray, float])->Union[np.ndarray, float]: ...
+
+	def cdf(self, x:Union[List[numeric], 
+			np.ndarray, float])->Union[np.ndarray, float]: ...
+
+	@staticmethod
+	def pdf_(x:Union[List[numeric], 
+			np.ndarray, float])->Union[np.ndarray, float]: ...
+
+	@staticmethod
+	def cdf_(x:Union[List[numeric], 
+			np.ndarray, float])->Union[np.ndarray, float]: ...
+
+	def mean(self)->float: return self.__mean
+	def median(self)->float: return self.__median
+	def mode(self)->float: return self.__mode
+	def var(self)->float: return self.__var
+	def ku(self)->float: return self.__ku
+	def sk(self)->float: return self.__sk
+	def std(self)->Optional[float]: return sqrt(self.__var)
+
+	def summary(self)->Dict[str, float]: ...
+```
 
 ## Distributions to be supported
 ### Discrete

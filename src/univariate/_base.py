@@ -104,12 +104,12 @@ class Base(ABC):
                 return [_log(cls(*_theta).pdf(x)) for _theta in theta]
             return [_np.log(cls(*_theta).pdf(x)).sum() for _theta in theta]
 
-    def mle(self):
-        """
-        Default implementation of Maximum Likelihood Estimator.
-        Raise NotImplementedError.
-        """
-        raise NotImplementedError('Maximum likelihood Estimator is not implemented.')
+    # def mle(self): # If there exist a generic ML Estimator, keep this.
+    #     """
+    #     Default implementation of Maximum Likelihood Estimator.
+    #     Raise NotImplementedError.
+    #     """
+    #     raise NotImplementedError('Maximum likelihood Estimator is not implemented.')
 
     @abstractmethod
     def pdf(self): # guarantee that all concrete class will have a defined pdf
