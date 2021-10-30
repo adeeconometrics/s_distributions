@@ -73,9 +73,9 @@ class ConcreteDistribution(BaseCategory):
 	is_initialized:bool = True # staged for abstraction, see if it degrades performance
 
 	def __init__(self, *params, enable_cache=True):
-        ... # typecheck and valuecheck
+        # typecheck and valuecheck first
 		if (is_initialized := is_cached):
-			__initialize_moments()
+			self.__initialize_moments()
 
 	def __initialize_moments(self, *params)->None:
 		"""
