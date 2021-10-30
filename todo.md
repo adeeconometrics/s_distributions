@@ -39,7 +39,7 @@ Efforts on maintaining class invariance
     - [x] `standardnorm_pdf` - declared as `@staticmethod`
     - [x] `standardnorm_cdf`  - declared as `@staticmethod`
     - [x] `standard_cdf_inv`  - declared as `@staticmethod`
-- [ ] impose optional value checking on random variables
+- [ ] impose optional value checking on random variables, implement efficient predicate value checker
 - [x] guarantee that all concrete class will define a pdf/cdf
 - [ ] move the need for random variables only to functions that need them `pdf`, `cdf`
 - [ ] make a staticmethod for computing pdf only if it performs well on iterations in defined in the 
