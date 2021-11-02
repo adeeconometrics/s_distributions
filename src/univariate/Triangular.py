@@ -1,6 +1,6 @@
 try:
     import numpy as _np
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List, Optional
     from math import sqrt as _sqrt, log as _log
     from univariate._base import BoundedInterval
 except Exception as e:
@@ -16,22 +16,6 @@ class Triangular(BoundedInterval):
         b(float | a<b): upper limit
         c(float| a≤c≤b): mode
         randvar(float | a≤randvar≤b): random variable
-
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     Reference:
     - Wikipedia contributors. (2020, December 19). Triangular distribution. In Wikipedia, The Free Encyclopedia.
@@ -83,7 +67,7 @@ class Triangular(BoundedInterval):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(a,b,c,d,i) for i in x]
-        return __generator(a,b,c,d,radvar)
+        return __generator(a,b,c,d,randvar)
 
     def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
@@ -112,37 +96,8 @@ class Triangular(BoundedInterval):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 return [__generator(a,b,c,d,i) for i in x]
-        return __generator(a,b,c,d,radvar)
+        return __generator(a,b,c,d,randvar)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Triangular distribution evaluated at some random variable.
-        """
-        if x_upper == None:
-            x_upper = self.randvar
-        if x_lower > x_upper:
-            raise ValueError(
-                f'lower bound should be less than upper bound. Entered values: x_lower:{x_lower} x_upper:{x_upper}')
-
-        def __cdf(a, b, c, x):
-            if x <= a:
-                return 0
-            if a < x and x <= c:
-                return pow(x-a, 2)/((b-a)*(c-a))
-            if c < x and x < b:
-                return 1 - pow(b-x, 2)/((b-c)*(b-c))
-            if b <= x:
-                return 1
-        return __cdf(self.a, self.b, self.c, x_upper)-__cdf(self.a, self.b, self.c, x_lower)
 
     def mean(self) -> float:
         """
@@ -208,32 +163,13 @@ class Triangular(BoundedInterval):
         """
         return 0.5 + _log((self.b-self.a)*0.5)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Triangular distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float]]:
+    def summary(self) -> Dict[str, float]:
         """
         Summary statistic regarding the Triangular distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float]: [description]
+            Dict[str, float]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

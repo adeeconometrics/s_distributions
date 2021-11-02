@@ -17,23 +17,6 @@ class ChiSquare(SemiInfinite):
         x(float): random variable.
         df(int): degrees of freedom.
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     References:
     - Weisstein, Eric W. "Chi-Squared Distribution." From MathWorld--A Wolfram Web Resource.
     https://mathworld.wolfram.com/Chi-SquaredDistribution.html
@@ -93,28 +76,7 @@ class ChiSquare(SemiInfinite):
                 x = _np.array(x)
                 return _gammainc(df/2, x/2)
 
-        return _gammaince(df/2, randvar/2)
-
-    def p_val(self, x_lower=-_np.inf, x_upper=None) -> float:
-        """
-        Args:
-
-            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
-            x_upper(float | x_upper>x_lower): defaults to None. If not defined defaults to random variable x. Optional.
-            args(list of float): pvalues of each elements from the list
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Chi square distribution evaluated at some random variable.
-        """
-        def __cdf(x, df): return _gammainc(df / 2, x / 2)
-        if x_upper is not None:
-            if x_lower > x_upper:
-                raise Exception('x_lower should be less than x_upper.')
-            return __cdf(x_upper, self.df) - __cdf(x_lower, self.df)
-        return __cdf(self.randvar, self.df)
+        return _gammainc(df/2, randvar/2)
 
     def mean(self) -> Union[float, int]:
         """
@@ -162,32 +124,13 @@ class ChiSquare(SemiInfinite):
         df = self.df
         return df/2 + _log(2*_gamma(df/2)) + (1-df/2)*_digamma(df/2)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the ChiSquare-distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def summary(self) -> Dict[str, Union[float, int, str]]:
         """
         Summary statistic regarding the ChiSquare-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int, str]]: [description]
+            Dict[str, Union[float, int, str]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

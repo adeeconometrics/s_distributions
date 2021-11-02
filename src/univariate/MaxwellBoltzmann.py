@@ -9,29 +9,13 @@ except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Maxwell_Boltzmann(SemiInfinite):
+class MaxwellBoltzmann(SemiInfinite):
     """
     This class contains methods concerning Maxwell-Boltzmann Distirbution.
     Args:
 
         a(int | x>0): parameter
         randvar(float | x>=0): random variable. Optional. Use when cdf and pdf or p value of interest is desired.
-
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     Reference:
     - Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. In Wikipedia, The Free Encyclopedia.
@@ -96,29 +80,6 @@ class Maxwell_Boltzmann(SemiInfinite):
 
         return _erf(x/(_sqrt(2)*a))- _sqrt(2/_pi)*(randvar**2*_exp(-randvar**2/(2*a**2)))/(a)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Maxwell-Boltzmann distribution evaluated at some random variable.
-        """
-        if x_upper == None:
-            x_upper = self.randvar
-        if x_lower > x_upper:
-            raise Exception(
-                'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
-
-        def __cdf(a:float, x:float) -> float: 
-            return _erf(x/(_sqrt(2)*a))-_sqrt(2/_pi)*(x**2*_exp(-x**2/(2*a**2)))/(a)
-        return __cdf(self.a, x_upper)-__cdf(self.a, x_lower)
-
     def mean(self) -> float:
         """
         Returns: Mean of the Maxwell-Boltzmann distribution.
@@ -171,32 +132,13 @@ class Maxwell_Boltzmann(SemiInfinite):
         a = self.a
         return _log(a*_sqrt(2*_pi)+_euler_gamma-0.5)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Maxwell-Boltzmanndistribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
+    def keys(self) -> Dict[str, Union[float, str]]:
         """
         Summary statistic regarding the Maxwell-Boltzmanndistribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, Tuple[float]]]: [description]
+            Dict[str, Union[float, str]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

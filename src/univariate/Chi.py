@@ -1,8 +1,8 @@
 try:
-    from scipy.special import gammainc as _gammainc, gamma as _gamma
-    import numpy as __np
+    from scipy.special import gammainc as _gammainc, gamma as _gamma, digamma as _digamma
+    import numpy as _np
     from math import sqrt as _sqrt, log as _log
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List
     from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -16,22 +16,6 @@ class Chi(SemiInfinite):
 
         x(float): random variable.
         df(int | x>0): degrees of freedom.
-
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     References:
     - Weisstein, Eric W. "Chi Distribution." From MathWorld--A Wolfram Web Resource.
@@ -93,27 +77,6 @@ class Chi(SemiInfinite):
                 return _gammainc(df/2, _np.power(x, 2)/2)
         return _gammainc(df/2, pow(randvar, 2)/2)
 
-    def p_val(self, x_lower=-_np.inf, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
-            x_upper(float | x_upper>x_lower): defaults to None. If not defined defaults to random variable x. Optional.
-            args(list of float): pvalues of each elements from the list
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Chi distribution evaluated at some random variable.
-        """
-        def __cdf(x, df): return _gammainc(df/2, pow(x, 2)/2)
-        if x_upper != None:
-            if x_lower > x_upper:
-                raise Exception('x_lower should be less than x_upper.')
-            return __cdf(x_upper, self.df) - __cdf(x_lower, self.df)
-        return __cdf(self.randvar, self.df)
-
     def mean(self) -> float:
         """
         Returns: Mean of the Chi distribution.
@@ -173,34 +136,16 @@ class Chi(SemiInfinite):
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
         df = self.df
-        return _log(_gamma(df/2)/_sqrt(2)) - (df-1)/2*digamma(df/2) + df/2
+        return _log(_gamma(df/2)/_sqrt(2)) - (df-1)/2*_digamma(df/2) + df/2
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Chi-distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
 
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, int, str]]:
         """
         Summary statistic regarding the Chi-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, Union[float, int, str]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

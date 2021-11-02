@@ -2,6 +2,7 @@ try:
     from scipy.special import erfinv as _erfinv
     from scipy.integrate import quad as _quad
     import numpy as _np
+    from tabulate import tabulate
     from math import sqrt as _sqrt, exp as _exp, pi as _pi, log as _log
     from typing import Union, Tuple, List
     from abc import ABC, abstractmethod
@@ -13,6 +14,16 @@ class Base(ABC):
         if type(self) is Base:
             raise TypeError('Continuous Univariate Base class cannot be instantiated.')
 
+    def __str__(self)->str:
+        pairs = self.summary()
+        return tabulate([[k,v] for k,v in zip(pairs.keys(), pairs.values())],
+                        tablefmt="github")
+
+    def table(self)->None:
+        """Prints out table summary. 
+        """
+        print(self)
+        
     def logpdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
         Args:
@@ -60,7 +71,7 @@ class Base(ABC):
             x (Union[List[float], float]): data
 
         Returns:
-            log-likelihood of a probability distribution given a data defined in x.
+            likelihood of a probability distribution given a data defined in x.
         """
 
         if not (isinstance(theta, (Tuple, List)) and isinstance(x, (List, float))):
@@ -119,25 +130,11 @@ class Base(ABC):
     def cdf(self): # guarantee that all concrete class will have a defined cdf
         pass
 
-    def pvalue(self):
-        """
-        Default implementation of p-value.
-        Returns NotImplemented.
-        """
-        return NotImplemented
-
-    def confidence_interval(self): # staged for removing
-        """
-        Default implementation of confidence interval.
-        Returns NotImplemented.
-        """
-        return NotImplemented
-
     def rvs(self):  # MH algorithm
         """
         returns random variate samples default NotImplemented
         """
-        return "currently unsupported"
+        return NotImplemented
 
     def mean(self):
         """

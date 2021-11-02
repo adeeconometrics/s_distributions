@@ -17,22 +17,6 @@ class Erlang(SemiInfinite):
         rate(float | x>=0): rate
         randvar(float | x>=0): random variable
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     Reference:
     - Wikipedia contributors. (2021, January 6). Erlang distribution. In Wikipedia, The Free Encyclopedia.
     Retrieved 09:38, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Erlang_distribution&oldid=998655107
@@ -102,30 +86,6 @@ class Erlang(SemiInfinite):
 
         return __generator(shape, rate, randvar)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Erlang distribution evaluated at some random variable.
-        """
-        if x_upper == None:
-            x_upper = self.randvar
-        if x_lower > x_upper:
-            raise Exception(
-                'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
-
-        def __cdf(shape, rate, x): return _gammainc(
-            shape, rate*x)/_np.math.factorial(shape-1)
-
-        return __cdf(self.shape, self.rate, x_upper)-__cdf(self.shape, self.rate, x_lower)
-
     def mean(self) -> float:
         """
         Returns: Mean of the Erlang distribution.
@@ -179,26 +139,7 @@ class Erlang(SemiInfinite):
         _lambda = self.rate
         return (1-k)*_digamma(k)+_log(_gamma(k)/_lambda)+k
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Erlang distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def summary(self) -> Dict[str, Union[float, int, str]]:
         """
         Summary statistic regarding the Erlang distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).

@@ -20,22 +20,6 @@ class T(Infinite):
         df(int): degrees of freedom.
         randvar(float): random variable.
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     References:
 
     - Kruschke JK (2015). Doing Bayesian Data Analysis (2nd ed.). Academic Press. ISBN 9780124058880. OCLC 959632184.
@@ -96,33 +80,6 @@ class T(Infinite):
                 return [__generator(i, df) for i in x]
 
         return __generator(randvar, df)
-
-    def pvalue(self, x_lower=-_np.inf, x_upper=None):
-        """
-        Args:
-
-            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. Defines the upper value of the distribution. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the T distribution evaluated at some random variable.
-        """
-        # normally this would be implemented as cdf function from the generalized hypergeometric function
-        df = self.df
-        if x_upper == None:
-            x_upper = self.randvar
-
-        def __generator(x:float, df:int) -> float:
-            return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
-
-        return _quad(__generator, x_lower, x_upper, args=df)[0]
-
-    # for single means and multiple means
-    def confidence_interval(self) -> Union[number, str]:
-        pass
 
     def mean(self) -> Union[float, str]:
         """
@@ -197,32 +154,13 @@ class T(Infinite):
         df = self.df
         return (df+1)/2 * (_digamma((df+1)/2)-_digamma(df/2)) + _log(_sqrt(df)*_beta(df/2, 1/2))
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the T distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, str]]:
+    def summary(self) -> Dict[str, Union[float, str]]:
         """
         Summary statistic regarding the T distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, str]]: [description]
+            Dict[str, Union[float, str]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

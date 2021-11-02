@@ -3,12 +3,12 @@ try:
     import numpy as np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor
     from typing import Union, Tuple, Dict, List
-    from discrete._base import Base
+    from _base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Binomial(Base):
+class Binomial(Finite):
     """
     This class contains functions for finding the probability mass function and 
     cumulative distribution function for binomial distirbution. 
@@ -19,18 +19,6 @@ class Binomial(Base):
         p(float ∈ [0,1]): success probability for each trial
         k(int): number of successes 
 
-    Methods: 
-
-        - pmf for probability mass function.
-        - cdf for cumulative distribution function.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     References:
     - NIST/SEMATECH e-Handbook of Statistical Methods (2012). Binomial Distribution. 

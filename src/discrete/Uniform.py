@@ -12,24 +12,11 @@ class Uniform(Base):
     cumulative distribution function of Uniform distribution. Incudes scatter plot. 
 
     Args: 
-
         data (int): sample size
-
-    Methods
-
-        - pdf for evaluating or plotting probability mass function
-        - cdf for evaluating or plotting cumulative distribution function
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
+    
     Reference:
-    - NIST/SEMATECH e-Handbook of Statistical Methods (2012). Uniform Distribution. Retrieved from http://www.itl.nist.gov/div898/handbook/, December 26, 2020.
+    - NIST/SEMATECH e-Handbook of Statistical Methods (2012). Uniform Distribution. 
+    Retrieved from http://www.itl.nist.gov/div898/handbook/, December 26, 2020.
     """
 
     def __init__(self, a: int, b: int):
@@ -103,26 +90,7 @@ class Uniform(Base):
         """
         return -6 / 5
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, int]]:
         """
         Summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).

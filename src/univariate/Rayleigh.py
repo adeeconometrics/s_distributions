@@ -16,22 +16,6 @@ class Rayleigh(SemiInfinite):
         scale(float | x>0): scale
         randvar(float | x>=0): random variable
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     Reference:
     - Wikipedia contributors. (2020, December 30). Rayleigh distribution. In Wikipedia, The Free Encyclopedia.
     Retrieved 09:37, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&oldid=997166230
@@ -93,29 +77,6 @@ class Rayleigh(SemiInfinite):
                 return 1-_np.exp(-_np.power(x, 2)/(2*sig**2))
 
         return 1-_exp(-randvar**2/(2*sig**2))
-
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Rayleigh distribution evaluated at some random variable.
-        """
-        if x_upper == None:
-            x_upper = self.randvar
-        if x_lower > x_upper:
-            raise Exception(
-                'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
-
-        def __cdf(sig: float, x: float) -> float:
-            return 1-_np.exp(-x**2/(2*sig**2))
-        return __cdf(self.scale, x_upper)-__cdf(self.scale, x_lower)
 
     def mean(self) -> float:
         """

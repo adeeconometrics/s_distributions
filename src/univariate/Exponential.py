@@ -7,7 +7,7 @@ except Exception as e:
     print(f"some modules are missing {e}")
 
 
-class Explonential(SemiInfinite):
+class Exponential(SemiInfinite):
     """
     This class contans methods for evaluating Exponential Distirbution.
 
@@ -15,22 +15,6 @@ class Explonential(SemiInfinite):
 
         - lambda_(float | x>0): rate parameter.
         - x(float | x>0): random variable.
-
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     References:
     - Weisstein, Eric W. "Exponential Distribution." From MathWorld--A Wolfram Web Resource.
@@ -98,33 +82,6 @@ class Explonential(SemiInfinite):
 
         return __generator(lambda_, self.x)
 
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Exponential distribution evaluated at some random variable.
-        """
-        lambda_ = self.lambda_
-        x = self.x
-        if x_lower < 0:
-            raise Exception(
-                'x_lower cannot be lower than 0. Entered value: {}'.format(x_lower))
-        if x_upper is None:
-            x_upper = x
-
-        def __cdf(x, lambda_) -> float:
-            if x > 0:
-                return 1 - _exp(-lambda_ * x)
-            return 0.0
-        return __cdf(x_upper, lambda_) - __cdf(x_lower, lambda_)
-
     def mean(self) -> float:
         """
         Returns: Mean of the Exponential distribution
@@ -176,32 +133,13 @@ class Explonential(SemiInfinite):
         """
         return 1 - _log(self.lambda_)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Exponential distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, int]]:
         """
         Summary statistic regarding the Exponential-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, Union[float, int]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

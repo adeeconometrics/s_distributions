@@ -1,10 +1,10 @@
 try:
     from math import sqrt as _sqrt
-    from typing import Union, Tuple, Dict, List
+    from numbers import Real
+    from typing import Union, Tuple, Dict, List, Literal
     from discrete._base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
-
 
 class Bernoulli(Finite):
     """
@@ -14,18 +14,6 @@ class Bernoulli(Finite):
 
         - p(int): event of success. 
         - k(float ∈[0,1]): possible outcomes
-    Methods:
-
-        - pmf for evaluating or list for plotting probability mass function
-        - cdf for evaluating or list for plotting cumulative distribution function
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     References:
         - Weisstein, Eric W. "Bernoulli Distribution." From MathWorld--A Wolfram Web Resource. 
@@ -128,7 +116,7 @@ class Bernoulli(Finite):
         """
         return self.p
 
-    def median(self) -> Union[Tuple[int, int], int]:
+    def median(self) -> Union[List[int], int]:
         """
         Returns the median of Bernoulli Distribution.
         """
@@ -136,7 +124,7 @@ class Bernoulli(Finite):
         if p < 0.5:
             return 0
         if p == 0.5:
-            return (0, 1)
+            return [0, 1]
         if p > 0.5:
             return 1
 
@@ -184,34 +172,14 @@ class Bernoulli(Finite):
         q = 1 - p
         return (1 - 6 * p * q) / (p * q)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[int, List[int], Tuple[int, int]]]:
         """
         Summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
+                (mean, median, mode, var, std, skewness, kurtosis).
 
-        Returns:
-            Dict[str, Union[float, int]]: [description]
+        Returns: Dict[str, Union[int, List[int], Tuple[int, int]]]
         """
         return {
-            'main': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }

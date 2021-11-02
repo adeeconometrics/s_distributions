@@ -22,19 +22,6 @@ class Hypergeometric(Finite):
         k(int): number of observed successes
         n(int): number of draws 
 
-    Methods: 
-
-        - pmf for probability mass function.
-        - cdf for cumulative distribution function.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     References:
     - Weisstein, Eric W. "Hypergeometric Distribution." From MathWorld--A Wolfram Web Resource. 
     https://mathworld.wolfram.com/HypergeometricDistribution.html
@@ -139,32 +126,12 @@ class Hypergeometric(Finite):
                                           (6 * n * (N - n))) +
                         (6 * n * K*(N - K) * (N - n) * (5 * N - 6)))
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Hypergeometric distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, int, Tuple[int,int]]]:
         """
         Summary statistic regarding the Hypergeometric distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
-        Returns:
-            Dict[str, Union[float, int]]: [description]
+        Returns: Dict[str, Union[float, int, Tuple[int,int]]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

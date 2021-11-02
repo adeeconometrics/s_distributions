@@ -1,23 +1,22 @@
-from math import sqrt as _sqrt
+try:
+    from tabulate import tabulate
+except Exception as e:
+    print(f"some modules are missing {e}")
 
 class Base:  
     def __init__(self):
         if type(self) is Base:
             raise TypeError('Discrete Univariate Base class cannot be instantiated.')
 
-    def pvalue(self):
-        """
-        Default implementation of p-value.
-        Returns NotImplemented.
-        """
-        return NotImplemented
+    def __str__(self)->str:
+        pairs = self.summary()
+        return tabulate([[k,v] for k,v in zip(pairs.keys(), pairs.values())],
+                        tablefmt="github")
 
-    def confidence_interval(self):
+    def table(self)->None:
+        """Prints out table summary. 
         """
-        Default implementation of confidence interval.
-        Returns NotImplemented.
-        """
-        return NotImplemented
+        print(self)
 
     def rvs(self):  # (adaptive) rejection sampling implementation
         """
@@ -58,8 +57,6 @@ class Base:
         Default implementation of the standard deviation.
         Returns NotImplemented.
         """
-        if type(self.var()) in (int, float):
-            return _sqrt(self.var())
         return NotImplemented
 
     def skewness(self):

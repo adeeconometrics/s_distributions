@@ -17,22 +17,6 @@ class Pareto(SemiInfinite):
         shape(float | x>0): shape parameter.
         x(float | [shape, infty]): random variable.
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     References:
     - Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.
     - Wikipedia contributors. (2020, December 1). Pareto distribution. In Wikipedia, The Free Encyclopedia.
@@ -105,30 +89,6 @@ class Pareto(SemiInfinite):
             else:
                 return [__generator(i, x_m, alpha) for i in x]
         return __generator(randvar, x_m, alpha)
-
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Pareto distribution evaluated at some random variable.
-        """
-        if x_lower < 0:
-            x_lower = 0
-        if x_upper is None:
-            x_upper = self.x
-
-        def __cdf(x, x_m, alpha):
-            if x >= x_m:
-                return 1 - pow(x_m / x, alpha)
-            return 0
-        return __cdf(x_upper, self.scale, self.alpha)+__cdf(x_lower, self.scale, self.alpha)
 
     def mean(self) -> float:
         """
@@ -203,26 +163,7 @@ class Pareto(SemiInfinite):
         x_m = self.scale
         return _log(x_m/a)+1+(1/a)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, str]]:
+    def summary(self) -> Dict[str, Union[float, str]]:
         """
         Summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).

@@ -17,22 +17,6 @@ class Cauchy(Infinite):
         location(float): pertains to the location parameter or median
         x(float): random variable
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     References:
     - Wikipedia contributors. (2020, November 29). Cauchy distribution. In Wikipedia, The Free Encyclopedia.
     Retrieved 12:01, December 22, 2020, from https://en.wikipedia.org/w/index.php?title=Cauchy_distribution&oldid=991234690
@@ -96,30 +80,6 @@ class Cauchy(Infinite):
 
         return (1 / _pi) * _atan((x - location) / scale) + 1 / 2
 
-    def pvalue(self, x_lower=-_np.inf, x_upper=None):
-        """
-        Args:
-
-            x_lower(float): defaults to -_np.inf. Defines the lower value of the distribution. Optional.
-            x_upper(float | x_upper>x_lower): defaults to None. Defines the upper value of the distribution. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Cauchy distribution evaluated at some random variable.
-        """
-        def __cdf(x, location, scale): return (
-            1 / _pi) * _np.arctan((x - location) / scale) + 1 / 2
-        if x_upper != None:
-            if x_lower > x_upper:
-                raise ValueError('x_lower should be less than x_upper.')
-            return __cdf(x_upper, self.location, self.scale) - __cdf(x_lower, self.location, self.scale)
-        return __cdf(self.x, self.location, self.scale)
-
-    def confidence_interval(self) -> Union[float, str]:
-        pass
-
     def mean(self) -> str:
         """
         Returns: Mean of the Cauchy distribution. Mean is Undefined.
@@ -171,32 +131,13 @@ class Cauchy(Infinite):
         """
         return _log10(4*_pi*self.scale)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the ChiSquare-distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution.
-        """
-        if display == True:
-            cstr=" summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, str]]:
+    def summary(self) -> Dict[str, Union[float, str]]:
         """
         Summary statistic regarding the ChiSquare-distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, str]]: [description]
+            Dict[str, Union[float, str]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

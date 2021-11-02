@@ -19,22 +19,6 @@ class Bernoulli(BoundedInterval):
         shape(float): parameter
         randvar(float | x in [0,1]): random variable
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     Reference:
     - Wikipedia contributors. (2020, November 2). Continuous Bernoulli distribution. In Wikipedia, The Free Encyclopedia.
     Retrieved 02:37, January 14, 2021, from https://en.wikipedia.org/w/index.php?title=Continuous_Bernoulli_distribution&oldid=986761458
@@ -77,7 +61,7 @@ class Bernoulli(BoundedInterval):
 
         return __C(self.shape)*pow(shape, self.randvar)*pow(1-shape, 1 - self.randvar)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray, List[float]]:
         """
         Args:
 
@@ -98,32 +82,6 @@ class Bernoulli(BoundedInterval):
                 return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
         return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
-
-    def pvalue(self, x_lower=0, x_upper=None) -> Optional[float]:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the Continuous Bernoulli distribution evaluated at some random variable.
-        """
-        if x_upper == None:
-            x_upper = self.randvar
-        if x_lower > x_upper:
-            raise Exception(
-                'lower bound should be less than upper bound. Entered values: x_lower:{} x_upper:{}'.format(x_lower, x_upper))
-
-        def __cdf(shape, x):
-            if shape != 0.5:
-                return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1)
-            else:
-                x
-        return __cdf(self.shape, x_upper)-__cdf(self.shape, x_lower)
 
     def mean(self) -> float:
         """
@@ -149,32 +107,13 @@ class Bernoulli(BoundedInterval):
         """
         return _sqrt(self.var())
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
         Summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, Tuple[float]]]: [description]
+            Dict[str, Union[float, Tuple[float]]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

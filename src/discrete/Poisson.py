@@ -16,24 +16,10 @@ class Poisson(Infinite):
 
     Use the Poisson distribution to describe the number of times an event occurs in a finite observation space.
 
-
     Args: 
-
         λ(float): expected rate if occurrences.
         k(int): number of occurrences.
 
-    Methods:
-
-        - pmf for probability mass function.
-        - cdf for cumulative distribution function.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
 
     References:
         -  Minitab (2019). Poisson Distribution. https://bityl.co/4uYc
@@ -132,32 +118,13 @@ class Poisson(Infinite):
         """
         return 1/self.λ
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the Poisson distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, int]]:
         """
         Summary statistic regarding the Poisson distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dict[str, Union[float, int]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

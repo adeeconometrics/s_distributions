@@ -18,22 +18,6 @@ class F(SemiInfinite):
         df1(int | x>0): first degrees of freedom
         df2(int | x>0): second degrees of freedom
 
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
-
     References:
     - Mood, Alexander; Franklin A. Graybill; Duane C. Boes (1974).
     Introduction to the Theory of Statistics (Third ed.). McGraw-Hill. pp. 246–249. ISBN 0-07-042864-6.
@@ -55,7 +39,7 @@ class F(SemiInfinite):
 
         self.x = x
         self.df1 = df1
-        self.df2
+        self.df2 = df2
 
     def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
         """
@@ -79,7 +63,7 @@ class F(SemiInfinite):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return __generator(self.rx, self.df1, self.df2)
+                return __generator(self.x, self.df1, self.df2)
 
         return __generator(self.randvar, self.df1, self.df2)
 
@@ -100,42 +84,16 @@ class F(SemiInfinite):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
                 x = _np.array(x)
-                return __generator(k, self.df1, self.df2)
+                return __generator(x, self.df1, self.df2)
 
         k = self.df2/(self.df2 + self.df1*self.x)
         return __generator(k, self.df1, self.df2)
-
-    def pvalue(self, x_lower=0, x_upper=None) -> number:
-        """
-        Args:
-
-            x_lower(float): defaults to 0. Defines the lower value of the distribution. Optional.
-            x_upper(float): defaults to None. If not defined defaults to random variable x. Optional.
-
-            Note: definition of x_lower and x_upper are only relevant when probability is between two random variables.
-            Otherwise, the default random variable is x.
-
-        Returns:
-            p-value of the F-distribution evaluated at some random variable.
-        """
-        if x_lower < 0:
-            x_lower = 0
-        if x_upper is None:
-            x_upper = self.x
-
-        def _cdf_def(x, df1, df2): 
-            return 1 - _betainc(df1/2, df2/2, df2/(df2+df1*x))
-
-        return _cdf_def(x_upper, self.df1, self.df2) - _cdf_def(x_lower, self.df1, self.df2)
-
-    def confidence_interval(self) -> Union[float, int, str]:
-        pass
 
     def mean(self) -> Union[float, int, str]:
         """
         Returns: Mean of the F-distribution.
         """
-        if self.df3 > 2:
+        if self.df2 > 2:
             return self.df2 / (self.df2 - 2)
         return "undefined"
 
@@ -167,10 +125,8 @@ class F(SemiInfinite):
         df1 = self.df1
         df2 = self.df2
         if df2 > 4:
-            return _sqrt((2 * pow(df2, 2) * (df1 + df2 - 2)) /
-                    (df1 * (pow(df2 - 2, 2) * (df2 - 4)))
-
-        return "undefined"
+            return _sqrt((2 * pow(df2, 2) * (df1 + df2 - 2))/(df1 * (pow(df2 - 2, 2) * (df2 - 4))))
+        return 'undefined'
 
     def skewness(self) -> Union[float, str]:
         """
@@ -190,29 +146,10 @@ class F(SemiInfinite):
         """
         df1=self.df1
         df2=self.df2
-        return _log(_gamma(df1/2)) + _log(_gamma(df2/2)) -
-            _log(_gamma((df1+df2)/2)) + (1-df1/2)*_digamma(1+df1/2) -
-            (1-df2/2) * _digamma(1+df2/2) + (df1+df2) /
+        return _log(_gamma(df1/2)) + _log(_gamma(df2/2)) -\
+            _log(_gamma((df1+df2)/2)) + (1-df1/2)*_digamma(1+df1/2) -\
+            (1-df2/2) * _digamma(1+df2/2) + (df1+df2) /\
              2*_digamma((df1+df2)/2) + _log(df1/df2)
-
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
-        """
-        Returns:  summary statistic regarding the F-distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution.
-        """
-        if display:
-            cstr=" summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
 
     def keys(self) -> Dict[str, Union[float, int, str]]:
         """
@@ -220,7 +157,7 @@ class F(SemiInfinite):
         (mean, median, mode, var, std, skewness, kurtosis).
 
         Returns:
-            Dict[str, Union[float, int, str]]: [description]
+            Dict[str, Union[float, int, str]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
