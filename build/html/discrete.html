@@ -1,0 +1,1177 @@
+
+<!DOCTYPE html>
+
+<html lang="yes">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>source.discrete package &#8212; s_distributions 0.5.0 documentation</title>
+    
+  <link href="_static/css/theme.css" rel="stylesheet">
+  <link href="_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="_static/css/blank.css" />
+    
+  <link rel="preload" as="script" href="_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <script src="_static/jquery.js"></script>
+    <script src="_static/underscore.js"></script>
+    <script src="_static/doctools.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="yes">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+    <nav class="navbar navbar-light navbar-expand-lg bg-light fixed-top bd-navbar" id="navbar-main"><div class="container-xl">
+
+  <div id="navbar-start">
+    
+    
+<a class="navbar-brand" href="index.html">
+<p class="title">s_distributions</p>
+</a>
+
+    
+  </div>
+
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar-collapsible" aria-controls="navbar-collapsible" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  
+  <div id="navbar-collapsible" class="col-lg-9 collapse navbar-collapse">
+    <div id="navbar-center" class="mr-auto">
+      
+      <div class="navbar-center-item">
+        <ul id="navbar-main-elements" class="navbar-nav">
+    
+    
+</ul>
+      </div>
+      
+    </div>
+
+    <div id="navbar-end">
+      
+      <div class="navbar-end-item">
+        <ul id="navbar-icon-links" class="navbar-nav" aria-label="Icon Links">
+      </ul>
+      </div>
+      
+    </div>
+  </div>
+</div>
+    </nav>
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+            
+            <!-- Only show if we have sidebars configured, else just a small margin  -->
+            <div class="col-12 col-md-3 bd-sidebar"><form class="bd-search d-flex align-items-center" action="search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search the docs ..." aria-label="Search the docs ..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <div class="bd-toc-item active">
+    
+  </div>
+</nav>
+            </div>
+            
+          
+
+          
+          <div class="d-none d-xl-block col-xl-2 bd-toc">
+            
+              
+              <div class="toc-item">
+                
+<div class="tocsection onthispage pt-5 pb-3">
+    <i class="fas fa-list"></i> On this page
+</div>
+
+<nav id="bd-toc-nav">
+    <ul class="visible nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#submodules">
+   Submodules
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Bernoulli">
+   source.discrete.Bernoulli module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Binomial">
+   source.discrete.Binomial module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Geometric">
+   source.discrete.Geometric module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Hypergeometric">
+   source.discrete.Hypergeometric module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Poisson">
+   source.discrete.Poisson module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Uniform">
+   source.discrete.Uniform module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete.Zeta">
+   source.discrete.Zeta module
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#module-source.discrete">
+   Module contents
+  </a>
+ </li>
+</ul>
+
+</nav>
+              </div>
+              
+              <div class="toc-item">
+                
+              </div>
+              
+            
+          </div>
+          
+
+          
+          
+            
+          
+          <main class="col-12 col-md-9 col-xl-7 py-md-5 pl-md-5 pr-md-4 bd-content" role="main">
+              
+              <div>
+                
+  <div class="section" id="source-discrete-package">
+<h1>source.discrete package<a class="headerlink" href="#source-discrete-package" title="Permalink to this headline">¶</a></h1>
+<p>This package contain a collection of discrete distributions.</p>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-source.discrete.Bernoulli">
+<span id="source-discrete-bernoulli-module"></span><h2>source.discrete.Bernoulli module<a class="headerlink" href="#module-source.discrete.Bernoulli" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Bernoulli.</span></span><span class="sig-name descname"><span class="pre">Bernoulli</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">discrete._base.Finite</span></code></p>
+<p>This class contains methods concerning the Bernoulli Distribution. Bernoulli Distirbution is a special
+case of Binomial Distirbution <a class="footnote-reference brackets" href="#id3" id="id1">1</a> <a class="footnote-reference brackets" href="#id4" id="id2">2</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Bernoulli} (x;p) = p^n (1-p)^{1-x}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>-</em>) -- event of success. Either 0 or 1.</p></li>
+<li><p><strong>x</strong> (<em>-</em>) -- possible outcomes. Either 0 or 1.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id3"><span class="brackets"><a class="fn-backref" href="#id1">1</a></span></dt>
+<dd><p>Weisstein, Eric W. &quot;Bernoulli Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/BernoulliDistribution.html">https://mathworld.wolfram.com/BernoulliDistribution.html</a></p>
+</dd>
+<dt class="label" id="id4"><span class="brackets"><a class="fn-backref" href="#id2">2</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, December 26). Bernoulli distribution. In Wikipedia, The Free Encyclopedia. Retrieved 10:18, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&amp;oldid=996380822">https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&amp;oldid=996380822</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables. Value should either be 0 or 1.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>commulative density function of Bernoulli distribution to some point specified by the random variable
+or a list of its corresponding value specified by the parameter x.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mean of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the median of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mode of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables. Value should either be 0 or 1.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>probability mass evaluation of Bernoulli distribution to some point specified by the random variable
+or a list of its corresponding value specified by the parameter x.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.pmf_s">
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pmf_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.pmf_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.pmf_s" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables. Value should either be 0 or 1.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>probability mass evaluation of Bernoulli distribution to some point specified by the random variable
+or a list of its corresponding value specified by the parameter x.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.std" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="simple">
+<dt>Summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:</dt><dd><p>(mean, median, mode, var, std, skewness, kurtosis).</p>
+</dd>
+</dl>
+<p>Returns: Dict[str, Union[int, List[int], Tuple[int, int]]]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Bernoulli Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete.Binomial">
+<span id="source-discrete-binomial-module"></span><h2>source.discrete.Binomial module<a class="headerlink" href="#module-source.discrete.Binomial" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Binomial.</span></span><span class="sig-name descname"><span class="pre">Binomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_base.Finite</span></code></p>
+<p>This class contains functions for finding the probability mass function and
+cumulative distribution function for binomial distirbution <a class="footnote-reference brackets" href="#id8" id="id5">3</a> <a class="footnote-reference brackets" href="#id9" id="id6">4</a> <a class="footnote-reference brackets" href="#id10" id="id7">5</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Binomial}(x;n,p) = \binom{n}{x} p^k (1-p)^{n-x}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>n</strong> (<em>int</em>) -- number  of trials</p></li>
+<li><p><strong>p</strong> (<em>float</em>) -- success probability for each trial. Where 0 &lt;= p &lt;= 1.</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- number of successes</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id8"><span class="brackets"><a class="fn-backref" href="#id5">3</a></span></dt>
+<dd><p>NIST/SEMATECH e-Handbook of Statistical Methods (2012). Binomial Distribution. Retrieved at <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/">http://www.itl.nist.gov/div898/handbook/</a>, December 26, 2000.</p>
+</dd>
+<dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id6">4</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, December 19). Binomial distribution. In Wikipedia, The Free Encyclopedia. Retrieved 07:24, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096">https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096</a></p>
+</dd>
+<dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id7">5</a></span></dt>
+<dd><p>Weisstein, Eric W. &quot;Binomial Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/BinomialDistribution.html">https://mathworld.wolfram.com/BinomialDistribution.html</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary statistic regarding the Binomial distribution which contains the following parts of the distribution:
+(mean, median, mode, var, std, skewness, kurtosis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str, Union[float, int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Binomial Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mean of Binomial Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the median of Binomial Distribution. Either one defined in the tuple of result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mode of Binomial Distribution. Either one defined in the tuple of result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Binomial Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Binomial Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete.Geometric">
+<span id="source-discrete-geometric-module"></span><h2>source.discrete.Geometric module<a class="headerlink" href="#module-source.discrete.Geometric" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Geometric.</span></span><span class="sig-name descname"><span class="pre">Geometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_base.Finite</span></code></p>
+<p>This class contains functions for finding the probability mass function and
+cumulative distribution function for geometric distribution. We consider two definitions
+of the geometric distribution: one concerns itself to the number of X of Bernoulli trials
+needed to get one success, supported on the set {1,2,3,...}. The second one concerns with
+Y=X-1 of failures before the first success, supported on the set {0,1,2,3,...} <a class="footnote-reference brackets" href="#id13" id="id11">6</a> <a class="footnote-reference brackets" href="#id14" id="id12">7</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Geometric}_1(x;p) = (1-p)^{x-1}p\]</div>
+<div class="math notranslate nohighlight">
+\[\text{Geometric}_2(x;p) = (1-p)^{x}p\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>float</em>) -- success probability for each trial. Where 0 &lt;= p &lt;= 1.</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- number of successes</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id13"><span class="brackets"><a class="fn-backref" href="#id11">6</a></span></dt>
+<dd><p>Weisstein, Eric W. &quot;Geometric Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/GeometricDistribution.html">https://mathworld.wolfram.com/GeometricDistribution.html</a></p>
+</dd>
+<dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id12">7</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, December 27). Geometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 12:05, December 27, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676">https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676</a></p>
+</dd>
+</dl>
+<p>Note: Geometric distribution can be configured based through <cite>_type</cite> parameter in <cite>pmf</cite>, <cite>cdf</cite> and moments of the distribution, including the <cite>std</cite>.
+The default type is <cite>_type='first'</cite>, or <span class="math notranslate nohighlight">\(\text{Geometric_1}(x;p)\)</span>.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>keyvalue ∈</em><em>[</em><em>fist</em><em>, </em><em>second</em><em>]</em>) -- defaults to first. Reconfigures the type of distribution.</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- list of random variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cumulative distribution evaluation to some point specified by k or scatter plot of geometric distribution.</p>
+</dd>
+</dl>
+<p>Note: there are two configurations of cdf.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.keys">
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary statistic regarding the Geometric distribution which contains the following parts of the distribution:
+(mean, median, mode, var, std, skewness, kurtosis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict[str, Union[float, int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Geometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>string</em>) -- defaults to first type. Valid types: &quot;first&quot;, &quot;second&quot;.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the mean of Geometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>string</em>) -- defaults to first type. Valid types: &quot;first&quot;, &quot;second&quot;.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the median of Geometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>type</strong> (<em>string</em>) -- defaults to first type. Valid types: &quot;first&quot;, &quot;second&quot;.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>the mode of Geometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>keyvalue ∈</em><em>[</em><em>fist</em><em>, </em><em>second</em><em>]</em>) -- defaults to first. Reconfigures the type of distribution.</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- list of random variables</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>probability mass evaluation of geometric distribution to some point specified by k or a
+list of its corresponding value specified by the parameter x.</p>
+</dd>
+</dl>
+<p>Note: there are two configurations of pmf.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Geometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Geometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete.Hypergeometric">
+<span id="source-discrete-hypergeometric-module"></span><h2>source.discrete.Hypergeometric module<a class="headerlink" href="#module-source.discrete.Hypergeometric" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Hypergeometric.</span></span><span class="sig-name descname"><span class="pre">Hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">discrete._base.Finite</span></code></p>
+<p>This class contains methods concerning pmf and cdf evaluation of the hypergeometric distribution.
+Describes the probability if k successes (random draws for which the objsect drawn has specified deature)
+in n draws, without replacement, from a finite population size N that contains exactly K objects with that
+feature, wherein each draw is either a success or a failure <a class="footnote-reference brackets" href="#id17" id="id15">8</a> <a class="footnote-reference brackets" href="#id18" id="id16">9</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Hypergeometric}(N,K,k,n) = {{{K \choose k}{{N-K} \choose {n-k}}} \over {N \choose n}}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>N</strong> (<em>int</em>) -- population size</p></li>
+<li><p><strong>K</strong> (<em>int</em>) -- number of success states in the population</p></li>
+<li><p><strong>k</strong> (<em>int</em>) -- number of observed successes</p></li>
+<li><p><strong>n</strong> (<em>int</em>) -- number of draws</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id15">8</a></span></dt>
+<dd><p>Weisstein, Eric W. &quot;Hypergeometric Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/HypergeometricDistribution.html">https://mathworld.wolfram.com/HypergeometricDistribution.html</a></p>
+</dd>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id16">9</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, December 22). Hypergeometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:38, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954">https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>either cumulative density evaluation for some point or scatter plot of Hypergeometric distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Hypergeometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mean of Hypergeometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the median of Hypergeometric Distribution. Currently unsupported or undefined.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mode of Hypergeometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cumulative distribution evaluation to some point specified by k or scatter plot of Hypergeometric distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Hypergeometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary statistic regarding the Hypergeometric distribution which contains the following parts of the distribution:
+(mean, median, mode, var, std, skewness, kurtosis).</p>
+<p>Returns: Dict[str, Union[float, int, Tuple[int,int]]]</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Hypergeometric.Hypergeometric.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Hypergeometric.html#Hypergeometric.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Hypergeometric.Hypergeometric.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Hypergeometric Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete.Poisson">
+<span id="source-discrete-poisson-module"></span><h2>source.discrete.Poisson module<a class="headerlink" href="#module-source.discrete.Poisson" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Poisson.</span></span><span class="sig-name descname"><span class="pre">Poisson</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">λ</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">discrete._base.Infinite</span></code></p>
+<p>This class contains methods for evaluating some properties of the poisson distribution.
+As lambda increases to sufficiently large values, the normal distribution (λ, λ) may be used to
+approximate the Poisson distribution <a class="footnote-reference brackets" href="#id22" id="id19">10</a> <a class="footnote-reference brackets" href="#id23" id="id20">11</a> <a class="footnote-reference brackets" href="#id24" id="id21">12</a>.</p>
+<p>Use the Poisson distribution to describe the number of times an event occurs in a finite observation space.</p>
+<div class="math notranslate nohighlight">
+\[\text{Poisson}(x;\lambda) = \frac{\lambda ^{x} e^{- \lambda}}{x!}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>λ</strong> (<em>float</em>) -- expected rate if occurrences.</p></li>
+<li><p><strong>x</strong> (<em>int</em>) -- number of occurrences.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id19">10</a></span></dt>
+<dd><p>Minitab (2019). Poisson Distribution. <a class="reference external" href="https://bityl.co/4uYc">https://bityl.co/4uYc</a></p>
+</dd>
+<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id20">11</a></span></dt>
+<dd><p>Weisstein, Eric W. &quot;Poisson Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/PoissonDistribution.html">https://mathworld.wolfram.com/PoissonDistribution.html</a>.</p>
+</dd>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id21">12</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, December 16). Poisson distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:53, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766">https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p></li>
+<li><p><strong>Reference</strong> -- <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_distribution">https://en.wikipedia.org/wiki/Poisson_distribution</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>commulative density function of Poisson distribution to some point specified by the random variable
+or a list of its corresponding value specified by the parameter x.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Poisson Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mean of Poisson Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the median of Poisson Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mode of Poisson Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p></li>
+<li><p><strong>Reference</strong> -- <a class="reference external" href="https://en.wikipedia.org/wiki/Poisson_distribution">https://en.wikipedia.org/wiki/Poisson_distribution</a></p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>probability mass evaluation of Poisson distribution to some point specified by the random variable
+or a list of its corresponding value specified by the parameter x.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Poisson Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary statistic regarding the Poisson distribution which contains the following parts of the distribution:
+(mean, median, mode, var, std, skewness, kurtosis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict[str, Union[float, int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Poisson Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete.Uniform">
+<span id="source-discrete-uniform-module"></span><h2>source.discrete.Uniform module<a class="headerlink" href="#module-source.discrete.Uniform" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Uniform.</span></span><span class="sig-name descname"><span class="pre">Uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">discrete._base.Base</span></code></p>
+<p>This contains methods for finding the probability mass function and
+cumulative distribution function of Uniform distribution. Incudes scatter plot <a class="footnote-reference brackets" href="#id26" id="id25">13</a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\text{Uniform} (a,b) = {\begin{cases}{\frac {1}{b-a}}&amp;\mathrm {for} \ a\leq x\leq b,\\[8pt]0&amp;\mathrm {for} \ x&lt;a\ \mathrm {or} \ x&gt;b\end{cases}}\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>data</strong> (<em>int</em>) -- sample size</p>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><dl class="footnote brackets">
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id25">13</a></span></dt>
+<dd><p>NIST/SEMATECH e-Handbook of Statistical Methods (2012). Uniform Distribution. Retrieved from <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/">http://www.itl.nist.gov/div898/handbook/</a>, December 26, 2020.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>either cumulative density evaluation for some point or scatter plot of Unifom distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Uniform Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mean of Uniform Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the median of Uniform Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the mode of Uniform Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>either probability mass evaluation for some point or scatter plot of Uniform distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Uniform Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
+(mean, median, mode, var, std, skewness, kurtosis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>[description]</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dict[str, Union[float, int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Uniform.Uniform.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Uniform.html#Uniform.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Uniform.Uniform.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Uniform Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete.Zeta">
+<span id="source-discrete-zeta-module"></span><h2>source.discrete.Zeta module<a class="headerlink" href="#module-source.discrete.Zeta" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Zeta.</span></span><span class="sig-name descname"><span class="pre">Zeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">discrete._base.Base</span></code></p>
+<p>This class contains methods concerning the Zeta Distribution <a class="footnote-reference brackets" href="#id29" id="id27">14</a> <a class="footnote-reference brackets" href="#id30" id="id28">15</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Zeta}(x;s) =\frac{\frac{1}{x^s}}{\zeta(s)}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>s</strong> (<em>-</em>) -- main parameter</p></li>
+<li><p><strong>x</strong> (<em>-</em>) -- support parameter</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id27">14</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, November 6). Zeta distribution. In Wikipedia, The Free Encyclopedia. Retrieved 10:24, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Zeta_distribution&amp;oldid=987351423">https://en.wikipedia.org/w/index.php?title=Zeta_distribution&amp;oldid=987351423</a></p>
+</dd>
+<dt class="label" id="id30"><span class="brackets"><a class="fn-backref" href="#id28">15</a></span></dt>
+<dd><p>The Zeta Distribution. (2021, February 3). <a class="reference external" href="https://stats.libretexts.org/&#64;go/page/10473">https://stats.libretexts.org/&#64;go/page/10473</a></p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>either cumulative distribution evaluation for some point or scatter plot of Zeta distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the kurtosis of Zeta Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.mean" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>undefined if s &lt;= 2.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.median" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>undefined.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.mode" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>one</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>int</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>either probability mass evaluation for some point or scatter plot of Zeta distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the skewness of Zeta Distribution.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.std" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the standard deviation of Zeta Distribution. Returns None if undefined.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.summary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Summary statistic regarding the Zeta distribution which contains the following parts of the distribution:
+(mean, median, mode, var, std, skewness, kurtosis).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dict[str, Union[float, int]]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Zeta.Zeta.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Zeta.html#Zeta.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Zeta.Zeta.var" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>the variance of Zeta Distribution. Returns None if undefined.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-source.discrete">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-source.discrete" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+              </div>
+              
+              
+              <!-- Previous / next buttons -->
+<div class='prev-next-area'>
+</div>
+              
+          </main>
+          
+
+      </div>
+    </div>
+  
+  <script src="_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+<footer class="footer mt-5 mt-md-0">
+  <div class="container">
+    
+    <div class="footer-item">
+      <p class="copyright">
+    &copy; Copyright 2021, ddamiana.<br>
+</p>
+    </div>
+    
+    <div class="footer-item">
+      <p class="sphinx-version">
+Created using <a href="http://sphinx-doc.org/">Sphinx</a> 4.2.0.<br>
+</p>
+    </div>
+    
+  </div>
+</footer>
+  </body>
+</html>
