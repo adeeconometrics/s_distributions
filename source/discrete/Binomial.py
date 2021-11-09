@@ -1,6 +1,6 @@
 try:
-    from scipy.special import binom as _binom
-    import numpy as np
+    from scipy.special import binom as _binom, betainc as _betainc
+    import numpy as _np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor
     from typing import Union, Tuple, Dict, List
     from _base import Finite
@@ -29,85 +29,46 @@ class Binomial(Finite):
         .. [#] Weisstein, Eric W. "Binomial Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/BinomialDistribution.html
     """
 
-    def __init__(self, n: int, p: float, k: int):
-        if type(n) and type(k) is not int:
-            raise TypeError('parameters n and k must be of type int')
-
+    def __init__(self, n: int, p: float):
         if p < 0 or p > 1:
             raise ValueError('parameter p is constrained to ∈ [0,1]')
 
         self.n = n
         self.p = p
-        self.k = k
 
-    # def pmf(self, x: List[int]):
-    #     """
-    #     Args:
-    #         - x:List[int] - default to None. List of random variables.
+    def pmf(self, x: Union[List[int], int, _np.ndarray]) -> Union[int, List[int], _np.ndarray]:
+        """
+        Args:
+            x (Union[List[int], int]): random variable or list of random variables
 
-    #     Returns:
-    #         either probability mass evaluation for some point or scatter plot of binomial distribution.
-    #     """
-    #     n = self.n
-    #     p = self.p
-    #     k = self.k
+        Returns:
+            Union[int, List[int]]: probability mass evaluation Binomial distribution.
+        """
+        n = self.n
+        p = self.p
 
-        # def __generator(n, p, k):
-        #     def bin_coef(n, k): return _binom(n, k)  # assumes n>k
-        #     if isinstance(k, List):
-        #         k_list = [i + 1 for i in range(len(k))]
-        #         y = np.array([(bin_coef(n, k_) * pow(p, k_)) *
-        #                       pow(1 - p, n - k_) for k_ in k_list])
-        #         return y
-        #     return (bin_coef(n, k) * pow(p, k)) * pow(1 - p, n - k)
+        if isinstance(x, (List,_np.ndarray)):
+            x = _np.array(x)
 
-        # if x is not None and issubclass(x,List):
-        #     return __generator(n,p,x)
+        return _binom(n,x)*p**x*(1-p)**(n-x)
 
-        # return __generator(n, p, k)
+    def cdf(self, x:Union[int, List[int], _np.ndarray]) -> Union[int, List[int], _np.ndarray]:
+        """
+        Args:
+            x (Union[int, List[int], _np.ndarray]): random variable or list of random variables
 
-    # def cdf(self,
-    #         interval=0,
-    #         point=0,
-    #         threshold=100,
-    #         plot=False,
-    #         xlim=None,
-    #         ylim=None,
-    #         xlabel=None,
-    #         ylabel=None):
-    #     """
-    #     Args:
+        Returns:
+            Union[int, List[int], _np.ndarray]: cumulative density evaluation of Binomial distribution.
+        """
 
-    #         interval(int): defaults to none. Only necessary for defining scatter plot.
-    #         threshold(int): defaults to 100. Defines the sample points in scatter plot.
-    #         plot(bool): if true, returns scatter plot.
-    #         xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-    #         ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-    #         xlabel(string): sets label in x axis. Only relevant when plot is true.
-    #         ylabel(string): sets label in y axis. Only relevant when plot is true.
+        n = self.n
+        p = self.p
 
-    #     Returns:
-    #         either cumulative distirbution evaluation for some point or scatter plot of binomial distribution.
-    #     """
-    #     n = self.n
-    #     p = self.p
-    #     k = self.k
+        if isinstance(x,List):
+            x = _np.array(x)
 
-    #     def __generator(n, p, k):
-    #         def bin_coef(x): return np.array(
-    #             (np.math.factorial(n) /
-    #              (np.math.factorial(x) * np.math.factorial(np.abs(n - x)))) *
-    #             (pow(p, x) * pow((1 - p), n - x)))
-    #         return np.cumsum([bin_coef(j) for j in range(0, k)], dtype=int)
+        return _betainc(n-x,1+x,1-p)
 
-    #     if plot == True:
-    #         x = np.linspace(-interval, interval, int(threshold))
-    #         y = __generator(n, p, len(x))
-    #         return super().scatter(x, y, xlim, ylim, xlabel, ylabel)
-
-    #     return __generator(n, p, point)[
-    #         point -
-    #         1]  # will this output the cumulative sum at point requested?
 
     def mean(self) -> float:
         """
@@ -164,7 +125,7 @@ class Binomial(Finite):
         q = 1 - p
         return (1 - 6 * p * q) / (n * p * q)
 
-    def keys(self) -> Dict[str, Union[float, int]]:
+    def keys(self) -> Dict[str, Union[float, int, Tuple[int, int]]]:
         """
         Summary statistic regarding the Binomial distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).

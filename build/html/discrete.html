@@ -345,7 +345,7 @@ or a list of its corresponding value specified by the parameter x.</p>
 <span id="source-discrete-binomial-module"></span><h2>source.discrete.Binomial module<a class="headerlink" href="#module-source.discrete.Binomial" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="source.discrete.Binomial.Binomial">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Binomial.</span></span><span class="sig-name descname"><span class="pre">Binomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Binomial.</span></span><span class="sig-name descname"><span class="pre">Binomial</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">_base.Finite</span></code></p>
 <p>This class contains functions for finding the probability mass function and
 cumulative distribution function for binomial distirbution <a class="footnote-reference brackets" href="#id8" id="id5">3</a> <a class="footnote-reference brackets" href="#id9" id="id6">4</a> <a class="footnote-reference brackets" href="#id10" id="id7">5</a>.</p>
@@ -373,8 +373,24 @@ cumulative distribution function for binomial distirbution <a class="footnote-re
 </dd>
 </dl>
 <dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>int</em><em>, </em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>_np.ndarray</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>cumulative density evaluation of Binomial distribution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[int, List[int], _np.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.keys">
-<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.keys" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.keys" title="Permalink to this definition">¶</a></dt>
 <dd><p>Summary statistic regarding the Binomial distribution which contains the following parts of the distribution:
 (mean, median, mode, var, std, skewness, kurtosis).</p>
 <dl class="field-list simple">
@@ -423,6 +439,22 @@ cumulative distribution function for binomial distirbution <a class="footnote-re
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>the mode of Binomial Distribution. Either one defined in the tuple of result.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.discrete.Binomial.Binomial.pmf">
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Binomial.html#Binomial.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Binomial.Binomial.pmf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>probability mass evaluation Binomial distribution.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[int, List[int]]</p>
 </dd>
 </dl>
 </dd></dl>

@@ -48,6 +48,9 @@ class Bernoulli(BoundedInterval):
         Returns:
             either probability density evaluation for some point or plot of Continuous Bernoulli distribution.
         """
+
+        shape = self.shape
+        
         def __C(shape: float):
             return (2*_np.arctanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2
 
@@ -81,7 +84,7 @@ class Bernoulli(BoundedInterval):
                 x = _np.array(x)
                 return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
-        return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
+        return (shape**randvar*pow(1-shape, 1-randvar)+shape-1)/(2*shape-1) if shape != 0.5 else randvar
 
     def mean(self) -> float:
         """

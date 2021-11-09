@@ -1,5 +1,5 @@
 try:
-    import numpy as np
+    import numpy as _np
     from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
     from typing import Union, Tuple, Dict, List
     from _base import Finite
@@ -50,23 +50,21 @@ class Geometric(Finite):
         Note: there are two configurations of pmf. 
         """
         p = self.p
+        try:
+            generator = {'first': lambda p,k: pow(1-p, k-1)*p, 
+                        'second': lambda p,k: pow(1-p, k)*p}
+            if isinstance(x, List):
+                if any(type(i) is not int for i in x):
+                    raise TypeError('parameter k must be of type int')
+                
+                return [generator[_type](p,i) for i in x]
 
-        if _type == "first":
-            def __generator(p:float, k:int) -> float: return pow(1 - p, k - 1) * p
-        elif _type == "second":
-            def __generator(p:float, k:int) -> float: return pow(1 - p, k) * p
-        else:
-            raise ValueError(
-                "Invalid argument. Type is either 'first' or 'second'.")
-
-        if isinstance(x, List):
-            if any(type(i) is not int for i in x):
+            if type(x) is not int:
                 raise TypeError('parameter k must be of type int')
-            return [__generator(p, k_i) for k_i in x]
+            return generator[_type](p, x)
 
-        if type(x) is not int:
-            raise TypeError('parameter k must be of type int')
-        return __generator(p, x)
+        except KeyError:
+            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
 
     def cdf(self, x: Union[List[int], int], _type: str = 'first') -> Union[List[float], float]:
         """
@@ -82,22 +80,23 @@ class Geometric(Finite):
         """
         p = self.p
 
-        if _type == "first":
-            def __generator(p:float, k:int) -> float: return 1 - pow(1 - p, k)
-        elif _type == "second":
-            def __generator(p:float, k:int) -> float: return 1 - pow(1 - p, k + 1)
-        else: 
-            raise ValueError(
-                "Invalid argument. Type is either 'first' or 'second'.")
+        try:
+            generator = {'first': lambda p,k: 1-pow(1-p, k),    
+                        'second': lambda p,k: 1-pow(1-p, k+1)}
 
-        if isinstance(x, List):
-            if any(type(i) is not int for i in x):
+            if isinstance(x, List):
+                if any(type(i) is not int for i in x):
+                    raise TypeError('parameter k must be of type int')
+                return  [generator[_type](p,i) for i in x]
+
+            if type(x) is not int:
                 raise TypeError('parameter k must be of type int')
-            return [__generator(p, k_i) for k_i in x]
+            return generator[_type](p, x)
 
-        if type(x) is not int:
-            raise TypeError('parameter k must be of type int')
-        return __generator(p, x)
+        except KeyError:
+            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
+
+
 
     def mean(self, _type='first') -> float:
         """

@@ -1,6 +1,6 @@
 try:
     from math import sqrt as _sqrt
-    from numbers import Real
+    import numpy as _np
     from typing import Union, Tuple, Dict, List, Literal
     from discrete._base import Finite
 except Exception as e:
@@ -42,15 +42,16 @@ class Bernoulli(Finite):
         """
         p = self.p
 
-        def __generator(p, k) -> Union[int, float]: 
+        def __generator(p:float, k:int) -> Union[int, float]: 
             if k == 0:
                 return 1-p
             return p
 
         if isinstance(x, List):
-            if any(i != 0 and i != 1 for i in x):
+            x == _np.array(x)
+            if _np.any(x != 0 and x != 1):
                 raise ValueError('all x must either be 1 or 0')
-            return [__generator(p, i) for i in x]
+            return _np.vectorize(__generator)(p,x)
 
         if x != 1 and x != 0:
             raise ValueError('all x must either be 1 or 0')
@@ -76,9 +77,10 @@ class Bernoulli(Finite):
             return p
 
         if isinstance(x, List):
-            if any(i != 0 and i != 1 for i in x):
+            x == _np.array(x)
+            if _np.any(x != 0 and x != 1):
                 raise ValueError('all x must either be 1 or 0')
-            return [__generator(p, i) for i in x]
+            return _np.vectorize(__generator)(p,x)
 
         if x != 1 and x != 0:
             raise ValueError('all x must either be 1 or 0')
@@ -105,9 +107,10 @@ class Bernoulli(Finite):
                 return 1
 
         if isinstance(x, List):
-            if any(i != 0 and i != 1 for i in x):
+            x == _np.array(x)
+            if _np.any(x != 0 and x != 1):
                 raise ValueError('all x must either be 1 or 0')
-            return [__generator(p, i) for i in x]
+            return _np.vectorize(__generator)(p,x)
 
         if x != 1 and x != 0:
             raise ValueError('all x must either be 1 or 0')
@@ -130,8 +133,7 @@ class Bernoulli(Finite):
             return 0
         if p == 0.5:
             return [0, 1]
-        if p > 0.5:
-            return 1
+        return 1
 
     def mode(self) -> Union[Tuple[int, int], int]:
         """
@@ -143,8 +145,7 @@ class Bernoulli(Finite):
             return 0
         if p == 0.5:
             return (0, 1)
-        if p > 0.5:
-            return 1
+        return 1
 
     def var(self) -> float:
         """
@@ -182,7 +183,7 @@ class Bernoulli(Finite):
         q = 1 - p
         return (1 - 6 * p * q) / (p * q)
 
-    def summary(self) -> Dict[str, Union[int, List[int], Tuple[int, int]]]:
+    def summary(self) -> Dict[str, Union[int, float, List[int], Tuple[int, int]]]:
         """
         Summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:
                 (mean, median, mode, var, std, skewness, kurtosis).
