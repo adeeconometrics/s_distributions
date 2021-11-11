@@ -10,16 +10,19 @@ except Exception as e:
 
 class LogitNormal(BoundedInterval):
     """
-    This class contains methods concerning Logit Normal Distirbution.
+    This class contains methods concerning Logit Normal Distirbution [#]_.
+
+    .. math::
+        \\text{LogitNormal}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt(2\\pi) \\cdot x(1-x)} \\exp{\\Big(-\\frac{(logit(x)-\\mu)^2}{2\\sigma^2} \\Big)}
+
     Args:
 
         sq_scale (float): squared scale parameter
         location(float): location parameter
-        randvar(float | [0,1]): random variable
+        x(float): random variable where x is between 0 and 1
 
     Reference:
-    - Wikipedia contributors. (2020, December 9). Logit-normal distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 07:44, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Logit-normal_distribution&oldid=993237113
+        .. [#] Wikipedia contributors. (2020, December 9). Logit-normal distribution. https://en.wikipedia.org/w/index.php?title=Logit-normal_distribution&oldid=993237113
     """
 
     def __init__(self, sq_scale: Union[float, int], location: Union[float, int], randvar: Union[float, int]):
@@ -112,11 +115,8 @@ class LogitNormal(BoundedInterval):
 
     def summary(self) -> Dict[str, str]:
         """
-        Summary statistic regarding the LogitNormal distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, str]
+            Dictionary of Logit Normal distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

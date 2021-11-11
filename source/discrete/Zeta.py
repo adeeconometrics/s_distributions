@@ -26,19 +26,18 @@ class Zeta(Base):
     def __init__(self, s: float):
         self.s = s
 
-    def pmf(self, x: List[int] = None) -> Union[int, float, List[int]]:
+    def pmf(self, x: Union[List[int], int]) -> Union[int, float, List[int]]:
         """
         Args:
+            x (Union[List[int], int]): random variables
 
-            x (List[int]): random variable or list of random variables
-
-        Returns: 
-            either probability mass evaluation for some point or scatter plot of Zeta distribution.
+        Returns:
+            Union[int, float, List[int]]: evaluation of pmf at x
         """
         s = self.s
         def __generator(s, k): return (1 / k**s) / _zeta(s)
 
-        if x is not None and isinstance(x, List):
+        if isinstance(x, List):
             return [__generator(s, i) for i in x]  # double check this function
 
         return __generator(s, x)
@@ -46,18 +45,17 @@ class Zeta(Base):
     def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
         """
         Args:
+            x (List[int], optional): random variables. Defaults to None.
 
-            x (List[int]): random variable or list of random variables
-
-        Returns: 
-            either cumulative distribution evaluation for some point or scatter plot of Zeta distribution.
+        Returns:
+            Union[int, float, List[int]]: evaluation of cdf at x. Currently NotImplemented
         """
         return NotImplemented
 
     def mean(self) -> Union[str, float]:
         """
         Returns: 
-            undefined if s <= 2.
+            mean of Zeta distribution
         """
         s = self.s
         if s > 2:
@@ -74,14 +72,14 @@ class Zeta(Base):
     def mode(self) -> int:
         """
         Returns: 
-            one
+            mode of Zeta distribution
         """
         return 1
 
     def var(self) -> Union[str, float]:
         """
         Returns: 
-            the variance of Zeta Distribution. Returns None if undefined.
+            the variance of Zeta Distribution. Returns undefined if s <= 3.
         """
         s = self.s
         if s > 3:
@@ -91,9 +89,8 @@ class Zeta(Base):
 
     def std(self) -> Union[str, float]:
         """
-
         Returns:
-            the standard deviation of Zeta Distribution. Returns None if undefined.
+            the standard deviation of Zeta Distribution. Returns undefined if variance is undefined.
         """
         s = self.s
         if s > 3:
@@ -132,11 +129,8 @@ class Zeta(Base):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the Zeta distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]
+            Dictionary of Zeta distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

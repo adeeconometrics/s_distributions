@@ -9,16 +9,19 @@ except Exception as e:
 
 class Logistic(Infinite):
     """
-    This class contains methods concerning Logistic Distirbution.
+    This class contains methods concerning Logistic Distirbution [#]_.
+
+    .. math::
+        \\text{Logistic}(x;\\mu,s) = \\frac{\\exp{(-(x-\\mu)/s)}} {s(1+\\exp(-(x-\\mu)/s)^2)}
+
     Args:
 
-        location(float): mean parameter
-        scale(float | x>0): standard deviation
-        randvar(float): random variable
+        location(float): location parameter (:math:`\\mu`)
+        scale(float): scale parameter (:math:`s`) x > 0 
+        x(float): random variable
 
     Reference:
-    - Wikipedia contributors. (2020, December 12). Logistic distribution. In Wikipedia, The Free Encyclopedia.
-     Retrieved 11:14, December 28, 2020, from https://en.wikipedia.org/w/index.php?title=Logistic_distribution&oldid=993793195
+        .. [#] Wikipedia contributors. (2020, December 12). Logistic distribution. https://en.wikipedia.org/w/index.php?title=Logistic_distribution&oldid=993793195
     """
 
     def __init__(self, location: float, scale: float, randvar: float):
@@ -128,13 +131,10 @@ class Logistic(Infinite):
         """
         return 2.0
 
-    def keys(self) -> Dict[str, Union[float, str]]:
+    def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the Logistic distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]
+            Dictionary of Logistic distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

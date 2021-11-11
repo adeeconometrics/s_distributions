@@ -1,6 +1,6 @@
 try:
     import numpy as _np
-    from typing import Union, Dict, List, Optional
+    from typing import Union, Dict, List
     from math import sqrt as _sqrt, log as _log
     from univariate._base import BoundedInterval
 except Exception as e:
@@ -9,17 +9,17 @@ except Exception as e:
 
 class Triangular(BoundedInterval):
     """
-    This class contains methods concerning Triangular Distirbution.
+    This class contains methods concerning Triangular Distirbution [#]_.
+
     Args:
 
-        a(float): lower limit
-        b(float | a<b): upper limit
-        c(float| a≤c≤b): mode
-        randvar(float | a≤randvar≤b): random variable
+        a(float): lower limit parameter
+        b(float): upper limit parameter where a < b
+        c(float): mode parameter where a <= c <= b
+        randvar(float): random variable where a <= x <= b
 
     Reference:
-    - Wikipedia contributors. (2020, December 19). Triangular distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 05:41, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Triangular_distribution&oldid=995101682
+        .. [#] Wikipedia contributors. (2020, December 19). Triangular distribution. https://en.wikipedia.org/w/index.php?title=Triangular_distribution&oldid=995101682
     """
 
     def __init__(self, a: float, b: float, c: float, randvar: float):
@@ -165,11 +165,8 @@ class Triangular(BoundedInterval):
 
     def summary(self) -> Dict[str, float]:
         """
-        Summary statistic regarding the Triangular distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, float]
+            Dictionary of Triangular distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

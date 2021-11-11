@@ -165,10 +165,8 @@
 
 <div class="viewcode-block" id="Hypergeometric.pmf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args: </span>
-<span class="sd">            x (List[int]): list of random variables</span>
-<span class="sd">        Returns: </span>
-<span class="sd">            cumulative distribution evaluation to some point specified by k or scatter plot of Hypergeometric distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: evaluation of pmf</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
@@ -206,8 +204,8 @@
 
 <div class="viewcode-block" id="Hypergeometric.mode"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns: </span>
-<span class="sd">            the mode of Hypergeometric Distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Tuple[int, int]: mode</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
@@ -217,8 +215,8 @@
 
 <div class="viewcode-block" id="Hypergeometric.var"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns: </span>
-<span class="sd">            the variance of Hypergeometric Distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: variance</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
@@ -227,8 +225,8 @@
 
 <div class="viewcode-block" id="Hypergeometric.skewness"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns: </span>
-<span class="sd">            the skewness of Hypergeometric Distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: skewness</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
@@ -238,8 +236,8 @@
 
 <div class="viewcode-block" id="Hypergeometric.kurtosis"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns: </span>
-<span class="sd">            the kurtosis of Hypergeometric Distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            float: kurtosis</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
@@ -249,12 +247,10 @@
                                           <span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">n</span><span class="p">)))</span> <span class="o">+</span>
                         <span class="p">(</span><span class="mi">6</span> <span class="o">*</span> <span class="n">n</span> <span class="o">*</span> <span class="n">K</span><span class="o">*</span><span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">K</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="n">N</span> <span class="o">-</span> <span class="n">n</span><span class="p">)</span> <span class="o">*</span> <span class="p">(</span><span class="mi">5</span> <span class="o">*</span> <span class="n">N</span> <span class="o">-</span> <span class="mi">6</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="Hypergeometric.summary"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">]]]:</span>
+<div class="viewcode-block" id="Hypergeometric.summary"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Hypergeometric.Hypergeometric.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span><span class="nb">int</span><span class="p">]]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Summary statistic regarding the Hypergeometric distribution which contains the following parts of the distribution:</span>
-<span class="sd">        (mean, median, mode, var, std, skewness, kurtosis).</span>
-
-<span class="sd">        Returns: Dict[str, Union[float, int, Tuple[int,int]]]</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of Hypergeometric distirbution moments. This includes standard deviation. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>

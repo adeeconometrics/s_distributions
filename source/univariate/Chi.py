@@ -10,18 +10,19 @@ except Exception as e:
 
 class Chi(SemiInfinite):
     """
-    This class contains methods concerning the Chi distribution.
+    This class contains methods concerning the Chi distribution [#]_ [#]_.
+
+    .. math:: 
+        \\text{Chi}(x;df) = {\\frac{1}{2^{(df/2)-1}\\Gamma(df/2)} \\cdot x^{df-1} e^{-x^2/2}}
 
     Args:
 
-        x(float): random variable.
-        df(int | x>0): degrees of freedom.
+        df(int): degrees of freedom where df > 0
+        x(float): random variable
 
     References:
-    - Weisstein, Eric W. "Chi Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/ChiDistribution.html
-    - Wikipedia contributors. (2020, October 16). Chi distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 10:35, January 2, 2021, from https://en.wikipedia.org/w/index.php?title=Chi_distribution&oldid=983750392
+        .. [#] Weisstein, Eric W. "Chi Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ChiDistribution.html
+        .. [#] Wikipedia contributors. (2020, October 16). Chi distribution. https://en.wikipedia.org/w/index.php?title=Chi_distribution&oldid=983750392
     """
 
     def __init__(self, df:int, randvar:float):
@@ -141,11 +142,8 @@ class Chi(SemiInfinite):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the Chi-distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int, str]]
+            Dictionary of Chi distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

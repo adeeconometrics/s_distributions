@@ -1,7 +1,7 @@
 try:
     from math import sqrt as _sqrt
     import numpy as _np
-    from typing import Union, Tuple, Dict, List, Literal
+    from typing import Union, Tuple, Dict, List
     from discrete._base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -22,7 +22,7 @@ class Bernoulli(Finite):
     References:
         .. [#] Weisstein, Eric W. "Bernoulli Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/BernoulliDistribution.html
 
-        .. [#] Wikipedia contributors. (2020, December 26). Bernoulli distribution. In Wikipedia, The Free Encyclopedia. Retrieved 10:18, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&oldid=996380822
+        .. [#] Wikipedia contributors. (2020, December 26). Bernoulli distribution. https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&oldid=996380822
     """
 
     def __init__(self, p:float):
@@ -30,7 +30,7 @@ class Bernoulli(Finite):
             raise ValueError('parameter k is constrained in ∈ [0,1]')
         self.p = p
 
-    def pmf(self, x: Union[List[int], int]) -> Union[int, float, List[Union[int, float]]]:
+    def pmf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -42,23 +42,18 @@ class Bernoulli(Finite):
         """
         p = self.p
 
-        def __generator(p:float, k:int) -> Union[int, float]: 
-            if k == 0:
-                return 1-p
-            return p
-
         if isinstance(x, List):
-            x == _np.array(x)
-            if _np.any(x != 0 and x != 1):
+            x = _np.fromiter(x,int)
+            if _np.all(_np.logical_or(x==0, x == 1)) == False:
                 raise ValueError('all x must either be 1 or 0')
-            return _np.vectorize(__generator)(p,x)
+            return _np.piecewise(x,[x==0, x!=0], [1-p, p])
 
-        if x != 1 and x != 0:
+        if x != 1 or x != 0:
             raise ValueError('all x must either be 1 or 0')
-        return __generator(p, x)
+        return 1-p if x == 0 else p
 
     @staticmethod
-    def pmf_s(p:float, x: Union[List[int], int]) -> Union[int, float, List[Union[int, float]]]:
+    def pmf_s(p:float, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -71,22 +66,17 @@ class Bernoulli(Finite):
         if p < 0 or p > 1:
             raise ValueError('parameter p is constrained in ∈ [0,1]')
 
-        def __generator(p, k) -> Union[int, float]: 
-            if k == 0:
-                return 1-p
-            return p
-
         if isinstance(x, List):
-            x == _np.array(x)
-            if _np.any(x != 0 and x != 1):
+            x = _np.fromiter(x,int)
+            if _np.all(_np.logical_or(x==0, x == 1)) == False:
                 raise ValueError('all x must either be 1 or 0')
-            return _np.vectorize(__generator)(p,x)
+            return _np.piecewise(x,[x==0, x!=0], [1-p, p])
 
-        if x != 1 and x != 0:
+        if x != 1 or x != 0:
             raise ValueError('all x must either be 1 or 0')
-        return __generator(p, x)
+        return 1-p if x == 0 else p
 
-    def cdf(self, x: Union[List[int], int]) -> Union[int, float, List[Union[int, float]]]:
+    def cdf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -98,35 +88,27 @@ class Bernoulli(Finite):
         """
         p = self.p
 
-        def __generator(p, k) -> Union[int, float]: 
-            if k < 0:
-                return 0
-            elif k >= 0 and k < 1:
-                return 1 - p
-            else:
-                return 1
-
         if isinstance(x, List):
-            x == _np.array(x)
-            if _np.any(x != 0 and x != 1):
+            x = _np.fromiter(x,int)
+            if _np.any(_np.logical_or(x!=0, x != 1)):
                 raise ValueError('all x must either be 1 or 0')
-            return _np.vectorize(__generator)(p,x)
+            return _np.piecewise(x,[x<0, (x>=0)*(x<1), x>=1], [0.0, 1-p, 1.0])
 
-        if x != 1 and x != 0:
+        if x != 1 or x != 0:
             raise ValueError('all x must either be 1 or 0')
-        return __generator(p, x)
+        return 0.0 if x<0 else (1-p if x>=0 and x>1 else 1)
 
     def mean(self) -> float:
         """
-        Returns: 
-            the mean of Bernoulli Distribution.
+        Returns:
+            float: mean of Bernoulli distribution
         """
         return self.p
 
     def median(self) -> Union[List[int], int]:
         """
-        Returns: 
-            the median of Bernoulli Distribution.
+        Returns:
+            Union[List[int], int]: median of Bernoulli distribution
         """
         p = self.p
         if p < 0.5:
@@ -137,8 +119,8 @@ class Bernoulli(Finite):
 
     def mode(self) -> Union[Tuple[int, int], int]:
         """
-        Returns: 
-            the mode of Bernoulli Distribution.
+        Returns:
+            Union[Tuple[int, int], int]: mode of Bernoulli distribution 
         """
         p = self.p
         if p < 0.5:
@@ -149,8 +131,8 @@ class Bernoulli(Finite):
 
     def var(self) -> float:
         """
-        Returns: 
-            the variance of Bernoulli Distribution.
+        Returns:
+            float: variance of Bernoulli distribution
         """
         p = self.p
         q = 1 - p
@@ -158,8 +140,8 @@ class Bernoulli(Finite):
 
     def std(self) -> float:
         """
-        Returns: 
-            the variance of Bernoulli Distribution.
+        Returns:
+            float: standard deviation of Bernoulli distribution
         """
         p = self.p
         q = 1 - p
@@ -167,17 +149,17 @@ class Bernoulli(Finite):
 
     def skewness(self) -> float:
         """
-        Returns: 
-            the skewness of Bernoulli Distribution.
+        Returns:
+            float: skewness of Bernoulli distribution
         """
         p = self.p
         q = 1 - p
         return (q - p) / _sqrt(p * q)
 
     def kurtosis(self) -> float:
-        """
-        Returns: 
-            the kurtosis of Bernoulli Distribution.
+        """ 
+        Returns:
+            float: kurtosis of Bernoulli distribution
         """
         p = self.p
         q = 1 - p
@@ -185,10 +167,8 @@ class Bernoulli(Finite):
 
     def summary(self) -> Dict[str, Union[int, float, List[int], Tuple[int, int]]]:
         """
-        Summary statistic regarding the Bernoulli distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis).
-
-        Returns: Dict[str, Union[int, List[int], Tuple[int, int]]]
+        Returns:
+            Dictionary of Bernoulli distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

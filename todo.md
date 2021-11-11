@@ -32,6 +32,7 @@ Efforts on maintaining class invariance
 
   - reason: incurs unnecessary overhead with lesser control on plotting
 
+- [ ] Decide whether `np.ndarray` is returned at all times. Find the best way to map a function in numpy. 
 - [x] Independent helper functions defined on the base class
 
   - reason: there is no strict rule against violating private functions, it may as well be public for everyone to see. Besides, the overhead of calling from parent class costs more than just calling a function outside of it. Alternatively, they may be implemented as `@staticmethod`

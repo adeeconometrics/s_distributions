@@ -9,18 +9,19 @@ except ValueError as e:
 
 class Pareto(SemiInfinite):
     """
-    This class contains methods concerning the Pareto Distribution Type 1.
+    This class contains methods concerning the Pareto Distribution Type 1 [#]_ [#]_.
+
+    .. math:: \\text{Pareto}(x;x_m, a) = \\frac{a x_m^a}{x^{a+1}}
 
     Args:
 
-        scale(float | x>0): scale parameter.
-        shape(float | x>0): shape parameter.
-        x(float | [shape, infty]): random variable.
+        scale(float): scale parameter (:math:`x_m`) where scale > 0
+        shape(float): shape parameter (:math:`a`) where shape > 0
+        x(float): random variable where shape <= x
 
     References:
-    - Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.
-    - Wikipedia contributors. (2020, December 1). Pareto distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 05:00, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
+        .. [#] Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.
+        .. [#] Wikipedia contributors. (2020, December 1). Pareto distribution. https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
     """
 
     def __init__(self, shape: float, scale: float, x: float):
@@ -165,11 +166,8 @@ class Pareto(SemiInfinite):
 
     def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the Pareto distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, str]]: [description]
+            Dictionary of Pareto distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

@@ -10,22 +10,25 @@ except Exception as e:
 
 class Gumbell(SemiInfinite):
     """
-    This class contains methods concerning Gumbel Distirbution.
+    This class contains methods concerning Gumbel Distirbution [#]_.
+
+    .. math::
+        \\text{Gumbel}(x;\\mu,\\beta) = \\frac{1}{\\beta} \\exp{-\\Big( \\frac{x-\\mu}{\\beta} + \\exp{ \\frac{x-\\mu}{\\beta}} \\Big)}
+
     Args:
 
-        location(float): location parameter
-        scale(float>0): scale parameter
+        location(float): location parameter (:math:`\\mu`)
+        scale(float): scale parameter (:math:`\\beta`) where scale > 0
         randvar(float): random variable
 
     Reference:
-    - Wikipedia contributors. (2020, November 26). Gumbel distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 09:22, December 29, 2020, from https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&oldid=990718796
+        .. [#] Wikipedia contributors. (2020, November 26). Gumbel distribution. https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&oldid=990718796
     """
 
     def __init__(self, location: Union[float, int], scale: Union[float, int], randvar: Union[float, int]):
         if scale < 0:
             raise ValueError(
-                'scale parameter should be greater than 0. The value of the scale parameter is: {scale}')
+                f'scale parameter should be greater than 0. The value of the scale parameter is: {scale}')
 
         self.location = location
         self.scale = scale
@@ -122,11 +125,8 @@ class Gumbell(SemiInfinite):
 
     def summary(self) -> Dict[str, float]:
         """
-        Summary statistic regarding the Gumbell distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, float]: [description]
+            Dictionary of Gumbel distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

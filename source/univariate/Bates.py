@@ -15,17 +15,18 @@ class Bates(BoundedInterval):
     Note that the Bates distribution is a probability distribution of the mean of a number of statistically indipendent uniformly
     distirbuted random variables on the unit interval. This is often confused with the Irwin-Hall distribution which is
     the distribution of the sum (not the mean) of n independent random variables. The two distributions are simply versions of
-    each other as they only differ in scale.
+    each other as they only differ in scale [#]_.
+
+    
     Args:
 
-        a(float): lower bound
-        b(float |b>a): upper bound
-        n(int | x>=1)
+        a(float): lower bound parameter 
+        b(float): upper bound parameter where b > a
+        n(int): where n >= 1 
         randvar(float | [a,b]): random variable
 
     Reference:
-    - Wikipedia contributors. (2021, January 8). Bates distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 08:27, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Bates_distribution&oldid=999042206
+        .. [#] Wikipedia contributors. (2021, January 8). Bates distribution. https://en.wikipedia.org/w/index.php?title=Bates_distribution&oldid=999042206
     """
 
     def __init__(self, a: float, b: float, n: int, randvar: float):

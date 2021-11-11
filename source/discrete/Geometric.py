@@ -1,7 +1,7 @@
 try:
     import numpy as _np
-    from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
-    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt, ceil as _ceil, log2 as _log2
+    from typing import Union, Dict, List
     from _base import Finite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -101,11 +101,13 @@ class Geometric(Finite):
     def mean(self, _type='first') -> float:
         """
         Args:
+            _type (str, optional): modifies the type of Geometric distribution. Defaults to 'first'.
 
-            type(string): defaults to first type. Valid types: "first", "second".
-        
-        Returns: 
-            the mean of Geometric Distribution.
+        Raises:
+            ValueError: when _type is not 'first' or 'second'
+
+        Returns:
+            float: mean of Geometric distribution
         """
 
         if _type == "first":
@@ -118,11 +120,13 @@ class Geometric(Finite):
     def median(self, _type='first') -> int:
         """
         Args:
+            _type (str, optional): modifies the type of Geometric distribution. Defaults to 'first'.
 
-            type(string): defaults to first type. Valid types: "first", "second".
-        
-        Returns: 
-            the median of Geometric Distribution.
+        Raises:
+            ValueError: when _type is not 'first' or 'second'
+
+        Returns:
+            int: median of Geometric distribution
         """
         if _type == "first":
             return _ceil(-1 / (_log2(1 - self.p)))
@@ -134,11 +138,13 @@ class Geometric(Finite):
     def mode(self, _type: str = 'first') -> int:
         """
         Args:
+            _type (str, optional): modifies the type of Geometric distribution. Defaults to 'first'.
 
-            type(string): defaults to first type. Valid types: "first", "second".
-        
-        Returns: 
-            the mode of Geometric Distribution.
+        Raises:
+            ValueError: when _type is not 'first' or 'second'
+
+        Returns:
+            int: mode of Geometric distribution
         """
         if _type == "first":
             return 1
@@ -149,33 +155,30 @@ class Geometric(Finite):
 
     def var(self) -> float:
         """
-        Returns: 
-            the variance of Geometric Distribution.
+        Returns:
+            float: variance of Geometric distribution
         """
         return (1 - self.p) / self.p**2
 
     def skewness(self) -> float:
         """
-        Returns: 
-            the skewness of Geometric Distribution.
+        Returns:
+            float: skewness of Geometric distribution
         """
         return (2 - self.p) / _sqrt(1 - self.p)
 
     def kurtosis(self) -> float:
         """
-        Returns: 
-            the kurtosis of Geometric Distribution.
+        Returns:
+            float: kurtosis of Geometric distribution
         """
         return 6 + (self.p**2 / (1 - self.p))
 
     
     def keys(self) -> Dict[str, Union[float, int]]:
         """
-        Summary statistic regarding the Geometric distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]
+            Dictionary of Geometric distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

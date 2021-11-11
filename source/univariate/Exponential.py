@@ -9,29 +9,29 @@ except Exception as e:
 
 class Exponential(SemiInfinite):
     """
-    This class contans methods for evaluating Exponential Distirbution.
+    This class contans methods for evaluating Exponential Distirbution [#]_ [#]_.
+
+    .. math:: \\text{Exponential}(x;\\lambda) = \\lambda e^{-\\lambda x}
 
     Args:
 
-        - lambda_(float | x>0): rate parameter.
-        - x(float | x>0): random variable.
+        - rate(float): rate parameter (:math:`\\lambda`) where rate > 0
+        - x(float): random variable where x > 0
 
     References:
-    - Weisstein, Eric W. "Exponential Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/ExponentialDistribution.html
-    - Wikipedia contributors. (2020, December 17). Exponential distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 04:38, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Exponential_distribution&oldid=994779060
+        .. [#] Weisstein, Eric W. "Exponential Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ExponentialDistribution.html
+        .. [#] Wikipedia contributors. (2020, December 17). Exponential distribution. https://en.wikipedia.org/w/index.php?title=Exponential_distribution&oldid=994779060
     """
 
-    def __init__(self, lambda_: float, x: float = 1.0):
-        if lambda_ < 0:
+    def __init__(self, rate: float, x: float = 1.0):
+        if rate < 0:
             raise ValueError(
-                f'lambda parameter should be greater than 0. Entered value for lambda_:{lambda_}')
+                f'lambda parameter should be greater than 0. Entered value for rate:{rate}')
         if x < 0:
             raise ValueError(
                 f'random variable should be greater than 0. Entered value for x:{x}')
 
-        self.lambda_ = lambda_
+        self.rate = rate
         self.x = x
 
     def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
@@ -43,20 +43,20 @@ class Exponential(SemiInfinite):
         Returns:
             either cumulative distribution evaluation for some point or plot of Exponential distribution.
         """
-        lambda_ = self.lambda_
+        rate = self.rate
 
-        def __generator(lambda_:float, x:float) -> float:
+        def __generator(rate:float, x:float) -> float:
             if x >= 0:
-                return lambda_ * _exp(-(lambda_ * x))
+                return rate * _exp(-(rate * x))
             return 0.0
 
         if x is not None:
             if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
-                return [__generator(lambda_, i) for i in x]
+                return [__generator(rate, i) for i in x]
                 
-        return __generator(lambda_, self.x)
+        return __generator(rate, self.x)
 
     def cdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
         """
@@ -67,32 +67,32 @@ class Exponential(SemiInfinite):
         Returns:
             either comulative distribution evaluation for some point or plot of Exponential distribution.
         """ 
-        lambda_ = self.lambda_
+        rate = self.rate
 
-        def __generator(lambda_:float, x:float) -> float:
+        def __generator(rate:float, x:float) -> float:
             if x > 0:
-                return 1 - _exp(-lambda_ * x)
+                return 1 - _exp(-rate * x)
             return 0.0
 
         if x is not None:
             if not isinstance(x, (_np.ndarray, List)):
                 raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
             else:
-                return [__generator(lambda_, i) for i in x]
+                return [__generator(rate, i) for i in x]
 
-        return __generator(lambda_, self.x)
+        return __generator(rate, self.x)
 
     def mean(self) -> float:
         """
         Returns: Mean of the Exponential distribution
         """
-        return 1 / self.lambda_
+        return 1 / self.rate
 
     def median(self) -> float:
         """
         Returns: Median of the Exponential distribution
         """
-        return _log(2) / self.lambda_
+        return _log(2) / self.rate
 
     def mode(self) -> float:
         """
@@ -104,7 +104,7 @@ class Exponential(SemiInfinite):
         """
         Returns: Variance of the Exponential distribution
         """
-        return 1 / pow(self.lambda_, 2)
+        return 1 / pow(self.rate, 2)
 
     def std(self) -> float:
         """
@@ -131,15 +131,12 @@ class Exponential(SemiInfinite):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return 1 - _log(self.lambda_)
+        return 1 - _log(self.rate)
 
     def summary(self) -> Dict[str, Union[float, int]]:
         """
-        Summary statistic regarding the Exponential-distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]
+            Dictionary of Exponential distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

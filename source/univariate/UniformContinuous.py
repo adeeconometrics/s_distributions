@@ -6,35 +6,20 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
-
 class Uniform(BoundedInterval):
     """
-    This class contains methods concerning the Continuous Uniform Distribution.
+    This class contains methods concerning the Continuous Uniform Distribution [#]_.
+
+    .. math::
+        \\text{Uniform}(x;a,b) = \\frac{1}{b-a}
 
     Args:
 
-        a(int): lower limit of the distribution
-        b(int): upper limit of the distribution
-
-    Methods:
-
-        - pdf for probability density function.
-        - cdf for cumulative distribution function.
-        - pvalue for p-values.
-        - mean for evaluating the mean of the distribution.
-        - median for evaluating the median of the distribution.
-        - mode for evaluating the mode of the distribution.
-        - var for evaluating the variance of the distribution.
-        - std for evaluating the standard deviation of the distribution.
-        - skewness for evaluating the skewness of the distribution.
-        - kurtosis for evaluating the kurtosis of the distribution.
-        - entropy for differential entropy of the distribution.
-        - summary for printing the summary statistics of the distribution.
-        - keys for returning a dictionary of summary statistics.
+        a(int): lower limit of the distribution 
+        b(int): upper limit of the distribution where b > a
 
     Referene:
-    - Weisstein, Eric W. "Uniform Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/UniformDistribution.html
+        .. [#] Weisstein, Eric W. "Uniform Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/UniformDistribution.html
     """
 
     def __init__(self, a: int, b: int) -> None:
@@ -147,32 +132,10 @@ class Uniform(BoundedInterval):
         """
         return _log(self.b-self-a)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[int,int]]]:
         """
-        Returns:  summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, float]:
-        """
-        Summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, float]: [description]
+            Dictionary of Uniform distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

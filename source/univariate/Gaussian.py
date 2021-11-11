@@ -12,18 +12,20 @@ except Exception as e:
 
 class Gaussian(Infinite):
     """
-    This class contains methods concerning the Gaussian Distribution.
+    This class contains methods concerning the Gaussian Distribution [#]_ [#]_.
+
+    .. math::
+        \\text{Gaussian}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt(2 \\pi)} e^{\\frac{1}{2}\\big( \\frac{x-\\mu}{\\sigma}\\big)^2}
 
     Args:
 
-        mean(float): mean of the distribution
-        std(float | x>0): standard deviation of the distribution
-        randvar(float): random variable
+        mean(float): mean of the distribution (:math:`\\mu`)
+        std(float): standard deviation (:math:`\\sigma`) of the distribution where std > 0
+        randvar(float): random variable 
 
     References:
-    - Wikipedia contributors. (2020, December 19). Gaussian distribution. In Wikipedia, The Free Encyclopedia. Retrieved 10:44,
-    December 22, 2020, from https://en.wikipedia.org/w/index.php?title=Gaussian_distribution&oldid=995237372
-    - Weisstein, Eric W. "Gaussian Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/GaussianDistribution.html
+        .. [#] Wikipedia contributors. (2020, December 19). Gaussian distribution. https://en.wikipedia.org/w/index.php?title=Gaussian_distribution&oldid=995237372
+        .. [#] Weisstein, Eric W. "Gaussian Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/GaussianDistribution.html
 
     """
 
@@ -134,11 +136,8 @@ class Gaussian(Infinite):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the Gaussian distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dictionary of Gaussian distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

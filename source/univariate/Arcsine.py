@@ -19,21 +19,20 @@ class Arcsine(BoundedInterval):
         x(float): random variable between 0 and 1
 
     Reference:
-    .. [#] Wikipedia contributors. (2020, October 30). Arcsine distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 05:19, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Arcsine_distribution&oldid=986131091
+        .. [#] Wikipedia contributors. (2020, October 30). Arcsine distribution. https://en.wikipedia.org/w/index.php?title=Arcsine_distribution&oldid=986131091
     """
 
     def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variables
+            x (Union[List[float], numpy.ndarray, float]): random variables
 
         Raises:
             ValueError: when there exist a value less than 0 or greater than 1
             TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of pdf at x
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         if isinstance(x, (_np.ndarray, List)):
             x = _np.array(x)
@@ -52,14 +51,14 @@ class Arcsine(BoundedInterval):
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variables
+            x (Union[List[float], numpy.ndarray, float]): random variables
 
         Raises:
             ValueError: when there exist a value less than 0 or greater than 1
             TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of cdf at x
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         if isinstance(x, (_np.ndarray, List)):
             x = _np.array(x)
@@ -133,11 +132,8 @@ class Arcsine(BoundedInterval):
 
     def summary(self) -> Dict[str, Union[float, Tuple[float, float]]]:
         """
-        Summary statistic regarding the Arcsine distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, Tuple[float, float]]]
+            Dictionary of Arcsine distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

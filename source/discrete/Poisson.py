@@ -74,11 +74,11 @@ class Poisson(Infinite):
         if isinstance(x, (List, _np.ndarray)):
             if any(type(i) is not int or i < 0 for i in x):
                 raise TypeError('parameter x must be a positive integer')
-            return _np.vectorize(__generator)(x, self.λ)
+            return _np.vectorize(__generator)(x, λ)
 
         if x < 0:
             raise ValueError('parameter x must be a positive integer')
-        return __generator(x, self.λ)
+        return __generator(x, λ)
 
     def mean(self) -> float:
         """
@@ -124,13 +124,10 @@ class Poisson(Infinite):
         """
         return 1/self.λ
 
-    def summary(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[int, int]]]:
         """
-        Summary statistic regarding the Poisson distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]
+            Dictionary of Poisson distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

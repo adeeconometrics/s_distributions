@@ -9,16 +9,19 @@ except Exception as e:
 
 class Laplace(Infinite):
     """
-    This class contains methods concerning Laplace Distirbution.
+    This class contains methods concerning Laplace Distirbution [#]_.
+
+    .. math::
+        \\text{Laplace}(x;\\mu, \\b) = \\frac{1}{2b} \\exp{- \\frac{|x - \\mu}{b}}
+
     Args:
 
-        location(float): mean parameter
-        scale(float| x>0): standard deviation
-        randvar(float): random variable
+        location(float): location parameter (:math:`\\mu`)
+        scale(float): scale parameter (:math:`b`) where scale > 0
+        x(float): random variable
 
     Reference:
-        - Wikipedia contributors. (2020, December 21). Laplace distribution. In Wikipedia, The Free Encyclopedia.
-        Retrieved 10:53, December 28, 2020, from https://en.wikipedia.org/w/index.php?title=Laplace_distribution&oldid=995563221
+        .. [#] Wikipedia contributors. (2020, December 21). Laplace distribution. https://en.wikipedia.org/w/index.php?title=Laplace_distribution&oldid=995563221
     """
 
     def __init__(self, location: float, scale: float, randvar: float):
@@ -131,11 +134,8 @@ class Laplace(Infinite):
 
     def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the Laplace distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dictionary of Laplace distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

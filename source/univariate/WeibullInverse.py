@@ -10,17 +10,20 @@ except Exception as e:
 
 class WeilbullInverse(SemiInfinite):
     """
-    This class contains methods concerning inverse Weilbull or the Fréchet Distirbution.
+    This class contains methods concerning inverse Weilbull or the Fréchet Distirbution [#]_.
+
+    .. math::
+        \\text{WeibullInverse}(x;a,s,m) = \\frac{a}{s} \\Big(\\frac{x-m}{s} \\Big) ^{-1-a} \\exp{\\Big(-\\frac{x-m}{s} \\Big)^{-a}}
+
     Args:
 
-        shape(float | [0, infty)): shape parameter
-        scale(float | [0,infty)]): scale parameter
-        location(float | (-infty, infty)): location parameter
-        randvar(float | randvar > location): random variable
+        shape(float): shape parameter (:math:`a`) where shape >= 0
+        scale(float): scale parameter (:math:`s`) where scale >= 0
+        location(float): location parameter (:math:`m`)
+        randvar(float): random variable where x > location
 
     Reference:
-    - Wikipedia contributors. (2020, December 7). Fréchet distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 07:28, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&oldid=992938143
+        .. [#] Wikipedia contributors. (2020, December 7). Fréchet distribution. https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&oldid=992938143
     """
 
     def __init__(self,  shape: float, scale: float, location: float, randvar: float):
@@ -139,11 +142,8 @@ class WeilbullInverse(SemiInfinite):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the Weilbul Inverse distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int, str]]
+            Dictionary of Fréchet distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

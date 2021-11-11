@@ -36,13 +36,13 @@ class Binomial(Finite):
         self.n = n
         self.p = p
 
-    def pmf(self, x: Union[List[int], int, _np.ndarray]) -> Union[int, List[int], _np.ndarray]:
+    def pmf(self, x: Union[List[int], int, _np.ndarray]) -> Union[int, _np.ndarray]:
         """
         Args:
             x (Union[List[int], int]): random variable or list of random variables
 
         Returns:
-            Union[int, List[int]]: probability mass evaluation Binomial distribution.
+            Union[int, numpy.ndarray]: evaluation of pmf at x
         """
         n = self.n
         p = self.p
@@ -52,13 +52,13 @@ class Binomial(Finite):
 
         return _binom(n,x)*p**x*(1-p)**(n-x)
 
-    def cdf(self, x:Union[int, List[int], _np.ndarray]) -> Union[int, List[int], _np.ndarray]:
+    def cdf(self, x:Union[int, List[int], _np.ndarray]) -> Union[int, _np.ndarray]:
         """
         Args:
             x (Union[int, List[int], _np.ndarray]): random variable or list of random variables
 
         Returns:
-            Union[int, List[int], _np.ndarray]: cumulative density evaluation of Binomial distribution.
+            Union[int, numpy.ndarray]: evaluation of cdf at x
         """
 
         n = self.n
@@ -127,11 +127,8 @@ class Binomial(Finite):
 
     def keys(self) -> Dict[str, Union[float, int, Tuple[int, int]]]:
         """
-        Summary statistic regarding the Binomial distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dictionary of Binomial distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

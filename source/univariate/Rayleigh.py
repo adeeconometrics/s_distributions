@@ -7,21 +7,21 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
-
+# change randvar to x
 class Rayleigh(SemiInfinite):
     """
-    This class contains methods concerning Rayleigh Distirbution.
+    This class contains methods concerning Rayleigh Distirbution [#]_ [#]_.
+
+    .. math:: \\text{Rayleigh}(x;\\sigma) = \\frac{x}{\\sigma^2} \\exp{-(x^2/(2\\sigma^2))}
+
     Args:
 
-        scale(float | x>0): scale
-        randvar(float | x>=0): random variable
+        scale(float): scale parameter (:math:`\\sigma`) where scale > 0
+        x(float): random variable where x >= 0
 
     Reference:
-    - Wikipedia contributors. (2020, December 30). Rayleigh distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 09:37, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&oldid=997166230
-
-    - Weisstein, Eric W. "Rayleigh Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/RayleighDistribution.html
+        .. [#] Wikipedia contributors. (2020, December 30). Rayleigh distribution. https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&oldid=997166230
+        .. [#] Weisstein, Eric W. "Rayleigh Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/RayleighDistribution.html
     """
 
     def __init__(self, scale: float, randvar: float):
@@ -129,32 +129,10 @@ class Rayleigh(SemiInfinite):
         """
         return 1+_log(self.scale/_sqrt(2))+(_euler_gamma/2)
 
-    def summary(self, display=False) -> Union[None, Tuple[str, str, str, str, str, str, str]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
-        Returns:  summary statistic regarding the Rayleigh distribution which contains the following parts of the distribution:
-                (mean, median, mode, var, std, skewness, kurtosis). If the display parameter is True, the function returns None
-                and prints out the summary of the distribution. 
-        """
-        if display == True:
-            cstr = " summary statistics "
-            print(cstr.center(40, "="))
-            print(f"mean: {self.mean()}", f"median: {self.median()}",
-                  f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                  f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}", sep='\n')
-
-            return None
-        else:
-            return (f"mean: {self.mean()}", f"median: {self.median()}",
-                    f"mode: {self.mode()}", f"var: {self.var()}", f"std: {self.std()}",
-                    f"skewness: {self.skewness()}", f"kurtosis: {self.kurtosis()}")
-
-    def keys(self) -> Dict[str, Union[float, Tuple[float]]]:
-        """
-        Summary statistic regarding the Rayleigh distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, Tuple[float]]]: [description]
+            Dictionary of Rayleigh distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

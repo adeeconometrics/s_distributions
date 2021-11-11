@@ -9,19 +9,20 @@ except Exception as e:
 
 class LogNormal(SemiInfinite):
     """
-    This class contains methods concerning the Log Normal Distribution.
+    This class contains methods concerning the Log Normal Distribution [#]_ [#]_.
+
+    .. math::
+        \\text{LogNormal}(x;\\mu,\\sigma) = \\frac{1}{x\\sigma\\sqrt{2\\pi}} \\exp{\\Big( - \\frac{(\\ln x - \\mu)^2}{2\\sigma^2} \\Big)}
 
     Args:
 
-        randvar(float | [0, infty)): random variable
-        mean_val(float): mean parameter
-        std_val(float | x>0): standard deviation
+        mean_val(float): mean parameter (:math:`\\mu`)
+        std_val(float): standard deviation (:math:`\\sigma`) where std > 0
+        x(float): random variable where x >= 0
 
     References:
-    - Weisstein, Eric W. "Log Normal Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/LogNormalDistribution.html
-    - Wikipedia contributors. (2020, December 18). Log-normal distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 06:49, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&oldid=994919804
+        .. [#] Weisstein, Eric W. "Log Normal Distribution." From MathWorld--A Wolfram Web Resource.https://mathworld.wolfram.com/LogNormalDistribution.html
+        .. [#] Wikipedia contributors. (2020, December 18). Log-normal distribution. https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&oldid=994919804
     """
     def __init__(self, mean: float, std_val: float, randvar: float):
         if randvar < 0:
@@ -137,11 +138,8 @@ class LogNormal(SemiInfinite):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the LogNormal distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, float]
+            Dictionary of Log Normal distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

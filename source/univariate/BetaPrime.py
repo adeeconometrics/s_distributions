@@ -10,25 +10,26 @@ except Exception as e:
 
 class BetaPrime(SemiInfinite):
     """
-    This class contains methods concerning Beta prime Distirbution.
+    This class contains methods concerning Beta prime Distirbution [#]_ .
+
+    .. math:: 
+        \\text{BetaPrime}(x;\\alpha,\\beta) = \\frac{x^{\\alpha -1}(1+x)^{-\\alpha -\\beta}}{\\text{B}(\\alpha ,\\beta )}
+
     Args:
 
-        alpha(float | x>0): shape
-        beta(float | x>0): shape
-        randvar(float | x>=0): random variable
+        alpha(float): shape parameter where alpha > 0
+        beta(float): shape parameter where beta > 0
+        x(float): random variable where x >= 0
 
     Reference:
-    - Wikipedia contributors. (2020, October 8). Beta prime distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 09:40, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&oldid=982458594
+        .. [#] Wikipedia contributors. (2020, October 8). Beta prime distribution. https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&oldid=982458594
     """
 
     def __init__(self, alpha: float, beta: float, randvar: float):
         if randvar < 0:
-            raise ValueError(
-                f'random variable should not be less then 0. Entered value: {randvar}')
+            raise ValueError('random variable should not be less then 0.')
         if alpha < 0:
-            raise ValueError(
-                f'alpha parameter(shape) should be a positive number. Entered value:{alpha}')
+            raise ValueError('alpha parameter(shape) should be a positive number.')
         if beta < 0:
             raise ValueError(
                 f'beta parameter(shape) should be a positive number. Entered value:{beta}')
@@ -117,9 +118,10 @@ class BetaPrime(SemiInfinite):
         """
         Returns: Standard deviation of the Log logistic distribution
         """
-        if self.var() == "Undefined.":
+        var = self.var()
+        if var == "Undefined.":
             return "Undefined."
-        return _sqrt(self.var())
+        return _sqrt(var)
 
     def skewness(self) -> Union[float, str]:
         """
@@ -138,23 +140,20 @@ class BetaPrime(SemiInfinite):
         """
         return "Undefined."
 
-    def entropy(self) -> Union[float, str]:
+    def entropy(self):
         """
         Returns: differential entropy of the Beta prime distribution.
 
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return "currently unsupported"
+        return NotImplemented
 
 
     def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the Beta Prime distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, str]]
+            Dictionary of BetaPrime distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

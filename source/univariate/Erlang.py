@@ -10,18 +10,20 @@ except Exception as e:
 
 class Erlang(SemiInfinite):
     """
-    This class contains methods concerning Erlang Distirbution.
+    This class contains methods concerning Erlang Distirbution [#]_ [#]_.
+
+    .. math:: 
+        \\text{Erlang}(x; k, \\lambda) = \\frac{\\lambda^{k} x^{k-1} e^{\\lambda x}}{(k-1)!}
+
     Args:
 
-        shape(int | x>0): shape
-        rate(float | x>=0): rate
-        randvar(float | x>=0): random variable
+        shape(int): shape parameter (:math:`k`) where shape > 0
+        rate(float): rate parameter (:math:`\\lambda`) where rate >= 0
+        randvar(float): random variable where x >= 0
 
     Reference:
-    - Wikipedia contributors. (2021, January 6). Erlang distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 09:38, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Erlang_distribution&oldid=998655107
-    - Weisstein, Eric W. "Erlang Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/ErlangDistribution.html
+        .. [#] Wikipedia contributors. (2021, January 6). Erlang distribution. https://en.wikipedia.org/w/index.php?title=Erlang_distribution&oldid=998655107
+        .. [#] Weisstein, Eric W. "Erlang Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ErlangDistribution.html
     """
 
     def __init__(self, shape: int, rate: float, randvar: float):
@@ -141,11 +143,8 @@ class Erlang(SemiInfinite):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the Erlang distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int, str]]: [description]
+            Dictionary of Erlang distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

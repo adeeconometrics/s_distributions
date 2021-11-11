@@ -10,18 +10,19 @@ except Exception as e:
 
 class ChiSquare(SemiInfinite):
     """
-    This class contains methods concerning the Chi-square distribution.
+    This class contains methods concerning the Chi-square distribution [#]_ [#]_.
+
+    .. math:: 
+        \\text{ChiSquare}(x;k) = {\\frac{1}{2^{k/2}\\Gamma(k/2)}\\ x^{k/2-1}e^{-x/2}}
 
     Args:
 
+        df(int): degrees of freedom (:math:`k`) where df > 0
         x(float): random variable.
-        df(int): degrees of freedom.
 
     References:
-    - Weisstein, Eric W. "Chi-Squared Distribution." From MathWorld--A Wolfram Web Resource.
-    https://mathworld.wolfram.com/Chi-SquaredDistribution.html
-    - Wikipedia contributors. (2020, December 13). Chi-square distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 04:37, December 23, 2020, from https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&oldid=994056539
+        .. [#] Weisstein, Eric W. "Chi-Squared Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/Chi-SquaredDistribution.html
+        .. [#] Wikipedia contributors. (2020, December 13). Chi-square distribution. https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&oldid=994056539
     """
 
     def __init__(self, df: int, randvar: Union[float, int] = 0.0):
@@ -126,11 +127,8 @@ class ChiSquare(SemiInfinite):
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the ChiSquare-distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int, str]]
+            Dictionary of Chi-Square distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

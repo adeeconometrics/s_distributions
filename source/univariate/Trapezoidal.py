@@ -8,18 +8,18 @@ except Exception as e:
 
 class Trapezoidal(BoundedInterval):
     """
-    This class contains methods concerning Trapezoidal Distirbution.
+    This class contains methods concerning Trapezoidal Distirbution [#]_.
+    
     Args:
 
-        a(float | a<d): lower bound
-        b(float | a≤b<c): level start
-        c(float | b<c≤d): level end
-        d(float | c≤d): upper bound
-        randvar(float | a≤randvar≤d): random variable   
+        a(float): lower bound parameter where a < d
+        b(float): level start parameter where a <= b < c
+        c(float): level end parameter where b < c <= d
+        d(float): upper bound parameter where c <= d
+        randvar(float): random variable where a <= x <= d 
 
     Reference:
-    - Wikipedia contributors. (2020, April 11). Trapezoidal distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 06:06, December 30, 2020, from https://en.wikipedia.org/w/index.php?title=Trapezoidal_distribution&oldid=950241388
+        .. [#] Wikipedia contributors. (2020, April 11). Trapezoidal distribution. https://en.wikipedia.org/w/index.php?title=Trapezoidal_distribution&oldid=950241388
     """
 
     def __init__(self, a: float, b: float, c: float, d: float, randvar: float):
@@ -120,11 +120,8 @@ class Trapezoidal(BoundedInterval):
 
     def summary(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
-        Summary statistic regarding the Trapezoidal distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, Tuple[float]]]: [description]
+            Dictionary of Trapezoidal distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

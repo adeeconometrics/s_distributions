@@ -147,19 +147,18 @@
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">s</span>
 
-<div class="viewcode-block" id="Zeta.pmf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
+<div class="viewcode-block" id="Zeta.pmf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[int], int]): random variables</span>
 
-<span class="sd">            x (List[int]): random variable or list of random variables</span>
-
-<span class="sd">        Returns: </span>
-<span class="sd">            either probability mass evaluation for some point or scatter plot of Zeta distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[int, float, List[int]]: evaluation of pmf at x</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span>
         <span class="k">def</span> <span class="nf">__generator</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">k</span><span class="p">):</span> <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">/</span> <span class="n">k</span><span class="o">**</span><span class="n">s</span><span class="p">)</span> <span class="o">/</span> <span class="n">_zeta</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">List</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">List</span><span class="p">):</span>
             <span class="k">return</span> <span class="p">[</span><span class="n">__generator</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>  <span class="c1"># double check this function</span>
 
         <span class="k">return</span> <span class="n">__generator</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span></div>
@@ -167,18 +166,17 @@
 <div class="viewcode-block" id="Zeta.cdf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
+<span class="sd">            x (List[int], optional): random variables. Defaults to None.</span>
 
-<span class="sd">            x (List[int]): random variable or list of random variables</span>
-
-<span class="sd">        Returns: </span>
-<span class="sd">            either cumulative distribution evaluation for some point or scatter plot of Zeta distribution.</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[int, float, List[int]]: evaluation of cdf at x. Currently NotImplemented</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">NotImplemented</span></div>
 
 <div class="viewcode-block" id="Zeta.mean"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: </span>
-<span class="sd">            undefined if s &lt;= 2.</span>
+<span class="sd">            mean of Zeta distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span>
         <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
@@ -195,14 +193,14 @@
 <div class="viewcode-block" id="Zeta.mode"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: </span>
-<span class="sd">            one</span>
+<span class="sd">            mode of Zeta distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">1</span></div>
 
 <div class="viewcode-block" id="Zeta.var"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: </span>
-<span class="sd">            the variance of Zeta Distribution. Returns None if undefined.</span>
+<span class="sd">            the variance of Zeta Distribution. Returns undefined if s &lt;= 3.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span>
         <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
@@ -212,9 +210,8 @@
 
 <div class="viewcode-block" id="Zeta.std"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">            the standard deviation of Zeta Distribution. Returns None if undefined.</span>
+<span class="sd">            the standard deviation of Zeta Distribution. Returns undefined if variance is undefined.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span>
         <span class="k">if</span> <span class="n">s</span> <span class="o">&gt;</span> <span class="mi">3</span><span class="p">:</span>
@@ -253,11 +250,8 @@
 
 <div class="viewcode-block" id="Zeta.summary"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Zeta.Zeta.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Summary statistic regarding the Zeta distribution which contains the following parts of the distribution:</span>
-<span class="sd">        (mean, median, mode, var, std, skewness, kurtosis).</span>
-
 <span class="sd">        Returns:</span>
-<span class="sd">            Dict[str, Union[float, int]]</span>
+<span class="sd">            Dictionary of Zeta distirbution moments. This includes standard deviation. </span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">{</span>
             <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>

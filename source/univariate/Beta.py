@@ -10,22 +10,22 @@ except Exception as e:
 
 class Beta(BoundedInterval):
     """
-    This class contains methods concerning Beta Distirbution.
+    This class contains methods concerning Beta Distirbution [#]_.
+
+    .. math::
+        \\text{Beta}(x; \\alpha, \\beta) = \\frac{x^{\\alpha-1}(1-x)^{\\beta-1}}{\\text{B}(\\alpha, \\beta)}
+
     Args:
 
-        alpha(float | x>0): shape
-        beta(float | x>0): shape
-        randvar(float | [0,1]): random variable
+        alpha(float): shape parameter where alpha > 0
+        beta(float): shape parameter where beta > 0
+        x(float): random variable where x is between 0 and 1
 
     Reference:
-    - Wikipedia contributors. (2021, January 8). Beta distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 07:21, January 8, 2021, from https://en.wikipedia.org/w/index.php?title=Beta_distribution&oldid=999043368
+        .. [#] Wikipedia contributors. (2021, January 8). Beta distribution. https://en.wikipedia.org/w/index.php?title=Beta_distribution&oldid=999043368
     """
 
-    def __init__(self, alpha: float, beta: float, randvar: float):
-        if randvar < 0 or randvar > 1:
-            raise ValueError(
-                f'random variable should only be in between 0 and 1. Entered value: {randvar}')
+    def __init__(self, alpha: float, beta: float):
         if alpha < 0:
             raise ValueError(
                 f'alpha parameter(shape) should be a positive number. Entered value:{alpha}')
@@ -35,50 +35,42 @@ class Beta(BoundedInterval):
 
         self.alpha = alpha
         self.beta = beta
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], _np.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Beta distribution.
+            Union[float, _np.ndarray]: evaluation of pdf at x
         """
-        a = self.a
-        b = self.b
-        c = self.c
-        randvar = self.randvar
+        a = self.alpha
+        b = self.beta
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return (_np.power(x, a-1)*_np.power(1-x, b-1))/_beta(a, b)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x, _np.float32)
+            if _np.all(_np.logical_and(x>=0, x<=1)) == False:
+                raise ValueError('random variables should only be between 0 and 1')
+            return (_np.power(x, a-1)*_np.power(1-x, b-1))/_beta(a, b)
 
-        return (pow(randvar, a-1)*pow(1-randvar, b-1))/_beta(a, b)
+        if (x>=0 and x<=1) == False:
+            raise ValueError('random variables should only be between 0 and 1')
+        return (pow(x, a-1)*pow(1-x, b-1))/_beta(a, b)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], _np.ndarray]): random variable(s). 
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Beta distribution.
+            Union[float, _np.ndarray]: evaluation of cdf at x
         """
-        a = self.a
-        b = self.b
-        c = self.c
-        randvar = self.randvar
+        a = self.alpha
+        b = self.beta
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return _betainc(a, b, x)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x,_np.float32)
+            return _betainc(a, b, x)
 
         return _betainc(a, b, x)
 
@@ -143,11 +135,8 @@ class Beta(BoundedInterval):
 
     def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the Beta distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, str]]
+            Dictionary of Beta distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

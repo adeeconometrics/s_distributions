@@ -44,10 +44,8 @@ class Hypergeometric(Finite):
 
     def pmf(self) -> float:
         """
-        Args: 
-            x (List[int]): list of random variables
-        Returns: 
-            cumulative distribution evaluation to some point specified by k or scatter plot of Hypergeometric distribution.
+        Returns:
+            float: evaluation of pmf
         """
         n = self.n
         k = self.k
@@ -85,8 +83,8 @@ class Hypergeometric(Finite):
 
     def mode(self) -> Tuple[int, int]:
         """
-        Returns: 
-            the mode of Hypergeometric Distribution.
+        Returns:
+            Tuple[int, int]: mode
         """
         n = self.n
         N = self.N
@@ -96,8 +94,8 @@ class Hypergeometric(Finite):
 
     def var(self) -> float:
         """
-        Returns: 
-            the variance of Hypergeometric Distribution.
+        Returns:
+            float: variance
         """
         n = self.n
         N = self.N
@@ -106,8 +104,8 @@ class Hypergeometric(Finite):
 
     def skewness(self) -> float:
         """
-        Returns: 
-            the skewness of Hypergeometric Distribution.
+        Returns:
+            float: skewness
         """
         n = self.n
         N = self.N
@@ -117,8 +115,8 @@ class Hypergeometric(Finite):
 
     def kurtosis(self) -> float:
         """
-        Returns: 
-            the kurtosis of Hypergeometric Distribution.
+        Returns:
+            float: kurtosis
         """
         n = self.n
         N = self.N
@@ -128,12 +126,10 @@ class Hypergeometric(Finite):
                                           (6 * n * (N - n))) +
                         (6 * n * K*(N - K) * (N - n) * (5 * N - 6)))
 
-    def summary(self) -> Dict[str, Union[float, int, Tuple[int,int]]]:
+    def summary(self) -> Dict[str, Union[float, str, Tuple[int,int]]]:
         """
-        Summary statistic regarding the Hypergeometric distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
-        Returns: Dict[str, Union[float, int, Tuple[int,int]]]
+        Returns:
+            Dictionary of Hypergeometric distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

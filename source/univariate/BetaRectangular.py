@@ -14,6 +14,8 @@ class BetaRectangular(BoundedInterval):
     This class contains methods concerning Beta-rectangular Distirbution.
     Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution.
 
+    .. math::
+        \\text{BetaRectangulat}(x,\\alpha ,\\beta ,\\theta )={\\begin{cases}{\\frac{\\theta \\Gamma (\\alpha +\\beta )}{\\Gamma (\\alpha )\\Gamma (\\beta )}}{\\frac{(x-a)^{{\\alpha -1}}(b-x)^{{\\beta -1}}}{(b-a)^{{\\alpha +\\beta +1}}}}+{\\frac{1-\\theta }{b-a}}&{\mathrm{for}}\ a\leq x\leq b,\\\[8pt]0&{\\mathrm{for}}\ x<a\{\\mathrm{or}}\ x>b\\end{cases}}
     Args:
 
         alpha(float): shape parameter
@@ -24,8 +26,7 @@ class BetaRectangular(BoundedInterval):
         randvar(float | alpha<=x<=beta): random variable
 
     Reference:
-    - Wikipedia contributors. (2020, December 7). Beta rectangular distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 01:05, January 14, 2021, from https://en.wikipedia.org/w/index.php?title=Beta_rectangular_distribution&oldid=992814814
+        .. [#] Wikipedia contributors. (2020, December 7). Beta rectangular distribution. https://en.wikipedia.org/w/index.php?title=Beta_rectangular_distribution&oldid=992814814
     """
 
     def __init__(self, alpha: float, beta: float, theta: float, min: float, max: float, randvar: float):
@@ -153,11 +154,8 @@ class BetaRectangular(BoundedInterval):
 
     def summary(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
-        Summary statistic regarding the BetaRectangular distribution which contains the following parts of the distribution:
+        Summary statistic regarding the Beta-rectangular distribution which contains the following parts of the distribution:
         (mean, median, mode, var, std, skewness, kurtosis).
-
-        Returns:
-            Dict[str, Union[float, Tuple[float]]]
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

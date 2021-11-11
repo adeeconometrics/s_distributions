@@ -14,16 +14,19 @@ class T(Infinite):
     This class contains implementation of the Student's Distribution for calculating the
     probablity density function and cumulative distribution function. Additionally,
     a t-table __generator is also provided by p-value method. Note that the implementation
-    of T(Student's) distribution is defined by beta-functions.
+    of T(Student's) distribution is defined by beta-functions [#]_.
+
+    .. math::
+        \\text{T}(x;\\nu) = \\frac{\\Gamma\\Big( \\frac{\\nu+1}{2} \\Big)}{\\sqrt{\\nu\\pi} \\Gamma{\\Big( \\frac{\\nu}{2} \\Big)}} \\Big(1 + \\frac{x^2}{\\nu}\\Big) ^{- \\frac{v+1}{2}}
 
     Args:
-        df(int): degrees of freedom.
-        randvar(float): random variable.
+        df(int): degrees of freedom (:math:`\\nu`) where df > 0
+        x(float): random variable 
 
     References:
 
-    - Kruschke JK (2015). Doing Bayesian Data Analysis (2nd ed.). Academic Press. ISBN 9780124058880. OCLC 959632184.
-    - Weisstein, Eric W. "Student's t-Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/Studentst-Distribution.html
+        .. [#] Kruschke JK (2015). Doing Bayesian Data Analysis (2nd ed.). Academic Press. ISBN 9780124058880. OCLC 959632184.
+        .. [#] Weisstein, Eric W. "Student's t-Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/Studentst-Distribution.html
 
     """
 
@@ -156,11 +159,8 @@ class T(Infinite):
 
     def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the T distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, str]]
+            Dictionary of T distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

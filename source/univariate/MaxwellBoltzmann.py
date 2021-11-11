@@ -11,15 +11,18 @@ except Exception as e:
 
 class MaxwellBoltzmann(SemiInfinite):
     """
-    This class contains methods concerning Maxwell-Boltzmann Distirbution.
+    This class contains methods concerning Maxwell-Boltzmann Distirbution [#]_.
+
+    .. math::
+        \\text{MaxwellBoltzmann}(x;a) = \\sqrt{\\frac{2}{\\pi}} \\frac{x^2 \\exp{-x^2/(2a^2)}}{a^3}
+
     Args:
 
-        a(int | x>0): parameter
-        randvar(float | x>=0): random variable. Optional. Use when cdf and pdf or p value of interest is desired.
+        a(int): parameter where a > 0
+        x(float): random variable where x >= 0
 
     Reference:
-    - Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. In Wikipedia, The Free Encyclopedia.
-    Retrieved 01:02, January 14, 2021, from https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&oldid=999883013
+        .. [#] Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&oldid=999883013
     """
 
     def __init__(self, a: int, randvar=0.5):
@@ -132,13 +135,10 @@ class MaxwellBoltzmann(SemiInfinite):
         a = self.a
         return _log(a*_sqrt(2*_pi)+_euler_gamma-0.5)
 
-    def keys(self) -> Dict[str, Union[float, str]]:
+    def summary(self) -> Dict[str, Union[float, str]]:
         """
-        Summary statistic regarding the Maxwell-Boltzmanndistribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, str]]
+            Dictionary of Maxwell-Boltzmann distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

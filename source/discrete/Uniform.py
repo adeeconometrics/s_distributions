@@ -28,27 +28,25 @@ class Uniform(Base):
         self.b = b
         self.n = abs(b-a+1)
 
-    def pmf(self, x: List[float] = None) -> Union[float, List[float]]:
+    def pmf(self, x: Union[List[float], float]) -> Union[float, List[float]]:
         """
         Args:
+            x (Union[List[float], float]): random variables
 
-            x (List[int]): random variable or list of random variables
-
-        Returns: 
-            either probability mass evaluation for some point or scatter plot of Uniform distribution.
+        Returns:
+            Union[float, List[float]]: evaluation of pmf at x
         """
-        if x is not None and issubclass(x, List):
+        if isinstance(x, List):
             return [1/self.n]*len(x)
         return 1 / self.n
 
     def cdf(self, x: Union[List[float], int]) -> Union[float, List[float]]:
         """
         Args:
+            x (Union[List[float], int]): random variables
 
-            x (List[int]): random variable or list of random variables
-
-        Returns: 
-            either cumulative density evaluation for some point or scatter plot of Unifom distribution.
+        Returns:
+            Union[float, List[float]]: evaluation of pmf at x
         """
 
         if isinstance(x, List):
@@ -97,13 +95,10 @@ class Uniform(Base):
         """
         return -6 / 5
 
-    def summary(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[int, int]]]:
         """
-        Summary statistic regarding the Uniform-distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int]]: [description]
+            Dictionary of Uniform distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),

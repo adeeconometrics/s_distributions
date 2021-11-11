@@ -10,20 +10,21 @@ except Exception as e:
 
 class F(SemiInfinite):
     """
-    This class contains methods concerning the F-distribution.
+    This class contains methods concerning the F-distribution [#]_ [#]_ [#]_.
+
+    .. math::
+        \\text{F}(x;d_1, d_2) = \\frac{1}{\\text{B}(d_1/2,d_2/2)} \\Big( \\frac{d_1}{d_2} \\Big)^{d_1/2} x^{d_1/2 - 1} \\Big(1 + \\frac{d_1}{d_2}x\\Big) ^{-(d_1+d_2)/2}
 
     Args:
 
-        x(float | [0,infty)): random variable
-        df1(int | x>0): first degrees of freedom
-        df2(int | x>0): second degrees of freedom
+        df1(int): first degrees of freedom where df1 > 0
+        df2(int): second degrees of freedom where df2 > 0 
+        x(float): random variable where x > 0
 
     References:
-    - Mood, Alexander; Franklin A. Graybill; Duane C. Boes (1974).
-    Introduction to the Theory of Statistics (Third ed.). McGraw-Hill. pp. 246–249. ISBN 0-07-042864-6.
-
-    - Weisstein, Eric W. "F-Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/F-Distribution.html
-    - NIST SemaTech (n.d.). F-Distribution. Retrived from https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm
+        .. [#] Mood, Alexander; Franklin A. Graybill; Duane C. Boes (1974). Introduction to the Theory of Statistics (Third ed.). McGraw-Hill. pp. 246–249. ISBN 0-07-042864-6.
+        .. [#] Weisstein, Eric W. "F-Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/F-Distribution.html
+        .. [#] NIST SemaTech (n.d.). F-Distribution. Retrived from https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm
     """
 
     def __init__(self, x: float, df1: int, df2: int):
@@ -151,13 +152,10 @@ class F(SemiInfinite):
             (1-df2/2) * _digamma(1+df2/2) + (df1+df2) /\
              2*_digamma((df1+df2)/2) + _log(df1/df2)
 
-    def keys(self) -> Dict[str, Union[float, int, str]]:
+    def summary(self) -> Dict[str, Union[float, int, str]]:
         """
-        Summary statistic regarding the F-distribution which contains the following parts of the distribution:
-        (mean, median, mode, var, std, skewness, kurtosis).
-
         Returns:
-            Dict[str, Union[float, int, str]]
+            Dictionary of F distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
