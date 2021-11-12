@@ -25,62 +25,46 @@ class Cauchy(Infinite):
         .. [#] Weisstein, Eric W. "Cauchy Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/CauchyDistribution.html
     """
 
-    def __init__(self, x: Union[float, int], loc: Union[float, int], scale: Union[float, int]):
-        # if (type(x) and type(loc) and type(scale)) not in (int, float):
-        #     raise TypeError('arguments must be of type int or float.')
+    def __init__(self, loc: float, scale: float):
         if scale < 0:
-            raise ValueError(
-                f'scale should be greater than 0. Entered value for scale:{scale}')
+            raise ValueError('scale should be a positive number.')
         self.scale = scale
         self.loc = loc
-        self.x = x
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
-        Args:
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Args:
+            x (Union[List[float], _np.ndarray, float]): random variables
 
         Returns:
-            either probability density evaluation for some point or plot of Cauchy distribution.
+            Union[float, _np.ndarray]: evaluation of pdf at x
         """
-        randvar = self.x
         loc = self.loc
         scale = self.scale
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return 1/(_pi * scale * (1 + _np.power((x - loc) / scale, 2)))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x, dtype=float)
+            return 1/(_pi * scale * (1 + _np.power((x - loc) / scale, 2)))
 
-        return 1/(_pi * scale * (1 + pow((randvar - loc) / scale, 2)))
+        return 1/(_pi * scale * (1 + pow((x - loc) / scale, 2)))
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], _np.ndarray, float]): data points of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Cauchy distribution.
+            Union[float, _np.ndarray]: evaluation of cdf at x
         """
-        randvar = self.x
         loc = self.loc
         scale = self.scale
 
-        def __generator(x, loc, scale): 
-            return (1 / _pi) * _np.arctan((x - loc) / scale) + 1 / 2
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x, dtype=float)
+            return (1 / _pi) * _np.arctan((x - loc) / scale) + 0.5
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return (1 / _pi) * _np.arctan((x - loc) / scale) + 1 / 2
-
-        return (1 / _pi) * _atan((x - loc) / scale) + 1 / 2
+        return (1 / _pi) * _atan((x - loc) / scale) + 0.5
 
     def mean(self) -> str:
         """

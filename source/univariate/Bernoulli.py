@@ -1,7 +1,7 @@
 try:
     import numpy as _np
     from typing import Union, Tuple, Dict, List
-    from math import sqrt as _sqrt, log as _log
+    from math import sqrt as _sqrt, atanh as _atanh
     from univariate._base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -34,8 +34,7 @@ class Bernoulli(BoundedInterval):
 
     def __init__(self, shape: float):
         if shape < 0 or shape > 1:
-            raise ValueError(
-                'shape parameter a should only be in between 0 and 1. Entered value:{}'.format(shape))
+            raise ValueError('shape parameter a should only be in between 0 and 1.')
 
         self.shape = shape
 
@@ -49,23 +48,23 @@ class Bernoulli(BoundedInterval):
             TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of Continous Bernoulli PDF at x
+            Union[float, _np.ndarray]: evaluation of cdf at x
         """
 
         shape = self.shape
         
-        def __C(shape: float)->Union[_np.ndarray, float]:
-            return (2*_np.arctanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2
+        def __C(shape: float)->float:
+            return (2*_atanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2.0
 
         
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
-            if _np.any(x<0 or x>1):
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(_np.logical_or(x<=0, x>=1)):
                 raise ValueError('random variable must be between 0 and 1')
             return __C(self.shape) * _np.power(shape, x)*_np.power(1-shape, 1-x)
 
         if type(x) is float:
-            if x<0 or x>1:
+            if x<=0 or x>=1:
                 raise ValueError('random variable must be between 0 and 1')
             return __C(self.shape)*pow(shape, x)*pow(1-shape, 1 - x)
 
@@ -74,23 +73,25 @@ class Bernoulli(BoundedInterval):
     def cdf(self, x: Union[List[float], _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], _np.ndarray]): data points of interest
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value <= 0 or >= 1
+            TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Continuous Bernoulli distribution.
+            Union[float, _np.ndarray]: evaluation of cdf at x
         """
         shape = self.shape
 
-        def __generator(shape:float, x:float)->float:
-            return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
-
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(_np.logical_or(x<=0, x>=1)):
+                raise ValueError('values must be between 0 and 1')
             return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
-        return __generator(shape, x)
-
+        if type(x) is float:
+            return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
 
         raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
 

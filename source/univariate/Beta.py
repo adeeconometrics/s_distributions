@@ -1,7 +1,7 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc, digamma as _digamma
     import numpy as _np
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List
     from math import sqrt as _sqrt, log as _log
     from univariate._base import BoundedInterval
 except Exception as e:
@@ -39,7 +39,11 @@ class Beta(BoundedInterval):
     def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variable(s)
+            x (Union[List[float], _np.ndarray, float]): random variables
+
+        Raises:
+            ValueError: when there exist a value x <= 0 or x <= 1
+            TypeError: when parameter is not of type float | List[float] | numpy.ndarray    
 
         Returns:
             Union[float, _np.ndarray]: evaluation of pdf at x
@@ -48,16 +52,19 @@ class Beta(BoundedInterval):
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, _np.float32)
-            if _np.all(_np.logical_and(x>=0, x<=1)) == False:
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(_np.logical_or(x<=0, x>=1)):
                 raise ValueError('random variables should only be between 0 and 1')
             return (_np.power(x, a-1)*_np.power(1-x, b-1))/_beta(a, b)
+   
+        if type(x) is float:
+            if x<=0 or x>=1:
+                raise ValueError('random variables should only be between 0 and 1')
+            return (pow(x, a-1)*pow(1-x, b-1))/_beta(a, b)  
 
-        if (x>=0 and x<=1) == False:
-            raise ValueError('random variables should only be between 0 and 1')
-        return (pow(x, a-1)*pow(1-x, b-1))/_beta(a, b)
+        raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')
 
-    def cdf(self, x: Union[List[float], _np.ndarray]) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
             x (Union[List[float], _np.ndarray]): random variable(s). 

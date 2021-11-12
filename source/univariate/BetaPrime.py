@@ -25,42 +25,44 @@ class BetaPrime(SemiInfinite):
         .. [#] Wikipedia contributors. (2020, October 8). Beta prime distribution. https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&oldid=982458594
     """
 
-    def __init__(self, alpha: float, beta: float, randvar: float):
-        if randvar < 0:
-            raise ValueError('random variable should not be less then 0.')
+    def __init__(self, alpha: float, beta: float):
         if alpha < 0:
             raise ValueError('alpha parameter(shape) should be a positive number.')
         if beta < 0:
-            raise ValueError(
-                f'beta parameter(shape) should be a positive number. Entered value:{beta}')
+            raise ValueError('beta parameter(shape) should be a positive number.')
 
         self.alpha = alpha
         self.beta = beta
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], _np.ndarray, float]): random variables
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x less than 0
+            TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            either probability density evaluation for some point or plot of Beta prime distribution.
+            Union[float, _np.ndarray]: evaluation of pdf at x
         """
         a = self.alpha
         b = self.beta
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return _np.power(x, a-1)*_np.power(1+x, -a-b)/_beta(a, b)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(x<0):
+                raise ValueError('random variable should not be less then 0.')
+            return _np.power(x, a-1)*_np.power(1+x, -a-b)/_beta(a, b)
 
-        return pow(randvar, a-1)*pow(1+randvar, -a-b)/_beta(a, b)
+        if type(x) is float:
+            if x<0:
+                raise ValueError('random variable should not be less then 0.')
+            return pow(x, a-1)*pow(1+x, -a-b)/_beta(a, b)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -71,15 +73,14 @@ class BetaPrime(SemiInfinite):
         """
         a = self.alpha
         b = self.beta
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return _betainc(a, b, x/(1+x))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x,dtype=float)
+            if _np.any(x<0):
+                raise ValueError('evaluation of cdf is not supported for values less than 0')
+            return _betainc(a, b, x/(1+x))
 
-        return _betainc(a, b, randvar/(1+randvar))
+        return _betainc(a, b, x/(1+x))
 
     def mean(self) -> Union[float, str]:
         """
@@ -96,7 +97,7 @@ class BetaPrime(SemiInfinite):
         # warning: not yet validated.
         return "Undefined."
 
-    def mode(self) -> Union[float, str]:
+    def mode(self) -> float:
         """
         Returns: Mode of the Beta prime distribution.
         """

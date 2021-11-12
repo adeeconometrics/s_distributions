@@ -12,7 +12,7 @@ class Arcsine(BoundedInterval):
     This class contains methods concerning Arcsine Distirbution [#]_.
     
     .. math::
-        \\text{Arcsine}(x)={\\frac{1}{\pi \\sqrt{x(1-x)}}}
+        \\text{Arcsine}(x)={\\frac{1}{\\pi \\sqrt{x(1-x)}}}
 
     Args:
 
@@ -22,7 +22,7 @@ class Arcsine(BoundedInterval):
         .. [#] Wikipedia contributors. (2020, October 30). Arcsine distribution. https://en.wikipedia.org/w/index.php?title=Arcsine_distribution&oldid=986131091
     """
 
-    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float], type_spec:type = _np.float32) -> Union[float, _np.ndarray]:
         """
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variables
@@ -35,8 +35,8 @@ class Arcsine(BoundedInterval):
             Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
-            if _np.any(x<0 or x>1):
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(_np.logical_or(x<=0, x>=1)):
                 raise ValueError(f'random variable should have values between [0,1].')
             return 1/(_pi * _np.sqrt(x*(1-x)))
 
@@ -51,7 +51,7 @@ class Arcsine(BoundedInterval):
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], numpy.ndarray, float]): random variables
+            x (Union[List[float], numpy.ndarray, float]): data point
 
         Raises:
             ValueError: when there exist a value less than 0 or greater than 1
@@ -61,14 +61,14 @@ class Arcsine(BoundedInterval):
             Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
-            if _np.any(x<0 or x>1):
-                raise ValueError(f'random variable can only be evaluated in the domain [0,1]')
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(_np.logical_or(x<=0, x>=1)):
+                raise ValueError(f'values can only be evaluated in the domain [0,1]')
             return 1/(_pi)*_np.arcsin(_np.sqrt(x))
 
         if type(x) is float:
-            if x<0 or x>1:
-                raise ValueError(f'random variable can only be evaluated in the domain [0,1]')
+            if x<=0 or x>=1:
+                raise ValueError(f'values can only be evaluated in the domain [0,1]')
             return 1/_pi * _asin(_sqrt(x))
 
         raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')

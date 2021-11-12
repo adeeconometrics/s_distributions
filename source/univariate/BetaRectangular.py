@@ -2,8 +2,8 @@
 try:
     from scipy.special import betainc as _betainc, gamma as _gamma
     import numpy as np
-    from typing import Union, Tuple, Dict
-    from math import sqrt as _sqrt, log as _log
+    from typing import Union, Tuple, Dict, List
+    from math import sqrt as _sqrt
     from univariate._base import BoundedInterval
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -20,10 +20,10 @@ class BetaRectangular(BoundedInterval):
 
         alpha(float): shape parameter
         beta (float): shape parameter
-        theta(float | 0<x<1): mixture parameter
+        theta(float): mixture parameter where 0 < theta < 1
         min(float): lower bound
         max(float): upper bound
-        randvar(float | alpha<=x<=beta): random variable
+        x(float): random variable where alpha <= x<= beta
 
     Reference:
         .. [#] Wikipedia contributors. (2020, December 7). Beta rectangular distribution. https://en.wikipedia.org/w/index.php?title=Beta_rectangular_distribution&oldid=992814814
@@ -36,7 +36,7 @@ class BetaRectangular(BoundedInterval):
         if theta < 0 or theta > 1:
             raise ValueError(
                 'random variable should only be in between 0 and 1. Entered value: {theta}')
-        if randvar < min and randvar > max:  # should only return warning
+        if randvar < min and randvar > max: 
             raise ValueError(
                 f'random variable should be between alpha and beta shape parameters. Entered value:{randvar}')
 
@@ -47,81 +47,9 @@ class BetaRectangular(BoundedInterval):
         self.max = max
         self.randvar = randvar
 
-    def pdf(self,
-            plot=False,
-            threshold=1000,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
-        """
-        Args:
+    def pdf(self, x:[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]: ...
 
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
-
-        Returns:
-            either probability density evaluation for some point or plot of Beta-rectangular distribution.
-        """
-        def __generator(a, b, alpha, beta, theta, x):
-            if x > a or x < b:
-                return (theta*_gamma(alpha+beta)/(_gamma(alpha)*_gamma(beta))*(pow(x-a, alpha-1)*pow(b-x, beta-1))/(pow(b-a, alpha+beta+1)))+(1-theta)/(b-a)
-            return 0
-
-        if plot:
-            x = np.linspace(0, 1, int(threshold))
-            y = np.array([__generator(self.min, self.max, self.alpha,
-                                      self.beta, self.theta, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.min, self.max, self.alpha, self.beta, self.theta, self.randvar)
-
-    def cdf(self,
-            plot=False,
-            threshold=1000,
-            interval=1,
-            xlim=None,
-            ylim=None,
-            xlabel=None,
-            ylabel=None) -> Union[float, np.ndarray, None]:
-        """
-        Args:
-
-            interval(int): defaults to none. Only necessary for defining plot.
-            threshold(int): defaults to 1000. Defines the sample points in plot.
-            plot(bool): if true, returns plot.
-            xlim(float): sets x axis ∈ [-xlim, xlim]. Only relevant when plot is true.
-            ylim(float): sets y axis ∈[0,ylim]. Only relevant when plot is true.
-            xlabel(string): sets label in x axis. Only relevant when plot is true.
-            ylabel(string): sets label in y axis. Only relevant when plot is true.
-
-
-        Returns:
-            either cumulative distribution evaluation for some point or plot of Beta-rectangular distribution.
-        """
-        def __generator(a, b, alpha, beta, theta, x):
-            if x <= a:
-                return 0
-            elif x > a | x < b:
-                z = (b)/(b-a)
-                return theta*_betainc(alpha, beta, z)+((1-theta)*(x-a))/(b-a)
-            else:
-                return 1
-
-        if plot:
-            if interval < 0:
-                raise ValueError(
-                    'interval parameter should be a positive number. Entered Value {}'.format(interval))
-            x = np.linspace(0, interval, int(threshold))
-            y = np.array([__generator(self.min, self.max, self.alpha,
-                                      self.beta, self.theta, i) for i in x])
-            return super().plot(x, y, xlim, ylim, xlabel, ylabel)
-        return __generator(self.min, self.max, self.alpha, self.beta, self.theta, self.randvar)
+    def cdf(self): ...
 
     def mean(self) -> float:
         """
