@@ -2,7 +2,7 @@ try:
     from scipy.special import erf as _erf
     from numpy import euler_gamma as _euler_gamma
     import numpy as _np
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List
     from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
     from univariate._base import SemiInfinite
 except Exception as e:
@@ -25,63 +25,54 @@ class MaxwellBoltzmann(SemiInfinite):
         .. [#] Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&oldid=999883013
     """
 
-    def __init__(self, a: int, randvar=0.5):
-        if randvar < 0:
-            raise ValueError(
-                'random variable should be a positive number. Entered value: {}'.format(randvar))
+    def __init__(self, a: int):
         if a < 0:
             raise ValueError(
                 'parameter a should be a positive number. Entered value:{}'.format(a))
-        if isinstance(a, int) == False:
+        if type(a) is not int:
             raise TypeError('parameter should be in type int')
 
         self.a = a
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], _np.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x less than 0
 
         Returns:
-            either probability density evaluation for some point or plot of Maxwell-Boltzmann distribution.
-        """ 
+            Union[float, _np.ndarray]: evaluation of pdf at x
+        """
         a = self.a
-        randvar = self.randvar
 
-        def __generator(a, x): return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/(a**3)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(x < 0):
+                raise ValueError('random values must not be lesser than 0')
+            return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/a**3
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/a**3
+        if x < 0:
+            raise ValueError('random values must not be lesser than 0')
+        return _sqrt(2/_pi)*(x**2*_exp(-x**2/(2*a**2)))/a**3
 
-        return _sqrt(2/_pi)*(randvar**2*_exp(-randvar**2/(2*a**2)))/a**3
-
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], _np.ndarray, float]): data point(s) or interest
 
         Returns:
-            either cumulative distirbution evaluation for some point or plot of Maxwell-Boltzmann distribution.
-        """ 
+            Union[float, _np.ndarray]: evaluation of cdf at x
+        """
         a = self.a
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                _x = _np.power(x,2)
-                return _erf(x/(_sqrt(2)*a))-_sqrt(2/_pi)*(_x*_np.exp(-_x/(2*a**2)))/(a)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            x0 = _np.power(x, 2)
+            return _erf(x/(_sqrt(2)*a))-_sqrt(2/_pi)*(x0*_np.exp(-x0/(2*a**2)))/(a)
 
-        return _erf(x/(_sqrt(2)*a))- _sqrt(2/_pi)*(randvar**2*_exp(-randvar**2/(2*a**2)))/(a)
+        return _erf(x/(_sqrt(2)*a)) - _sqrt(2/_pi)*(x**2*_exp(-x**2/(2*a**2)))/(a)
 
     def mean(self) -> float:
         """
@@ -144,4 +135,3 @@ class MaxwellBoltzmann(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

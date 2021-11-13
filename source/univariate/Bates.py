@@ -23,7 +23,7 @@ class Bates(BoundedInterval):
         a(float): lower bound parameter 
         b(float): upper bound parameter where b > a
         n(int): where n >= 1 
-        randvar(float | [a,b]): random variable
+        randvar(float): random variable where a <= x <= b
 
     Reference:
         .. [#] Wikipedia contributors. (2021, January 8). Bates distribution. https://en.wikipedia.org/w/index.php?title=Bates_distribution&oldid=999042206

@@ -7,6 +7,7 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
+
 class Gamma(SemiInfinite):
     """
     This class contains methods concerning a variant of Gamma distribution [#]_.
@@ -26,65 +27,55 @@ class Gamma(SemiInfinite):
 
     def __init__(self, shape: float, b: float, x: float):
         if shape < 0:
-            raise ValueError(
-                f'shape should be greater than 0. Entered value for shape:{shape}')
+            raise ValueError('shape should be greater than 0.')
         if b < 0:
-            raise ValueError(
-                f'scale should be greater than 0. Entered value for b:{b}')
-        if x < 0:
-            raise ValueError(
-                f'random variable should be greater than 0. Entered value for x:{b}')
+            raise ValueError('scale should be greater than 0.')
         self.shape = shape
         self.scale = b
-        self.x = x
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x that is less than 0
 
         Returns:
-            either probability density evaluation for some point or plot of Gamma distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         shape = self.shape
         scale = self.scale
-        randvar = self.x
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray,List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return (1 / (pow(scale, shape) * _gamma(shape))) * _np.log(x, shape - 1) * _np.exp(-x / scale)
-        return (1 / (pow(scale, shape) * _gamma(shape))) * _log(randvar, shape - 1) * _exp(-randvar / scale)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(x < 0):
+                raise ValueError('random variable should be greater than 0.')
+            return (1 / (pow(scale, shape) * _gamma(shape))) * _np.log(x, shape - 1) * _np.exp(-x / scale)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        if x < 0:
+            raise ValueError('random variable should be greater than 0.')
+        return (1 / (pow(scale, shape) * _gamma(shape))) * _log(x, shape - 1) * _exp(-x / scale)
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Gamma distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         shape = self.shape
         scale = self.scale
-        randvar = self.x
 
         # there is no apparent explanation for reversing gammainc's parameter, but it works quite perfectly in my prototype
         def __generator(shape: float, b: float, x: Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
             return 1 - _gammainc(shape, x / b)
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray,List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return __generator(shape, scale, x)
-        return __generator(shape, scale, randvar)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return __generator(shape, scale, x)
+        return __generator(shape, scale, x)
 
     def mean(self) -> Union[float, int]:
         """

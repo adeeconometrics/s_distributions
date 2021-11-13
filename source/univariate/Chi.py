@@ -25,58 +25,46 @@ class Chi(SemiInfinite):
         .. [#] Wikipedia contributors. (2020, October 16). Chi distribution. https://en.wikipedia.org/w/index.php?title=Chi_distribution&oldid=983750392
     """
 
-    def __init__(self, df:int, randvar:float):
+    def __init__(self, df: int):
         if type(df) is not int:
             raise TypeError('degrees of freedom(df) should be a whole number.')
 
         if df <= 0:
-            raise ValueError(
-                f'Entered value for df: {df}, it should be a positive integer.')
+            raise ValueError('df parameter must be a positive integer.')
 
-        self.randvar = randvar
         self.df = df
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Chi-distribution.
-
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         df = self.df
-        randvar = self.randvar
-        
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * _np.power(x, df - 1) * _np.exp(_np.power(-x, 2) / 2)
 
-        return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * pow(randvar, df - 1) * _np.exp(pow(-randvar, 2) / 2)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x, dtype=float)
+            return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * _np.power(x, df - 1) * _np.exp(_np.power(-x, 2) / 2)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * pow(x, df - 1) * _np.exp(pow(-x, 2) / 2)
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Chi-distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
-        randvar = self.randvar
         df = self.df
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return _gammainc(df/2, _np.power(x, 2)/2)
-        return _gammainc(df/2, pow(randvar, 2)/2)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.fromiter(x, dtype=float)
+            return _gammainc(df/2, _np.power(x, 2)/2)
+
+        return _gammainc(df/2, pow(x, 2)/2)
 
     def mean(self) -> float:
         """
@@ -138,7 +126,6 @@ class Chi(SemiInfinite):
         """
         df = self.df
         return _log(_gamma(df/2)/_sqrt(2)) - (df-1)/2*_digamma(df/2) + df/2
-
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """

@@ -24,61 +24,47 @@ class Logistic(Infinite):
         .. [#] Wikipedia contributors. (2020, December 12). Logistic distribution. https://en.wikipedia.org/w/index.php?title=Logistic_distribution&oldid=993793195
     """
 
-    def __init__(self, location: float, scale: float, randvar: float):
+    def __init__(self, location: float, scale: float):
         if scale < 0:
-            raise ValueError(
-                f'scale should be greater than 0. Entered value for Scale:{scale}')
+            raise ValueError('scale should be greater than 0.')
 
         self.scale = scale
         self.location = location
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Logistic distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         mu = self.location
         s = self.scale
-        randvar = self.randvar
 
-        def __generator(mu, s, x): return _np.exp(-(x - mu) / s) / (s * (1 + _np.exp(
-            -(x - mu) / s))**2)
+        def __generator(mu: float, s: float, x: Union[float, _np.ndarray]) -> Union[_np.ndarray, float]:
+            return _np.exp(-(x - mu) / s) / (s * (1 + _np.exp(-(x - mu) / s))**2)
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return _np.exp(-(x - mu) / s) / (s * (1 + _np.power(_np.exp(-(x - mu) / s)), 2))
-        return _exp(-(randvar - mu) / s) / (s * (1 + pow(_exp(-(randvar - mu) / s)), 2))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return __generator(mu, s, x)
+        return __generator(mu, s, x)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Logistic distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         mu = self.location
         s = self.scale
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return 1 / (1 + _np.exp(-(x - mu) / s))
-        return 1 / (1 + _exp(-(randvar - mu) / s))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return 1 / (1 + _np.exp(-(x - mu) / s))
+        return 1 / (1 + _exp(-(x - mu) / s))
 
     def mean(self) -> float:
         """

@@ -26,70 +26,56 @@ class Pareto(SemiInfinite):
 
     def __init__(self, shape: float, scale: float, x: float):
         if scale < 0:
-            raise ValueError(
-                f'scale should be greater than 0. Entered value for scale:{scale}')
+            raise ValueError('scale should be greater than 0.')
         if shape < 0:
-            raise ValueError(
-                f'shape should be greater than 0. Entered value for shape:{shape}')
+            raise ValueError('shape should be greater than 0.')
         if x > shape:
-            raise ValueError(
-                f'random variable x should be greater than or equal to shape. Entered value for x:{x}')
+            raise ValueError('random variable x should be greater than or equal to shape.')
 
         self.shape = shape
         self.scale = scale
-        self.x = x
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there is a case that a random variable is greater than the value of shape parameter
 
         Returns:
-            either probability density evaluation for some point or plot of Pareto distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         x_m = self.scale
         alpha = self.shape
-        randvar = self.x
 
-        def __generator(x: float, x_m: float, alpha: float) -> float:
-            if x >= x_m:
-                return (alpha * pow(x_m, alpha)) / pow(x, alpha + 1)
-            return 0.0
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(x > alpha):
+                raise ValueError('random variable should be greater thaan or equal to the value of shape')
+            return _np.piecewise(x, [x>=x_m, x<x_m], [lambda x: alpha*_np.power(x_m, alpha)/_np.power(x, alpha + 1), lambda x: 0.0])
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(i, x_m, alpha) for i in x]
-        return __generator(randvar, x_m, alpha)
+        if x > alpha:
+            raise ValueError('random variable should be greater thaan or equal to the value of shape')
+        return alpha*_np.power(x_m, alpha)/_np.power(x, alpha + 1) if x >= x_m else 0.0
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
-        Args:
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Pareto distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         x_m = self.scale
         alpha = self.shape
-        randvar = self.x
 
-        def __generator(x: float, x_m: float, alpha: float) -> float:
-            if x >= x_m:
-                return 1 - pow(x_m / x, alpha)
-            return 0.0
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return _np.piecewise(x,[x>=x_m, x<x_m], [lambda x: 1 - _np.power(x_m/x, alpha), lambda x: 0.0])
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(i, x_m, alpha) for i in x]
-        return __generator(randvar, x_m, alpha)
+        return 1 - pow(x_m/x, alpha) if x >= x_m else 0.0
 
     def mean(self) -> float:
         """

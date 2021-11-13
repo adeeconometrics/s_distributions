@@ -7,6 +7,7 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
+
 class LogNormal(SemiInfinite):
     """
     This class contains methods concerning the Log Normal Distribution [#]_ [#]_.
@@ -16,66 +17,63 @@ class LogNormal(SemiInfinite):
 
     Args:
 
-        mean_val(float): mean parameter (:math:`\\mu`)
-        std_val(float): standard deviation (:math:`\\sigma`) where std > 0
-        x(float): random variable where x >= 0
+        mean (float): mean parameter (:math:`\\mu`)
+        std (float): standard deviation (:math:`\\sigma`) where std > 0
+        x (float): random variable where x >= 0
 
     References:
         .. [#] Weisstein, Eric W. "Log Normal Distribution." From MathWorld--A Wolfram Web Resource.https://mathworld.wolfram.com/LogNormalDistribution.html
         .. [#] Wikipedia contributors. (2020, December 18). Log-normal distribution. https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&oldid=994919804
     """
-    def __init__(self, mean: float, std_val: float, randvar: float):
+
+    def __init__(self, mean: float, std: float, randvar: float):
         if randvar < 0:
-            raise ValueError(
-                f'random variable should be greater than 0. Entered value for randvar:{randvar}')
+            raise ValueError('random variable should be greater than 0.')
         if std < 0:
-            raise ValueError(
-                f'random variable should be greater than 0. Entered value for std:{std}')
+            raise ValueError('random variable should be greater than 0.')
+
         self.randvar = randvar
         self.mean_val = mean
-        self.std_val = std_val
+        self.stdev = std
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x < 0
 
         Returns:
-            either probability density evaluation for some point or plot of Log Normal distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """
+        mean = self.mean
+        stdev = self.stdev
+
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(x < 0):
+                raise ValueError('random variable should be greater than 0.')
+            return 1 / (x * stdev * _sqrt(2 * _pi)) * _np.exp(-(_np.log(x - mean)**2) / (2 * stdev**2))
+
+        if x < 0:
+            raise ValueError('random variable should be greater than 0.')
+        return 1 / (x * stdev * _sqrt(2 * _pi)) * _exp(-(_log(x - mean)**2) / (2 * stdev**2))
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         mean = self.mean
         std = self.std
-        randvar = self.x
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return 1 / (x * std * _sqrt(2 * _pi)) * _np.exp(-(_np.log(x - mean)**2) / (2 * std**2))
-
-        return 1 / (randvar * std * _sqrt(2 * _pi)) * _exp(-(_log(randvar - mean)**2) / (2 * std**2))
-
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
-        """
-        Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
-
-        Returns:
-            either cumulative distribution evaluation for some point or plot of Log Normal distribution.
-        """
-        mean = self.mean
-        std = self.std
-        randvar = self.x
-
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return 0.5 + 0.5*_erfc(-_np.log(x - mean)/(std * _sqrt(2)))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return 0.5 + 0.5*_erfc(-_np.log(x - mean)/(std * _sqrt(2)))
 
         return 0.5 + 0.5*_erfc(-_np.log(x - mean)/(std * _sqrt(2)))
 
@@ -83,7 +81,7 @@ class LogNormal(SemiInfinite):
         """
         Returns: Mean of the log normal distribution.
         """
-        return _exp(self.mean_val + pow(self.std_val, 2) / 2)
+        return _exp(self.mean_val + pow(self.stdev, 2) / 2)
 
     def median(self) -> float:
         """
@@ -95,35 +93,35 @@ class LogNormal(SemiInfinite):
         """
         Returns: Mode of the log normal distribution.
         """
-        return _exp(self.mean_val - pow(self.std_val, 2))
+        return _exp(self.mean_val - pow(self.stdev, 2))
 
     def var(self) -> float:
         """
         Returns: Variance of the log normal distribution.
         """
-        std=self.std_val
-        mean=self.mean_val
+        std = self.stdev
+        mean = self.mean_val
         return (_exp(pow(std, 2)) - 1) * _exp(2 * mean + pow(std, 2))
 
     def std(self) -> float:
         """
         Returns: Standard deviation of the log normal distribution
         """
-        return self.std_val
+        return self.stdev
 
     def skewness(self) -> float:
         """
         Returns: Skewness of the log normal distribution.
         """
-        std=self.std_val
-        mean=self.mean_val
+        std = self.stdev
+        mean = self.mean_val
         return (_exp(pow(std, 2)) + 2) * _sqrt(_exp(pow(std, 2)) - 1)
 
     def kurtosis(self) -> float:
         """
         Returns: Kurtosis of the log normal distribution.
         """
-        std=self.std_val
+        std = self.stdev
         return _exp(
             4 * pow(std, 2)) + 2 * _exp(3 * pow(std, 2)) + 3 * _exp(2 * pow(std, 2)) - 6
 
@@ -134,7 +132,7 @@ class LogNormal(SemiInfinite):
         Reference: Park, S.Y. & Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
-        return self.mean_val + 0.5 *_log(2*_pi*_e*self.std_val**2)
+        return self.mean_val + 0.5 * _log(2*_pi*_e*self.stdev**2)
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
         """
@@ -145,4 +143,3 @@ class LogNormal(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

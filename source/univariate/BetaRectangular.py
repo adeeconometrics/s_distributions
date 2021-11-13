@@ -1,7 +1,7 @@
 
 try:
     from scipy.special import betainc as _betainc, gamma as _gamma
-    import numpy as np
+    import numpy as _np
     from typing import Union, Tuple, Dict, List
     from math import sqrt as _sqrt
     from univariate._base import BoundedInterval

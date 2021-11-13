@@ -39,44 +39,41 @@ class Beta(BoundedInterval):
     def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Raises:
             ValueError: when there exist a value x <= 0 or x <= 1
-            TypeError: when parameter is not of type float | List[float] | numpy.ndarray    
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of pdf at x
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         a = self.alpha
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
             x = _np.fromiter(x, dtype=float)
-            if _np.any(_np.logical_or(x<=0, x>=1)):
-                raise ValueError('random variables should only be between 0 and 1')
+            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+                raise ValueError(
+                    'random variables should only be between 0 and 1')
             return (_np.power(x, a-1)*_np.power(1-x, b-1))/_beta(a, b)
-   
-        if type(x) is float:
-            if x<=0 or x>=1:
-                raise ValueError('random variables should only be between 0 and 1')
-            return (pow(x, a-1)*pow(1-x, b-1))/_beta(a, b)  
 
-        raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')
+        if x <= 0 or x >= 1:
+            raise ValueError('random variables should only be between 0 and 1')
+        return (pow(x, a-1)*pow(1-x, b-1))/_beta(a, b)
 
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray]): random variable(s). 
+            x (Union[List[float], numpy.ndarray]): data point(s) of interest
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of cdf at x
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         a = self.alpha
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x,_np.float32)
+            x = _np.fromiter(x, _np.float32)
             return _betainc(a, b, x)
 
         return _betainc(a, b, x)
@@ -105,7 +102,7 @@ class Beta(BoundedInterval):
         Returns: Variance of the Beta distribution.
         """
         return "currently unsupported"
-    
+
     def std(self) -> str:
         """
         Returns: Variance of the Beta distribution.

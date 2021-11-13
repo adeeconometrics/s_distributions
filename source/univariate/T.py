@@ -17,7 +17,10 @@ class T(Infinite):
     of T(Student's) distribution is defined by beta-functions [#]_.
 
     .. math::
-        \\text{T}(x;\\nu) = \\frac{\\Gamma\\Big( \\frac{\\nu+1}{2} \\Big)}{\\sqrt{\\nu\\pi} \\Gamma{\\Big( \\frac{\\nu}{2} \\Big)}} \\Big(1 + \\frac{x^2}{\\nu}\\Big) ^{- \\frac{v+1}{2}}
+        \\text{T}(x;\\nu) = \\frac{1}{\\sqrt{\\nu}\\text{B}\\Big(\\frac{1}{2}, \\frac{\\nu}{2}\\Big)} \\Big(1 + \\frac{t^2}{\\nu}\\Big) ^{-\\frac{\\nu+1}{2}}
+
+    .. math::
+        \\text{T}(x;\\nu) = \\frac{\\Gamma\\Big( \\frac{\\nu+1}{2} \\Big)}{\\sqrt{\\nu\\pi} \\Gamma{\\Big( \\frac{\\nu}{2} \\Big)}} \\Big(1 + \\frac{x^2}{\\nu}\\Big) ^{- \\frac{v+1}{2}} \\\\
 
     Args:
         df(int): degrees of freedom (:math:`\\nu`) where df > 0
@@ -31,65 +34,56 @@ class T(Infinite):
     """
 
     def __init__(self, df: int, randvar: float):
-        if (type(df) is not int) or df < 0:
-            raise TypeError(
-                f'degrees of freedom(df) should be a whole number. Entered value for df: {df}')
+        if type(df) is not int:
+            raise TypeError('degrees of freedom(df) should be a whole number.')
+        if df < 0:
+            raise ValueError('df parameter must not be less than 0')
+
         self.df = df
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], _np.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of T distribution.
-        """ 
+            Union[float, _np.ndarray]: evaluation of pdf at x
+        """
         df = self.df
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * _np.power((1 + _np.power(x, 2) / df), -(df + 1) / 2)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return (1 / (_sqrt(df) * _beta(0.5, df / 2))) * _np.power((1 + _np.power(x, 2) / df), -(df + 1) / 2)
 
-        return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
+        return (1 / (_sqrt(df) * _beta(0.5, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], _numpyndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of T distribution.
-        """ 
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """
         df = self.df
-        randvar = self.randvar
         # Test this for possible performance penalty. See if there is better way to do this.
 
-        def __generator(x:float, df:int) -> float:
-            def ___generator(x:float, df:int) -> float: 
-                return (1 / (_sqrt(df) * _beta(1 / 2, df / 2))) * pow(1 + pow(x, 2) / df, -(df + 1) / 2)
-            return _quad(___generator, -_np.inf, x, args=df)[0]
+        def pdf(x, df): return (1 / (_sqrt(df) * _beta(0.5, df / 2))) * \
+            pow(1 + pow(x, 2) / df, -(df + 1) / 2)
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(i, df) for i in x]
+        def d_pdf(x, df): return _quad(pdf, -_np.inf, x, args=df)[0]
 
-        return __generator(randvar, df)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return _np.vectorize(d_pdf)(x, df)
+
+        return d_pdf(x, df)
 
     def mean(self) -> Union[float, str]:
         """
+        Mean of the T-distribution.
         Returns:
-            Mean of the T-distribution.
-
-                0 for df > 1, otherwise undefined
+            0 for df > 1, otherwise undefined.
         """
         df = self.df
         if df > 1:
@@ -123,9 +117,10 @@ class T(Infinite):
         """
         Returns: Standard Deviation of the T-distribution
         """
-        if self.var() == "undefined":
-            return "undefined"
-        return _sqrt(self.var())
+        var = self.var()
+        if type(var) is float:
+            return _sqrt(var)
+        return "undefined"
 
     def skewness(self) -> Union[float, str]:
         """

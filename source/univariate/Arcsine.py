@@ -10,7 +10,7 @@ except Exception as e:
 class Arcsine(BoundedInterval):
     """
     This class contains methods concerning Arcsine Distirbution [#]_.
-    
+
     .. math::
         \\text{Arcsine}(x)={\\frac{1}{\\pi \\sqrt{x(1-x)}}}
 
@@ -22,7 +22,7 @@ class Arcsine(BoundedInterval):
         .. [#] Wikipedia contributors. (2020, October 30). Arcsine distribution. https://en.wikipedia.org/w/index.php?title=Arcsine_distribution&oldid=986131091
     """
 
-    def pdf(self, x: Union[List[float], _np.ndarray, float], type_spec:type = _np.float32) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variables
@@ -35,18 +35,20 @@ class Arcsine(BoundedInterval):
             Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
-            if _np.any(_np.logical_or(x<=0, x>=1)):
-                raise ValueError(f'random variable should have values between [0,1].')
+            x = _np.array(x, dtype=float)
+            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+                raise ValueError(
+                    f'random variable should have values between [0,1].')
             return 1/(_pi * _np.sqrt(x*(1-x)))
 
         if type(x) is float:
             if x < 0 or x > 1:
-                raise ValueError(f'random variable should have values between [0,1].')
+                raise ValueError(
+                    f'random variable should have values between [0,1].')
             return 1/_pi*_sqrt(x * (1-x))
 
-        raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')
-        
+        raise TypeError(
+            'parameter x is expected to be of type float | List[float] | numpy.ndarray')
 
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
@@ -61,72 +63,74 @@ class Arcsine(BoundedInterval):
             Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
-            if _np.any(_np.logical_or(x<=0, x>=1)):
-                raise ValueError(f'values can only be evaluated in the domain [0,1]')
+            x = _np.array(x, dtype=float)
+            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+                raise ValueError(
+                    f'values can only be evaluated in the domain [0,1]')
             return 1/(_pi)*_np.arcsin(_np.sqrt(x))
 
         if type(x) is float:
-            if x<=0 or x>=1:
-                raise ValueError(f'values can only be evaluated in the domain [0,1]')
+            if x <= 0 or x >= 1:
+                raise ValueError(
+                    f'values can only be evaluated in the domain [0,1]')
             return 1/_pi * _asin(_sqrt(x))
 
-        raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')
-
+        raise TypeError(
+            'parameter x is expected to be of type float | List[float] | numpy.ndarray')
 
     def mean(self) -> float:
         """
         Returns:
-            float: mean of Arcsine distribution.
+            mean of Arcsine distribution.
         """
         return 0.5
 
     def median(self) -> float:
         """
         Returns:
-            float:  median of Arcsine distribution
+             median of Arcsine distribution
         """
         return 0.5
 
     def mode(self) -> Tuple[float, float]:
         """
         Returns:
-            Tuple[float, float]: mode of Arcsine distribution
+            mode of Arcsine distribution
         """
         return (0, 1)
 
     def var(self) -> float:
         """
         Returns:
-            float: variance of Arcsine distribution
+            variance of Arcsine distribution
         """
         return 0.125
 
     def std(self) -> float:
         """
         Returns:
-            float: standard deviation of Arcsine distribution
+            standard deviation of Arcsine distribution
         """
         return _sqrt(0.125)
 
     def skewness(self) -> float:
         """
         Returns:
-            float: skewness of Arcsine distribution
+            skewness of Arcsine distribution
         """
         return 0.0
 
     def kurtosis(self) -> float:
         """
         Returns:
-            float: kurtosis of Arcsine distribution
+            kurtosis of Arcsine distribution
         """
         return 1.5
 
-    def entropy(self)->float:
+    def entropy(self) -> float:
         """
         Returns:
-            float: entropy of Arcsine distribution
+            entropy of Arcsine distribution
         """
         return _log(_pi/4)
 

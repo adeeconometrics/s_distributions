@@ -2,7 +2,7 @@ try:
     from numpy import euler_gamma as _euler_gamma
     import numpy as _np
     from math import sqrt as _sqrt, log as _log, pi as _pi, exp as _exp
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List
     from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -19,67 +19,55 @@ class Gumbell(SemiInfinite):
 
         location(float): location parameter (:math:`\\mu`)
         scale(float): scale parameter (:math:`\\beta`) where scale > 0
-        randvar(float): random variable
+        x(float): random variable
 
     Reference:
         .. [#] Wikipedia contributors. (2020, November 26). Gumbel distribution. https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&oldid=990718796
     """
 
-    def __init__(self, location: Union[float, int], scale: Union[float, int], randvar: Union[float, int]):
+    def __init__(self, location: float, scale: float):
         if scale < 0:
             raise ValueError(
                 f'scale parameter should be greater than 0. The value of the scale parameter is: {scale}')
 
         self.location = location
         self.scale = scale
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
-        Args:
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Gumbell distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         mu = self.location
         beta = self.scale
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                z = (x-mu)/beta
-                return (1/beta)*_np.exp(-(z+_np.exp(-z)))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            z = (x-mu)/beta
+            return (1/beta)*_np.exp(-(z+_np.exp(-z)))
 
-        z = (randvar-mu)/beta
+        z = (x-mu)/beta
         return (1/beta)*_exp(-(z+_exp(-z)))
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Gumbell distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         mu = self.location
         beta = self.scale
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return _np.exp(-_np.exp(-(x-mu)/beta))
-        return _exp(-_exp(-(randvar - mu)/beta))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return _np.exp(-_np.exp(-(x-mu)/beta))
+        return _exp(-_exp(-(x - mu)/beta))
 
     def mean(self) -> float:
         """

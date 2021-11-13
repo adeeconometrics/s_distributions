@@ -41,14 +41,13 @@ class Bernoulli(BoundedInterval):
     def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variable(s)
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Raises:
             ValueError: when there exist a value less than 0 or greater than 1
-            TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of cdf at x
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
 
         shape = self.shape
@@ -63,24 +62,21 @@ class Bernoulli(BoundedInterval):
                 raise ValueError('random variable must be between 0 and 1')
             return __C(self.shape) * _np.power(shape, x)*_np.power(1-shape, 1-x)
 
-        if type(x) is float:
-            if x<=0 or x>=1:
-                raise ValueError('random variable must be between 0 and 1')
-            return __C(self.shape)*pow(shape, x)*pow(1-shape, 1 - x)
+        if x<=0 or x>=1:
+            raise ValueError('random variable must be between 0 and 1')
+        return __C(self.shape)*pow(shape, x)*pow(1-shape, 1 - x)
 
-        raise TypeError(f'parameter x is expected to be of type float | List[float] | numpy.ndarray')
 
     def cdf(self, x: Union[List[float], _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray]): data points of interest
+            x (Union[List[float], numpy.ndarray]): data point(s) of interest
 
         Raises:
             ValueError: when there exist a value <= 0 or >= 1
-            TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of cdf at x
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         shape = self.shape
 
@@ -90,10 +86,8 @@ class Bernoulli(BoundedInterval):
                 raise ValueError('values must be between 0 and 1')
             return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
-        if type(x) is float:
-            return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
+        return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
 
-        raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
 
     def mean(self) -> float:
         """

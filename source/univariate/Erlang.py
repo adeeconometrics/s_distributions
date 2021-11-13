@@ -1,8 +1,8 @@
 try:
     from scipy.special import gamma as _gamma, gammainc as _gammainc, digamma as _digamma
     import numpy as _np
-    from typing import Union, Tuple, Dict, List
-    from math import sqrt as _sqrt, log as _log, factorial as _factorial
+    from typing import Union, Dict, List
+    from math import sqrt as _sqrt, log as _log, factorial as _factorial, exp as _exp
     from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -19,18 +19,15 @@ class Erlang(SemiInfinite):
 
         shape(int): shape parameter (:math:`k`) where shape > 0
         rate(float): rate parameter (:math:`\\lambda`) where rate >= 0
-        randvar(float): random variable where x >= 0
+        x(float): random variable where x >= 0
 
     Reference:
         .. [#] Wikipedia contributors. (2021, January 6). Erlang distribution. https://en.wikipedia.org/w/index.php?title=Erlang_distribution&oldid=998655107
         .. [#] Weisstein, Eric W. "Erlang Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ErlangDistribution.html
     """
 
-    def __init__(self, shape: int, rate: float, randvar: float):
-        if randvar < 0:
-            raise ValueError(
-                f'random variable should only be in between 0 and 1. Entered value: {randvar}')
-        if isinstance(shape, int) == False and shape > 0:
+    def __init__(self, shape: int, rate: float):
+        if type(shape) is not int and shape > 0:
             raise TypeError(
                 'shape parameter should be an integer greater than 0.')
         if rate < 0:
@@ -39,54 +36,58 @@ class Erlang(SemiInfinite):
 
         self.shape = shape
         self.rate = rate
-        self.randvar = randvar
 
-    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
-
-        Returns:
-            either probability density evaluation for some point or plot of Erlang distribution.
-        """ 
-        shape = self.shape
-        rate = self.rate
-        randvar = self.randvar
-
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return pow(rate, shape)* _np.power(x, shape-1)*_np.exp(-rate*x) / _factorial(shape-1)
-
-        return pow(rate, shape)*pow(randvar, shape-1)*_exp(-rate*randvar)/_factorial(shape-1)
-
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
-        """
-        Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x that is less than 0 or greater than 1
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Erlang distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         shape = self.shape
         rate = self.rate
-        randvar = self.randvar
 
-        def __generator(shape, rate, x): 
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(_np.logical_or(x < 0, x > 1)):
+                raise ValueError(
+                    'random variable should only be in between 0 and 1')
+            return pow(rate, shape) * _np.power(x, shape-1)*_np.exp(-rate*x) / _factorial(shape-1)
+
+        if x < 0 or x > 1:
+            raise ValueError(
+                'random variable should only be in between 0 and 1')
+        return pow(rate, shape)*pow(x, shape-1)*_exp(-rate*x)/_factorial(shape-1)
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Raises:
+            ValueError: when there exist a data value of x that is less than 0 or greater than 1
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """
+        shape = self.shape
+        rate = self.rate
+
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(_np.logical_or(x < 0, x > 1)):
+                raise ValueError(
+                    'random variable should only be in between 0 and 1')
             return _gammainc(shape, rate*x)/_factorial(shape-1)
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return __generator(shape, rate, x)
-
-        return __generator(shape, rate, randvar)
+        if x < 0 or x > 1:
+            raise ValueError(
+                'random variable should only be in between 0 and 1')
+        return _gammainc(shape, rate*x)/_factorial(shape-1)
 
     def mean(self) -> float:
         """
@@ -150,4 +151,3 @@ class Erlang(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

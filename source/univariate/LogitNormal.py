@@ -25,60 +25,55 @@ class LogitNormal(BoundedInterval):
         .. [#] Wikipedia contributors. (2020, December 9). Logit-normal distribution. https://en.wikipedia.org/w/index.php?title=Logit-normal_distribution&oldid=993237113
     """
 
-    def __init__(self, sq_scale: Union[float, int], location: Union[float, int], randvar: Union[float, int]):
-        if randvar < 0 or randvar > 1:
-            raise ValueError(
-                f'random variable should only be in between (0,1). Entered value: randvar:{randvar}')
+    def __init__(self, sq_scale: float, location: float):
         self.sq_scale = sq_scale
         self.location = location
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value below 0 and greater than 1
 
         Returns:
-            either probability density evaluation for some point or plot of Logit Normal distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         mu = self.location
-        sig = self.sq_scale 
-        randvar = self.randvar
+        sig = self.sq_scale
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return (1/(sig*_sqrt(2*_pi)))* _np.exp(-(_np.power(_logit(x)-mu, 2)/(2*pow(sig, 2)))) * 1/(x*(1-x))
-        
-        return (1/(sig*_sqrt(2*_pi)))* _exp(-pow(_logit(x)-mu, 2)/(2*pow(sig, 2))) * 1/(x*(1-x))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(_np.logical_or(x < 0, x > 1)):
+                raise ValueError(
+                    'random variable should only be in between 0 and 1')
+            return (1/(sig*_sqrt(2*_pi))) * _np.exp(-(_np.power(_logit(x)-mu, 2)/(2*pow(sig, 2)))) * 1/(x*(1-x))
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        if x < 0 or x > 1:
+            raise ValueError(
+                'random variable should only be in between 0 and 1')
+        return (1/(sig*_sqrt(2*_pi))) * _exp(-pow(_logit(x)-mu, 2)/(2*pow(sig, 2))) * 1/(x*(1-x))
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Logit Normal distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         mu = self.location
-        sig = self.sq_scale 
-        randvar = self.randvar
+        sig = self.sq_scale
 
-        def __generator(mu:float, sig:float, x:Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
-            return 1/2 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig, 2))))
+        def __generator(mu: float, sig: float, x: Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
+            return 0.5 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig, 2))))
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return __generator(mu, sig, x)
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return __generator(mu, sig, x)
 
-        return __generator(mu, sig, randvar)
+        return __generator(mu, sig, x)
 
     def mean(self) -> str:
         """

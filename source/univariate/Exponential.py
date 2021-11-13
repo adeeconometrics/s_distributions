@@ -1,6 +1,6 @@
 try:
     import numpy as _np
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List
     from math import sqrt as _sqrt, log as _log, exp as _exp
     from univariate._base import SemiInfinite
 except Exception as e:
@@ -15,72 +15,50 @@ class Exponential(SemiInfinite):
 
     Args:
 
-        - rate(float): rate parameter (:math:`\\lambda`) where rate > 0
-        - x(float): random variable where x > 0
+        - rate (float): rate parameter (:math:`\\lambda`) where rate > 0
+        - x (float): random variable where x > 0
 
     References:
         .. [#] Weisstein, Eric W. "Exponential Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ExponentialDistribution.html
         .. [#] Wikipedia contributors. (2020, December 17). Exponential distribution. https://en.wikipedia.org/w/index.php?title=Exponential_distribution&oldid=994779060
     """
 
-    def __init__(self, rate: float, x: float = 1.0):
+    def __init__(self, rate: float):
         if rate < 0:
-            raise ValueError(
-                f'lambda parameter should be greater than 0. Entered value for rate:{rate}')
-        if x < 0:
-            raise ValueError(
-                f'random variable should be greater than 0. Entered value for x:{x}')
+            raise ValueError(f'lambda parameter should be greater than 0.')
 
         self.rate = rate
-        self.x = x
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Exponential distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         rate = self.rate
 
-        def __generator(rate:float, x:float) -> float:
-            if x >= 0:
-                return rate * _exp(-(rate * x))
-            return 0.0
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return _np.piecewise(x, [x >= 0, x < 0], [lambda x: rate*_np.exp(-(rate*(x))), lambda x: 0.0])
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(rate, i) for i in x]
-                
-        return __generator(rate, self.x)
+        return rate*_exp(-rate*x) if x >= 0 else 0.0
 
-    def cdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either comulative distribution evaluation for some point or plot of Exponential distribution.
-        """ 
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """
         rate = self.rate
 
-        def __generator(rate:float, x:float) -> float:
-            if x > 0:
-                return 1 - _exp(-rate * x)
-            return 0.0
+        if isinstance(x, (_np.ndarray, List)):
+            return _np.piecewise(x, [x > 0, x <= 0], [lambda x: 1 - _np.exp(-rate*x), lambda x: 0.0])
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(rate, i) for i in x]
-
-        return __generator(rate, self.x)
+        return 1 - _exp(-rate*x) if x > 0 else 0.0
 
     def mean(self) -> float:
         """

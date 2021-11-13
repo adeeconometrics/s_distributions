@@ -131,9 +131,9 @@
 <div class="viewcode-block" id="Arcsine"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine">[docs]</a><span class="k">class</span> <span class="nc">Arcsine</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class contains methods concerning Arcsine Distirbution [#]_.</span>
-<span class="sd">    </span>
+
 <span class="sd">    .. math::</span>
-<span class="sd">        \\text{Arcsine}(x)={\\frac{1}{\pi \\sqrt{x(1-x)}}}</span>
+<span class="sd">        \\text{Arcsine}(x)={\\frac{1}{\\pi \\sqrt{x(1-x)}}}</span>
 
 <span class="sd">    Args:</span>
 
@@ -156,23 +156,25 @@
 <span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">)):</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variable should have values between [0,1].&#39;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s1">&#39;random variable should have values between [0,1].&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">_pi</span> <span class="o">*</span> <span class="n">_np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">)))</span>
 
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variable should have values between [0,1].&#39;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s1">&#39;random variable should have values between [0,1].&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">_pi</span><span class="o">*</span><span class="n">_sqrt</span><span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
 
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;parameter x is expected to be of type float | List[float] | numpy.ndarray&#39;</span><span class="p">)</span></div>
-        
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s1">&#39;parameter x is expected to be of type float | List[float] | numpy.ndarray&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Arcsine.cdf"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
-<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variables</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point</span>
 
 <span class="sd">        Raises:</span>
 <span class="sd">            ValueError: when there exist a value less than 0 or greater than 1</span>
@@ -182,72 +184,74 @@
 <span class="sd">            Union[float, numpy.ndarray]: evaluation of cdf at x</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">)):</span>
-            <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-            <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">):</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variable can only be evaluated in the domain [0,1]&#39;</span><span class="p">)</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">float</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">logical_or</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s1">&#39;values can only be evaluated in the domain [0,1]&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">_pi</span><span class="p">)</span><span class="o">*</span><span class="n">_np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
         <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">float</span><span class="p">:</span>
-            <span class="k">if</span> <span class="n">x</span><span class="o">&lt;</span><span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span><span class="o">&gt;</span><span class="mi">1</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variable can only be evaluated in the domain [0,1]&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s1">&#39;values can only be evaluated in the domain [0,1]&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="n">_pi</span> <span class="o">*</span> <span class="n">_asin</span><span class="p">(</span><span class="n">_sqrt</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
 
-        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;parameter x is expected to be of type float | List[float] | numpy.ndarray&#39;</span><span class="p">)</span></div>
-
+        <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+            <span class="s1">&#39;parameter x is expected to be of type float | List[float] | numpy.ndarray&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Arcsine.mean"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float: mean of Arcsine distribution.</span>
+<span class="sd">            mean of Arcsine distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mf">0.5</span></div>
 
 <div class="viewcode-block" id="Arcsine.median"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float:  median of Arcsine distribution</span>
+<span class="sd">             median of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mf">0.5</span></div>
 
 <div class="viewcode-block" id="Arcsine.mode"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            Tuple[float, float]: mode of Arcsine distribution</span>
+<span class="sd">            mode of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Arcsine.var"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float: variance of Arcsine distribution</span>
+<span class="sd">            variance of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mf">0.125</span></div>
 
 <div class="viewcode-block" id="Arcsine.std"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float: standard deviation of Arcsine distribution</span>
+<span class="sd">            standard deviation of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mf">0.125</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Arcsine.skewness"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float: skewness of Arcsine distribution</span>
+<span class="sd">            skewness of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mf">0.0</span></div>
 
 <div class="viewcode-block" id="Arcsine.kurtosis"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float: kurtosis of Arcsine distribution</span>
+<span class="sd">            kurtosis of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mf">1.5</span></div>
 
-<div class="viewcode-block" id="Arcsine.entropy"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="Arcsine.entropy"><a class="viewcode-back" href="../../../univariate.html#source.univariate.Arcsine.Arcsine.entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
-<span class="sd">            float: entropy of Arcsine distribution</span>
+<span class="sd">            entropy of Arcsine distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">_log</span><span class="p">(</span><span class="n">_pi</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span></div>
 

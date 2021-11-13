@@ -1,8 +1,8 @@
 try:
     from scipy.special import beta as _beta, betainc as _betainc
     import numpy as _np
-    from typing import Union, Tuple, Dict, List
-    from math import sqrt as _sqrt, log as _log
+    from typing import Union, Dict, List
+    from math import sqrt as _sqrt
     from univariate._base import SemiInfinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -27,9 +27,11 @@ class BetaPrime(SemiInfinite):
 
     def __init__(self, alpha: float, beta: float):
         if alpha < 0:
-            raise ValueError('alpha parameter(shape) should be a positive number.')
+            raise ValueError(
+                'alpha parameter(shape) should be a positive number.')
         if beta < 0:
-            raise ValueError('beta parameter(shape) should be a positive number.')
+            raise ValueError(
+                'beta parameter(shape) should be a positive number.')
 
         self.alpha = alpha
         self.beta = beta
@@ -37,47 +39,46 @@ class BetaPrime(SemiInfinite):
     def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Raises:
             ValueError: when there exist a value of x less than 0
-            TypeError: when parameter is not of type float | List[float] | numpy.ndarray
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of pdf at x
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         a = self.alpha
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
             x = _np.fromiter(x, dtype=float)
-            if _np.any(x<0):
+            if _np.any(x < 0):
                 raise ValueError('random variable should not be less then 0.')
             return _np.power(x, a-1)*_np.power(1+x, -a-b)/_beta(a, b)
 
-        if type(x) is float:
-            if x<0:
-                raise ValueError('random variable should not be less then 0.')
-            return pow(x, a-1)*pow(1+x, -a-b)/_beta(a, b)
-
-        raise TypeError('parameter x is expected to be of type float | List[float] | numpy.ndarray')
+        if x < 0:
+            raise ValueError('random variable should not be less then 0.')
+        return pow(x, a-1)*pow(1+x, -a-b)/_beta(a, b)
 
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x less than 0
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Beta prime distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         a = self.alpha
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x,dtype=float)
-            if _np.any(x<0):
-                raise ValueError('evaluation of cdf is not supported for values less than 0')
+            x = _np.fromiter(x, dtype=float)
+            if _np.any(x < 0):
+                raise ValueError(
+                    'evaluation of cdf is not supported for values less than 0')
             return _betainc(a, b, x/(1+x))
 
         return _betainc(a, b, x/(1+x))
@@ -149,7 +150,6 @@ class BetaPrime(SemiInfinite):
         link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf
         """
         return NotImplemented
-
 
     def summary(self) -> Dict[str, Union[float, str]]:
         """

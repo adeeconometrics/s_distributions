@@ -7,7 +7,9 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
-# change randvar to x
+# change x to x
+
+
 class Rayleigh(SemiInfinite):
     """
     This class contains methods concerning Rayleigh Distirbution [#]_ [#]_.
@@ -24,59 +26,50 @@ class Rayleigh(SemiInfinite):
         .. [#] Weisstein, Eric W. "Rayleigh Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/RayleighDistribution.html
     """
 
-    def __init__(self, scale: float, randvar: float):
-        if randvar < 0:
-            raise ValueError(
-                'random variable should be a positive number. Entered value: {}'.format(randvar))
+    def __init__(self, scale: float):
         if scale < 0:
             raise ValueError('scale parameter should be a positive number.')
 
         self.scale = scale
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of x that is less than 0
 
         Returns:
-            either probability density evaluation for some point or plot of Raylegh distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         sig = self.scale  # scale to sig
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return x/pow(sig, 2) * _np.exp(_np.power(-x, 2)/(2*pow(sig, 2)))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            if _np.any(x < 0):
+                raise ValueError('random variable must be a positive number')
+            return x/pow(sig, 2) * _np.exp(_np.power(-x, 2)/(2*pow(sig, 2)))
 
-        return randvar/pow(sig, 2) * _exp(pow(-randvar, 2)/(2*pow(sig, 2)))
+        if x < 0:
+            raise ValueError('random variable must be a positive number')
+        return x/pow(sig, 2) * _exp(pow(-x, 2)/(2*pow(sig, 2)))
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Raylegh distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         sig = self.scale
-        randvar = self.randvar
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return 1-_np.exp(-_np.power(x, 2)/(2*sig**2))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return 1-_np.exp(-_np.power(x, 2)/(2*sig**2))
 
-        return 1-_exp(-randvar**2/(2*sig**2))
+        return 1-_exp(-x**2/(2*sig**2))
 
     def mean(self) -> float:
         """

@@ -1,7 +1,7 @@
 try:
     import numpy as _np
     from math import log as _log, log10 as _log10, pi as _pi, atan as _atan
-    from typing import Union, Tuple, Dict, List
+    from typing import Union, Dict, List
     from univariate._base import Infinite
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -33,12 +33,11 @@ class Cauchy(Infinite):
 
     def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
-
         Args:
-            x (Union[List[float], _np.ndarray, float]): random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of pdf at x
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         loc = self.loc
         scale = self.scale
@@ -52,10 +51,10 @@ class Cauchy(Infinite):
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[float], _np.ndarray, float]): data points of interest
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            Union[float, _np.ndarray]: evaluation of cdf at x
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         loc = self.loc
         scale = self.scale

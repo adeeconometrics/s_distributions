@@ -128,6 +128,7 @@
 <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="n">f</span><span class="s2">&quot;some modules are missing </span><span class="si">{e}</span><span class="s2">&quot;</span><span class="p">)</span>
 
+
 <div class="viewcode-block" id="LogNormal"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal">[docs]</a><span class="k">class</span> <span class="nc">LogNormal</span><span class="p">(</span><span class="n">SemiInfinite</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class contains methods concerning the Log Normal Distribution [#]_ [#]_.</span>
@@ -137,66 +138,63 @@
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        mean_val(float): mean parameter (:math:`\\mu`)</span>
-<span class="sd">        std_val(float): standard deviation (:math:`\\sigma`) where std &gt; 0</span>
-<span class="sd">        x(float): random variable where x &gt;= 0</span>
+<span class="sd">        mean (float): mean parameter (:math:`\\mu`)</span>
+<span class="sd">        std (float): standard deviation (:math:`\\sigma`) where std &gt; 0</span>
+<span class="sd">        x (float): random variable where x &gt;= 0</span>
 
 <span class="sd">    References:</span>
 <span class="sd">        .. [#] Weisstein, Eric W. &quot;Log Normal Distribution.&quot; From MathWorld--A Wolfram Web Resource.https://mathworld.wolfram.com/LogNormalDistribution.html</span>
 <span class="sd">        .. [#] Wikipedia contributors. (2020, December 18). Log-normal distribution. https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&amp;oldid=994919804</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">std_val</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">randvar</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mean</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">std</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">randvar</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">randvar</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">f</span><span class="s1">&#39;random variable should be greater than 0. Entered value for randvar:</span><span class="si">{randvar}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variable should be greater than 0.&#39;</span><span class="p">)</span>
         <span class="k">if</span> <span class="n">std</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
-                <span class="n">f</span><span class="s1">&#39;random variable should be greater than 0. Entered value for std:</span><span class="si">{std}</span><span class="s1">&#39;</span><span class="p">)</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variable should be greater than 0.&#39;</span><span class="p">)</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">randvar</span> <span class="o">=</span> <span class="n">randvar</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">=</span> <span class="n">mean</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">std_val</span> <span class="o">=</span> <span class="n">std_val</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span> <span class="o">=</span> <span class="n">std</span>
 
-<div class="viewcode-block" id="LogNormal.pdf"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+<div class="viewcode-block" id="LogNormal.pdf"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variable(s)</span>
 
-<span class="sd">            x (List[float], numpy.ndarray): random variable or list of random variables</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt; 0</span>
 
 <span class="sd">        Returns:</span>
-<span class="sd">            either probability density evaluation for some point or plot of Log Normal distribution.</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
+        <span class="n">stdev</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">)):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variable should be greater than 0.&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">stdev</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">_pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">_np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">stdev</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variable should be greater than 0.&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">stdev</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">_pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">_exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">_log</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">stdev</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LogNormal.cdf"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of cdf at x</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
         <span class="n">std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span>
-        <span class="n">randvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
 
-        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">)):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;parameter x only accepts List types or numpy.ndarray&#39;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">x</span> <span class="o">*</span> <span class="n">std</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">_pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">_np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">std</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
-
-        <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">randvar</span> <span class="o">*</span> <span class="n">std</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">_pi</span><span class="p">))</span> <span class="o">*</span> <span class="n">_exp</span><span class="p">(</span><span class="o">-</span><span class="p">(</span><span class="n">_log</span><span class="p">(</span><span class="n">randvar</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">std</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span></div>
-
-<div class="viewcode-block" id="LogNormal.cdf"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span>
-        <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:</span>
-
-<span class="sd">            x (List[float], numpy.ndarray): random variable or list of random variables</span>
-
-<span class="sd">        Returns:</span>
-<span class="sd">            either cumulative distribution evaluation for some point or plot of Log Normal distribution.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span>
-        <span class="n">std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span>
-        <span class="n">randvar</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">x</span>
-
-        <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">)):</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;parameter x only accepts List types or numpy.ndarray&#39;</span><span class="p">)</span>
-            <span class="k">else</span><span class="p">:</span>
-                <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
-                <span class="k">return</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">_erfc</span><span class="p">(</span><span class="o">-</span><span class="n">_np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">std</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">List</span><span class="p">)):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">_erfc</span><span class="p">(</span><span class="o">-</span><span class="n">_np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">std</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span>
 
         <span class="k">return</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="mf">0.5</span><span class="o">*</span><span class="n">_erfc</span><span class="p">(</span><span class="o">-</span><span class="n">_np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">mean</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">std</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="mi">2</span><span class="p">)))</span></div>
 
@@ -204,7 +202,7 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Mean of the log normal distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">_exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">std_val</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">_exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdev</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LogNormal.median"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -216,35 +214,35 @@
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Mode of the log normal distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="n">_exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">std_val</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></div>
+        <span class="k">return</span> <span class="n">_exp</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">-</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">stdev</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="LogNormal.var"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Variance of the log normal distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">std</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">std_val</span>
-        <span class="n">mean</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">_exp</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">*</span> <span class="n">_exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">mean</span> <span class="o">+</span> <span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></div>
 
 <div class="viewcode-block" id="LogNormal.std"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Standard deviation of the log normal distribution</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">std_val</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span></div>
 
 <div class="viewcode-block" id="LogNormal.skewness"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Skewness of the log normal distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">std</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">std_val</span>
-        <span class="n">mean</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span>
+        <span class="n">mean</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span>
         <span class="k">return</span> <span class="p">(</span><span class="n">_exp</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">_sqrt</span><span class="p">(</span><span class="n">_exp</span><span class="p">(</span><span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LogNormal.kurtosis"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Kurtosis of the log normal distribution.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="n">std</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">std_val</span>
+        <span class="n">std</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stdev</span>
         <span class="k">return</span> <span class="n">_exp</span><span class="p">(</span>
             <span class="mi">4</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">_exp</span><span class="p">(</span><span class="mi">3</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">*</span> <span class="n">_exp</span><span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="nb">pow</span><span class="p">(</span><span class="n">std</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">-</span> <span class="mi">6</span></div>
 
@@ -255,7 +253,7 @@
 <span class="sd">        Reference: Park, S.Y. &amp; Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.</span>
 <span class="sd">        link: http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span><span class="n">_log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">_pi</span><span class="o">*</span><span class="n">_e</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">std_val</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean_val</span> <span class="o">+</span> <span class="mf">0.5</span> <span class="o">*</span> <span class="n">_log</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">_pi</span><span class="o">*</span><span class="n">_e</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">stdev</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LogNormal.summary"><a class="viewcode-back" href="../../../univariate.html#source.univariate.LogNormal.LogNormal.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -266,7 +264,6 @@
             <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>
             <span class="s1">&#39;var&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s1">&#39;skewness&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span><span class="p">(),</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">()</span>
         <span class="p">}</span></div></div>
-
 </pre></div>
 
               </div>

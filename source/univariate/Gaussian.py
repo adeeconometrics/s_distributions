@@ -21,7 +21,7 @@ class Gaussian(Infinite):
 
         mean(float): mean of the distribution (:math:`\\mu`)
         std(float): standard deviation (:math:`\\sigma`) of the distribution where std > 0
-        randvar(float): random variable 
+        x(float): random variable 
 
     References:
         .. [#] Wikipedia contributors. (2020, December 19). Gaussian distribution. https://en.wikipedia.org/w/index.php?title=Gaussian_distribution&oldid=995237372
@@ -29,59 +29,45 @@ class Gaussian(Infinite):
 
     """
 
-    def __init__(self, x: float, mean: float = 0, std_val: float = 1):
-        if std_val < 0:
-            raise ValueError(
-                f"std_val parameter must not be less than 0. Entered value std_val {std_val}")
+    def __init__(self, mean: float = 0, stdev: float = 1):
+        if stdev < 0:
+            raise ValueError("stdev parameter must not be less than 0.")
 
         self.mean_val = mean
-        self.std_val = std_val
-        self.randvar = x
+        self.stdev = stdev
 
-    def pdf(self,x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Gaussian distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         mean = self.mean_val
-        std = self.std_val
-        randvar = self.randvar
+        std = self.stdev
 
-        def __generator(mean, std, x):
-            return pow(1 / (std * _sqrt(2 * _pi)), _exp(((x - mean) / 2 * std)**2))
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return _np.power(1 / (std * _sqrt(2 * _pi)), _np.exp(((x - mean) / 2 * std)**2))
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return _np.power(1 / (std * _sqrt(2 * _pi)), _np.exp(((x - mean) / 2 * std)**2))
+        return pow(1 / (std * _sqrt(2 * _pi)), _exp(((x - mean) / 2 * std)**2))
 
-        return pow(1 / (std * _sqrt(2 * _pi)), _exp(((randvar - mean) / 2 * std)**2))
-
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Gaussian distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
-        def __generator(mu:float, sig:float, x: Union[float, _np.ndarray]) -> Union[float, _np.ndarray]: 
+        def __generator(mu: float, sig: float, x: Union[float, _np.ndarray]) -> Union[float, _np.ndarray]:
             return 1/2*(1+_erf((x-mu)/(sig*_sqrt(2))))
-            
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                x = _np.array(x)
-                return __generator(self.mean_val, self.std_val, x)
-        return __generator(self.mean_val, self.std_val, self.randvar)
+
+        if isinstance(x, (_np.ndarray, List)):
+            x = _np.array(x)
+            return __generator(self.mean_val, self.stdev, x)
+        return __generator(self.mean_val, self.stdev, x)
 
     def mean(self) -> float:
         """
@@ -105,13 +91,13 @@ class Gaussian(Infinite):
         """
         Returns: Variance of the Gaussian distribution
         """
-        return pow(self.std_val, 2)
+        return pow(self.stdev, 2)
 
     def std(self) -> float:
         """
         Returns: Standard deviation of the Gaussian distribution
         """
-        return self.std_val
+        return self.stdev
 
     def skewness(self) -> float:
         """
@@ -143,4 +129,3 @@ class Gaussian(Infinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-
