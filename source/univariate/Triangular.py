@@ -22,35 +22,31 @@ class Triangular(BoundedInterval):
         .. [#] Wikipedia contributors. (2020, December 19). Triangular distribution. https://en.wikipedia.org/w/index.php?title=Triangular_distribution&oldid=995101682
     """
 
-    def __init__(self, a: float, b: float, c: float, randvar: float):
+    def __init__(self, a: float, b: float, c: float):
         if a > b:
             raise ValueError(
                 'lower limit(a) should be less than upper limit(b).')
         if a > c and c > b:
             raise ValueError(
                 'lower limit(a) should be less than or equal to mode(c) where c is less than or equal to upper limit(b).')
-        if a > randvar and randvar > b:
-            raise ValueError(
-                f'random variable is bounded between a: {a} and b: {b}')
-
         self.a = a
         self.b = b
         self.c = c
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value of a > x or x > b 
 
         Returns:
-            either probability density evaluation for some point or plot of Triangular distribution.
-        """ 
-        a,b,c,d = self.a, self.b, self.c, self.d
-        randvar = self.randvar
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """
+        a, b, c = self.a, self.b, self.c
 
-        def __generator(a:float, b:float, c:float, x:float)->float:
+        def __generator(a: float, b: float, c: float, x: float) -> float:
             if x < a:
                 return 0.0
             if a <= x and x < c:
@@ -58,30 +54,35 @@ class Triangular(BoundedInterval):
             if x == c:
                 return 2/(b-a)
             if c < x and x <= b:
-                return (2*(b-x))/((b-a)((b-c)))
+                return 2*(b-x)/((b-a)*((b-c)))
             if b < x:
                 return 0.0
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(a,b,c,d,i) for i in x]
-        return __generator(a,b,c,d,randvar)
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            if _np.any(_np.logical_or(a > x, x > b)):
+                raise ValueError(
+                    'all random variables are expected to be between a and b parameters')
+            return _np.vectorize(__generator)(a, b, c, x)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, List]:
+        if a > x or x > b:
+            raise ValueError(
+                'all random variables are expected to be between a and b parameters')
+
+        return __generator(a, b, c, x)
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative density evaluation for some point or plot of Triangular distribution.
-        """ 
-        a,b,c,d = self.a, self.b, self.c, self.d
-        randvar = self.randvar
+            Union[float, numpy.ndarray]: evaluation fo cdf at x
+        """
+        a, b, c = self.a, self.b, self.c
 
-        def __generator(a:float, b:float, c:float, x:float)->float:
+        def __generator(a: float, b: float, c: float, x: float) -> float:
             if x <= a:
                 return 0.0
             if a < x and x <= c:
@@ -91,13 +92,12 @@ class Triangular(BoundedInterval):
             if b <= x:
                 return 1.0
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(a,b,c,d,i) for i in x]
-        return __generator(a,b,c,d,randvar)
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            return _np.vectorize(__generator)(a, b, c, x)
 
+        return __generator(a, b, c, x)
 
     def mean(self) -> float:
         """
@@ -172,4 +172,3 @@ class Triangular(BoundedInterval):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

@@ -52,7 +52,8 @@ class T(Infinite):
         df = self.df
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return (1 / (_sqrt(df) * _beta(0.5, df / 2))) * _np.power((1 + _np.power(x, 2) / df), -(df + 1) / 2)
 
         return (1 / (_sqrt(df) * _beta(0.5, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
@@ -74,7 +75,8 @@ class T(Infinite):
         def d_pdf(x, df): return _quad(pdf, -_np.inf, x, args=df)[0]
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _np.vectorize(d_pdf)(x, df)
 
         return d_pdf(x, df)

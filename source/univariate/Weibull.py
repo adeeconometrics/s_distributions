@@ -2,7 +2,7 @@ try:
     from scipy.special import gamma as _gamma
     from numpy import euler_gamma as _euler_gamma
     import numpy as _np
-    from math import sqrt as _sqrt, log as _log
+    from math import sqrt as _sqrt, log as _log, exp as _exp
     from typing import Union, Dict, List
     from univariate._base import SemiInfinite
 except Exception as e:
@@ -12,7 +12,7 @@ except Exception as e:
 class Weibull(SemiInfinite):
     """
     This class contains methods concerning Weibull Distirbution [#]_.
-    
+
     .. math::
         \\text{Weibull}(x;\\lambda, k)  = \\frac{k}{\\lambda} \\Big( \\frac{x}{\\lambda}\\Big)^{k-1} \\exp(-(x/\\lambda)^k)
 
@@ -26,15 +26,13 @@ class Weibull(SemiInfinite):
         .. [#] Wikipedia contributors. (2020, December 13). Weibull distribution. https://en.wikipedia.org/w/index.php?title=Weibull_distribution&oldid=993879185
     """
 
-    def __init__(self, shape: float, scale: float, randvar: float = 0.5):
-        if shape < 0 or scale < 0 or randvar < 0:
-            raise ValueError(
-                f'all parameters should be a positive number. Entered values: shape: {shape}, scale{scale}, randvar{randvar}')
+    def __init__(self, shape: float, scale: float):
+        if shape < 0 or scale < 0:
+            raise ValueError('all parameters should be a positive number.')
         self.scale = scale
         self.shape = shape
-        self.randvar = randvar
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray, List[float]]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -45,23 +43,19 @@ class Weibull(SemiInfinite):
         """
         scale = self.scale
         shape = self.shape
-        randvar = self.randvar
 
-        def __generator(_lambda:float, k:float, x:float) -> float:
-            if x < 0:
-                return 0.0
-            if x >= 0:
-                return pow((k/_lambda)*(x/_lambda), k-1)*_np.exp(-pow(x/_lambda, k))
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(scale, shape, i) for i in x]
+            def f1(x): return 0.0
+            def f2(x): return _np.power(shape/scale*x/scale, shape-1) * \
+                _np.exp(-_np.power(x/scale, shape))
+            return _np.piecewise(x, [x < 0, x >= 0], [f1, f2])
 
-        return __generator(scale, shape, randvar)
+        return pow((shape/scale)*(x/scale), shape-1)*_exp(-pow(x/scale, shape)) if x >= 0 else 0.0
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray, List[float]]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -72,21 +66,16 @@ class Weibull(SemiInfinite):
         """
         scale = self.scale
         shape = self.shape
-        randvar = self.randvar
 
-        def __generator(_lambda:float, k:float, x:float) -> float:
-            if x < 0:
-                return 0.0
-            if x >= 0:
-                return 1-_np.exp(-pow(x/_lambda, k))
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(scale, shape, i) for i in x]
+            def f1(x): return 1 - _np.exp(-_np.power(x/scale, shape))
+            def f2(x): return 0.0
+            return _np.piecewise(x, [x >= 0, x < 0], [f1, f2])
 
-        return __generator(scale, shape, randvar)
+        return 1-_exp(-pow(x/scale, shape)) if x >= 0 else 0.0
 
     def mean(self) -> float:
         """
@@ -138,4 +127,3 @@ class Weibull(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

@@ -19,69 +19,67 @@ class WeilbullInverse(SemiInfinite):
 
         shape(float): shape parameter (:math:`a`) where shape >= 0
         scale(float): scale parameter (:math:`s`) where scale >= 0
-        location(float): location parameter (:math:`m`)
-        randvar(float): random variable where x > location
+        loc(float): loc parameter (:math:`m`)
+        randvar(float): random variable where x > loc
 
     Reference:
         .. [#] Wikipedia contributors. (2020, December 7). Fréchet distribution. https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&oldid=992938143
     """
 
-    def __init__(self,  shape: float, scale: float, location: float, randvar: float):
+    def __init__(self,  shape: float, scale: float, loc: float):
         if shape < 0 or scale < 0:
             raise ValueError(
-                f'the value of scale and shape should be greater than 0. Entered values scale was:{scale}, shape:{shape}')
-        if randvar < location:
-            raise ValueError(
-                f'random variable should be greater than the location parameter. Entered values: randvar: {randvar}, location:{location}')
+                'the value of scale and shape are expected to be greater than 0.')
+
         self.shape = shape
         self.scale = scale
-        self.location = location
-        self.randvar = randvar
+        self.loc = loc
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a random variate less than or equal to loc parameter
 
         Returns:
-            either probability density evaluation for some point or plot of Weibull Inverse distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         a = self.shape
         s = self.scale
-        m = self.location
-        randvar = self.randvar
+        m = self.loc
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
                 x = _np.array(x)
-                return (a/s) * _np.power((x-m)/s, -1-a)*_np.exp(-np.power((x-m)/s, -a))
-                
-        return (a/s) * pow((randvar-m)/s, -1-a)*_exp(-pow((randvar-m)/s, -a))
+            if _np.any(x <= m):
+                raise ValueError(
+                    f'random variables are expected to be greater than {m} -- the loc parameter')
+            return (a/s) * _np.power((x-m)/s, -1-a)*_np.exp(-_np.power((x-m)/s, -a))
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+        if x < m:
+            raise ValueError(
+                f'random variables are expected to be greater than {m} -- the loc parameter')
+        return (a/s) * pow((x-m)/s, -1-a)*_exp(-pow((x-m)/s, -a))
+
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Weibull Inverse distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         a = self.shape
         s = self.scale
-        m = self.location
-        randvar = self.randvar
-        
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
+        m = self.loc
+
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
                 x = _np.array(x)
-                return _np.exp(-_np.power((x-m)/s, -a))
-                
+            return _np.exp(-_np.power((x-m)/s, -a))
+
         return _exp(-pow((x-m)/s, -a))
 
     def mean(self) -> float:
@@ -89,20 +87,20 @@ class WeilbullInverse(SemiInfinite):
         Returns: Mean of the Fréchet distribution.
         """
         if self.shape > 1:
-            return self.location + (self.scale*_gamma(1 - 1/self.shape))
+            return self.loc + (self.scale*_gamma(1 - 1/self.shape))
         return _np.inf
 
     def median(self) -> float:
         """
         Returns: Median of the Fréchet distribution.
         """
-        return self.location + (self.scale/pow(_log(2), 1/self.shape))
+        return self.loc + (self.scale/pow(_log(2), 1/self.shape))
 
     def mode(self) -> float:
         """
         Returns: Mode of the Fréchet distribution.
         """
-        return self.location + self.scale*(self.shape/pow(1 + self.shape, 1/self.shape))
+        return self.loc + self.scale*(self.shape/pow(1 + self.shape, 1/self.shape))
 
     def var(self) -> Union[float, str]:
         """
@@ -118,9 +116,10 @@ class WeilbullInverse(SemiInfinite):
         """
         Returns: Standard devtiation of the Fréchet distribution.
         """
-        if self.var() == "infinity":
-            return "infinity"
-        return _sqrt(self.var())
+        var = self.var()
+        if type(var) is float:
+            return _sqrt(var)
+        return "infinity"
 
     def skewness(self) -> Union[float, str]:
         """
@@ -149,4 +148,3 @@ class WeilbullInverse(SemiInfinite):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-

@@ -248,8 +248,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#module-source.univariate.UniformContinuous">
-   source.univariate.UniformContinuous module
+  <a class="reference internal nav-link" href="#module-source.univariate.Uniform">
+   source.univariate.Uniform module
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -3114,7 +3114,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <span id="source-univariate-triangular-module"></span><h2>source.univariate.Triangular module<a class="headerlink" href="#module-source.univariate.Triangular" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.Triangular.Triangular">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Triangular.</span></span><span class="sig-name descname"><span class="pre">Triangular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randvar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Triangular.html#Triangular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Triangular.Triangular" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Triangular.</span></span><span class="sig-name descname"><span class="pre">Triangular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Triangular.html#Triangular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Triangular.Triangular" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">univariate._base.BoundedInterval</span></code></p>
 <p>This class contains methods concerning Triangular Distirbution <a class="footnote-reference brackets" href="#id74" id="id77">38</a>.</p>
 <dl class="field-list simple">
@@ -3137,13 +3137,16 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.Triangular.Triangular.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Triangular.html#Triangular.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Triangular.Triangular.cdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Triangular.html#Triangular.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Triangular.Triangular.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either cumulative density evaluation for some point or plot of Triangular distribution.</p>
+<dd class="field-even"><p>evaluation fo cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3182,13 +3185,19 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.Triangular.Triangular.pdf">
-<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Triangular.html#Triangular.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Triangular.Triangular.pdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Triangular.html#Triangular.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Triangular.Triangular.pdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either probability density evaluation for some point or plot of Triangular distribution.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of a &gt; x or x &gt; b</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3224,21 +3233,23 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dd></dl>
 
 </div>
-<div class="section" id="module-source.univariate.UniformContinuous">
-<span id="source-univariate-uniformcontinuous-module"></span><h2>source.univariate.UniformContinuous module<a class="headerlink" href="#module-source.univariate.UniformContinuous" title="Permalink to this headline">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.UniformContinuous.</span></span><span class="sig-name descname"><span class="pre">Uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">univariate._base.BoundedInterval</span></code></p>
+<div class="section" id="module-source.univariate.Uniform">
+<span id="source-univariate-uniform-module"></span><h2>source.univariate.Uniform module<a class="headerlink" href="#module-source.univariate.Uniform" title="Permalink to this headline">¶</a></h2>
 <p>This class contains methods concerning the Continuous Uniform Distribution <a class="footnote-reference brackets" href="#id76" id="id79">39</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Uniform}(x;a,b) = \frac{1}{b-a}\]</div>
 <dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>a</strong> (<em>int</em>) -- lower limit of the distribution</p></li>
-<li><p><strong>b</strong> (<em>int</em>) -- upper limit of the distribution where b &gt; a</p></li>
-</ul>
+<dt class="field-odd">param a</dt>
+<dd class="field-odd"><p>lower limit of the distribution</p>
+</dd>
+<dt class="field-even">type a</dt>
+<dd class="field-even"><p>float</p>
+</dd>
+<dt class="field-odd">param b</dt>
+<dd class="field-odd"><p>upper limit of the distribution where b &gt; a</p>
+</dd>
+<dt class="field-even">type b</dt>
+<dd class="field-even"><p>float</p>
 </dd>
 </dl>
 <dl>
@@ -3249,101 +3260,12 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 </dd>
 </dl>
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.cdf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either cumulative distribution evaluation for some point or plot of Uniform distribution.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.entropy">
-<span class="sig-name descname"><span class="pre">entropy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.entropy" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: entropy of uniform Distirbution.</p>
-<p>Reference: Park, S.Y. &amp; Bera, A.K.(2009). Maximum entropy autoregressive conditional heteroskedasticity model. Elsivier.
-link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf">http://wise.xmu.edu.cn/uploadfiles/paper-masterdownload/2009519932327055475115776.pdf</a></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.kurtosis">
-<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.kurtosis" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Kurtosis of the Uniform distribution.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.mean">
-<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.mean" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Mean of the Uniform distribution.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.median">
-<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.median" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Median of the Uniform distribution.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.mode">
-<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.mode" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Mode of the Uniform distribution.</p>
-<p>Note that the mode is any value in (a,b)</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.pdf">
-<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.pdf" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
-</dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either probability density evaluation for some point or plot of Uniform distribution.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.skewness">
-<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.skewness" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Skewness of the Uniform distribution.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.std">
-<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.std" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Standard deviation of the Uniform distribution.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.summary">
-<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.summary" title="Permalink to this definition">¶</a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Uniform distirbution moments. This includes standard deviation.</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="source.univariate.UniformContinuous.Uniform.var">
-<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/UniformContinuous.html#Uniform.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.UniformContinuous.Uniform.var" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns: Variance of the Uniform distribution.</p>
-</dd></dl>
-
-</dd></dl>
-
 </div>
 <div class="section" id="module-source.univariate.Weibull">
 <span id="source-univariate-weibull-module"></span><h2>source.univariate.Weibull module<a class="headerlink" href="#module-source.univariate.Weibull" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.Weibull.Weibull">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Weibull.</span></span><span class="sig-name descname"><span class="pre">Weibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randvar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0.5</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Weibull.html#Weibull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Weibull.Weibull" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Weibull.</span></span><span class="sig-name descname"><span class="pre">Weibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Weibull.html#Weibull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Weibull.Weibull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">univariate._base.SemiInfinite</span></code></p>
 <p>This class contains methods concerning Weibull Distirbution <a class="footnote-reference brackets" href="#id78" id="id81">40</a>.</p>
 <div class="math notranslate nohighlight">
@@ -3367,7 +3289,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.Weibull.Weibull.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Weibull.html#Weibull.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Weibull.Weibull.cdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Weibull.html#Weibull.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Weibull.Weibull.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
@@ -3406,7 +3328,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.Weibull.Weibull.pdf">
-<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Weibull.html#Weibull.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Weibull.Weibull.pdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Weibull.html#Weibull.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Weibull.Weibull.pdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
@@ -3446,7 +3368,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <span id="source-univariate-weibullinverse-module"></span><h2>source.univariate.WeibullInverse module<a class="headerlink" href="#module-source.univariate.WeibullInverse" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.WeibullInverse.WeilbullInverse">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.WeibullInverse.</span></span><span class="sig-name descname"><span class="pre">WeilbullInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randvar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/WeibullInverse.html#WeilbullInverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.WeibullInverse.WeilbullInverse" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.WeibullInverse.</span></span><span class="sig-name descname"><span class="pre">WeilbullInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/WeibullInverse.html#WeilbullInverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.WeibullInverse.WeilbullInverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">univariate._base.SemiInfinite</span></code></p>
 <p>This class contains methods concerning inverse Weilbull or the Fréchet Distirbution <a class="footnote-reference brackets" href="#id80" id="id83">41</a>.</p>
 <div class="math notranslate nohighlight">
@@ -3456,8 +3378,8 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>shape</strong> (<em>float</em>) -- shape parameter (<span class="math notranslate nohighlight">\(a\)</span>) where shape &gt;= 0</p></li>
 <li><p><strong>scale</strong> (<em>float</em>) -- scale parameter (<span class="math notranslate nohighlight">\(s\)</span>) where scale &gt;= 0</p></li>
-<li><p><strong>location</strong> (<em>float</em>) -- location parameter (<span class="math notranslate nohighlight">\(m\)</span>)</p></li>
-<li><p><strong>randvar</strong> (<em>float</em>) -- random variable where x &gt; location</p></li>
+<li><p><strong>loc</strong> (<em>float</em>) -- loc parameter (<span class="math notranslate nohighlight">\(m\)</span>)</p></li>
+<li><p><strong>randvar</strong> (<em>float</em>) -- random variable where x &gt; loc</p></li>
 </ul>
 </dd>
 </dl>
@@ -3471,13 +3393,16 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.WeibullInverse.WeilbullInverse.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/WeibullInverse.html#WeilbullInverse.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.WeibullInverse.WeilbullInverse.cdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/WeibullInverse.html#WeilbullInverse.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.WeibullInverse.WeilbullInverse.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either cumulative distribution evaluation for some point or plot of Weibull Inverse distribution.</p>
+<dd class="field-even"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3508,13 +3433,19 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.WeibullInverse.WeilbullInverse.pdf">
-<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/WeibullInverse.html#WeilbullInverse.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.WeibullInverse.WeilbullInverse.pdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/WeibullInverse.html#WeilbullInverse.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.WeibullInverse.WeilbullInverse.pdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either probability density evaluation for some point or plot of Weibull Inverse distribution.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a random variate less than or equal to loc parameter</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>

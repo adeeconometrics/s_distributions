@@ -6,6 +6,7 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
+
 class Uniform(BoundedInterval):
     """
     This class contains methods concerning the Continuous Uniform Distribution [#]_.
@@ -15,69 +16,62 @@ class Uniform(BoundedInterval):
 
     Args:
 
-        a(int): lower limit of the distribution 
-        b(int): upper limit of the distribution where b > a
+        a(float): lower limit of the distribution 
+        b(float): upper limit of the distribution where b > a
 
     Referene:
         .. [#] Weisstein, Eric W. "Uniform Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/UniformDistribution.html
     """
 
-    def __init__(self, a: int, b: int) -> None:
-        if type(a) and type(b) is int:
-            raise TypeError('parameters a, b must be of type int.')
-
+    def __init__(self, a: float, b: float) -> None:
         self.a = a
         self.b = b
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Uniform distribution.
+            Union[float, numpy.ndarray]: evauation of pdf at x
         """
         a = self.a
         b = self.b
 
-        def __generator(a:int, b:int, x:float) -> float: 
-            return 1 / (b - a) if a <= x and x <= b else 0.0
+        if isinstance(x, (_np.ndarray, List)):
+            x0 = 1/(b-a)
+            if isinstance(x, List):
+                x = _np.array(x)
+            return _np.piecewise(x, [_np.logical_and(a <= x, x <= b), _np.logical_or(a > x, x > b)], [lambda x: x0, lambda x: 0.0])
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(a,b,i) for i in x]
+        return 1 / (b - a) if a <= x and x <= b else 0.0
 
-        return __generator(a, b, abs(b - a))
-
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Uniform distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         a = self.a
         b = self.b
 
-        def __generator(a:int, b:int, x:float) -> float:
+        def __generator(a: float, b: float, x: float) -> float:
             if x < a:
                 return 0.0
-            if (a <= x and x <= b):
+            if a <= x and x <= b:
                 return (x - a) / (b - a)
             if x > b:
                 return 1.0
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(f'parameter x only accepts List types or numpy.ndarray')
-            else:
-                return [__generator(a,b,i) for i in x]
-        return __generator(a, b, abs(b - a))  # what does it really say?
+        if isinstance(x, (_np.ndarray, List)):
+            if isinstance(x, List):
+                x = _np.array(x)
+            # performance could be improved with np.piecewise
+            return _np.vectorize(__generator)(a, b, x)
+
+        return __generator(a, b, x)
 
     def mean(self) -> float:
         """
@@ -132,7 +126,7 @@ class Uniform(BoundedInterval):
         """
         return _log(self.b-self-a)
 
-    def summary(self) -> Dict[str, Union[float, Tuple[int,int]]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[int, int]]]:
         """
         Returns:
             Dictionary of Uniform distirbution moments. This includes standard deviation. 
@@ -141,4 +135,3 @@ class Uniform(BoundedInterval):
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
-
