@@ -48,7 +48,8 @@ class MaxwellBoltzmann(SemiInfinite):
         a = self.a
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError('random values must not be lesser than 0')
             return _sqrt(2/_pi)*(x**2*_np.exp(-x**2/(2*a**2)))/a**3
@@ -68,7 +69,8 @@ class MaxwellBoltzmann(SemiInfinite):
         a = self.a
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             x0 = _np.power(x, 2)
             return _erf(x/(_sqrt(2)*a))-_sqrt(2/_pi)*(x0*_np.exp(-x0/(2*a**2)))/(a)
 

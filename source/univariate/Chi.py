@@ -45,7 +45,8 @@ class Chi(SemiInfinite):
         df = self.df
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * _np.power(x, df - 1) * _np.exp(_np.power(-x, 2) / 2)
 
         return (1 / (pow(2, (df / 2) - 1) * _gamma(df / 2))) * pow(x, df - 1) * _np.exp(pow(-x, 2) / 2)
@@ -61,7 +62,8 @@ class Chi(SemiInfinite):
         df = self.df
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _gammainc(df/2, _np.power(x, 2)/2)
 
         return _gammainc(df/2, pow(x, 2)/2)

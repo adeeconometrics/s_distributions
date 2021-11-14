@@ -48,7 +48,8 @@ class Gamma(SemiInfinite):
         scale = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError('random variable should be greater than 0.')
             return (1 / (pow(scale, shape) * _gamma(shape))) * _np.log(x, shape - 1) * _np.exp(-x / scale)
@@ -73,7 +74,8 @@ class Gamma(SemiInfinite):
             return 1 - _gammainc(shape, x / b)
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return __generator(shape, scale, x)
         return __generator(shape, scale, x)
 

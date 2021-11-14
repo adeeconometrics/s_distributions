@@ -15,7 +15,7 @@ class Bernoulli(BoundedInterval):
     pixel intensities of natural images [#]_ [#]_ [#]_ [#]_.
 
     .. math:: C(\\lambda)\\lambda^{x}(1-\\lambda)^{1-x}
-    
+
     where 
 
     .. math:: C(\\lambda)= \\begin{cases}2&{\\text{if }\\lambda =\\frac {1}{2}} \\ \\frac{2\\tanh^{-1}(1-2\\lambda )}{1-2\\lambda }&{\\text{ otherwise}}\\end{cases}
@@ -34,7 +34,8 @@ class Bernoulli(BoundedInterval):
 
     def __init__(self, shape: float):
         if shape < 0 or shape > 1:
-            raise ValueError('shape parameter a should only be in between 0 and 1.')
+            raise ValueError(
+                'shape parameter a should only be in between 0 and 1.')
 
         self.shape = shape
 
@@ -51,21 +52,20 @@ class Bernoulli(BoundedInterval):
         """
 
         shape = self.shape
-        
-        def __C(shape: float)->float:
+
+        def __C(shape: float) -> float:
             return (2*_atanh(1-2*shape)) / (1-2*shape) if shape != 0.5 else 2.0
 
-        
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
-            if _np.any(_np.logical_or(x<=0, x>=1)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            if _np.any(_np.logical_or(x <= 0, x >= 1)):
                 raise ValueError('random variable must be between 0 and 1')
             return __C(self.shape) * _np.power(shape, x)*_np.power(1-shape, 1-x)
 
-        if x<=0 or x>=1:
+        if x <= 0 or x >= 1:
             raise ValueError('random variable must be between 0 and 1')
         return __C(self.shape)*pow(shape, x)*pow(1-shape, 1 - x)
-
 
     def cdf(self, x: Union[List[float], _np.ndarray]) -> Union[float, _np.ndarray]:
         """
@@ -81,13 +81,13 @@ class Bernoulli(BoundedInterval):
         shape = self.shape
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
-            if _np.any(_np.logical_or(x<=0, x>=1)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            if _np.any(_np.logical_or(x <= 0, x >= 1)):
                 raise ValueError('values must be between 0 and 1')
             return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 
         return (shape**x*pow(1-shape, 1-x)+shape-1)/(2*shape-1) if shape != 0.5 else x
-
 
     def mean(self) -> float:
         """

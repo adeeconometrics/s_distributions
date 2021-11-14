@@ -48,7 +48,8 @@ class Gaussian(Infinite):
         std = self.stdev
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _np.power(1 / (std * _sqrt(2 * _pi)), _np.exp(((x - mean) / 2 * std)**2))
 
         return pow(1 / (std * _sqrt(2 * _pi)), _exp(((x - mean) / 2 * std)**2))
@@ -65,7 +66,8 @@ class Gaussian(Infinite):
             return 1/2*(1+_erf((x-mu)/(sig*_sqrt(2))))
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return __generator(self.mean_val, self.stdev, x)
         return __generator(self.mean_val, self.stdev, x)
 

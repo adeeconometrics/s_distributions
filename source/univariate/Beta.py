@@ -51,7 +51,8 @@ class Beta(BoundedInterval):
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(_np.logical_or(x <= 0, x >= 1)):
                 raise ValueError(
                     'random variables should only be between 0 and 1')
@@ -73,7 +74,8 @@ class Beta(BoundedInterval):
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, _np.float32)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _betainc(a, b, x)
 
         return _betainc(a, b, x)

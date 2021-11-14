@@ -43,7 +43,8 @@ class Laplace(Infinite):
         b = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return (1 / (2 * b)) * _np.exp(- _np.abs(x - mu) / b)
         return (1 / (2 * b)) * _exp(- abs(x - mu) / b)
 
@@ -63,7 +64,8 @@ class Laplace(Infinite):
             return 0.5 + ((0.5) * _np.sign(x - mu) * (1 - _np.exp(_np.abs(x - mu) / b)))
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return __generator(mu, b, x)
 
         return __generator(mu, b, x)

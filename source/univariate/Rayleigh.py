@@ -46,7 +46,8 @@ class Rayleigh(SemiInfinite):
         sig = self.scale  # scale to sig
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError('random variable must be a positive number')
             return x/pow(sig, 2) * _np.exp(_np.power(-x, 2)/(2*pow(sig, 2)))
@@ -66,7 +67,8 @@ class Rayleigh(SemiInfinite):
         sig = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return 1-_np.exp(-_np.power(x, 2)/(2*sig**2))
 
         return 1-_exp(-x**2/(2*sig**2))

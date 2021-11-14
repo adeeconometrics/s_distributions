@@ -46,7 +46,8 @@ class Gumbell(SemiInfinite):
         beta = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             z = (x-mu)/beta
             return (1/beta)*_np.exp(-(z+_np.exp(-z)))
 
@@ -65,7 +66,8 @@ class Gumbell(SemiInfinite):
         beta = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _np.exp(-_np.exp(-(x-mu)/beta))
         return _exp(-_exp(-(x - mu)/beta))
 

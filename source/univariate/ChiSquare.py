@@ -47,7 +47,8 @@ class ChiSquare(SemiInfinite):
         df = self.df
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError(
                     'random variables are only valid for positive real numbers')
@@ -72,7 +73,8 @@ class ChiSquare(SemiInfinite):
         df = self.df
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError(
                     'data point(s) are only valid for positive real numbers')

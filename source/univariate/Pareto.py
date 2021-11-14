@@ -30,7 +30,8 @@ class Pareto(SemiInfinite):
         if shape < 0:
             raise ValueError('shape should be greater than 0.')
         if x > shape:
-            raise ValueError('random variable x should be greater than or equal to shape.')
+            raise ValueError(
+                'random variable x should be greater than or equal to shape.')
 
         self.shape = shape
         self.scale = scale
@@ -50,13 +51,16 @@ class Pareto(SemiInfinite):
         alpha = self.shape
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x > alpha):
-                raise ValueError('random variable should be greater thaan or equal to the value of shape')
-            return _np.piecewise(x, [x>=x_m, x<x_m], [lambda x: alpha*_np.power(x_m, alpha)/_np.power(x, alpha + 1), lambda x: 0.0])
+                raise ValueError(
+                    'random variable should be greater thaan or equal to the value of shape')
+            return _np.piecewise(x, [x >= x_m, x < x_m], [lambda x: alpha*_np.power(x_m, alpha)/_np.power(x, alpha + 1), lambda x: 0.0])
 
         if x > alpha:
-            raise ValueError('random variable should be greater thaan or equal to the value of shape')
+            raise ValueError(
+                'random variable should be greater thaan or equal to the value of shape')
         return alpha*_np.power(x_m, alpha)/_np.power(x, alpha + 1) if x >= x_m else 0.0
 
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
@@ -72,8 +76,9 @@ class Pareto(SemiInfinite):
         alpha = self.shape
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
-            return _np.piecewise(x,[x>=x_m, x<x_m], [lambda x: 1 - _np.power(x_m/x, alpha), lambda x: 0.0])
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            return _np.piecewise(x, [x >= x_m, x < x_m], [lambda x: 1 - _np.power(x_m/x, alpha), lambda x: 0.0])
 
         return 1 - pow(x_m/x, alpha) if x >= x_m else 0.0
 

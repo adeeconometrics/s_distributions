@@ -51,7 +51,8 @@ class BetaPrime(SemiInfinite):
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError('random variable should not be less then 0.')
             return _np.power(x, a-1)*_np.power(1+x, -a-b)/_beta(a, b)
@@ -75,7 +76,8 @@ class BetaPrime(SemiInfinite):
         b = self.beta
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError(
                     'evaluation of cdf is not supported for values less than 0')

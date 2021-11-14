@@ -47,11 +47,12 @@ class LogNormal(SemiInfinite):
         Returns:
             Union[float, numpy.ndarray]: evaluation of pdf at x
         """
-        mean = self.mean
+        mean = self.mean_val
         stdev = self.stdev
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(x < 0):
                 raise ValueError('random variable should be greater than 0.')
             return 1 / (x * stdev * _sqrt(2 * _pi)) * _np.exp(-(_np.log(x - mean)**2) / (2 * stdev**2))
@@ -68,11 +69,12 @@ class LogNormal(SemiInfinite):
         Returns:
             Union[float, numpy.ndarray]: evaluation of cdf at x
         """
-        mean = self.mean
-        std = self.std
+        mean = self.mean_val
+        std = self.stdev
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return 0.5 + 0.5*_erfc(-_np.log(x - mean)/(std * _sqrt(2)))
 
         return 0.5 + 0.5*_erfc(-_np.log(x - mean)/(std * _sqrt(2)))

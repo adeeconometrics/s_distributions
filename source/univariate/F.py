@@ -27,51 +27,53 @@ class F(SemiInfinite):
         .. [#] NIST SemaTech (n.d.). F-Distribution. Retrived from https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm
     """
 
-    def __init__(self, x: float, df1: int, df2: int):
+    def __init__(self, df1: int, df2: int):
         if (type(df1) is not int) or (df1 <= 0):
             raise TypeError(
                 f'degrees of freedom(df) should be a whole number.')
         if (type(df1) is not int) or (df2 <= 0):
             raise TypeError(
                 f'degrees of freedom(df) should be a whole number.')
-        if x < 0:
-            raise ValueError(
-                f'random variable should be greater than 0.')
 
-        self.x = x
         self.df1 = df1
         self.df2 = df2
 
-    def pdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def pdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[float], _np.ndarray, float]): random variable(s)
 
-            x (List[float], numpy.ndarray): random variable or list of random variables
+        Raises:
+            ValueError: when there exist a value such that x < 0
 
         Returns:
-            either probability density evaluation for some point or plot of F-distribution.
+            Union[float, _np.ndarray]: evaluation of pdf at x
         """
 
         def __generator(x: Union[float, _np.ndarray], df1: int, df2: int) -> Union[float, _np.ndarray]:
+            x0 = (1 / _beta(df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2)
             if type(x) is _np.ndarray:
-                return (1 / _beta(df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2) * \
+                return x0 * \
                     _np.power(x, df1 / 2 - 1) * _np.power(1 +
                                                           (df1 / df2) * x, -((df1 + df2) / 2))
-            return (1 / _beta(df1 / 2, df2 / 2)) * pow(df1 / df2, df1 / 2) * \
+            return x0 * \
                 pow(x, df1 / 2 - 1) * \
                 pow(1 + (df1 / df2) * x, -((df1 + df2) / 2))
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
                 x = _np.array(x)
-                return __generator(self.x, self.df1, self.df2)
+            if _np.any(x < 0):
+                raise ValueError(
+                    'random variables are expected to be greater than 0.')
+            return __generator(x, self.df1, self.df2)
 
-        return __generator(self.randvar, self.df1, self.df2)
+        if x < 0:
+            raise ValueError(
+                'random variable is expected to be greater than 0.')
+        return __generator(x, self.df1, self.df2)
 
-    def cdf(self, x: Union[List[float], _np.ndarray] = None) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -80,21 +82,17 @@ class F(SemiInfinite):
         Returns:
             either cumulative distribution evaluation for some point or plot of F-distribution.
         """
-        def __generator(x: Union[float, _np.ndarray], df1: int, df2: int) -> Union[float, _np.ndarray]:
-            return 1 - _betainc(df1/2, df2/2, x)
+        df1, df2 = self.df1, self.df2
 
-        if x is not None:
-            if not isinstance(x, (_np.ndarray, List)):
-                raise TypeError(
-                    f'parameter x only accepts List types or numpy.ndarray')
-            else:
+        if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
                 x = _np.array(x)
-                return __generator(x, self.df1, self.df2)
+            return _betainc(df1/2, df2/2, df1*x/(df1*x + df2))
 
-        k = self.df2/(self.df2 + self.df1*self.x)
-        return __generator(k, self.df1, self.df2)
+        k = df1*x/(self.df2 + self.df1*x)  # not sure why
+        return _betainc(df1/2, df2/2, k)
 
-    def mean(self) -> Union[float, int, str]:
+    def mean(self) -> Union[float, str]:
         """
         Returns: Mean of the F-distribution.
         """
@@ -102,7 +100,7 @@ class F(SemiInfinite):
             return self.df2 / (self.df2 - 2)
         return "undefined"
 
-    def mode(self) -> Union[float, int, str]:
+    def mode(self) -> Union[float, str]:
         """
         Returns: Mode of the F-distribution.
         """
@@ -112,7 +110,7 @@ class F(SemiInfinite):
             return (df2 * (df1 - 2)) / (df1 * (df2 + 2))
         return "undefined"
 
-    def var(self) -> Union[float, int, str]:
+    def var(self) -> Union[float, str]:
         """
         Returns: Variance of the F-distribution.
         """
@@ -156,7 +154,7 @@ class F(SemiInfinite):
             (1-df2/2) * _digamma(1+df2/2) + (df1+df2) /\
             2*_digamma((df1+df2)/2) + _log(df1/df2)
 
-    def summary(self) -> Dict[str, Union[float, int, str]]:
+    def summary(self) -> Dict[str, Union[float, str]]:
         """
         Returns:
             Dictionary of F distirbution moments. This includes standard deviation. 

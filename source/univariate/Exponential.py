@@ -40,7 +40,8 @@ class Exponential(SemiInfinite):
         rate = self.rate
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _np.piecewise(x, [x >= 0, x < 0], [lambda x: rate*_np.exp(-(rate*(x))), lambda x: 0.0])
 
         return rate*_exp(-rate*x) if x >= 0 else 0.0
@@ -56,6 +57,8 @@ class Exponential(SemiInfinite):
         rate = self.rate
 
         if isinstance(x, (_np.ndarray, List)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return _np.piecewise(x, [x > 0, x <= 0], [lambda x: 1 - _np.exp(-rate*x), lambda x: 0.0])
 
         return 1 - _exp(-rate*x) if x > 0 else 0.0

@@ -43,7 +43,8 @@ class Cauchy(Infinite):
         scale = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return 1/(_pi * scale * (1 + _np.power((x - loc) / scale, 2)))
 
         return 1/(_pi * scale * (1 + pow((x - loc) / scale, 2)))
@@ -60,7 +61,8 @@ class Cauchy(Infinite):
         scale = self.scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.fromiter(x, dtype=float)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return (1 / _pi) * _np.arctan((x - loc) / scale) + 0.5
 
         return (1 / _pi) * _atan((x - loc) / scale) + 0.5

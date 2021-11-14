@@ -44,7 +44,8 @@ class LogitNormal(BoundedInterval):
         sig = self.sq_scale
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if _np.any(_np.logical_or(x < 0, x > 1)):
                 raise ValueError(
                     'random variable should only be in between 0 and 1')
@@ -70,7 +71,8 @@ class LogitNormal(BoundedInterval):
             return 0.5 * (1+_erf((_logit(x)-mu)/_sqrt(2*pow(sig, 2))))
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return __generator(mu, sig, x)
 
         return __generator(mu, sig, x)

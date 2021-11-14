@@ -46,7 +46,8 @@ class Logistic(Infinite):
             return _np.exp(-(x - mu) / s) / (s * (1 + _np.exp(-(x - mu) / s))**2)
 
         if isinstance(x, (_np.ndarray, List)):
-            x = _np.array(x)
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             return __generator(mu, s, x)
         return __generator(mu, s, x)
 
