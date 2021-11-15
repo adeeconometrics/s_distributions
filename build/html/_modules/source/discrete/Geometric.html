@@ -152,72 +152,78 @@
 <span class="sd">    The default type is `_type=&#39;first&#39;`, or :math:`\\text{Geometric_1}(x;p)`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">p</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
         <span class="k">if</span> <span class="n">p</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">p</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameter p is constrained at&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">p</span> <span class="o">=</span> <span class="n">p</span>
 
-<div class="viewcode-block" id="Geometric.pmf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="Geometric.pmf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">],</span> <span class="n">_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args:         </span>
-<span class="sd">            type (keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.</span>
-<span class="sd">            x (Union[List[int], int]): list of random variables</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[int], int, numpy.ndarray]): random variable(s)</span>
+<span class="sd">            _type (str, optional): optional specifier for modifying the type of Geometric distribution. Defaults to &#39;first&#39;.</span>
 
-<span class="sd">        Returns: </span>
-<span class="sd">            probability mass evaluation of geometric distribution to some point specified by k or a </span>
-<span class="sd">            list of its corresponding value specified by the parameter x.</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: when random variable(s) are not of type int</span>
+<span class="sd">            ValueError: when a _type parameter is not &#39;first&#39; or second</span>
 
-<span class="sd">        Note: there are two configurations of pmf. </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[numpy.ndarray, float]: evaluation of pmf at x</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">generator</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="p">,</span> 
-                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="p">}</span>
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">List</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">):</span>
+            <span class="n">generator</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="p">,</span>
+                         <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">p</span><span class="p">}</span>
+
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;parameter k must be of type int&#39;</span><span class="p">)</span>
-                
-                <span class="k">return</span> <span class="p">[</span><span class="n">generator</span><span class="p">[</span><span class="n">_type</span><span class="p">](</span><span class="n">p</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">_np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">generator</span><span class="p">[</span><span class="n">_type</span><span class="p">])(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;parameter k must be of type int&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">generator</span><span class="p">[</span><span class="n">_type</span><span class="p">](</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Geometric.cdf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="nb">float</span><span class="p">]:</span>
+<div class="viewcode-block" id="Geometric.cdf"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">],</span> <span class="nb">int</span><span class="p">],</span> <span class="n">_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Args: </span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[int], int, numpy.ndarray]): random variable(s)</span>
+<span class="sd">            _type (str, optional): optional specifier for modifying the type of Geometric distribution. Defaults to &#39;first&#39;.</span>
 
-<span class="sd">            type(keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.</span>
-<span class="sd">            x (Union[List[int], int]): list of random variables</span>
+<span class="sd">        Raises:</span>
+<span class="sd">            TypeError: when random variable(s) are not of type int</span>
+<span class="sd">            ValueError: when a _type parameter is not &#39;first&#39; or second</span>
 
-<span class="sd">        Returns: </span>
-<span class="sd">            cumulative distribution evaluation to some point specified by k or scatter plot of geometric distribution.</span>
-
-<span class="sd">        Note: there are two configurations of cdf. </span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[numpy.ndarray, float]: evaluation of cdf at x</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">p</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
 
         <span class="k">try</span><span class="p">:</span>
-            <span class="n">generator</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="mi">1</span><span class="o">-</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span>    
-                        <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span><span class="n">k</span><span class="p">:</span> <span class="mi">1</span><span class="o">-</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
+            <span class="n">generator</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;first&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="mi">1</span><span class="o">-</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">),</span>
+                         <span class="s1">&#39;second&#39;</span><span class="p">:</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="mi">1</span><span class="o">-</span><span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">p</span><span class="p">,</span> <span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)}</span>
 
-            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">List</span><span class="p">):</span>
-                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">_np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                    <span class="n">x</span> <span class="o">=</span> <span class="n">_np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">_np</span><span class="o">.</span><span class="n">issubdtype</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">_np</span><span class="o">.</span><span class="n">integer</span><span class="p">):</span>
                     <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;parameter k must be of type int&#39;</span><span class="p">)</span>
-                <span class="k">return</span>  <span class="p">[</span><span class="n">generator</span><span class="p">[</span><span class="n">_type</span><span class="p">](</span><span class="n">p</span><span class="p">,</span><span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+                <span class="k">return</span> <span class="n">_np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">generator</span><span class="p">[</span><span class="n">_type</span><span class="p">])(</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;parameter k must be of type int&#39;</span><span class="p">)</span>
             <span class="k">return</span> <span class="n">generator</span><span class="p">[</span><span class="n">_type</span><span class="p">](</span><span class="n">p</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span>
 
         <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
-
-
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Geometric.mean"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_type</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -235,8 +241,9 @@
             <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
         <span class="k">elif</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span>
-        <span class="k">else</span><span class="p">:</span>  
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Geometric.median"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_type</span><span class="o">=</span><span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -253,8 +260,9 @@
             <span class="k">return</span> <span class="n">_ceil</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">_log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)))</span>
         <span class="k">elif</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="n">_ceil</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">_log2</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">)))</span> <span class="o">-</span> <span class="mi">1</span>
-        <span class="k">else</span><span class="p">:</span> 
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Geometric.mode"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;first&#39;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -271,8 +279,9 @@
             <span class="k">return</span> <span class="mi">1</span>
         <span class="k">elif</span> <span class="n">_type</span> <span class="o">==</span> <span class="s2">&quot;second&quot;</span><span class="p">:</span>
             <span class="k">return</span> <span class="mi">0</span>
-        <span class="k">else</span><span class="p">:</span> 
-            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;Invalid argument. Type is either &#39;first&#39; or &#39;second&#39;.&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Geometric.var"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -295,7 +304,6 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">6</span> <span class="o">+</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="o">**</span><span class="mi">2</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">p</span><span class="p">))</span></div>
 
-    
 <div class="viewcode-block" id="Geometric.keys"><a class="viewcode-back" href="../../../discrete.html#source.discrete.Geometric.Geometric.keys">[docs]</a>    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>

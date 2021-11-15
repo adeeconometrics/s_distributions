@@ -6,11 +6,12 @@ try:
 except Exception as e:
     print(f"some modules are missing {e}")
 
+
 class Bernoulli(Finite):
     """
     This class contains methods concerning the Bernoulli Distribution. Bernoulli Distirbution is a special
     case of Binomial Distirbution [#]_ [#]_. 
-    
+
     .. math:: 
         \\text{Bernoulli} (x;p) = p^n (1-p)^{1-x}
 
@@ -25,78 +26,86 @@ class Bernoulli(Finite):
         .. [#] Wikipedia contributors. (2020, December 26). Bernoulli distribution. https://en.wikipedia.org/w/index.php?title=Bernoulli_distribution&oldid=996380822
     """
 
-    def __init__(self, p:float):
+    def __init__(self, p: float):
         if p < 0 or p > 1:
             raise ValueError('parameter k is constrained in ∈ [0,1]')
         self.p = p
 
-    def pmf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
+    def pmf(self, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[int], int, numpy.ndarray]): random variable(s)
 
-            x (Union[List[int], int]): random variable or list of random variables. Value should either be 0 or 1.
+        Raises:
+            ValueError: when there exist a value of x that is not 0 or 10
 
-        Returns: 
-            probability mass evaluation of Bernoulli distribution to some point specified by the random variable
-            or a list of its corresponding value specified by the parameter x.
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pmf at x
         """
         p = self.p
 
-        if isinstance(x, List):
-            x = _np.fromiter(x,int)
-            if _np.all(_np.logical_or(x==0, x == 1)) == False:
+        if isinstance(x, (List, _np.ndarray)):
+            if not type(x) is _np.array:
+                x = _np.array(x)
+            if _np.all(_np.logical_or(x == 0, x == 1)) == False:
                 raise ValueError('all x must either be 1 or 0')
-            return _np.piecewise(x,[x==0, x!=0], [1-p, p])
+            return _np.piecewise(x, [x == 0, x != 0], [1-p, p])
 
         if x != 1 or x != 0:
             raise ValueError('all x must either be 1 or 0')
         return 1-p if x == 0 else p
 
     @staticmethod
-    def pmf_s(p:float, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
+    def pmf_s(p: float, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
+            p (float): event of success, either 0 or 1
+            x (Union[List[int], int, numpy.ndarray]): random variable(s)
 
-            x (Union[List[int], int]): random variable or list of random variables. Value should either be 0 or 1.
+        Raises:
+            ValueError: when parameter p does not belong to the domain [0,1]
+            ValueError: when there exist a value in a random variable that is not 0 or 1
 
-        Returns: 
-            probability mass evaluation of Bernoulli distribution to some point specified by the random variable
-            or a list of its corresponding value specified by the parameter x.
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pmf at x
         """
         if p < 0 or p > 1:
             raise ValueError('parameter p is constrained in ∈ [0,1]')
 
-        if isinstance(x, List):
-            x = _np.fromiter(x,int)
-            if _np.all(_np.logical_or(x==0, x == 1)) == False:
+        if isinstance(x, (List, _np.ndarray)):
+            if not type(x) is _np.array:
+                x - _np.array(x)
+            if _np.all(_np.logical_or(x == 0, x == 1)) == False:
                 raise ValueError('all x must either be 1 or 0')
-            return _np.piecewise(x,[x==0, x!=0], [1-p, p])
+            return _np.piecewise(x, [x == 0, x != 0], [1-p, p])
 
         if x != 1 or x != 0:
             raise ValueError('all x must either be 1 or 0')
         return 1-p if x == 0 else p
 
-    def cdf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[int], int, numpy.ndarray]): data point(s) of interest
 
-           x (Union[List[int], int]): random variable or list of random variables. Value should either be 0 or 1.
+        Raises:
+            ValueError: when there exist a value of x not equal to 0 or 1
 
-        Returns: 
-            commulative density function of Bernoulli distribution to some point specified by the random variable
-            or a list of its corresponding value specified by the parameter x.
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         p = self.p
 
-        if isinstance(x, List):
-            x = _np.fromiter(x,int)
-            if _np.any(_np.logical_or(x!=0, x != 1)):
+        if isinstance(x, (List, _np.ndarray)):
+            if not type(x) is _np.array:
+                x = _np.array(x)
+            if _np.any(_np.logical_or(x != 0, x != 1)):
                 raise ValueError('all x must either be 1 or 0')
-            return _np.piecewise(x,[x<0, (x>=0)*(x<1), x>=1], [0.0, 1-p, 1.0])
+            return _np.piecewise(x, [x < 0, (x >= 0)*(x < 1), x >= 1], [0.0, 1-p, 1.0])
 
         if x != 1 or x != 0:
             raise ValueError('all x must either be 1 or 0')
-        return 0.0 if x<0 else (1-p if x>=0 and x>1 else 1)
+        return 0.0 if x < 0 else (1-p if x >= 0 and x > 1 else 1)
 
     def mean(self) -> float:
         """

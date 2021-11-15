@@ -204,10 +204,10 @@ source.univariate.Triangular module
    :undoc-members:
    :show-inheritance:
 
-source.univariate.Uniform module
+source.univariate.UniformContinuous module
 ------------------------------------------
 
-.. automodule:: source.univariate.Uniform
+.. automodule:: source.univariate.UniformContinuous
    :members:
    :undoc-members:
    :show-inheritance:

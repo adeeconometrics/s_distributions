@@ -1,7 +1,7 @@
 try:
     import numpy as _np
     from scipy.special import gammainc as _gammainc
-    from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
+    from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, exp as _exp, factorial as _factorial
     from typing import Union, Tuple, Dict, List
     from discrete._base import Infinite
 except Exception as e:
@@ -16,7 +16,7 @@ class Poisson(Infinite):
 
     Use the Poisson distribution to describe the number of times an event occurs in a finite observation space.
 
-    .. math:: \\text{Poisson}(x;\lambda) = \\frac{\lambda ^{x} e^{- \lambda}}{x!}
+    .. math:: \\text{Poisson}(x;\\lambda) = \\frac{\\lambda ^{x} e^{- \\lambda}}{x!}
 
     Args: 
         λ (float): expected rate if occurrences.
@@ -26,13 +26,13 @@ class Poisson(Infinite):
     References:
         .. [#] Minitab (2019). Poisson Distribution. https://bityl.co/4uYc
         .. [#] Weisstein, Eric W. "Poisson Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/PoissonDistribution.html.
-        .. [#] Wikipedia contributors. (2020, December 16). Poisson distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:53, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Poisson_distribution&oldid=994605766
+        .. [#] Wikipedia contributors. (2020, December 16). Poisson distribution. https://en.wikipedia.org/w/index.php?title=Poisson_distribution&oldid=994605766
     """
 
-    def __init__(self, λ:float):
+    def __init__(self, λ: float):
         self.λ = λ
 
-    def pmf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
+    def pmf(self, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -44,19 +44,18 @@ class Poisson(Infinite):
             or a list of its corresponding value specified by the parameter x.
         """
 
-        def __generator(k, λ): 
-            return (_np.power(λ, k) * _np.exp(-λ)) / _np.math.factorial(k)
-
         if isinstance(x, (List, _np.ndarray)):
-            if any(type(i) is not int or i < 0 for i in x):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            if any(type(i) is not int or i < 0 for i in x):  # try _np.any()
                 raise TypeError('parameter x must be a positive integer')
-            return _np.vectorize(__generator)(x, self.λ)
+            return (_np.power(self.λ, x) * _np.exp(-self.λ)) / _np.math.factorial(x)
 
         if x < 0:
             raise ValueError('parameter x must be a positive integer')
-        return __generator(x, self.λ)
+        return (pow(self.λ, x) * _exp(-self.λ)) / _factorial(x)
 
-    def cdf(self, x: Union[List[int], int]) -> Union[float, _np.ndarray]:
+    def cdf(self, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
 
@@ -68,13 +67,16 @@ class Poisson(Infinite):
             or a list of its corresponding value specified by the parameter x.
         """
         λ = self.λ
-        def __generator(k, λ): 
+
+        def __generator(k, λ):
             return _gammainc(_floor(k + 1), λ) / _np.math.factorial(_floor(k))
 
         if isinstance(x, (List, _np.ndarray)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
             if any(type(i) is not int or i < 0 for i in x):
                 raise TypeError('parameter x must be a positive integer')
-            return _np.vectorize(__generator)(x, λ)
+            return _gammainc(_floor(x + 1), λ) / _np.math.factorial(_floor(x))
 
         if x < 0:
             raise ValueError('parameter x must be a positive integer')

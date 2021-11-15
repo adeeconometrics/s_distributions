@@ -31,72 +31,78 @@ class Geometric(Finite):
     The default type is `_type='first'`, or :math:`\\text{Geometric_1}(x;p)`.
     """
 
-    def __init__(self, p:float):
+    def __init__(self, p: float):
         if p < 0 or p > 1:
             raise ValueError('parameter p is constrained at')
 
         self.p = p
 
-    def pmf(self, x: Union[List[int], int], _type: str = 'first') -> Union[List[float], float]:
+    def pmf(self, x: Union[List[int], int, _np.ndarray], _type: str = 'first') -> Union[_np.ndarray, float]:
         """
-        Args:         
-            type (keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.
-            x (Union[List[int], int]): list of random variables
+        Args:
+            x (Union[List[int], int, numpy.ndarray]): random variable(s)
+            _type (str, optional): optional specifier for modifying the type of Geometric distribution. Defaults to 'first'.
 
-        Returns: 
-            probability mass evaluation of geometric distribution to some point specified by k or a 
-            list of its corresponding value specified by the parameter x.
+        Raises:
+            TypeError: when random variable(s) are not of type int
+            ValueError: when a _type parameter is not 'first' or second
 
-        Note: there are two configurations of pmf. 
+        Returns:
+            Union[numpy.ndarray, float]: evaluation of pmf at x
         """
         p = self.p
         try:
-            generator = {'first': lambda p,k: pow(1-p, k-1)*p, 
-                        'second': lambda p,k: pow(1-p, k)*p}
-            if isinstance(x, List):
-                if any(type(i) is not int for i in x):
+            generator = {'first': lambda p, k: pow(1-p, k-1)*p,
+                         'second': lambda p, k: pow(1-p, k)*p}
+
+            if isinstance(x, (List, _np.ndarray)):
+                if not type(x) is _np.ndarray:
+                    x = _np.array(x)
+                if _np.issubdtype(x[0], _np.integer):
                     raise TypeError('parameter k must be of type int')
-                
-                return [generator[_type](p,i) for i in x]
+                return _np.vectorize(generator[_type])(p, x)
 
             if type(x) is not int:
                 raise TypeError('parameter k must be of type int')
             return generator[_type](p, x)
 
         except KeyError:
-            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
+            raise ValueError(
+                "Invalid argument. Type is either 'first' or 'second'.")
 
-    def cdf(self, x: Union[List[int], int], _type: str = 'first') -> Union[List[float], float]:
+    def cdf(self, x: Union[List[int], int], _type: str = 'first') -> Union[_np.ndarray, float]:
         """
-        Args: 
+        Args:
+            x (Union[List[int], int, numpy.ndarray]): random variable(s)
+            _type (str, optional): optional specifier for modifying the type of Geometric distribution. Defaults to 'first'.
 
-            type(keyvalue ∈[fist, second]): defaults to first. Reconfigures the type of distribution.
-            x (Union[List[int], int]): list of random variables
+        Raises:
+            TypeError: when random variable(s) are not of type int
+            ValueError: when a _type parameter is not 'first' or second
 
-        Returns: 
-            cumulative distribution evaluation to some point specified by k or scatter plot of geometric distribution.
-
-        Note: there are two configurations of cdf. 
+        Returns:
+            Union[numpy.ndarray, float]: evaluation of cdf at x
         """
         p = self.p
 
         try:
-            generator = {'first': lambda p,k: 1-pow(1-p, k),    
-                        'second': lambda p,k: 1-pow(1-p, k+1)}
+            generator = {'first': lambda p, k: 1-pow(1-p, k),
+                         'second': lambda p, k: 1-pow(1-p, k+1)}
 
-            if isinstance(x, List):
-                if any(type(i) is not int for i in x):
+            if isinstance(x, (List, _np.ndarray)):
+                if not type(x) is _np.ndarray:
+                    x = _np.array(x)
+                if _np.issubdtype(x[0], _np.integer):
                     raise TypeError('parameter k must be of type int')
-                return  [generator[_type](p,i) for i in x]
+                return _np.vectorize(generator[_type])(p, x)
 
             if type(x) is not int:
                 raise TypeError('parameter k must be of type int')
             return generator[_type](p, x)
 
         except KeyError:
-            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
-
-
+            raise ValueError(
+                "Invalid argument. Type is either 'first' or 'second'.")
 
     def mean(self, _type='first') -> float:
         """
@@ -114,8 +120,9 @@ class Geometric(Finite):
             return 1 / self.p
         elif _type == "second":
             return (1 - self.p) / self.p
-        else:  
-            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
+        else:
+            raise ValueError(
+                "Invalid argument. Type is either 'first' or 'second'.")
 
     def median(self, _type='first') -> int:
         """
@@ -132,8 +139,9 @@ class Geometric(Finite):
             return _ceil(-1 / (_log2(1 - self.p)))
         elif _type == "second":
             return _ceil(-1 / (_log2(1 - self.p))) - 1
-        else: 
-            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
+        else:
+            raise ValueError(
+                "Invalid argument. Type is either 'first' or 'second'.")
 
     def mode(self, _type: str = 'first') -> int:
         """
@@ -150,8 +158,9 @@ class Geometric(Finite):
             return 1
         elif _type == "second":
             return 0
-        else: 
-            raise ValueError("Invalid argument. Type is either 'first' or 'second'.")
+        else:
+            raise ValueError(
+                "Invalid argument. Type is either 'first' or 'second'.")
 
     def var(self) -> float:
         """
@@ -174,7 +183,6 @@ class Geometric(Finite):
         """
         return 6 + (self.p**2 / (1 - self.p))
 
-    
     def keys(self) -> Dict[str, Union[float, int]]:
         """
         Returns:

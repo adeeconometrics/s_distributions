@@ -48,8 +48,8 @@ class Binomial(Finite):
         p = self.p
 
         if isinstance(x, (List,_np.ndarray)):
-            x = _np.array(x)
-
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
         return _binom(n,x)*p**x*(1-p)**(n-x)
 
     def cdf(self, x:Union[int, List[int], _np.ndarray]) -> Union[int, _np.ndarray]:
@@ -65,10 +65,9 @@ class Binomial(Finite):
         p = self.p
 
         if isinstance(x,List):
-            x = _np.array(x)
-
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
         return _betainc(n-x,1+x,1-p)
-
 
     def mean(self) -> float:
         """

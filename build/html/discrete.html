@@ -218,14 +218,19 @@ case of Binomial Distirbution <a class="footnote-reference brackets" href="#id3"
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.cdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables. Value should either be 0 or 1.</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>, </em><em>numpy.ndarray</em><em>]</em>) -- data point(s) of interest</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>commulative density function of Bernoulli distribution to some point specified by the random variable
-or a list of its corresponding value specified by the parameter x.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x not equal to 0 or 1</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -284,28 +289,44 @@ or a list of its corresponding value specified by the parameter x.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.pmf">
-<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.pmf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.pmf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables. Value should either be 0 or 1.</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>, </em><em>numpy.ndarray</em><em>]</em>) -- random variable(s)</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>probability mass evaluation of Bernoulli distribution to some point specified by the random variable
-or a list of its corresponding value specified by the parameter x.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x that is not 0 or 10</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pmf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Bernoulli.Bernoulli.pmf_s">
-<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pmf_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.pmf_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.pmf_s" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">static</span> </em><span class="sig-name descname"><span class="pre">pmf_s</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Bernoulli.html#Bernoulli.pmf_s"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Bernoulli.Bernoulli.pmf_s" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- random variable or list of random variables. Value should either be 0 or 1.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>p</strong> (<em>float</em>) -- event of success, either 0 or 1</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>, </em><em>numpy.ndarray</em><em>]</em>) -- random variable(s)</p></li>
+</ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>probability mass evaluation of Bernoulli distribution to some point specified by the random variable
-or a list of its corresponding value specified by the parameter x.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>ValueError</strong> -- when parameter p does not belong to the domain [0,1]</p></li>
+<li><p><strong>ValueError</strong> -- when there exist a value in a random variable that is not 0 or 1</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pmf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -534,19 +555,27 @@ Y=X-1 of failures before the first success, supported on the set {0,1,2,3,...} <
 The default type is <cite>_type='first'</cite>, or <span class="math notranslate nohighlight">\(\text{Geometric_1}(x;p)\)</span>.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.cdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type</strong> (<em>keyvalue ∈</em><em>[</em><em>fist</em><em>, </em><em>second</em><em>]</em>) -- defaults to first. Reconfigures the type of distribution.</p></li>
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- list of random variables</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>, </em><em>numpy.ndarray</em><em>]</em>) -- random variable(s)</p></li>
+<li><p><strong>_type</strong> (<em>str</em><em>, </em><em>optional</em>) -- optional specifier for modifying the type of Geometric distribution. Defaults to 'first'.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>cumulative distribution evaluation to some point specified by k or scatter plot of geometric distribution.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> -- when random variable(s) are not of type int</p></li>
+<li><p><strong>ValueError</strong> -- when a _type parameter is not 'first' or second</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[numpy.ndarray, float]</p>
 </dd>
 </dl>
-<p>Note: there are two configurations of cdf.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -631,20 +660,27 @@ The default type is <cite>_type='first'</cite>, or <span class="math notranslate
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Geometric.Geometric.pmf">
-<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.pmf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">_type</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">str</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">'first'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Geometric.html#Geometric.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Geometric.Geometric.pmf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type</strong> (<em>keyvalue ∈</em><em>[</em><em>fist</em><em>, </em><em>second</em><em>]</em>) -- defaults to first. Reconfigures the type of distribution.</p></li>
-<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>]</em>) -- list of random variables</p></li>
+<li><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>int</em><em>]</em><em>, </em><em>int</em><em>, </em><em>numpy.ndarray</em><em>]</em>) -- random variable(s)</p></li>
+<li><p><strong>_type</strong> (<em>str</em><em>, </em><em>optional</em>) -- optional specifier for modifying the type of Geometric distribution. Defaults to 'first'.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>probability mass evaluation of geometric distribution to some point specified by k or a
-list of its corresponding value specified by the parameter x.</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><ul class="simple">
+<li><p><strong>TypeError</strong> -- when random variable(s) are not of type int</p></li>
+<li><p><strong>ValueError</strong> -- when a _type parameter is not 'first' or second</p></li>
+</ul>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pmf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[numpy.ndarray, float]</p>
 </dd>
 </dl>
-<p>Note: there are two configurations of pmf.</p>
 </dd></dl>
 
 <dl class="py method">
@@ -847,12 +883,12 @@ approximate the Poisson distribution <a class="footnote-reference brackets" href
 <dd><p>Weisstein, Eric W. &quot;Poisson Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/PoissonDistribution.html">https://mathworld.wolfram.com/PoissonDistribution.html</a>.</p>
 </dd>
 <dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id21">12</a></span></dt>
-<dd><p>Wikipedia contributors. (2020, December 16). Poisson distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:53, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766">https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766</a></p>
+<dd><p>Wikipedia contributors. (2020, December 16). Poisson distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766">https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766</a></p>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.cdf">
-<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.cdf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -909,7 +945,7 @@ or a list of its corresponding value specified by the parameter x.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Poisson.Poisson.pmf">
-<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.pmf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Poisson.html#Poisson.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Poisson.Poisson.pmf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
