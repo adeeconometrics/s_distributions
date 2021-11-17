@@ -19,6 +19,8 @@ currently supported features:
 - standard deviation
 - p value
 - entropy
+- changed
+
 
 ----
 
