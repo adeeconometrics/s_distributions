@@ -42,7 +42,7 @@ class Uniform(BoundedInterval):
             x0 = 1/(b-a)
             if isinstance(x, List):
                 x = _np.array(x)
-            return _np.piecewise(x, [_np.logical_and(a <= x, x <= b), _np.logical_or(a > x, x > b)], [lambda x: x0, lambda x: 0.0])
+            return _np.piecewise(x, [(a <= x) & (x <= b), (a > x) | (x > b)], [x0, 0.0])
 
         return 1 / (b - a) if a <= x and x <= b else 0.0
 

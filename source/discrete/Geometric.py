@@ -58,7 +58,7 @@ class Geometric(Finite):
             if isinstance(x, (List, _np.ndarray)):
                 if not type(x) is _np.ndarray:
                     x = _np.array(x)
-                if _np.issubdtype(x[0], _np.integer):
+                if not _np.issubdtype(x[0], _np.integer):
                     raise TypeError('parameter k must be of type int')
                 return _np.vectorize(generator[_type])(p, x)
 
@@ -92,7 +92,7 @@ class Geometric(Finite):
             if isinstance(x, (List, _np.ndarray)):
                 if not type(x) is _np.ndarray:
                     x = _np.array(x)
-                if _np.issubdtype(x[0], _np.integer):
+                if not _np.issubdtype(x[0], _np.integer):
                     raise TypeError('parameter k must be of type int')
                 return _np.vectorize(generator[_type])(p, x)
 

@@ -1,6 +1,7 @@
 try:
     import numpy as _np
     from typing import Union, Tuple, Dict, List
+    from math import floor as _floor
     from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -15,20 +16,20 @@ class Uniform(Base):
 
     Args: 
         data (int): sample size
-    
+
     Reference:
         .. [#] NIST/SEMATECH e-Handbook of Statistical Methods (2012). Uniform Distribution. Retrieved from http://www.itl.nist.gov/div898/handbook/, December 26, 2020.
     """
 
     def __init__(self, a: int, b: int):
         if type(a) and type(b) is not int:
-            raise TypeError(f'parameter a and b should be of type integer')
+            raise TypeError('parameter a and b should be of type integer')
 
         self.a = a
         self.b = b
         self.n = abs(b-a+1)
 
-    def pmf(self, x: Union[List[float], float]) -> Union[float, List[float]]:
+    def pmf(self, x: Union[List[int], _np.ndarray, int]) -> Union[float,  _np.ndarray]:
         """
         Args:
             x (Union[List[float], float]): random variables
@@ -36,11 +37,13 @@ class Uniform(Base):
         Returns:
             Union[float, List[float]]: evaluation of pmf at x
         """
-        if isinstance(x, List):
-            return [1/self.n]*len(x)
+        if isinstance(x, (List, _np.ndarray)):
+            x = _np.empty(len(x))
+            x[:] = 1/self.n
+            return x
         return 1 / self.n
 
-    def cdf(self, x: Union[List[float], int]) -> Union[float, List[float]]:
+    def cdf(self, x: Union[List[int], _np.ndarray, int]) -> Union[float,  _np.ndarray]:
         """
         Args:
             x (Union[List[float], int]): random variables
@@ -49,9 +52,13 @@ class Uniform(Base):
             Union[float, List[float]]: evaluation of pmf at x
         """
 
-        if isinstance(x, List):
-            return [i/self.n for i in x]
-        return x/self.n
+        a, b, n = self.a, self.b, self.n
+
+        if isinstance(x, (List, _np.ndarray)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            return _np.piecewise(x, [x < a, (x >= a) & (x <= b), x > b], [0.0, lambda x: (_np.floor(x-a) + 1)/n, 1.0])
+        return (_floor(x-a) + 1)/n if x >= a and x <= b else (0.0 if x < a else 1.0)
 
     def mean(self) -> float:
         """

@@ -47,7 +47,7 @@ class Poisson(Infinite):
         if isinstance(x, (List, _np.ndarray)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if any(type(i) is not int or i < 0 for i in x):  # try _np.any()
+            if not _np.issubdtype(x[0], _np.integer):
                 raise TypeError('parameter x must be a positive integer')
             return (_np.power(self.λ, x) * _np.exp(-self.λ)) / _np.math.factorial(x)
 
@@ -68,19 +68,16 @@ class Poisson(Infinite):
         """
         λ = self.λ
 
-        def __generator(k, λ):
-            return _gammainc(_floor(k + 1), λ) / _np.math.factorial(_floor(k))
-
         if isinstance(x, (List, _np.ndarray)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if any(type(i) is not int or i < 0 for i in x):
+            if not _np.issubdtype(x[0], _np.integer):
                 raise TypeError('parameter x must be a positive integer')
             return _gammainc(_floor(x + 1), λ) / _np.math.factorial(_floor(x))
 
         if x < 0:
             raise ValueError('parameter x must be a positive integer')
-        return __generator(x, λ)
+        return  _gammainc(_floor(x + 1), λ) / _np.math.factorial(_floor(x))
 
     def mean(self) -> float:
         """
