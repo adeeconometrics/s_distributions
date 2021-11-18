@@ -61,7 +61,7 @@ class Triangular(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(a > x, x > b)):
+            if _np.any((a > x) | (x > b)):
                 raise ValueError(
                     'all random variables are expected to be between a and b parameters')
             return _np.vectorize(__generator)(a, b, c, x)

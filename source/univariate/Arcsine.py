@@ -37,7 +37,7 @@ class Arcsine(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+            if _np.any((x <= 0) | (x >= 1)):
                 raise ValueError(
                     f'random variable should have values between [0,1].')
             return 1/(_pi * _np.sqrt(x*(1-x)))
@@ -66,7 +66,7 @@ class Arcsine(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+            if _np.any((x <= 0) | (x >= 1)):
                 raise ValueError(
                     f'values can only be evaluated in the domain [0,1]')
             return 1/(_pi)*_np.arcsin(_np.sqrt(x))

@@ -53,7 +53,7 @@ class Beta(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+            if _np.any((x <= 0)|(x >= 1)):
                 raise ValueError(
                     'random variables should only be between 0 and 1')
             return (_np.power(x, a-1)*_np.power(1-x, b-1))/_beta(a, b)

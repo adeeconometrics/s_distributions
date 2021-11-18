@@ -42,14 +42,11 @@ class Logistic(Infinite):
         mu = self.location
         s = self.scale
 
-        def __generator(mu: float, s: float, x: Union[float, _np.ndarray]) -> Union[_np.ndarray, float]:
-            return _np.exp(-(x - mu) / s) / (s * (1 + _np.exp(-(x - mu) / s))**2)
-
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            return __generator(mu, s, x)
-        return __generator(mu, s, x)
+            return _np.exp(-(x - mu) / s) / (s * (1 + _np.exp(-(x - mu) / s))**2)
+        return _exp(-(x - mu) / s) / (s * (1 + _exp(-(x - mu) / s))**2)
 
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
         """

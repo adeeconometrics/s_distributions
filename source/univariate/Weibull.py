@@ -48,10 +48,9 @@ class Weibull(SemiInfinite):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
 
-            def f1(x): return 0.0
-            def f2(x): return _np.power(shape/scale*x/scale, shape-1) * \
+            def f1(x): return _np.power(shape/scale*x/scale, shape-1) * \
                 _np.exp(-_np.power(x/scale, shape))
-            return _np.piecewise(x, [x < 0, x >= 0], [f1, f2])
+            return _np.piecewise(x, [x < 0, x >= 0], [0.0, f1])
 
         return pow((shape/scale)*(x/scale), shape-1)*_exp(-pow(x/scale, shape)) if x >= 0 else 0.0
 
@@ -72,8 +71,8 @@ class Weibull(SemiInfinite):
                 x = _np.array(x)
 
             def f1(x): return 1 - _np.exp(-_np.power(x/scale, shape))
-            def f2(x): return 0.0
-            return _np.piecewise(x, [x >= 0, x < 0], [f1, f2])
+
+            return _np.piecewise(x, [x >= 0, x < 0], [f1, 0.0])
 
         return 1-_exp(-pow(x/scale, shape)) if x >= 0 else 0.0
 

@@ -1,8 +1,8 @@
 try:
     from scipy.special import zeta as _zeta
-    import numpy as np
-    from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, log2 as _log2
-    from typing import Union, Tuple, Dict, List
+    import numpy as _np
+    from math import sqrt as _sqrt
+    from typing import Union, Dict, List
     from discrete._base import Base
 except Exception as e:
     print(f"some modules are missing {e}")
@@ -12,7 +12,7 @@ class Zeta(Base):
     """
     This class contains methods concerning the Zeta Distribution [#]_ [#]_.
 
-    .. math:: \\text{Zeta}(x;s) =\\frac{\\frac{1}{x^s}}{\zeta(s)}
+    .. math:: \\text{Zeta}(x;s) =\\frac{\\frac{1}{x^s}}{\\zeta(s)}
 
     Args:
         - s (float): main parameter
@@ -26,26 +26,31 @@ class Zeta(Base):
     def __init__(self, s: float):
         self.s = s
 
-    def pmf(self, x: Union[List[int], int]) -> Union[int, float, List[int]]:
+    def pmf(self, x: Union[List[int], _np.ndarray, int]) -> Union[float, _np.ndarray]:
         """
         Args:
-            x (Union[List[int], int]): random variables
+            x (Union[List[int], _np.ndarray, int]): random variable(s)
+
+        Raises:
+            TypeError: when types are not of type integer
 
         Returns:
-            Union[int, float, List[int]]: evaluation of pmf at x
+            Union[float, _np.ndarray]: evaluation of pmf at x
         """
         s = self.s
-        def __generator(s, k): return (1 / k**s) / _zeta(s)
 
-        if isinstance(x, List):
-            return [__generator(s, i) for i in x]  # double check this function
+        if isinstance(x, (List, _np.ndarray)):
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            if not _np.issubdtype(x[0], _np.integer):
+                raise TypeError('random variables must be of type integer')
 
-        return __generator(s, x)
+        return (1/x**s)/_zeta(s)
 
-    def cdf(self, x: List[int] = None) -> Union[int, float, List[int]]:
+    def cdf(self, x: List[int]) -> Union[int, float, List[int]]:
         """
         Args:
-            x (List[int], optional): random variables. Defaults to None.
+            x (List[int]): random variables.
 
         Returns:
             Union[int, float, List[int]]: evaluation of cdf at x. Currently NotImplemented
@@ -115,7 +120,7 @@ class Zeta(Base):
         Returns: 
             the kurtosis of Zeta Distribution.
         """
-        s = self.s 
+        s = self.s
         if s <= 5:
             return "undefined"
 
@@ -123,8 +128,9 @@ class Zeta(Base):
         _x1 = _zeta(s)
         _x3 = _zeta(s-1)
 
-        scale = 1/pow(_x0*_x1 - _x3**2,2)
-        numerator = (_zeta(s-4)*_x1**3) - (4*_x3*_zeta(s-3)*_x1**2) + (6*_x3**2*_x0*_x1-3*_x3**4)
+        scale = 1/pow(_x0*_x1 - _x3**2, 2)
+        numerator = (_zeta(s-4)*_x1**3) - (4*_x3*_zeta(s-3)
+                                           * _x1**2) + (6*_x3**2*_x0*_x1-3*_x3**4)
         return scale*numerator
 
     def summary(self) -> Dict[str, Union[float, int, str]]:

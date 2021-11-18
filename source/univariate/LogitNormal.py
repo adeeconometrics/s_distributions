@@ -46,7 +46,7 @@ class LogitNormal(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x < 0, x > 1)):
+            if _np.any((x < 0)|(x > 1)):
                 raise ValueError(
                     'random variable should only be in between 0 and 1')
             return (1/(sig*_sqrt(2*_pi))) * _np.exp(-(_np.power(_logit(x)-mu, 2)/(2*pow(sig, 2)))) * 1/(x*(1-x))

@@ -59,7 +59,7 @@ class Bernoulli(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+            if _np.any((x <= 0)|(x >= 1)):
                 raise ValueError('random variable must be between 0 and 1')
             return __C(self.shape) * _np.power(shape, x)*_np.power(1-shape, 1-x)
 
@@ -83,7 +83,7 @@ class Bernoulli(BoundedInterval):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x <= 0, x >= 1)):
+            if _np.any((x <= 0)|(x >= 1)):
                 raise ValueError('values must be between 0 and 1')
             return (_np.power(shape, x)*_np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
 

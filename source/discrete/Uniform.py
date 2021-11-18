@@ -32,11 +32,12 @@ class Uniform(Base):
     def pmf(self, x: Union[List[int], _np.ndarray, int]) -> Union[float,  _np.ndarray]:
         """
         Args:
-            x (Union[List[float], float]): random variables
+            x (Union[List[int], _np.ndarray, int]): random variable(s)
 
         Returns:
-            Union[float, List[float]]: evaluation of pmf at x
+            Union[float,  _np.ndarray]: evaluation of pmf at x
         """
+
         if isinstance(x, (List, _np.ndarray)):
             x = _np.empty(len(x))
             x[:] = 1/self.n
@@ -46,10 +47,10 @@ class Uniform(Base):
     def cdf(self, x: Union[List[int], _np.ndarray, int]) -> Union[float,  _np.ndarray]:
         """
         Args:
-            x (Union[List[float], int]): random variables
+            x (Union[List[int], _np.ndarray, int]): data point(s)
 
         Returns:
-            Union[float, List[float]]: evaluation of pmf at x
+            Union[float,  _np.ndarray]: evaluation of cdf at x
         """
 
         a, b, n = self.a, self.b, self.n
@@ -57,6 +58,8 @@ class Uniform(Base):
         if isinstance(x, (List, _np.ndarray)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
+            if not _np.issubdtype(x[0], _np.integer):
+                raise TypeError('random variables must be of type integer')
             return _np.piecewise(x, [x < a, (x >= a) & (x <= b), x > b], [0.0, lambda x: (_np.floor(x-a) + 1)/n, 1.0])
         return (_floor(x-a) + 1)/n if x >= a and x <= b else (0.0 if x < a else 1.0)
 

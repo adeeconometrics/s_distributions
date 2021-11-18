@@ -1,7 +1,7 @@
 try:
     import numpy as _np
     from scipy.special import gammainc as _gammainc
-    from math import sqrt as _sqrt, ceil as _ceil, floor as _floor, exp as _exp, factorial as _factorial
+    from math import ceil as _ceil, floor as _floor, exp as _exp, factorial as _factorial
     from typing import Union, Tuple, Dict, List
     from discrete._base import Infinite
 except Exception as e:
@@ -35,13 +35,14 @@ class Poisson(Infinite):
     def pmf(self, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[int], int, _np.ndarray]): random variable(s)
 
-            x (List[int]): random variable or list of random variables
-            Reference: https://en.wikipedia.org/wiki/Poisson_distribution
+        Raises:
+            TypeError: when types not of type integer
+            ValueError: when x is less than 0
 
-        Returns: 
-            probability mass evaluation of Poisson distribution to some point specified by the random variable
-            or a list of its corresponding value specified by the parameter x.
+        Returns:
+            Union[float, _np.ndarray]: evaluation of pmf at x
         """
 
         if isinstance(x, (List, _np.ndarray)):
@@ -58,13 +59,14 @@ class Poisson(Infinite):
     def cdf(self, x: Union[List[int], int, _np.ndarray]) -> Union[float, _np.ndarray]:
         """
         Args:
+            x (Union[List[int], int, _np.ndarray]): data point(s) of interest
 
-            x (List[int]): random variable or list of random variables
-            Reference: https://en.wikipedia.org/wiki/Poisson_distribution
+        Raises:
+            TypeError: when types are not of type integer
+            ValueError: when x is les than 0
 
-        Returns: 
-            commulative density function of Poisson distribution to some point specified by the random variable
-            or a list of its corresponding value specified by the parameter x.
+        Returns:
+            Union[float, _np.ndarray]: evaluation of cdf at x
         """
         λ = self.λ
 
@@ -77,7 +79,7 @@ class Poisson(Infinite):
 
         if x < 0:
             raise ValueError('parameter x must be a positive integer')
-        return  _gammainc(_floor(x + 1), λ) / _np.math.factorial(_floor(x))
+        return _gammainc(_floor(x + 1), λ) / _factorial(_floor(x))
 
     def mean(self) -> float:
         """

@@ -60,9 +60,10 @@ class Trapezoidal(BoundedInterval):
                 return (2/(d+c-a-b))*(d-x)/(d-c)
 
         if isinstance(x, (_np.ndarray, List)):
-            if type(x) is _np.ndarray:
-                _np.vectorize(__generator)(a, b, c, d, x)
-            return _np.array([__generator(a, b, c, d, i) for i in x])
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            return _np.vectorize(__generator)(a, b, c, d, x)
+
         return __generator(a, b, c, d, x)
 
     def cdf(self, x: Union[List[float], _np.ndarray, float]) -> Union[float, _np.ndarray]:
@@ -85,9 +86,10 @@ class Trapezoidal(BoundedInterval):
                 return 1 - (d-x)**2/((d+c-a-b)*(d-c))
 
         if isinstance(x, (_np.ndarray, List)):
-            if type(x) is _np.ndarray:
-                _np.vectorize(__generator)(a, b, c, d, x)
-            return _np.array([__generator(a, b, c, d, i) for i in x])
+            if not type(x) is _np.ndarray:
+                x = _np.array(x)
+            return _np.vectorize(__generator)(a, b, c, d, x)
+
         return __generator(a, b, c, d, x)
 
     def mean(self) -> float:

@@ -40,7 +40,7 @@ class Uniform(BoundedInterval):
 
         if isinstance(x, (_np.ndarray, List)):
             x0 = 1/(b-a)
-            if isinstance(x, List):
+            if not type(x) is _np.ndarray:
                 x = _np.array(x)
             return _np.piecewise(x, [(a <= x) & (x <= b), (a > x) | (x > b)], [x0, 0.0])
 
@@ -66,7 +66,7 @@ class Uniform(BoundedInterval):
                 return 1.0
 
         if isinstance(x, (_np.ndarray, List)):
-            if isinstance(x, List):
+            if not type(x) is _np.ndarray:
                 x = _np.array(x)
             # performance could be improved with np.piecewise
             return _np.vectorize(__generator)(a, b, x)

@@ -54,7 +54,7 @@ class Erlang(SemiInfinite):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x < 0, x > 1)):
+            if _np.any((x < 0)|(x > 1)):
                 raise ValueError(
                     'random variable should only be in between 0 and 1')
             return pow(rate, shape) * _np.power(x, shape-1)*_np.exp(-rate*x) / _factorial(shape-1)
@@ -81,7 +81,7 @@ class Erlang(SemiInfinite):
         if isinstance(x, (_np.ndarray, List)):
             if not type(x) is _np.ndarray:
                 x = _np.array(x)
-            if _np.any(_np.logical_or(x < 0, x > 1)):
+            if _np.any((x < 0)|(x > 1)):
                 raise ValueError(
                     'random variable should only be in between 0 and 1')
             return _gammainc(shape, rate*x)/_factorial(shape-1)
