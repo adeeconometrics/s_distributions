@@ -8,7 +8,7 @@ except Exception as e:
 try:
     from unittest import TestCase
     from math import sqrt
-    from Binomial import Binomial
+    from Finite import Binomial, Finite
     from _base import Base
 except Exception as e:
     print(e)

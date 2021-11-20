@@ -7,12 +7,11 @@ except Exception as e:
 
 try:
     from unittest import TestCase
-    import unittest
     from scipy.special import gammainc
     import numpy as _np
     from math import sqrt, ceil, floor
-    from discrete.Poisson import Poisson
-    from discrete._base import Base, Finite
+    from Infinite import Poisson, Infinite
+    from _base import Base
 except Exception as e:
     print(e)
 

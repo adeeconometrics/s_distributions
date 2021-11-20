@@ -1,4 +1,4 @@
-try: # this is temporary, remove when tests are moved in a separate folder
+try:  # this is temporary, remove when tests are moved in a separate folder
     import sys
     from os.path import dirname, abspath
     sys.path.append(dirname(dirname(abspath(__file__))))
@@ -7,12 +7,10 @@ except Exception as e:
 
 try:
     from unittest import TestCase
-    import unittest
     from scipy.special import binom
-    import numpy as _np
     from math import sqrt, ceil, floor
-    from discrete.Hypergeometric import Hypergeometric
-    from discrete._base import Base, Finite
+    from Finite import Hypergeometric, Finite
+    from _base import Base
 except Exception as e:
     print(e)
 
@@ -21,24 +19,25 @@ class TestHypergeometric(TestCase):
 
     def setUp(self):
         # test values
-        N,K,k,n = 50, 5, 4, 10
-        self.N, self.K, self.k, self.n = N,K,k,n
-        self.test_list = [1,2,3,4,5]
+        N, K, k, n = 50, 5, 4, 10
+        self.N, self.K, self.k, self.n = N, K, k, n
+        self.test_list = [1, 2, 3, 4, 5]
         # formulas
-        self.pmf = lambda N,K,k,n: binom(K,k)*binom(N-K, n-k)/binom(N,n)
+        self.pmf = lambda N, K, k, n: binom(K, k)*binom(N-K, n-k)/binom(N, n)
         # self.cdf = lambda p,k: 0 if k < 0 else (1-p if k >= 0 and k <1 else 1)
         self.mean = self.n*self.K/self.N
         self.median = "undefined"
         self.mode = ceil((n+1)*(K+1)/(N+2))-1, floor((n+1)*(K+1)/(N+2))
         self.var = n*(K/N)*(N - K)/N * (N - n)/(N-1)
-        self.sk = ((N - 2 * K) * sqrt(N - 1) *(N - 2 * n)) / (sqrt(n * K * (N - K) * (N - n)) * (N - 2))
+        self.sk = ((N - 2 * K) * sqrt(N - 1) * (N - 2 * n)) / \
+            (sqrt(n * K * (N - K) * (N - n)) * (N - 2))
         scale = 1 / (n * k*(N - K) * (N - n) * (N - 2) * (N - 3))
         self.ku = scale * ((N - 1) * N**2 * (N * (N + 1) - (6 * K * (N - K)) -
-                                          (6 * n * (N - n))) +
-                        (6 * n * K*(N - K) * (N - n) * (5 * N - 6)))
+                                             (6 * n * (N - n))) +
+                           (6 * n * K*(N - K) * (N - n) * (5 * N - 6)))
 
-        self.dist = Hypergeometric(N,K,k,n)
-        
+        self.dist = Hypergeometric(N, K, k, n)
+
         # test preconditions
         self.assertIsInstance(self.dist, Finite)
         self.assertIsInstance(self.dist, Base)
@@ -47,7 +46,8 @@ class TestHypergeometric(TestCase):
         # self.assertRaises(TypeError, Hypergeometric(1.5,2))
 
     def test_pmf(self):
-        self.assertEqual(self.dist.pmf(), self.pmf(self.N, self.K, self.k, self.n))
+        self.assertEqual(self.dist.pmf(), self.pmf(
+            self.N, self.K, self.k, self.n))
 
     # def test_cdf(self):
     #     self.assertEqual(self.dist.cdf(self.k), self.cdf(self.p,1))

@@ -1,19 +1,22 @@
 try:
+    from abc import abstractmethod
     from tabulate import tabulate
 except Exception as e:
     print(f"some modules are missing {e}")
 
-class Base:  
+
+class Base:
     def __init__(self):
         if type(self) is Base:
-            raise TypeError('Discrete Univariate Base class cannot be instantiated.')
+            raise TypeError(
+                'Discrete Univariate Base class cannot be instantiated.')
 
-    def __str__(self)->str:
+    def __str__(self) -> str:
         pairs = self.summary()
-        return tabulate([[k,v] for k,v in zip(pairs.keys(), pairs.values())],
+        return tabulate([[k, v] for k, v in zip(pairs.keys(), pairs.values())],
                         tablefmt="github")
 
-    def table(self)->None:
+    def table(self) -> None:
         """Prints out table summary. 
         """
         print(self)
@@ -80,20 +83,6 @@ class Base:
         """
         return NotImplemented
 
-class Finite(Base):
-    """
-    Description:
-        Base class for probability tags.
-    """
-    def __init__(self):
-        if type(self) is Finite:
-            raise TypeError('base class cannot be instantiated.')
-
-class Infinite(Base):
-    """
-    Description:
-        Base class for probability tags.
-    """
-    def __init__(self):
-        if type(self) is Infinite:
-            raise TypeError('base class cannot be instantiated.')
+    @abstractmethod
+    def summary(self):
+        pass

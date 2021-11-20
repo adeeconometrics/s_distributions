@@ -8,8 +8,8 @@ except Exception as e:
 try:
     from unittest import TestCase
     from math import sqrt
-    from Bernoulli import Bernoulli
-    from _base import Base, Finite
+    from Finite import Bernoulli, Finite
+    from _base import Base
 except Exception as e:
     print(e)
 

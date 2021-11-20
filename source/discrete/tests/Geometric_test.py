@@ -9,8 +9,8 @@ try:
     from unittest import TestCase
     import unittest
     from math import sqrt, log2, ceil
-    from Geometric import Geometric
-    from _base import Base, Finite
+    from Finite import Geometric, Finite
+    from _base import Base
 except Exception as e:
     print(e)
 

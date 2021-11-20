@@ -9,8 +9,7 @@ Welcome to s_distributions's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
-      discrete
-      univariate
+      modules
 
 Indices and tables
 ==================
