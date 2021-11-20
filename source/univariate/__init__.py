@@ -7,7 +7,9 @@ There are two ways we can deal about it:
 from univariate._base import Base
 from univariate.BoundedInterval import (BoundedInterval, Arcsine, Beta, 
                                         BetaRectangular, Bernoulli, Bates, 
-                                        Triangular, LogitNormal, Uniform, Trapezoidal)
+                                        Triangular, LogitNormal, Uniform, Trapezoidal, 
+                                        WignerSemiCircle, Kumaraswamy, Reciprocal, 
+                                        RaisedCosine, UQuadratic)
 
 from univariate.Infinite import (Infinite, Cauchy, T, Gaussian, 
                                 Laplace, Logistic, Fisher, AssymetricLaplace,

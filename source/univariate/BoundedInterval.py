@@ -1119,18 +1119,328 @@ class Trapezoidal(BoundedInterval):
         }
 
 
-# class WignerSemiCircle(BoundedInterval): ...
+class WignerSemiCircle(BoundedInterval): 
+
+    def __init__(self, radius:float):
+        if radius <= 0:
+            raise ValueError('')
+
+        self.radius = radius
+
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        
+        rad = self.radius
+        x0 = 2/(m.pi*rad**2)
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+
+            # checks x <= R; x >= -R
+            if np.any((x < -rad) | (x > rad)):
+                raise ValueError(f'random variable is expected to be defined within [-{rad},{rad}]')
+            return x0 * np.sqrt(rad**2 - np.power(x,2))
+        
+        if x < -rad or x > rad:
+            raise ValueError(f'random variable is expected to be defined within [-{rad},{rad}]')
+        return x0*m.sqrt(rad**2 - x**2)
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+
+        rad = self.radius
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+
+            # checks x <= R; x >= -R
+            if np.any((x < -rad) | (x > rad)):
+                raise ValueError(
+                    f'data points are expected to be defined within [-{rad},{rad}]')
+            return 0.5 + (x*np.sqrt(rad**2 - x**2))/(m.pi*rad**2) + np.arcsin(1/rad)/m.pi
+
+        if x < -rad or x > rad:
+            raise ValueError(
+                f'data points are expected to be defined within [-{rad},{rad}]')
+        return 0.5 + (x*m.sqrt(rad**2 - x**2))/(m.pi*rad**2) + m.asin(1/rad)/m.pi
+
+    def mean(self)->float:
+        return 0.0
+    
+    def median(self) -> float:
+        return 0.0
+
+    def mode(self) -> float: 
+        return 0.0
+    
+    def var(self) -> float:
+        return pow(self.radius, 4)
+
+    def std(self)-> float:
+        return pow(self.radius, 2)
+
+    def skewness(self)-> float:
+        return 0.0
+
+    def kurtorsis(self) -> float:
+        return -1.0
+    
+    def entropy(self) -> float:
+        return m.log(m.pi* self.radius) * -0.5
+
+    def summary(self) -> Dict[str, float]:
+        """
+        Returns:
+            Dictionary of WignerSemiCircle distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
 
 # class IrwinHall(BoundedInterval): ...
 
-# class Kumaraswamy(BoundedInterval): ...
+class Kumaraswamy(BoundedInterval): 
+    
+    def __init__(self, a:float, b:float):
+        if a <= 0 or b <= 0:
+            raise ValueError('parameters are expected to have positive values')
 
-# class Reciprical(BoundedInterval): ...
+        self.a, self.b = a,b
+    
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        
+        a,b = self.a, self.b
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+            if np.any((x<=0) | (x >= 1)):
+                raise ValueError('random variables are expected to be within (0,1)')
+        else:
+            if x <= 0 or x >= 1:
+                raise ValueError('random variables are expected to be within (0,1)')
+        
+        return a*b*x**(a-1)*(1-x**a)**(b-1)
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        a,b = self.a, self.b
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+            if np.any((x<=0) | (x >= 1)):
+                raise ValueError('data points are expected to be within (0,1)')
+        else:
+            if x <= 0 or x >= 1:
+                raise ValueError('data points are expected to be within (0,1)')
+        
+        return 1 - (1-x**a)**b
+        
+
+    def mean(self) -> float: 
+        a,b = self.a, self.b
+        return b*ss.gamma(1+1/a)*ss.gamma(b)/ss.gamma(1+1/a+b)
+
+    def median(self) -> float: 
+        return pow(1-pow(2,-1/self.b), 1/self.a)
+
+    def mode(self) -> Union[float,str]: 
+        a, b = self.a, self.b
+        if a >= 1 and b >= 1:
+            return pow((a-1)/(a*b-1), 1/a)
+        return 'Undefined'
+
+    def var(self) -> float: ...
+    def std(self) -> float: ...
+    def skewness(self) -> float: ...
+    def kurtosis(self) -> float: ...
+
+    def entropy(self) -> float: ...
+    
+    def summary(self) -> Dict[str, Union[float, str]]:
+        """
+        Returns:
+            Dictionary of Kumaraswamy distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
+
+
+class Reciprocal(BoundedInterval): 
+    
+    def __init__(self, a:float, b:float):
+        if a < 0 or b < 0:
+            raise ValueError('parameters are expected to be greater than 0')
+        if a >= b:
+            raise ValueError('parameter a is expected to be less than b')
+        
+        self.a, self.b = a,b
+    
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        a,b = self.a, self.b
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+
+        return 1/(x*m.log(b/a))
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        a,b = self.a, self.b
+        x0 = (m.log(b/a))
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+            return np.log(x/a)/x0
+        return m.log(x/a)/x0
+
+    def mean(self) -> float: 
+        a,b = self.a, self.b
+        return (b-a)/m.log(b/a)
+
+    def variance(self) -> float:
+        a,b = self.a, self.b
+        x0 = (b**2 - a**2)/(2*m.log(b/a))
+        x1 = pow((b-a)/m.log(b/a),2)
+        return x0 - x1
+
+    def std(self) -> float: 
+        return m.sqrt(self.var())
+
+    def summary(self) -> Dict[str, float]:
+        """
+        Returns:
+            Dictionary of Reciprocal distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
+
+
+class RaisedCosine(BoundedInterval): 
+    def __init__(self, mu:float, s:float): 
+        if s < 0:
+            raise ValueError('parameter s is expected to be s <= 0')
+        self.mu, self.s = mu, s
+
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        mu, s = self.mu, self.s
+        l_bound, u_bound = mu-s, mu+s
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)            
+            if np.any((x< l_bound) | (x>u_bound)):
+                raise ValueError(f'random variables are expected to be in [{l_bound},{u_bound}]')
+        else:
+            if x < l_bound or x > u_bound:
+                raise ValueError(f'random variables are expected to be in [{l_bound},{u_bound}]')
+        return (1/2*s)*(1 + np.cos(m.pi*(x-mu)/s))
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        mu, s = self.mu, self.s
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)            
+        return 0.5*(1 + (x-mu)/s + 1/m.pi*np.sin(m.pi*(x-mu)/s))
+
+    def mean(self) -> float: 
+        return self.mu
+
+    def median(self) -> float: 
+        return self.mu
+
+    def mode(self) -> float: 
+        return self.mu
+
+    def var(self) -> float: 
+        return self.s**2*(1/3 + 2/m.pi)
+
+    def std(self) -> float: 
+        return m.sqrt(self.s**2*(1/3 + 2/m.pi))
+
+    def skewness(self) -> float: 
+        return 0.0
+
+    def kurtosis(self) -> float: 
+        # 6*(90-m.pi**4)/(5*(m.pi**2 - 6)**2)
+        return -0.5937628755982794
+
+    def summary(self) -> Dict[str, float]:
+        """
+        Returns:
+            Dictionary of Raised Cosine distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
+
+
+class UQuadratic(BoundedInterval): 
+    
+    def __init__(self, a:float, b:float): 
+        if a >= b:
+            raise ValueError('parameter a is expected to be less than b')
+        
+        self.a, self.b = a,b 
+    
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        a,b = self.a, self.b
+        midpoint = (a+b)/2
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+            if np.any((x<a) | (x>b)):
+                raise ValueError()
+        else:
+            if x < a or x  >b:
+                raise ValueError()
+        
+        return a*(x - midpoint)**2 
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        a,b = self.a, self.b
+        midpoint = (a+b)/2
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+            if np.any((x<a) | (x>b)):
+                raise ValueError()
+        else:
+            if x < a or x  >b:
+                raise ValueError()
+        
+        return a/3*((x-midpoint)**3 - (midpoint-a)**3)
+
+    def mean(self) -> float: 
+        return (self.a + self.b) / 2
+
+    def median(self) -> float: 
+        return (self.a + self.b) / 2
+
+    def mode(self) -> Tuple[float, float]:
+        return (self.a, self.b)
+
+    def var(self) -> float: 
+        return 3/20*pow(self.b - self.a, 2)
+
+    def std(self) -> float: 
+        return m.sqrt(3/20*pow(self.b - self.a, 2))
+
+    def skewness(self) -> float: 
+        return 0.0
+
+    def kurtosis(self) -> float: 
+        return 3/112*pow(self.b - self.a, 4)
+
 
 # class PERT(BoundedInterval): ...
 
-# class RaisedCosine(BoundedInterval): ...
 
-# class UQuadratic(BoundedInterval): ...
-
-# class BaldinNichold(BoundedInterval): ...
+# class BaldingNichols(BoundedInterval): ...
