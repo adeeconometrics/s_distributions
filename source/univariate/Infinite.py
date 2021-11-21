@@ -426,7 +426,7 @@ class Laplace(Infinite):
     This class contains methods concerning Laplace Distirbution [#]_.
 
     .. math::
-        \\text{Laplace}(x;\\mu, \\b) = \\frac{1}{2b} \\exp{- \\frac{|x - \\mu}{b}}
+        \\text{Laplace}(x;\\mu, b) = \\frac{1}{2b} \\exp{- \\frac{|x - \\mu}{b}}
 
     Args:
 
@@ -850,11 +850,17 @@ class GNV1(Infinite):
     """
     This class contains methods concerning to Generalized Normal Distribution V1 [#]_. 
 
+    .. math:: 
+        \\text{GNV1}(x; \\mu, \\alpha, \\beta) = \\frac{\\beta}{2 \\alpha \\Gamma(1/\\beta)} e^{(- |x-\\mu|/ \\alpha)^\\beta}
+
     Args:
-        loc (float): location parameter :math:`\\mean`
+        loc (float): location parameter :math:`\\mu`
         scale (float): scale parameter :math:`\\alpha`
         shape (float): shape parameter :math:`\\beta`
         x (float): random variable
+
+    Reference:
+        .. [#] Wikipedia Contributors (2021). Generalized normal distribution. https://en.wikipedia.org/wiki/Generalized_normal_distribution.
     """
 
     def __init__(self, loc: float, scale: float, shape: float) -> None:
@@ -876,8 +882,8 @@ class GNV1(Infinite):
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
                 x = np.array(x)
-            return x0*np.exp(np.power(-np.abs(x-mu)/a, 2))
-        return x0*m.exp(pow(-abs(x-mu)/a, 2))
+            return x0*np.exp(np.power(-np.abs(x-mu)/a, b))
+        return x0*m.exp(pow(-abs(x-mu)/a, b))
 
     def cdf(self, x: Union[List[float], np.ndarray, float]
             ) -> Union[float, np.ndarray]: ...
@@ -913,7 +919,7 @@ class GNV1(Infinite):
     def summary(self) -> Dict[str, Optional[float]]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of GNV1 distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -944,25 +950,18 @@ class GNV2(Infinite):
             ) -> Union[float, np.ndarray]: ...
 
     def mean(self) -> float: ...
-
     def median(self) -> float: ...
-
     def mode(self) -> float: ...
-
     def var(self) -> float: ...
-
     def std(self) -> float: ...
-
     def skewness(self) -> float: ...
-
     def kurtosis(self) -> float: ...
-
     def entropy(self) -> float: ...
 
     def summary(self) -> Dict[str, float]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of GNV2 distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -998,15 +997,13 @@ class GH(Infinite):
             ) -> Union[float, np.ndarray]: ...
 
     def mean(self) -> float: ...
-
     def var(self) -> float: ...
-
     def std(self) -> float: ...
 
     def summary(self) -> Dict[str, float]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of GH distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -1086,7 +1083,7 @@ class HyperbolicSecant(Infinite):
     def summary(self) -> Dict[str, float]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of Hyperbolic Secant distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -1145,7 +1142,7 @@ class Slash(Infinite):
     def summary(self) -> Dict[str, Union[float, str]]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of Slash distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -1198,7 +1195,7 @@ class SkewNormal(Infinite):
     def summary(self) -> Dict[str, Optional[float]]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of Assymetric Skew Normal distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -1238,7 +1235,7 @@ class Landau(Infinite):
     def summary(self) -> Dict[str, str]:
         """
         Returns:
-            Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation. 
+            Dictionary of Assymetric Landau distirbution moments. This includes standard deviation. 
         """
         return {
             'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
@@ -1350,19 +1347,12 @@ class VarianceGamma(Infinite):
             ) -> Union[float, np.ndarray]: ...
 
     def mean(self) -> float: ...
-
     def median(self) -> float: ...
-
     def mode(self) -> float: ...
-
     def var(self) -> float: ...
-
     def std(self) -> float: ...
-
     def skewness(self) -> float: ...
-
     def kurtosis(self) -> float: ...
-
     def entropy(self) -> float: ...
 
     def summary(self) -> Dict[str, Optional[float]]:

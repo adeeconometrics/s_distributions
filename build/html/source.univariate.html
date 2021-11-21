@@ -645,7 +645,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">BetaRectangular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">theta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">min</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randvar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#BetaRectangular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.BetaRectangular" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
 <p>This class contains methods concerning Beta-rectangular Distirbution.
-Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution.</p>
+Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution <a class="footnote-reference brackets" href="#id16" id="id15">8</a> .</p>
 <div class="math notranslate nohighlight">
 \[\begin{split}\text{BetaRectangulat}(x,\alpha ,\beta ,\theta )={\begin{cases}{\frac{\theta \Gamma (\alpha +\beta )}{\Gamma (\alpha )\Gamma (\beta )}}{\frac{(x-a)^{{\alpha -1}}(b-x)^{{\beta -1}}}{(b-a)^{{\alpha +\beta +1}}}}+{\frac{1-\theta }{b-a}}&amp;{\mathrm{for}}\ a\leq x\leq b,\\[8pt]0&amp;{\mathrm{for}}\ x&lt;a\{\mathrm{or}}\ x&gt;b\end{cases}}\end{split}\]</div>
 <dl class="field-list simple">
@@ -662,7 +662,7 @@ Thus it is a bounded distribution that allows for outliers to have a greater cha
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id15"><span class="brackets"><a class="fn-backref" href="#id16">8</a></span></dt>
+<dt class="label" id="id16"><span class="brackets"><a class="fn-backref" href="#id15">8</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 7). Beta rectangular distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Beta_rectangular_distribution&amp;oldid=992814814">https://en.wikipedia.org/w/index.php?title=Beta_rectangular_distribution&amp;oldid=992814814</a></p>
 </dd>
 </dl>
@@ -716,12 +716,142 @@ Thus it is a bounded distribution that allows for outliers to have a greater cha
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">Kumaraswamy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
+<p>This class contains methods concerning the Kumaraswamy distribution <a class="footnote-reference brackets" href="#id18" id="id17">9</a> .</p>
+<div class="math notranslate nohighlight">
+\[\text{Kumaraswamy}(x;a,b) = abx^{a-1}(1-x^a)^{b-1}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) -- a parameter  <span class="math notranslate nohighlight">\(a &gt; 0\)</span></p></li>
+<li><p><strong>b</strong> (<em>float</em>) -- b parameter <span class="math notranslate nohighlight">\(b &gt; 0\)</span></p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variables <span class="math notranslate nohighlight">\(x \in (0,1)\)</span></p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><dl class="footnote brackets">
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id17">9</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). Kumaraswamy distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Kumaraswamy_distribution">https://en.wikipedia.org/wiki/Kumaraswamy_distribution</a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt;= 0 or x &gt;= 1</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.entropy">
+<span class="sig-name descname"><span class="pre">entropy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of entropy.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of kurtosis.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mode.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt;= 0 or x&gt;= 1</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of skewness.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of Kumaraswamy distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Kumaraswamy.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Kumaraswamy.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Kumaraswamy.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the variance.
+Returns NotImplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.BoundedInterval.LogitNormal">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">LogitNormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sq_scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#LogitNormal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.LogitNormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
-<p>This class contains methods concerning Logit Normal Distirbution <a class="footnote-reference brackets" href="#id15" id="id16">8</a>.</p>
+<p>This class contains methods concerning Logit Normal Distirbution <a class="footnote-reference brackets" href="#id20" id="id19">10</a>.</p>
 <div class="math notranslate nohighlight">
-\[\text{LogitNormal}(x;\mu,\sigma) = \frac{1}{\sigma \sqrt(2\pi) \cdot x(1-x)} \exp{\Big(-\frac{(logit(x)-\mu)^2}{2\sigma^2} \Big)}\]</div>
+\[\text{LogitNormal}(x;\mu,\sigma) = \frac{1}{\sigma \sqrt{2\pi} \cdot x(1-x)} \exp{\Big(-\frac{(logit(x)-\mu)^2}{2\sigma^2} \Big)}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -733,7 +863,7 @@ Thus it is a bounded distribution that allows for outliers to have a greater cha
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id18">9</a></span></dt>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id19">10</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 9). Logit-normal distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Logit-normal_distribution&amp;oldid=993237113">https://en.wikipedia.org/w/index.php?title=Logit-normal_distribution&amp;oldid=993237113</a></p>
 </dd>
 </dl>
@@ -819,10 +949,215 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">RaisedCosine</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
+<p>This class contains methods concerning the Raised Cosine distribution <a class="footnote-reference brackets" href="#id22" id="id21">11</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{RaisedCosine}(x;\mu, s) = \frac{1}{2s} \Big[ 1 + \cos \Big( \frac{x-\mu}{s} \pi \Big) \Big]\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mu</strong> (<em>float</em>) -- mu parameter <span class="math notranslate nohighlight">\(\mu \in \mathbb{R}\)</span></p></li>
+<li><p><strong>s</strong> (<em>float</em>) -- s parameter <span class="math notranslate nohighlight">\(s &gt; 0\)</span></p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variables</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id21">11</a></span></dt>
+<dd><p>Wikipedia Contributors (2020). Raised cosine distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Raised_cosine_distribution">https://en.wikipedia.org/wiki/Raised_cosine_distribution</a>.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of kurtosis.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mode.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt; mu - s or x &gt; mu + s</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of skewness.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of Raised Cosine distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.RaisedCosine.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#RaisedCosine.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.RaisedCosine.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the variance.
+Returns NotImplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">Reciprocal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
+<p>This class contains methods concerning Reciprocal distribution <a class="footnote-reference brackets" href="#id24" id="id23">12</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Reciprocal}(x;a,b) = \frac{1}{x \ln \Big( \frac{b}{a}\Big)}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) -- a parameter <span class="math notranslate nohighlight">\(a &gt; 0\)</span></p></li>
+<li><p><strong>b</strong> (<em>float</em>) -- b prameter <span class="math notranslate nohighlight">\(b &gt; 0\)</span></p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variable</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><dl class="footnote brackets">
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id23">12</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). Reciprocal distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Reciprocal_distribution">https://en.wikipedia.org/wiki/Reciprocal_distribution</a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of Reciprocal distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.Reciprocal.variance">
+<span class="sig-name descname"><span class="pre">variance</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Reciprocal.variance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Reciprocal.variance" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.BoundedInterval.Trapezoidal">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">Trapezoidal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">d</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Trapezoidal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Trapezoidal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
-<p>This class contains methods concerning Trapezoidal Distirbution <a class="footnote-reference brackets" href="#id17" id="id18">9</a>.</p>
+<p>This class contains methods concerning Trapezoidal Distirbution <a class="footnote-reference brackets" href="#id26" id="id25">13</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -836,7 +1171,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id20">10</a></span></dt>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id25">13</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, April 11). Trapezoidal distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Trapezoidal_distribution&amp;oldid=950241388">https://en.wikipedia.org/w/index.php?title=Trapezoidal_distribution&amp;oldid=950241388</a></p>
 </dd>
 </dl>
@@ -902,7 +1237,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.BoundedInterval.Triangular">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">Triangular</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Triangular"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Triangular" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
-<p>This class contains methods concerning Triangular Distirbution <a class="footnote-reference brackets" href="#id19" id="id20">10</a>.</p>
+<p>This class contains methods concerning Triangular Distirbution <a class="footnote-reference brackets" href="#id28" id="id27">14</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -915,7 +1250,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id21"><span class="brackets"><a class="fn-backref" href="#id22">11</a></span></dt>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id27">14</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 19). Triangular distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Triangular_distribution&amp;oldid=995101682">https://en.wikipedia.org/w/index.php?title=Triangular_distribution&amp;oldid=995101682</a></p>
 </dd>
 </dl>
@@ -1019,10 +1354,123 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">UQuadratic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
+<p>This class contains methods concerning U-Quadratic Distribution <a class="footnote-reference brackets" href="#id30" id="id29">15</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{UQuadratic}(x;a,b) = a \Big(x- \frac{a+b}{2}\Big)^2\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<em>float</em>) -- parameter a</p></li>
+<li><p><strong>b</strong> (<em>float</em>) -- parameter b</p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variables <span class="math notranslate nohighlight">\(x \in [a,b]\)</span></p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><dl class="footnote brackets">
+<dt class="label" id="id30"><span class="brackets"><a class="fn-backref" href="#id29">15</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). U-quadratic distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/U-quadratic_distribution">https://en.wikipedia.org/wiki/U-quadratic_distribution</a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt; a or x &gt; b</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>cdf evaluation at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of kurtosis.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mode.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x less than a or greater than b</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of skewness.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.UQuadratic.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#UQuadratic.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.UQuadratic.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the variance.
+Returns NotImplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.BoundedInterval.Uniform">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">Uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Uniform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Uniform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
-<p>This class contains methods concerning the Continuous Uniform Distribution <a class="footnote-reference brackets" href="#id21" id="id22">11</a>.</p>
+<p>This class contains methods concerning the Continuous Uniform Distribution <a class="footnote-reference brackets" href="#id32" id="id31">16</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Uniform}(x;a,b) = \frac{1}{b-a}\]</div>
 <dl class="field-list simple">
@@ -1035,7 +1483,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Referene:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id23"><span class="brackets"><a class="fn-backref" href="#id24">12</a></span></dt>
+<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id31">16</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Uniform Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/UniformDistribution.html">https://mathworld.wolfram.com/UniformDistribution.html</a></p>
 </dd>
 </dl>
@@ -1085,7 +1533,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.BoundedInterval.Uniform.mode">
-<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Uniform.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Uniform.mode" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Uniform.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Uniform.mode" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns: Mode of the Uniform distribution.</p>
 <p>Note that the mode is any value in (a,b)</p>
 </dd></dl>
@@ -1120,7 +1568,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.BoundedInterval.Uniform.summary">
-<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">int</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Uniform.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Uniform.summary" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">Tuple</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#Uniform.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.Uniform.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Dictionary of Uniform distirbution moments. This includes standard deviation.</p>
@@ -1136,6 +1584,133 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 </dd></dl>
 
+<dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.BoundedInterval.</span></span><span class="sig-name descname"><span class="pre">WignerSemiCircle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">radius</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.BoundedInterval.BoundedInterval" title="source.univariate.BoundedInterval.BoundedInterval"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.BoundedInterval.BoundedInterval</span></code></a></p>
+<p>This class contains methods concerning the Wigner Semi Circle <a class="footnote-reference brackets" href="#id34" id="id33">17</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{WignerSemiCircle}(x;r) = \frac{2}{ \pi r^2} \sqrt{r^2 - x^2}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>radius</strong> (<em>float</em>) -- raduis parameter <span class="math notranslate nohighlight">\(r &gt; 0\)</span></p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variable</p></li>
+</ul>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><dl class="footnote brackets">
+<dt class="label" id="id34"><span class="brackets"><a class="fn-backref" href="#id33">17</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). Wigner semicircle distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Wigner_semicircle_distribution">https://en.wikipedia.org/wiki/Wigner_semicircle_distribution</a>.</p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt; -rad or x &gt; rad</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.entropy">
+<span class="sig-name descname"><span class="pre">entropy</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.entropy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.entropy" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of entropy.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.kurtorsis">
+<span class="sig-name descname"><span class="pre">kurtorsis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.kurtorsis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.kurtorsis" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mode.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variables</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt; -rad or x &gt; rad</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of skewness.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of WignerSemiCircle distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.BoundedInterval.WignerSemiCircle.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/BoundedInterval.html#WignerSemiCircle.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.BoundedInterval.WignerSemiCircle.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the variance.
+Returns NotImplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
 </div>
 <div class="section" id="module-source.univariate.Infinite">
 <span id="source-univariate-infinite-module"></span><h2>source.univariate.Infinite module<a class="headerlink" href="#module-source.univariate.Infinite" title="Permalink to this headline">¶</a></h2>
@@ -1144,7 +1719,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">AssymetricLaplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asym</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#AssymetricLaplace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.AssymetricLaplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
 <blockquote>
-<div><p>This class contains methods concerning to Assymetric Laplace Ditribution <a class="footnote-reference brackets" href="#id23" id="id24">12</a>.</p>
+<div><p>This class contains methods concerning to Assymetric Laplace Ditribution <a class="footnote-reference brackets" href="#id36" id="id35">18</a>.</p>
 <div class="math notranslate nohighlight">
 \[{\displaystyle \text{AssymetricLaplace}(x;m,\lambda ,\kappa )={\]</div>
 </div></blockquote>
@@ -1157,7 +1732,7 @@ asym (float): assymetry parameter <span class="math notranslate nohighlight">\(\
 x (float): random variable</p>
 </dd>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id25"><span class="brackets"><a class="fn-backref" href="#id26">13</a></span></dt>
+<dt class="label" id="id36"><span class="brackets"><a class="fn-backref" href="#id35">18</a></span></dt>
 <dd><p>Wikipedia Contributors (2020). Assymetric Laplace Distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Asymmetric_Laplace_distribution">https://en.wikipedia.org/wiki/Asymmetric_Laplace_distribution</a></p>
 </dd>
 </dl>
@@ -1261,7 +1836,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.Cauchy">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Cauchy</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Cauchy"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Cauchy" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning the Cauchy Distribution <a class="footnote-reference brackets" href="#id25" id="id26">13</a> <a class="footnote-reference brackets" href="#id28" id="id27">14</a>.</p>
+<p>This class contains methods concerning the Cauchy Distribution <a class="footnote-reference brackets" href="#id39" id="id37">19</a> <a class="footnote-reference brackets" href="#id40" id="id38">20</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Cauchy}(x;loc, scale) = \frac{1}{\pi \cdot scale \big[ 1 + \big( \frac{x-loc}{scale} \big)^2 \big]}\]</div>
 <dl class="field-list simple">
@@ -1275,10 +1850,10 @@ Returns NotImplemented.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id27">14</a></span></dt>
+<dt class="label" id="id39"><span class="brackets"><a class="fn-backref" href="#id37">19</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, November 29). Cauchy distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Cauchy_distribution&amp;oldid=991234690">https://en.wikipedia.org/w/index.php?title=Cauchy_distribution&amp;oldid=991234690</a></p>
 </dd>
-<dt class="label" id="id29"><span class="brackets"><a class="fn-backref" href="#id30">15</a></span></dt>
+<dt class="label" id="id40"><span class="brackets"><a class="fn-backref" href="#id38">20</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Cauchy Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/CauchyDistribution.html">https://mathworld.wolfram.com/CauchyDistribution.html</a></p>
 </dd>
 </dl>
@@ -1380,7 +1955,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.Infinite.Fisher">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Fisher</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Fisher"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Fisher" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning Fisher's z-Distribution <a class="footnote-reference brackets" href="#id29" id="id30">15</a>.</p>
+<p>This class contains methods concerning Fisher's z-Distribution <a class="footnote-reference brackets" href="#id42" id="id41">21</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Fisher}(x;d_1, d_2) = \frac{2d_2^{d_1/2} d_2^{d_2/2}}{\text{B}\Big(\frac{d_1}{2}, \frac{d_2}{2}\Big)} \frac{e^{d_1 x}}{(d_1 e^{2x} + d_2)^{(d_1+d_2)/2}}\]</div>
 <dl class="field-list simple">
@@ -1396,7 +1971,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 z = 1/2*log(F)</p>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id31"><span class="brackets"><a class="fn-backref" href="#id32">16</a></span></dt>
+<dt class="label" id="id42"><span class="brackets"><a class="fn-backref" href="#id41">21</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 15). Fisher's z-distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Fisher%27s_z-distribution&amp;oldid=994427156">https://en.wikipedia.org/w/index.php?title=Fisher%27s_z-distribution&amp;oldid=994427156</a></p>
 </dd>
 </dl>
@@ -1434,7 +2009,7 @@ z = 1/2*log(F)</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.GH">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">GH</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lmbda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">asym</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#GH"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.GH" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Hyperbolic Distribution V1 <a class="footnote-reference brackets" href="#id31" id="id32">16</a>.</p>
+<p>This class contains methods concerning to Generalized Hyperbolic Distribution V1 <a class="footnote-reference brackets" href="#id45" id="id43">22</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1476,7 +2051,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#GH.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.GH.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of GH distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1494,15 +2069,25 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.GNV1">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">GNV1</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#GNV1"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.GNV1" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id37" id="id33">17</a>.</p>
+<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id49" id="id44">23</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{GNV1}(x; \mu, \alpha, \beta) = \frac{\beta}{2 \alpha \Gamma(1/\beta)} e^{(- |x-\mu|/ \alpha)^\beta}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>loc</strong> (<em>float</em>) -- location parameter <span class="math notranslate nohighlight">\(\mean\)</span></p></li>
+<li><p><strong>loc</strong> (<em>float</em>) -- location parameter <span class="math notranslate nohighlight">\(\mu\)</span></p></li>
 <li><p><strong>scale</strong> (<em>float</em>) -- scale parameter <span class="math notranslate nohighlight">\(\alpha\)</span></p></li>
 <li><p><strong>shape</strong> (<em>float</em>) -- shape parameter <span class="math notranslate nohighlight">\(\beta\)</span></p></li>
 <li><p><strong>x</strong> (<em>float</em>) -- random variable</p></li>
 </ul>
+</dd>
+</dl>
+<dl>
+<dt>Reference:</dt><dd><dl class="footnote brackets">
+<dt class="label" id="id45"><span class="brackets"><a class="fn-backref" href="#id43">22</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). Generalized normal distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Generalized_normal_distribution">https://en.wikipedia.org/wiki/Generalized_normal_distribution</a>.</p>
+</dd>
+</dl>
 </dd>
 </dl>
 <dl class="py method">
@@ -1580,7 +2165,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#GNV1.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.GNV1.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of GNV1 distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1598,7 +2183,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.GNV2">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">GNV2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#GNV2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.GNV2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Normal Distribution V2 <a class="footnote-reference brackets" href="#id38" id="id34">18</a>.</p>
+<p>This class contains methods concerning to Generalized Normal Distribution V2 <a class="footnote-reference brackets" href="#id50" id="id46">24</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -1673,7 +2258,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#GNV2.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.GNV2.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of GNV2 distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1691,7 +2276,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.Gaussian">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Gaussian</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stdev</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span> <span class="o"><span class="pre">=</span></span> <span class="default_value"><span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Gaussian"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Gaussian" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning the Gaussian Distribution <a class="footnote-reference brackets" href="#id40" id="id35">19</a> <a class="footnote-reference brackets" href="#id42" id="id36">20</a>.</p>
+<p>This class contains methods concerning the Gaussian Distribution <a class="footnote-reference brackets" href="#id52" id="id47">25</a> <a class="footnote-reference brackets" href="#id54" id="id48">26</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Gaussian}(x;\mu,\sigma) = \frac{1}{\sigma \sqrt(2 \pi)} e^{\frac{1}{2}\big( \frac{x-\mu}{\sigma}\big)^2}\]</div>
 <dl class="field-list simple">
@@ -1705,10 +2290,10 @@ Returns NotImplemented.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id37"><span class="brackets"><a class="fn-backref" href="#id33">17</a></span></dt>
+<dt class="label" id="id49"><span class="brackets"><a class="fn-backref" href="#id44">23</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 19). Gaussian distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Gaussian_distribution&amp;oldid=995237372">https://en.wikipedia.org/w/index.php?title=Gaussian_distribution&amp;oldid=995237372</a></p>
 </dd>
-<dt class="label" id="id38"><span class="brackets"><a class="fn-backref" href="#id34">18</a></span></dt>
+<dt class="label" id="id50"><span class="brackets"><a class="fn-backref" href="#id46">24</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Gaussian Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/GaussianDistribution.html">https://mathworld.wolfram.com/GaussianDistribution.html</a></p>
 </dd>
 </dl>
@@ -1810,7 +2395,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.Infinite.HyperbolicSecant">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">HyperbolicSecant</span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#HyperbolicSecant"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.HyperbolicSecant" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Hyperbolic Secant <a class="footnote-reference brackets" href="#id45" id="id39">21</a>.</p>
+<p>This class contains methods concerning to Hyperbolic Secant <a class="footnote-reference brackets" href="#id57" id="id51">27</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{HyperbolicSecant}(x) = \frac{1}{2} sech \Big(\frac{\pi}{2} x \Big)\]</div>
 <dl class="field-list simple">
@@ -1820,7 +2405,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Referneces:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id40"><span class="brackets"><a class="fn-backref" href="#id35">19</a></span></dt>
+<dt class="label" id="id52"><span class="brackets"><a class="fn-backref" href="#id47">25</a></span></dt>
 <dd><p>Wikipedia Contributors (2020). Hyperbolic secant Distirbution. <a class="reference external" href="https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution">https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution</a>.</p>
 </dd>
 </dl>
@@ -1912,7 +2497,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#HyperbolicSecant.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.HyperbolicSecant.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of Hyperbolic Secant distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -1940,7 +2525,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.JohnsonSU">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">JohnsonSU</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">xi</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lmbda</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#JohnsonSU"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.JohnsonSU" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id47" id="id41">22</a>.</p>
+<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id59" id="id53">28</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{JohnsonSU}(x;\gamma,\xi,\delta,\lambda) = \frac{\delta}{\lambda \sqrt{2\pi} \cdot \sqrt{1+\Big(\frac{x-\xi}{\lambda}\Big)}} e^{-0.5\Big(\gamma + \delta \sinh^-1 \Big(\frac{x-\xi}{\lambda}\Big) \Big)^2}\]</div>
 <dl class="field-list simple">
@@ -1956,7 +2541,7 @@ Returns NotImplemented.</p>
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id42"><span class="brackets"><a class="fn-backref" href="#id36">20</a></span></dt>
+<dt class="label" id="id54"><span class="brackets"><a class="fn-backref" href="#id48">26</a></span></dt>
 <dd><p>Wikipedia Contributors (2021). Johnson's SU-distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Johnson">https://en.wikipedia.org/wiki/Johnson</a>.</p>
 </dd>
 </dl>
@@ -2027,7 +2612,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.Landau">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Landau</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Landau"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Landau" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id49" id="id43">23</a>.</p>
+<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id61" id="id55">29</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -2066,7 +2651,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Landau.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Landau.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of Assymetric Landau distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2084,9 +2669,9 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.Infinite.Laplace">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Laplace</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Laplace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Laplace" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning Laplace Distirbution <a class="footnote-reference brackets" href="#id51" id="id44">24</a>.</p>
+<p>This class contains methods concerning Laplace Distirbution <a class="footnote-reference brackets" href="#id63" id="id56">30</a>.</p>
 <div class="math notranslate nohighlight">
-\[\text{Laplace}(x;\mu, \b) = \frac{1}{2b} \exp{- \frac{|x - \mu}{b}}\]</div>
+\[\text{Laplace}(x;\mu, b) = \frac{1}{2b} \exp{- \frac{|x - \mu}{b}}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -2098,7 +2683,7 @@ Returns NotImplemented.</p>
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id45"><span class="brackets"><a class="fn-backref" href="#id39">21</a></span></dt>
+<dt class="label" id="id57"><span class="brackets"><a class="fn-backref" href="#id51">27</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 21). Laplace distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Laplace_distribution&amp;oldid=995563221">https://en.wikipedia.org/w/index.php?title=Laplace_distribution&amp;oldid=995563221</a></p>
 </dd>
 </dl>
@@ -2202,7 +2787,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.Infinite.Logistic">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Logistic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Logistic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Logistic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning Logistic Distirbution <a class="footnote-reference brackets" href="#id53" id="id46">25</a>.</p>
+<p>This class contains methods concerning Logistic Distirbution <a class="footnote-reference brackets" href="#id65" id="id58">31</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Logistic}(x;\mu,s) = \frac{\exp{(-(x-\mu)/s)}} {s(1+\exp(-(x-\mu)/s)^2)}\]</div>
 <dl class="field-list simple">
@@ -2216,7 +2801,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id47"><span class="brackets"><a class="fn-backref" href="#id41">22</a></span></dt>
+<dt class="label" id="id59"><span class="brackets"><a class="fn-backref" href="#id53">28</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 12). Logistic distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Logistic_distribution&amp;oldid=993793195">https://en.wikipedia.org/w/index.php?title=Logistic_distribution&amp;oldid=993793195</a></p>
 </dd>
 </dl>
@@ -2320,7 +2905,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.Infinite.SkewNormal">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">SkewNormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#SkewNormal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.SkewNormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id54" id="id48">26</a>.</p>
+<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id66" id="id60">32</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{SkewNormal}(x;\xi,\omega,\alpha) = \frac{2}{\omega \sqrt{2\pi}} e^{-\frac{(x-\xi)^2}{2\omega^2}} \int_{-\infty}^{1\Big(\frac{x-\xi}{\omega}\Big)} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} \ dt\]</div>
 <dl class="field-list simple">
@@ -2335,7 +2920,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id49"><span class="brackets"><a class="fn-backref" href="#id43">23</a></span></dt>
+<dt class="label" id="id61"><span class="brackets"><a class="fn-backref" href="#id55">29</a></span></dt>
 <dd><p>Wikipedia Contributors (2021). Skew Normal Distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Skew_normal_distribution">https://en.wikipedia.org/wiki/Skew_normal_distribution</a>.</p>
 </dd>
 </dl>
@@ -2398,7 +2983,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Optional</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#SkewNormal.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.SkewNormal.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of Assymetric Skew Normal distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2417,7 +3002,7 @@ Returns NotImplemented.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Slash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Slash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Slash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
 <blockquote>
-<div><p>This class contains methods concerning to Slash Distribution <a class="footnote-reference brackets" href="#id57" id="id50">27</a>.</p>
+<div><p>This class contains methods concerning to Slash Distribution <a class="footnote-reference brackets" href="#id69" id="id62">33</a>.</p>
 <div class="math notranslate nohighlight">
 \[ext{Slash}(x) = {egin{cases}{\]</div>
 </div></blockquote>
@@ -2431,7 +3016,7 @@ rac {1}{2{sqrt {2pi }}}}&amp;x=0\end{cases}}</p>
 <dt>Args:</dt><dd><p>x (float): random variable</p>
 </dd>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id51"><span class="brackets"><a class="fn-backref" href="#id44">24</a></span></dt>
+<dt class="label" id="id63"><span class="brackets"><a class="fn-backref" href="#id56">30</a></span></dt>
 <dd><p>Wikipedia Contributors (2021). Slash Distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Slash_distribution">https://en.wikipedia.org/wiki/Slash_distribution</a></p>
 </dd>
 </dl>
@@ -2502,7 +3087,7 @@ Returns NotImplemented.</p>
 <span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Slash.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Slash.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
-<dd class="field-odd"><p>Dictionary of Assymetric Laplace distirbution moments. This includes standard deviation.</p>
+<dd class="field-odd"><p>Dictionary of Slash distirbution moments. This includes standard deviation.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -2523,7 +3108,7 @@ Returns NotImplemented.</p>
 <p>This class contains implementation of the Student's Distribution for calculating the
 probablity density function and cumulative distribution function. Additionally,
 a t-table __generator is also provided by p-value method. Note that the implementation
-of T(Student's) distribution is defined by beta-functions <a class="footnote-reference brackets" href="#id60" id="id52">28</a>.</p>
+of T(Student's) distribution is defined by beta-functions <a class="footnote-reference brackets" href="#id72" id="id64">34</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{T}(x;\nu) = \frac{1}{\sqrt{\nu}\text{B}\Big(\frac{1}{2}, \frac{\nu}{2}\Big)} \Big(1 + \frac{t^2}{\nu}\Big) ^{-\frac{\nu+1}{2}}\]</div>
 <div class="math notranslate nohighlight">
@@ -2538,10 +3123,10 @@ of T(Student's) distribution is defined by beta-functions <a class="footnote-ref
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id53"><span class="brackets"><a class="fn-backref" href="#id46">25</a></span></dt>
+<dt class="label" id="id65"><span class="brackets"><a class="fn-backref" href="#id58">31</a></span></dt>
 <dd><p>Kruschke JK (2015). Doing Bayesian Data Analysis (2nd ed.). Academic Press. ISBN 9780124058880. OCLC 959632184.</p>
 </dd>
-<dt class="label" id="id54"><span class="brackets"><a class="fn-backref" href="#id48">26</a></span></dt>
+<dt class="label" id="id66"><span class="brackets"><a class="fn-backref" href="#id60">32</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Student's t-Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/Studentst-Distribution.html">https://mathworld.wolfram.com/Studentst-Distribution.html</a></p>
 </dd>
 </dl>
@@ -2644,7 +3229,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.Infinite.VarianceGamma">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">VarianceGamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#VarianceGamma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.VarianceGamma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id61" id="id55">29</a>.</p>
+<p>This class contains methods concerning to Generalized Normal Distribution V1 <a class="footnote-reference brackets" href="#id73" id="id67">35</a>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -2740,7 +3325,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.BetaPrime">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">BetaPrime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BetaPrime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BetaPrime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Beta prime Distirbution <a class="footnote-reference brackets" href="#id64" id="id56">30</a> .</p>
+<p>This class contains methods concerning Beta prime Distirbution <a class="footnote-reference brackets" href="#id76" id="id68">36</a> .</p>
 <div class="math notranslate nohighlight">
 \[\text{BetaPrime}(x;\alpha,\beta) = \frac{x^{\alpha -1}(1+x)^{-\alpha -\beta}}{\text{B}(\alpha ,\beta )}\]</div>
 <dl class="field-list simple">
@@ -2754,7 +3339,7 @@ Returns NotImplemented.</p>
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id57"><span class="brackets"><a class="fn-backref" href="#id50">27</a></span></dt>
+<dt class="label" id="id69"><span class="brackets"><a class="fn-backref" href="#id62">33</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, October 8). Beta prime distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&amp;oldid=982458594">https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&amp;oldid=982458594</a></p>
 </dd>
 </dl>
@@ -2864,7 +3449,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Chi">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Chi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Chi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Chi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Chi distribution <a class="footnote-reference brackets" href="#id65" id="id58">31</a> <a class="footnote-reference brackets" href="#id68" id="id59">32</a>.</p>
+<p>This class contains methods concerning the Chi distribution <a class="footnote-reference brackets" href="#id77" id="id70">37</a> <a class="footnote-reference brackets" href="#id80" id="id71">38</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Chi}(x;df) = {\frac{1}{2^{(df/2)-1}\Gamma(df/2)} \cdot x^{df-1} e^{-x^2/2}}\]</div>
 <dl class="field-list simple">
@@ -2877,10 +3462,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id60"><span class="brackets"><a class="fn-backref" href="#id52">28</a></span></dt>
+<dt class="label" id="id72"><span class="brackets"><a class="fn-backref" href="#id64">34</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Chi Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/ChiDistribution.html">https://mathworld.wolfram.com/ChiDistribution.html</a></p>
 </dd>
-<dt class="label" id="id61"><span class="brackets"><a class="fn-backref" href="#id55">29</a></span></dt>
+<dt class="label" id="id73"><span class="brackets"><a class="fn-backref" href="#id67">35</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, October 16). Chi distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Chi_distribution&amp;oldid=983750392">https://en.wikipedia.org/w/index.php?title=Chi_distribution&amp;oldid=983750392</a></p>
 </dd>
 </dl>
@@ -2982,7 +3567,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.ChiSquare">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">ChiSquare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#ChiSquare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.ChiSquare" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Chi-square distribution <a class="footnote-reference brackets" href="#id69" id="id62">33</a> <a class="footnote-reference brackets" href="#id72" id="id63">34</a>.</p>
+<p>This class contains methods concerning the Chi-square distribution <a class="footnote-reference brackets" href="#id81" id="id74">39</a> <a class="footnote-reference brackets" href="#id84" id="id75">40</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{ChiSquare}(x;k) = {\frac{1}{2^{k/2}\Gamma(k/2)}\ x^{k/2-1}e^{-x/2}}\]</div>
 <dl class="field-list simple">
@@ -2995,10 +3580,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id64"><span class="brackets"><a class="fn-backref" href="#id56">30</a></span></dt>
+<dt class="label" id="id76"><span class="brackets"><a class="fn-backref" href="#id68">36</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Chi-Squared Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/Chi-SquaredDistribution.html">https://mathworld.wolfram.com/Chi-SquaredDistribution.html</a></p>
 </dd>
-<dt class="label" id="id65"><span class="brackets"><a class="fn-backref" href="#id58">31</a></span></dt>
+<dt class="label" id="id77"><span class="brackets"><a class="fn-backref" href="#id70">37</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 13). Chi-square distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&amp;oldid=994056539">https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&amp;oldid=994056539</a></p>
 </dd>
 </dl>
@@ -3100,7 +3685,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Erlang">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Erlang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Erlang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Erlang" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Erlang Distirbution <a class="footnote-reference brackets" href="#id73" id="id66">35</a> <a class="footnote-reference brackets" href="#id77" id="id67">36</a>.</p>
+<p>This class contains methods concerning Erlang Distirbution <a class="footnote-reference brackets" href="#id85" id="id78">41</a> <a class="footnote-reference brackets" href="#id89" id="id79">42</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Erlang}(x; k, \lambda) = \frac{\lambda^{k} x^{k-1} e^{\lambda x}}{(k-1)!}\]</div>
 <dl class="field-list simple">
@@ -3114,10 +3699,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id68"><span class="brackets"><a class="fn-backref" href="#id59">32</a></span></dt>
+<dt class="label" id="id80"><span class="brackets"><a class="fn-backref" href="#id71">38</a></span></dt>
 <dd><p>Wikipedia contributors. (2021, January 6). Erlang distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Erlang_distribution&amp;oldid=998655107">https://en.wikipedia.org/w/index.php?title=Erlang_distribution&amp;oldid=998655107</a></p>
 </dd>
-<dt class="label" id="id69"><span class="brackets"><a class="fn-backref" href="#id62">33</a></span></dt>
+<dt class="label" id="id81"><span class="brackets"><a class="fn-backref" href="#id74">39</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Erlang Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/ErlangDistribution.html">https://mathworld.wolfram.com/ErlangDistribution.html</a></p>
 </dd>
 </dl>
@@ -3227,7 +3812,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Exponential">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Exponential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Exponential" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contans methods for evaluating Exponential Distirbution <a class="footnote-reference brackets" href="#id78" id="id70">37</a> <a class="footnote-reference brackets" href="#id79" id="id71">38</a>.</p>
+<p>This class contans methods for evaluating Exponential Distirbution <a class="footnote-reference brackets" href="#id90" id="id82">43</a> <a class="footnote-reference brackets" href="#id91" id="id83">44</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Exponential}(x;\lambda) = \lambda e^{-\lambda x}\]</div>
 <dl class="field-list simple">
@@ -3240,10 +3825,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id72"><span class="brackets"><a class="fn-backref" href="#id63">34</a></span></dt>
+<dt class="label" id="id84"><span class="brackets"><a class="fn-backref" href="#id75">40</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Exponential Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/ExponentialDistribution.html">https://mathworld.wolfram.com/ExponentialDistribution.html</a></p>
 </dd>
-<dt class="label" id="id73"><span class="brackets"><a class="fn-backref" href="#id66">35</a></span></dt>
+<dt class="label" id="id85"><span class="brackets"><a class="fn-backref" href="#id78">41</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 17). Exponential distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Exponential_distribution&amp;oldid=994779060">https://en.wikipedia.org/w/index.php?title=Exponential_distribution&amp;oldid=994779060</a></p>
 </dd>
 </dl>
@@ -3345,7 +3930,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.F">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">F</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#F"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.F" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the F-distribution <a class="footnote-reference brackets" href="#id81" id="id74">39</a> <a class="footnote-reference brackets" href="#id83" id="id75">40</a> <a class="footnote-reference brackets" href="#id86" id="id76">41</a>.</p>
+<p>This class contains methods concerning the F-distribution <a class="footnote-reference brackets" href="#id93" id="id86">45</a> <a class="footnote-reference brackets" href="#id95" id="id87">46</a> <a class="footnote-reference brackets" href="#id98" id="id88">47</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{F}(x;d_1, d_2) = \frac{1}{\text{B}(d_1/2,d_2/2)} \Big( \frac{d_1}{d_2} \Big)^{d_1/2} x^{d_1/2 - 1} \Big(1 + \frac{d_1}{d_2}x\Big) ^{-(d_1+d_2)/2}\]</div>
 <dl class="field-list simple">
@@ -3359,13 +3944,13 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id77"><span class="brackets"><a class="fn-backref" href="#id67">36</a></span></dt>
+<dt class="label" id="id89"><span class="brackets"><a class="fn-backref" href="#id79">42</a></span></dt>
 <dd><p>Mood, Alexander; Franklin A. Graybill; Duane C. Boes (1974). Introduction to the Theory of Statistics (Third ed.). McGraw-Hill. pp. 246–249. ISBN 0-07-042864-6.</p>
 </dd>
-<dt class="label" id="id78"><span class="brackets"><a class="fn-backref" href="#id70">37</a></span></dt>
+<dt class="label" id="id90"><span class="brackets"><a class="fn-backref" href="#id82">43</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;F-Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/F-Distribution.html">https://mathworld.wolfram.com/F-Distribution.html</a></p>
 </dd>
-<dt class="label" id="id79"><span class="brackets"><a class="fn-backref" href="#id71">38</a></span></dt>
+<dt class="label" id="id91"><span class="brackets"><a class="fn-backref" href="#id83">44</a></span></dt>
 <dd><p>NIST SemaTech (n.d.). F-Distribution. Retrived from <a class="reference external" href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm">https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm</a></p>
 </dd>
 </dl>
@@ -3457,7 +4042,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Gamma">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Gamma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Gamma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning a variant of Gamma distribution <a class="footnote-reference brackets" href="#id87" id="id80">42</a>.</p>
+<p>This class contains methods concerning a variant of Gamma distribution <a class="footnote-reference brackets" href="#id99" id="id92">48</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Gamma}(x;a,b) = \frac{1}{b^a \Gamma(a)} \ x^{a-1} e^{\frac{-x}{b}}\]</div>
 <dl class="field-list simple">
@@ -3471,7 +4056,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id81"><span class="brackets"><a class="fn-backref" href="#id74">39</a></span></dt>
+<dt class="label" id="id93"><span class="brackets"><a class="fn-backref" href="#id86">45</a></span></dt>
 <dd><p>Matlab(2020). Gamma Distribution. <a class="reference external" href="https://www.mathworks.com/help/stats/gamma-distribution.html">https://www.mathworks.com/help/stats/gamma-distribution.html</a></p>
 </dd>
 </dl>
@@ -3576,7 +4161,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Gumbell">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Gumbell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Gumbell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Gumbell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Gumbel Distirbution <a class="footnote-reference brackets" href="#id89" id="id82">43</a>.</p>
+<p>This class contains methods concerning Gumbel Distirbution <a class="footnote-reference brackets" href="#id101" id="id94">49</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Gumbel}(x;\mu,\beta) = \frac{1}{\beta} \exp{-\Big( \frac{x-\mu}{\beta} + \exp{ \frac{x-\mu}{\beta}} \Big)}\]</div>
 <dl class="field-list simple">
@@ -3590,7 +4175,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id83"><span class="brackets"><a class="fn-backref" href="#id75">40</a></span></dt>
+<dt class="label" id="id95"><span class="brackets"><a class="fn-backref" href="#id87">46</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, November 26). Gumbel distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&amp;oldid=990718796">https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&amp;oldid=990718796</a></p>
 </dd>
 </dl>
@@ -3686,7 +4271,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.LogNormal">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">LogNormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randvar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#LogNormal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.LogNormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Log Normal Distribution <a class="footnote-reference brackets" href="#id92" id="id84">44</a> <a class="footnote-reference brackets" href="#id93" id="id85">45</a>.</p>
+<p>This class contains methods concerning the Log Normal Distribution <a class="footnote-reference brackets" href="#id104" id="id96">50</a> <a class="footnote-reference brackets" href="#id105" id="id97">51</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{LogNormal}(x;\mu,\sigma) = \frac{1}{x\sigma\sqrt{2\pi}} \exp{\Big( - \frac{(\ln x - \mu)^2}{2\sigma^2} \Big)}\]</div>
 <dl class="field-list simple">
@@ -3700,10 +4285,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id86"><span class="brackets"><a class="fn-backref" href="#id76">41</a></span></dt>
+<dt class="label" id="id98"><span class="brackets"><a class="fn-backref" href="#id88">47</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Log Normal Distribution.&quot; From MathWorld--A Wolfram Web Resource.https://mathworld.wolfram.com/LogNormalDistribution.html</p>
 </dd>
-<dt class="label" id="id87"><span class="brackets"><a class="fn-backref" href="#id80">42</a></span></dt>
+<dt class="label" id="id99"><span class="brackets"><a class="fn-backref" href="#id92">48</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 18). Log-normal distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&amp;oldid=994919804">https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&amp;oldid=994919804</a></p>
 </dd>
 </dl>
@@ -3808,7 +4393,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.MaxwellBoltzmann">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">MaxwellBoltzmann</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#MaxwellBoltzmann"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.MaxwellBoltzmann" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Maxwell-Boltzmann Distirbution <a class="footnote-reference brackets" href="#id96" id="id88">46</a>.</p>
+<p>This class contains methods concerning Maxwell-Boltzmann Distirbution <a class="footnote-reference brackets" href="#id108" id="id100">52</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{MaxwellBoltzmann}(x;a) = \sqrt{\frac{2}{\pi}} \frac{x^2 \exp{-x^2/(2a^2)}}{a^3}\]</div>
 <dl class="field-list simple">
@@ -3821,7 +4406,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id89"><span class="brackets"><a class="fn-backref" href="#id82">43</a></span></dt>
+<dt class="label" id="id101"><span class="brackets"><a class="fn-backref" href="#id94">49</a></span></dt>
 <dd><p>Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&amp;oldid=999883013">https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&amp;oldid=999883013</a></p>
 </dd>
 </dl>
@@ -3928,7 +4513,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Pareto">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Pareto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Pareto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Pareto" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Pareto Distribution Type 1 <a class="footnote-reference brackets" href="#id97" id="id90">47</a> <a class="footnote-reference brackets" href="#id99" id="id91">48</a>.</p>
+<p>This class contains methods concerning the Pareto Distribution Type 1 <a class="footnote-reference brackets" href="#id109" id="id102">53</a> <a class="footnote-reference brackets" href="#id111" id="id103">54</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Pareto}(x;x_m, a) = \frac{a x_m^a}{x^{a+1}}\]</div>
 <dl class="field-list simple">
@@ -3942,10 +4527,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id92"><span class="brackets"><a class="fn-backref" href="#id84">44</a></span></dt>
+<dt class="label" id="id104"><span class="brackets"><a class="fn-backref" href="#id96">50</a></span></dt>
 <dd><p>Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.</p>
 </dd>
-<dt class="label" id="id93"><span class="brackets"><a class="fn-backref" href="#id85">45</a></span></dt>
+<dt class="label" id="id105"><span class="brackets"><a class="fn-backref" href="#id97">51</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 1). Pareto distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Pareto_distribution&amp;oldid=991727349">https://en.wikipedia.org/w/index.php?title=Pareto_distribution&amp;oldid=991727349</a></p>
 </dd>
 </dl>
@@ -4050,7 +4635,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Rayleigh">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Rayleigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Rayleigh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Rayleigh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Rayleigh Distirbution <a class="footnote-reference brackets" href="#id101" id="id94">49</a> <a href="#id102"><span class="problematic" id="id103"><span id="id95"></span>[#]_</span></a>.</p>
+<p>This class contains methods concerning Rayleigh Distirbution <a class="footnote-reference brackets" href="#id113" id="id106">55</a> <a href="#id114"><span class="problematic" id="id115"><span id="id107"></span>[#]_</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Rayleigh}(x;\sigma) = \frac{x}{\sigma^2} \exp{-(x^2/(2\sigma^2))}\]</div>
 <dl class="field-list simple">
@@ -4063,10 +4648,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id96"><span class="brackets"><a class="fn-backref" href="#id88">46</a></span></dt>
+<dt class="label" id="id108"><span class="brackets"><a class="fn-backref" href="#id100">52</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 30). Rayleigh distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&amp;oldid=997166230">https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&amp;oldid=997166230</a></p>
 </dd>
-<dt class="label" id="id97"><span class="brackets"><a class="fn-backref" href="#id90">47</a></span></dt>
+<dt class="label" id="id109"><span class="brackets"><a class="fn-backref" href="#id102">53</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Rayleigh Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/RayleighDistribution.html">https://mathworld.wolfram.com/RayleighDistribution.html</a></p>
 </dd>
 </dl>
@@ -4183,7 +4768,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Weibull">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Weibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Weibull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Weibull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Weibull Distirbution <a href="#id102"><span class="problematic" id="id104"><span id="id98"></span>[#]_</span></a>.</p>
+<p>This class contains methods concerning Weibull Distirbution <a href="#id114"><span class="problematic" id="id116"><span id="id110"></span>[#]_</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Weibull}(x;\lambda, k)  = \frac{k}{\lambda} \Big( \frac{x}{\lambda}\Big)^{k-1} \exp(-(x/\lambda)^k)\]</div>
 <dl class="field-list simple">
@@ -4197,7 +4782,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id99"><span class="brackets"><a class="fn-backref" href="#id91">48</a></span></dt>
+<dt class="label" id="id111"><span class="brackets"><a class="fn-backref" href="#id103">54</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 13). Weibull distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Weibull_distribution&amp;oldid=993879185">https://en.wikipedia.org/w/index.php?title=Weibull_distribution&amp;oldid=993879185</a></p>
 </dd>
 </dl>
@@ -4283,7 +4868,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.WeibullInverse">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">WeibullInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#WeibullInverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.WeibullInverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning inverse Weilbull or the Fréchet Distirbution <a href="#id102"><span class="problematic" id="id105"><span id="id100"></span>[#]_</span></a>.</p>
+<p>This class contains methods concerning inverse Weilbull or the Fréchet Distirbution <a href="#id114"><span class="problematic" id="id117"><span id="id112"></span>[#]_</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{WeibullInverse}(x;a,s,m) = \frac{a}{s} \Big(\frac{x-m}{s} \Big) ^{-1-a} \exp{\Big(-\frac{x-m}{s} \Big)^{-a}}\]</div>
 <dl class="field-list simple">
@@ -4298,7 +4883,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id101"><span class="brackets"><a class="fn-backref" href="#id94">49</a></span></dt>
+<dt class="label" id="id113"><span class="brackets"><a class="fn-backref" href="#id106">55</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 7). Fréchet distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&amp;oldid=992938143">https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&amp;oldid=992938143</a></p>
 </dd>
 </dl>

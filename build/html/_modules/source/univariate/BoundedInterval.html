@@ -424,7 +424,7 @@
 <div class="viewcode-block" id="BetaRectangular"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.BetaRectangular">[docs]</a><span class="k">class</span> <span class="nc">BetaRectangular</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    This class contains methods concerning Beta-rectangular Distirbution.</span>
-<span class="sd">    Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution.</span>
+<span class="sd">    Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution [#]_ .</span>
 
 <span class="sd">    .. math::</span>
 <span class="sd">        \\text{BetaRectangulat}(x,\\alpha ,\\beta ,\\theta )={\\begin{cases}{\\frac{\\theta \\Gamma (\\alpha +\\beta )}{\\Gamma (\\alpha )\\Gamma (\\beta )}}{\\frac{(x-a)^{{\\alpha -1}}(b-x)^{{\\beta -1}}}{(b-a)^{{\\alpha +\\beta +1}}}}+{\\frac{1-\\theta }{b-a}}&amp;{\mathrm{for}}\ a\leq x\leq b,\\\[8pt]0&amp;{\\mathrm{for}}\ x&lt;a\{\\mathrm{or}}\ x&gt;b\\end{cases}}</span>
@@ -882,7 +882,7 @@
 <span class="sd">    This class contains methods concerning Logit Normal Distirbution [#]_.</span>
 
 <span class="sd">    .. math::</span>
-<span class="sd">        \\text{LogitNormal}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt(2\\pi) \\cdot x(1-x)} \\exp{\\Big(-\\frac{(logit(x)-\\mu)^2}{2\\sigma^2} \\Big)}</span>
+<span class="sd">        \\text{LogitNormal}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt{2\\pi} \\cdot x(1-x)} \\exp{\\Big(-\\frac{(logit(x)-\\mu)^2}{2\\sigma^2} \\Big)}</span>
 
 <span class="sd">    Args:</span>
 
@@ -1068,7 +1068,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="mi">1</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Uniform.mode"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Uniform.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+<div class="viewcode-block" id="Uniform.mode"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Uniform.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns: Mode of the Uniform distribution.</span>
 
@@ -1109,7 +1109,7 @@
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="o">-</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="Uniform.summary"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Uniform.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">int</span><span class="p">,</span> <span class="nb">int</span><span class="p">]]]:</span>
+<div class="viewcode-block" id="Uniform.summary"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Uniform.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]]]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            Dictionary of Uniform distirbution moments. This includes standard deviation. </span>
@@ -1240,21 +1240,482 @@
         <span class="p">}</span></div></div>
 
 
-<span class="c1"># class WignerSemiCircle(BoundedInterval): ...</span>
+<div class="viewcode-block" id="WignerSemiCircle"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle">[docs]</a><span class="k">class</span> <span class="nc">WignerSemiCircle</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;This class contains methods concerning the Wigner Semi Circle [#]_.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \\text{WignerSemiCircle}(x;r) = \\frac{2}{ \\pi r^2} \\sqrt{r^2 - x^2}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        radius (float): raduis parameter :math:`r &gt; 0`</span>
+<span class="sd">        x (float): random variable</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        .. [#] Wikipedia Contributors (2021). Wigner semicircle distribution. https://en.wikipedia.org/wiki/Wigner_semicircle_distribution.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">radius</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+<div class="viewcode-block" id="WignerSemiCircle.pdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variables</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt; -rad or x &gt; rad</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">rad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="mi">2</span><span class="o">/</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+            <span class="c1"># checks x &lt;= R; x &gt;= -R</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">rad</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">rad</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variable is expected to be defined within [-</span><span class="si">{rad}</span><span class="s1">,</span><span class="si">{rad}</span><span class="s1">]&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">x0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">power</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span>
+        
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">rad</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">rad</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variable is expected to be defined within [-</span><span class="si">{rad}</span><span class="s1">,</span><span class="si">{rad}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x0</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.cdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt; -rad or x &gt; rad</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of cdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">rad</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+            <span class="c1"># checks x &lt;= R; x &gt;= -R</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">rad</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;</span> <span class="n">rad</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="n">f</span><span class="s1">&#39;data points are expected to be defined within [-</span><span class="si">{rad}</span><span class="s1">,</span><span class="si">{rad}</span><span class="s1">]&#39;</span><span class="p">)</span>
+            <span class="k">return</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">arcsin</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">rad</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span>
+
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="o">-</span><span class="n">rad</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">rad</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="n">f</span><span class="s1">&#39;data points are expected to be defined within [-</span><span class="si">{rad}</span><span class="s1">,</span><span class="si">{rad}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="mf">0.5</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">x</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span><span class="o">/</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">rad</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">m</span><span class="o">.</span><span class="n">asin</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">rad</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.mean"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span><span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+    
+<div class="viewcode-block" id="WignerSemiCircle.median"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.mode"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+    
+<div class="viewcode-block" id="WignerSemiCircle.var"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.std"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.skewness"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.kurtorsis"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.kurtorsis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtorsis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">1.0</span></div>
+    
+<div class="viewcode-block" id="WignerSemiCircle.entropy"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span><span class="p">)</span> <span class="o">*</span> <span class="o">-</span><span class="mf">0.5</span></div>
+
+<div class="viewcode-block" id="WignerSemiCircle.summary"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.WignerSemiCircle.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of WignerSemiCircle distirbution moments. This includes standard deviation. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>
+            <span class="s1">&#39;var&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s1">&#39;skewness&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span><span class="p">(),</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">()</span>
+        <span class="p">}</span></div></div>
 
 <span class="c1"># class IrwinHall(BoundedInterval): ...</span>
 
-<span class="c1"># class Kumaraswamy(BoundedInterval): ...</span>
+<div class="viewcode-block" id="Kumaraswamy"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy">[docs]</a><span class="k">class</span> <span class="nc">Kumaraswamy</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;This class contains methods concerning the Kumaraswamy distribution [#]_ .</span>
 
-<span class="c1"># class Reciprical(BoundedInterval): ...</span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \\text{Kumaraswamy}(x;a,b) = abx^{a-1}(1-x^a)^{b-1}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a (float): a parameter  :math:`a &gt; 0`</span>
+<span class="sd">        b (float): b parameter :math:`b &gt; 0`</span>
+<span class="sd">        x (float): random variables :math:`x \\in (0,1)`</span>
+
+<span class="sd">    Reference:</span>
+<span class="sd">        .. [#] Wikipedia Contributors (2021). Kumaraswamy distribution. https://en.wikipedia.org/wiki/Kumaraswamy_distribution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameters are expected to have positive values&#39;</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+    
+<div class="viewcode-block" id="Kumaraswamy.pdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variable(s)</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt;= 0 or x&gt;= 1 </span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variables are expected to be within (0,1)&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variables are expected to be within (0,1)&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">*</span><span class="n">x</span><span class="o">**</span><span class="p">(</span><span class="n">a</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Kumaraswamy.cdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt;= 0 or x &gt;= 1</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of cdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span><span class="o">&lt;=</span><span class="mi">0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;data points are expected to be within (0,1)&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;data points are expected to be within (0,1)&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="mi">1</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">x</span><span class="o">**</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="n">b</span></div>
+        
+
+<div class="viewcode-block" id="Kumaraswamy.mean"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="k">return</span> <span class="n">b</span><span class="o">*</span><span class="n">ss</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="n">ss</span><span class="o">.</span><span class="n">gamma</span><span class="p">(</span><span class="mi">1</span><span class="o">+</span><span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Kumaraswamy.median"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="nb">pow</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="nb">pow</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="o">-</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Kumaraswamy.mode"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span><span class="nb">str</span><span class="p">]:</span> 
+        <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">b</span> <span class="o">&gt;=</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">pow</span><span class="p">((</span><span class="n">a</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">a</span><span class="o">*</span><span class="n">b</span><span class="o">-</span><span class="mi">1</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="n">a</span><span class="p">)</span>
+        <span class="k">return</span> <span class="s1">&#39;Undefined&#39;</span></div>
+
+<div class="viewcode-block" id="Kumaraswamy.var"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span></div>
+<div class="viewcode-block" id="Kumaraswamy.std"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span></div>
+<div class="viewcode-block" id="Kumaraswamy.skewness"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span></div>
+<div class="viewcode-block" id="Kumaraswamy.kurtosis"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span></div>
+<div class="viewcode-block" id="Kumaraswamy.entropy"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.entropy">[docs]</a>    <span class="k">def</span> <span class="nf">entropy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> <span class="o">...</span></div>
+    
+<div class="viewcode-block" id="Kumaraswamy.summary"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Kumaraswamy.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">str</span><span class="p">]]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of Kumaraswamy distirbution moments. This includes standard deviation. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>
+            <span class="s1">&#39;var&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s1">&#39;skewness&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span><span class="p">(),</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">()</span>
+        <span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="Reciprocal"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal">[docs]</a><span class="k">class</span> <span class="nc">Reciprocal</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;This class contains methods concerning Reciprocal distribution [#]_.</span>
+<span class="sd">    </span>
+<span class="sd">    .. math::</span>
+<span class="sd">        \\text{Reciprocal}(x;a,b) = \\frac{1}{x \\ln \\Big( \\frac{b}{a}\\Big)}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a (float): a parameter :math:`a &gt; 0`</span>
+<span class="sd">        b (float): b prameter :math:`b &gt; 0`</span>
+<span class="sd">        x (float): random variable</span>
+
+<span class="sd">    Reference: </span>
+<span class="sd">        .. [#] Wikipedia Contributors (2021). Reciprocal distribution. https://en.wikipedia.org/wiki/Reciprocal_distribution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>    
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameters are expected to be greater than 0&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameter a is expected to be less than b&#39;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span>
+    
+<div class="viewcode-block" id="Reciprocal.pdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variable(s)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="Reciprocal.cdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of cdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">))</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">x0</span>
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">x0</span></div>
+
+<div class="viewcode-block" id="Reciprocal.mean"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Reciprocal.variance"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal.variance">[docs]</a>    <span class="k">def</span> <span class="nf">variance</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="p">(</span><span class="n">b</span><span class="o">**</span><span class="mi">2</span> <span class="o">-</span> <span class="n">a</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">))</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">pow</span><span class="p">((</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">b</span><span class="o">/</span><span class="n">a</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">x0</span> <span class="o">-</span> <span class="n">x1</span></div>
+
+<div class="viewcode-block" id="Reciprocal.std"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">())</span></div>
+
+<div class="viewcode-block" id="Reciprocal.summary"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.Reciprocal.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of Reciprocal distirbution moments. This includes standard deviation. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>
+            <span class="s1">&#39;var&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s1">&#39;skewness&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span><span class="p">(),</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">()</span>
+        <span class="p">}</span></div></div>
+
+
+<span class="c1"># value checking on cdf</span>
+<div class="viewcode-block" id="RaisedCosine"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine">[docs]</a><span class="k">class</span> <span class="nc">RaisedCosine</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;This class contains methods concerning the Raised Cosine distribution [#]_.</span>
+
+<span class="sd">    .. math:: </span>
+<span class="sd">        \\text{RaisedCosine}(x;\\mu, s) = \\frac{1}{2s} \\Big[ 1 + \\cos \\Big( \\frac{x-\\mu}{s} \\pi \\Big) \\Big]</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mu (float): mu parameter :math:`\\mu \\in \\mathbb{R}`</span>
+<span class="sd">        s (float): s parameter :math:`s &gt; 0`</span>
+<span class="sd">        x (float): random variables</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        .. [#] Wikipedia Contributors (2020). Raised cosine distribution. https://en.wikipedia.org/wiki/Raised_cosine_distribution. </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">mu</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">s</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span> 
+        <span class="k">if</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameter s is expected to be s &lt;= 0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span> <span class="o">=</span> <span class="n">mu</span><span class="p">,</span> <span class="n">s</span>
+
+<div class="viewcode-block" id="RaisedCosine.pdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variable(s)</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt; mu - s or x &gt; mu + s</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">mu</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span>
+        <span class="n">l_bound</span><span class="p">,</span> <span class="n">u_bound</span> <span class="o">=</span> <span class="n">mu</span><span class="o">-</span><span class="n">s</span><span class="p">,</span> <span class="n">mu</span><span class="o">+</span><span class="n">s</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>            
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span><span class="o">&lt;</span> <span class="n">l_bound</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">u_bound</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variables are expected to be in [</span><span class="si">{l_bound}</span><span class="s1">,</span><span class="si">{u_bound}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">l_bound</span> <span class="ow">or</span> <span class="n">x</span> <span class="o">&gt;</span> <span class="n">u_bound</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variables are expected to be in [</span><span class="si">{l_bound}</span><span class="s1">,</span><span class="si">{u_bound}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">2</span><span class="o">*</span><span class="n">s</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="n">s</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.cdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of cdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>        
+        <span class="n">mu</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>            
+        <span class="k">return</span> <span class="mf">0.5</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">mu</span><span class="p">)</span><span class="o">/</span><span class="n">s</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.mean"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.median"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.mode"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">mu</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.var"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.std"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">s</span><span class="o">**</span><span class="mi">2</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="mi">3</span> <span class="o">+</span> <span class="mi">2</span><span class="o">/</span><span class="n">m</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.skewness"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.kurtosis"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="c1"># 6*(90-m.pi**4)/(5*(m.pi**2 - 6)**2)</span>
+        <span class="k">return</span> <span class="o">-</span><span class="mf">0.5937628755982794</span></div>
+
+<div class="viewcode-block" id="RaisedCosine.summary"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.RaisedCosine.summary">[docs]</a>    <span class="k">def</span> <span class="nf">summary</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns:</span>
+<span class="sd">            Dictionary of Raised Cosine distirbution moments. This includes standard deviation. </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">{</span>
+            <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mean</span><span class="p">(),</span> <span class="s1">&#39;median&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">median</span><span class="p">(),</span> <span class="s1">&#39;mode&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">mode</span><span class="p">(),</span>
+            <span class="s1">&#39;var&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">var</span><span class="p">(),</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">std</span><span class="p">(),</span> <span class="s1">&#39;skewness&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">skewness</span><span class="p">(),</span> <span class="s1">&#39;kurtosis&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">kurtosis</span><span class="p">()</span>
+        <span class="p">}</span></div></div>
+
+
+<div class="viewcode-block" id="UQuadratic"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic">[docs]</a><span class="k">class</span> <span class="nc">UQuadratic</span><span class="p">(</span><span class="n">BoundedInterval</span><span class="p">):</span> 
+    <span class="sd">&quot;&quot;&quot;This class contains methods concerning U-Quadratic Distribution [#]_.</span>
+
+
+<span class="sd">    .. math:: \\text{UQuadratic}(x;a,b) = a \\Big(x- \\frac{a+b}{2}\\Big)^2</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a (float): parameter a</span>
+<span class="sd">        b (float): parameter b</span>
+<span class="sd">        x (float): random variables :math:`x \\in [a,b]`</span>
+
+<span class="sd">    Reference: </span>
+<span class="sd">        .. [#] Wikipedia Contributors (2021). U-quadratic distribution. https://en.wikipedia.org/wiki/U-quadratic_distribution.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">a</span><span class="p">:</span><span class="nb">float</span><span class="p">,</span> <span class="n">b</span><span class="p">:</span><span class="nb">float</span><span class="p">):</span> 
+        <span class="k">if</span> <span class="n">a</span> <span class="o">&gt;=</span> <span class="n">b</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameter a is expected to be less than b&#39;</span><span class="p">)</span>
+        
+        <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">=</span> <span class="n">a</span><span class="p">,</span><span class="n">b</span> 
+    
+<div class="viewcode-block" id="UQuadratic.pdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.pdf">[docs]</a>    <span class="k">def</span> <span class="nf">pdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): random variable(s)</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x less than a or greater than b</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: evaluation of pdf at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="n">midpoint</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span><span class="o">&lt;</span><span class="n">a</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">b</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variables are expected to be within [</span><span class="si">{a}</span><span class="s1">,</span><span class="si">{b}</span><span class="s1">].&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">x</span>  <span class="o">&gt;</span><span class="n">b</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;random variables are expected to be within [</span><span class="si">{a}</span><span class="s1">,</span><span class="si">{b}</span><span class="s1">].&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">a</span><span class="o">*</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">midpoint</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span> </div>
+
+<div class="viewcode-block" id="UQuadratic.cdf"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">[</span><span class="nb">float</span><span class="p">],</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">]:</span> 
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest</span>
+
+<span class="sd">        Raises:</span>
+<span class="sd">            ValueError: when there exist a value of x &lt; a or x &gt; b</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            Union[float, numpy.ndarray]: cdf evaluation at x</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span><span class="p">,</span><span class="n">b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span>
+        <span class="n">midpoint</span> <span class="o">=</span> <span class="p">(</span><span class="n">a</span><span class="o">+</span><span class="n">b</span><span class="p">)</span><span class="o">/</span><span class="mi">2</span>
+
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">((</span><span class="n">x</span><span class="o">&lt;</span><span class="n">a</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">x</span><span class="o">&gt;</span><span class="n">b</span><span class="p">)):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;data points are expected to be within [</span><span class="si">{a}</span><span class="s1">, </span><span class="si">{b}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="ow">or</span> <span class="n">x</span>  <span class="o">&gt;</span><span class="n">b</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="n">f</span><span class="s1">&#39;data points are expected to be within [</span><span class="si">{a}</span><span class="s1">, </span><span class="si">{b}</span><span class="s1">]&#39;</span><span class="p">)</span>
+        
+        <span class="k">return</span> <span class="n">a</span><span class="o">/</span><span class="mi">3</span><span class="o">*</span><span class="p">((</span><span class="n">x</span><span class="o">-</span><span class="n">midpoint</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span> <span class="o">-</span> <span class="p">(</span><span class="n">midpoint</span><span class="o">-</span><span class="n">a</span><span class="p">)</span><span class="o">**</span><span class="mi">3</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UQuadratic.mean"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.mean">[docs]</a>    <span class="k">def</span> <span class="nf">mean</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="UQuadratic.median"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.median">[docs]</a>    <span class="k">def</span> <span class="nf">median</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span></div>
+
+<div class="viewcode-block" id="UQuadratic.mode"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.mode">[docs]</a>    <span class="k">def</span> <span class="nf">mode</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">b</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UQuadratic.var"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.var">[docs]</a>    <span class="k">def</span> <span class="nf">var</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="mi">3</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="UQuadratic.std"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.std">[docs]</a>    <span class="k">def</span> <span class="nf">std</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="n">m</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">3</span><span class="o">/</span><span class="mi">20</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="UQuadratic.skewness"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.skewness">[docs]</a>    <span class="k">def</span> <span class="nf">skewness</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="mf">0.0</span></div>
+
+<div class="viewcode-block" id="UQuadratic.kurtosis"><a class="viewcode-back" href="../../../source.univariate.html#source.univariate.BoundedInterval.UQuadratic.kurtosis">[docs]</a>    <span class="k">def</span> <span class="nf">kurtosis</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span> 
+        <span class="k">return</span> <span class="mi">3</span><span class="o">/</span><span class="mi">112</span><span class="o">*</span><span class="nb">pow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">b</span> <span class="o">-</span> <span class="bp">self</span><span class="o">.</span><span class="n">a</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span></div></div>
+
 
 <span class="c1"># class PERT(BoundedInterval): ...</span>
 
-<span class="c1"># class RaisedCosine(BoundedInterval): ...</span>
 
-<span class="c1"># class UQuadratic(BoundedInterval): ...</span>
-
-<span class="c1"># class BaldinNichold(BoundedInterval): ...</span>
+<span class="c1"># class BaldingNichols(BoundedInterval): ...</span>
 </pre></div>
 
               </div>

@@ -303,7 +303,7 @@ class Beta(BoundedInterval):
 class BetaRectangular(BoundedInterval):
     """
     This class contains methods concerning Beta-rectangular Distirbution.
-    Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution.
+    Thus it is a bounded distribution that allows for outliers to have a greater chance of occurring than does the beta distribution [#]_ .
 
     .. math::
         \\text{BetaRectangulat}(x,\\alpha ,\\beta ,\\theta )={\\begin{cases}{\\frac{\\theta \\Gamma (\\alpha +\\beta )}{\\Gamma (\\alpha )\\Gamma (\\beta )}}{\\frac{(x-a)^{{\\alpha -1}}(b-x)^{{\\beta -1}}}{(b-a)^{{\\alpha +\\beta +1}}}}+{\\frac{1-\\theta }{b-a}}&{\mathrm{for}}\ a\leq x\leq b,\\\[8pt]0&{\\mathrm{for}}\ x<a\{\\mathrm{or}}\ x>b\\end{cases}}
@@ -761,7 +761,7 @@ class LogitNormal(BoundedInterval):
     This class contains methods concerning Logit Normal Distirbution [#]_.
 
     .. math::
-        \\text{LogitNormal}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt(2\\pi) \\cdot x(1-x)} \\exp{\\Big(-\\frac{(logit(x)-\\mu)^2}{2\\sigma^2} \\Big)}
+        \\text{LogitNormal}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt{2\\pi} \\cdot x(1-x)} \\exp{\\Big(-\\frac{(logit(x)-\\mu)^2}{2\\sigma^2} \\Big)}
 
     Args:
 
@@ -947,7 +947,7 @@ class Uniform(BoundedInterval):
         """
         return 1 / 2 * (self.a + self.b)
 
-    def mode(self) -> Tuple[int, int]:
+    def mode(self) -> Tuple[float, float]:
         """
         Returns: Mode of the Uniform distribution.
 
@@ -988,7 +988,7 @@ class Uniform(BoundedInterval):
         """
         return m.log(self.b-self.a)
 
-    def summary(self) -> Dict[str, Union[float, Tuple[int, int]]]:
+    def summary(self) -> Dict[str, Union[float, Tuple[float, float]]]:
         """
         Returns:
             Dictionary of Uniform distirbution moments. This includes standard deviation. 
@@ -1120,7 +1120,18 @@ class Trapezoidal(BoundedInterval):
 
 
 class WignerSemiCircle(BoundedInterval): 
+    """This class contains methods concerning the Wigner Semi Circle [#]_.
 
+    .. math::
+        \\text{WignerSemiCircle}(x;r) = \\frac{2}{ \\pi r^2} \\sqrt{r^2 - x^2}
+
+    Args:
+        radius (float): raduis parameter :math:`r > 0`
+        x (float): random variable
+
+    Reference:
+        .. [#] Wikipedia Contributors (2021). Wigner semicircle distribution. https://en.wikipedia.org/wiki/Wigner_semicircle_distribution.
+    """
     def __init__(self, radius:float):
         if radius <= 0:
             raise ValueError('')
@@ -1128,7 +1139,16 @@ class WignerSemiCircle(BoundedInterval):
         self.radius = radius
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
-        
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variables
+
+        Raises:
+            ValueError: when there exist a value of x < -rad or x > rad
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
         rad = self.radius
         x0 = 2/(m.pi*rad**2)
         if isinstance(x, (List, np.ndarray)):
@@ -1145,7 +1165,16 @@ class WignerSemiCircle(BoundedInterval):
         return x0*m.sqrt(rad**2 - x**2)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
+        Raises:
+            ValueError: when there exist a value of x < -rad or x > rad
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """
         rad = self.radius
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
@@ -1199,7 +1228,20 @@ class WignerSemiCircle(BoundedInterval):
 # class IrwinHall(BoundedInterval): ...
 
 class Kumaraswamy(BoundedInterval): 
-    
+    """This class contains methods concerning the Kumaraswamy distribution [#]_ .
+
+    .. math::
+        \\text{Kumaraswamy}(x;a,b) = abx^{a-1}(1-x^a)^{b-1}
+
+    Args:
+        a (float): a parameter  :math:`a > 0`
+        b (float): b parameter :math:`b > 0`
+        x (float): random variables :math:`x \\in (0,1)`
+
+    Reference:
+        .. [#] Wikipedia Contributors (2021). Kumaraswamy distribution. https://en.wikipedia.org/wiki/Kumaraswamy_distribution.
+
+    """    
     def __init__(self, a:float, b:float):
         if a <= 0 or b <= 0:
             raise ValueError('parameters are expected to have positive values')
@@ -1207,7 +1249,16 @@ class Kumaraswamy(BoundedInterval):
         self.a, self.b = a,b
     
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
-        
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x <= 0 or x>= 1 
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
         a,b = self.a, self.b
 
         if isinstance(x, (List, np.ndarray)):
@@ -1222,6 +1273,16 @@ class Kumaraswamy(BoundedInterval):
         return a*b*x**(a-1)*(1-x**a)**(b-1)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Raises:
+            ValueError: when there exist a value of x <= 0 or x >= 1
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """        
         a,b = self.a, self.b
 
         if isinstance(x, (List, np.ndarray)):
@@ -1253,7 +1314,6 @@ class Kumaraswamy(BoundedInterval):
     def std(self) -> float: ...
     def skewness(self) -> float: ...
     def kurtosis(self) -> float: ...
-
     def entropy(self) -> float: ...
     
     def summary(self) -> Dict[str, Union[float, str]]:
@@ -1268,7 +1328,20 @@ class Kumaraswamy(BoundedInterval):
 
 
 class Reciprocal(BoundedInterval): 
+    """This class contains methods concerning Reciprocal distribution [#]_.
     
+    .. math::
+        \\text{Reciprocal}(x;a,b) = \\frac{1}{x \\ln \\Big( \\frac{b}{a}\\Big)}
+
+    Args:
+        a (float): a parameter :math:`a > 0`
+        b (float): b prameter :math:`b > 0`
+        x (float): random variable
+
+    Reference: 
+        .. [#] Wikipedia Contributors (2021). Reciprocal distribution. https://en.wikipedia.org/wiki/Reciprocal_distribution.
+
+    """    
     def __init__(self, a:float, b:float):
         if a < 0 or b < 0:
             raise ValueError('parameters are expected to be greater than 0')
@@ -1278,6 +1351,13 @@ class Reciprocal(BoundedInterval):
         self.a, self.b = a,b
     
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
         a,b = self.a, self.b
 
         if isinstance(x, (List, np.ndarray)):
@@ -1287,6 +1367,13 @@ class Reciprocal(BoundedInterval):
         return 1/(x*m.log(b/a))
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """        
         a,b = self.a, self.b
         x0 = (m.log(b/a))
         if isinstance(x, (List, np.ndarray)):
@@ -1319,13 +1406,37 @@ class Reciprocal(BoundedInterval):
         }
 
 
+# value checking on cdf
 class RaisedCosine(BoundedInterval): 
+    """This class contains methods concerning the Raised Cosine distribution [#]_.
+
+    .. math:: 
+        \\text{RaisedCosine}(x;\\mu, s) = \\frac{1}{2s} \\Big[ 1 + \\cos \\Big( \\frac{x-\\mu}{s} \\pi \\Big) \\Big]
+
+    Args:
+        mu (float): mu parameter :math:`\\mu \\in \\mathbb{R}`
+        s (float): s parameter :math:`s > 0`
+        x (float): random variables
+
+    References:
+        .. [#] Wikipedia Contributors (2020). Raised cosine distribution. https://en.wikipedia.org/wiki/Raised_cosine_distribution. 
+    """
     def __init__(self, mu:float, s:float): 
         if s < 0:
             raise ValueError('parameter s is expected to be s <= 0')
         self.mu, self.s = mu, s
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x < mu - s or x > mu + s
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
         mu, s = self.mu, self.s
         l_bound, u_bound = mu-s, mu+s
 
@@ -1340,6 +1451,13 @@ class RaisedCosine(BoundedInterval):
         return (1/2*s)*(1 + np.cos(m.pi*(x-mu)/s))
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """        
         mu, s = self.mu, self.s
 
         if isinstance(x, (List, np.ndarray)):
@@ -1381,7 +1499,20 @@ class RaisedCosine(BoundedInterval):
 
 
 class UQuadratic(BoundedInterval): 
-    
+    """This class contains methods concerning U-Quadratic Distribution [#]_.
+
+
+    .. math:: \\text{UQuadratic}(x;a,b) = a \\Big(x- \\frac{a+b}{2}\\Big)^2
+
+    Args:
+        a (float): parameter a
+        b (float): parameter b
+        x (float): random variables :math:`x \\in [a,b]`
+
+    Reference: 
+        .. [#] Wikipedia Contributors (2021). U-quadratic distribution. https://en.wikipedia.org/wiki/U-quadratic_distribution.
+
+    """
     def __init__(self, a:float, b:float): 
         if a >= b:
             raise ValueError('parameter a is expected to be less than b')
@@ -1389,6 +1520,16 @@ class UQuadratic(BoundedInterval):
         self.a, self.b = a,b 
     
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x less than a or greater than b
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """
         a,b = self.a, self.b
         midpoint = (a+b)/2
 
@@ -1396,14 +1537,24 @@ class UQuadratic(BoundedInterval):
             if not type(x) is np.ndarray:
                 x = np.array(x)
             if np.any((x<a) | (x>b)):
-                raise ValueError()
+                raise ValueError(f'random variables are expected to be within [{a},{b}].')
         else:
             if x < a or x  >b:
-                raise ValueError()
+                raise ValueError(f'random variables are expected to be within [{a},{b}].')
         
         return a*(x - midpoint)**2 
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Raises:
+            ValueError: when there exist a value of x < a or x > b
+
+        Returns:
+            Union[float, numpy.ndarray]: cdf evaluation at x
+        """
         a,b = self.a, self.b
         midpoint = (a+b)/2
 
@@ -1411,10 +1562,10 @@ class UQuadratic(BoundedInterval):
             if not type(x) is np.ndarray:
                 x = np.array(x)
             if np.any((x<a) | (x>b)):
-                raise ValueError()
+                raise ValueError(f'data points are expected to be within [{a}, {b}]')
         else:
             if x < a or x  >b:
-                raise ValueError()
+                raise ValueError(f'data points are expected to be within [{a}, {b}]')
         
         return a/3*((x-midpoint)**3 - (midpoint-a)**3)
 
