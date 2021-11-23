@@ -22,7 +22,7 @@ class SemiInfinite(Base):
 
 class Weibull(SemiInfinite):
     """
-    This class contains methods concerning Weibull Distirbution [#]_.
+    This class contains methods concerning Weibull Distirbution [#]_ [#]_.
 
     .. math::
         \\text{Weibull}(x;\\lambda, k)  = \\frac{k}{\\lambda} \\Big( \\frac{x}{\\lambda}\\Big)^{k-1} \\exp(-(x/\\lambda)^k)
@@ -34,6 +34,7 @@ class Weibull(SemiInfinite):
         randvar(float): random variable where x >= 0
 
     Reference:
+        .. [#] Wolfram Alpha (2021). Weibull Distribution. https://www.wolframalpha.com/input/?i=weibul+distribution.
         .. [#] Wikipedia contributors. (2020, December 13). Weibull distribution. https://en.wikipedia.org/w/index.php?title=Weibull_distribution&oldid=993879185
     """
 
@@ -46,40 +47,35 @@ class Weibull(SemiInfinite):
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
-            either probability density evaluation for some point or plot of Weibull distribution.
+            Union[float, numpy.ndarray]: evaluation of pdf at x
         """
         scale = self.scale
         shape = self.shape
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
+            return shape*np.exp(-(x/scale)**shape)*np.power(x/scale,shape-1)/scale
 
-            def f1(x): return np.power(shape/scale*x/scale, shape-1) * \
-                np.exp(-np.power(x/scale, shape))
-            return np.piecewise(x, [x < 0, x >= 0], [0.0, f1])
-
-        return pow((shape/scale)*(x/scale), shape-1)*m.exp(-pow(x/scale, shape)) if x >= 0 else 0.0
+        return shape*m.exp(-(x/scale)**shape)*pow(x/scale, shape-1)/scale
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
         Args:
-
-            x (List[float], numpy.ndarray): random variable or list of random variables
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
-            either cumulative distribution evaluation for some point or plot of Weibull distribution.
+            Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         scale = self.scale
         shape = self.shape
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
 
             def f1(x): return 1 - np.exp(-np.power(x/scale, shape))
 
@@ -118,6 +114,17 @@ class Weibull(SemiInfinite):
         Returns: Standard deviation of the Weilbull distribution
         """
         return m.sqrt(pow(self.scale, 2) * pow(ss.gamma(1+2/self.shape) - ss.gamma(1+1/self.shape), 2))
+
+    def skewness(self) -> float:
+        """
+        Returns: Skewness of the Weilbull distribution
+        """
+        a = self.shape
+        x0 = ss.gamma(1+1/a)
+        x1 = ss.gamma(1 + 2/a)
+        x2 = 2*pow(x0,3) - 3*x1*x0 + ss.gamma(1 + 3/a)
+        return x2 / pow(x1 - x0**2, 3/2)
+
 
     def entropy(self) -> float:
         """
@@ -179,20 +186,20 @@ class WeibullInverse(SemiInfinite):
         """
         a = self.shape
         s = self.scale
-        m = self.loc
+        loc = self.loc
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any(x <= m):
+                x = np.array(x, dtype=np.float64)
+            if np.any(x <= loc):
                 raise ValueError(
-                    f'random variables are expected to be greater than {m} -- the loc parameter')
-            return (a/s) * np.power((x-m)/s, -1-a)*np.exp(-np.power((x-m)/s, -a))
+                    f'random variables are expected to be greater than {loc} -- the loc parameter')
+            return (a/s) * np.power((x-loc)/s, -1-a)*np.exp(-np.power((x-loc)/s, -a))
 
-        if x < m:
+        if x < loc:
             raise ValueError(
-                f'random variables are expected to be greater than {m} -- the loc parameter')
-        return (a/s) * pow((x-m)/s, -1-a)*m.exp(-pow((x-m)/s, -a))
+                f'random variables are expected to be greater than {loc} -- the loc parameter')
+        return (a/s) * pow((x-loc)/s, -1-a)*m.exp(-pow((x-loc)/s, -a))
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -204,14 +211,14 @@ class WeibullInverse(SemiInfinite):
         """
         a = self.shape
         s = self.scale
-        m = self.loc
+        loc = self.loc
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return np.exp(-np.power((x-m)/s, -a))
+                x = np.array(x, dtype=np.float64)
+            return np.exp(-np.power((x-loc)/s, -a))
 
-        return m.exp(-pow((x-m)/s, -a))
+        return m.exp(-pow((x-loc)/s, -a))
 
     def mean(self) -> float:
         """
@@ -258,7 +265,9 @@ class WeibullInverse(SemiInfinite):
         """
         a = self.shape
         if a > 3:
-            return (ss.gamma(1-3/a)-3*ss.gamma(1-2/a)*ss.gamma(1-1/a)+2*ss.gamma(1-1/a)**3)/pow(ss.gamma(1-2/a)-pow(ss.gamma(1-1/a), 2), 3/2)
+            x0 = ss.gamma(1-2/a)
+            x1 = ss.gamma(1-1/a)
+            return pow(ss.gamma(1-3/a)-3*x0*x1+2*x1, 3)/pow(x0-pow(x1, 2), 3/2)
         return "infinity"
 
     def kurtosis(self) -> Union[float, str]:
@@ -267,7 +276,9 @@ class WeibullInverse(SemiInfinite):
         """
         a = self.shape
         if a > 4:
-            return -6+(ss.gamma(1-4/a)-4*ss.gamma(1-3/a)*ss.gamma(1-1/a)+3*pow(ss.gamma(1-2/a), 2))/pow(ss.gamma(1-2/a)-pow(ss.gamma(1-1/a), 2), 2)
+            x0 = ss.gamma(1-1/a)
+            x1 = ss.gamma(1-2/a)
+            return -6 + (ss.gamma(1-4/a)-4*ss.gamma(1-3/a)*x0 + 3*pow(x1, 2))/pow(x1-pow(x0, 2), 2)
         return "infinity"
 
     def summary(self) -> Dict[str, Union[float, int, str]]:
@@ -298,7 +309,7 @@ class Gamma(SemiInfinite):
         .. [#] Matlab(2020). Gamma Distribution. https://www.mathworks.com/help/stats/gamma-distribution.html
     """
 
-    def __init__(self, shape: float, b: float, x: float):
+    def __init__(self, shape: float, b: float):
         if shape < 0:
             raise ValueError('shape should be greater than 0.')
         if b < 0:
@@ -322,14 +333,14 @@ class Gamma(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any(x < 0):
+                x = np.array(x, dtype=np.float64)
+            if np.any(x <= 0):
                 raise ValueError('random variable should be greater than 0.')
-            return (1 / (pow(scale, shape) * ss.gamma(shape))) * np.log(x, shape - 1) * np.exp(-x / scale)
+            return (1 / (pow(scale, shape) * ss.gamma(shape))) * np.power(x,shape - 1) * np.exp(-x / scale)
 
-        if x < 0:
+        if x <= 0:
             raise ValueError('random variable should be greater than 0.')
-        return (1 / (pow(scale, shape) * ss.gamma(shape))) * m.log(x, shape - 1) * m.exp(-x / scale)
+        return (1 / (pow(scale, shape) * ss.gamma(shape))) * pow(x, shape - 1) * m.exp(-x / scale)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -342,15 +353,11 @@ class Gamma(SemiInfinite):
         shape = self.shape
         scale = self.scale
 
-        # there is no apparent explanation for reversing gammainc's parameter, but it works quite perfectly in my prototype
-        def __generator(shape: float, b: float, x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
-            return 1 - ss.gammainc(shape, x / b)
-
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return __generator(shape, scale, x)
-        return __generator(shape, scale, x)
+                x = np.array(x, dtype=np.float64)
+
+        return ss.gammainc(shape, x/scale)/ss.gamma(shape)
 
     def mean(self) -> Union[float, int]:
         """
@@ -470,7 +477,7 @@ class F(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError(
                     'random variables are expected to be greater than 0.')
@@ -494,7 +501,7 @@ class F(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             return ss.betainc(df1/2, df2/2, df1*x/(df1*x + df2))
 
         k = df1*x/(self.df2 + self.df1*x)
@@ -578,7 +585,7 @@ class Chi(SemiInfinite):
     This class contains methods concerning the Chi distribution [#]_ [#]_.
 
     .. math:: 
-        \\text{Chi}(x;df) = {\\frac{1}{2^{(df/2)-1}\\Gamma(df/2)} \\cdot x^{df-1} e^{-x^2/2}}
+        \\text{Chi}(x; k) = \\frac{2^{1-k/2} e^{-\\frac{x^2}{2}} x^{k-1}}{\\Gamma \\Big(\\frac{k}{2} \\Big)}
 
     Args:
 
@@ -602,19 +609,28 @@ class Chi(SemiInfinite):
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
         Args:
-            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+            x (Union[List[float], np.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x <= 0
 
         Returns:
-            Union[float, numpy.ndarray]: evaluation of pdf at x
+            Union[float, np.ndarray]: evaluation of pdf at x
         """
         df = self.df
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return (1 / (pow(2, (df / 2) - 1) * ss.gamma(df / 2))) * np.power(x, df - 1) * np.exp(np.power(-x, 2) / 2)
+                x = np.array(x, dtype=np.float64)
+            if np.any(x <= 0):
+                raise ValueError(
+                    'domain error. Random variables are defined in [0, inf)')
+            return 2**(1-df/2)*np.exp(-x**2/2)*np.power(x, df - 1)/ss.gamma(df/2)
 
-        return (1 / (pow(2, (df / 2) - 1) * ss.gamma(df / 2))) * pow(x, df - 1) * np.exp(pow(-x, 2) / 2)
+        if x <= 0:
+            raise ValueError(
+                'domain error. Random variables are defined in [0, inf)')
+        return 2**(1-df/2)*m.exp(-x**2/2)*pow(x, df - 1)/ss.gamma(df/2)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -628,7 +644,7 @@ class Chi(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             return ss.gammainc(df/2, np.power(x, 2)/2)
 
         return ss.gammainc(df/2, pow(x, 2)/2)
@@ -707,10 +723,10 @@ class Chi(SemiInfinite):
 
 class ChiSquare(SemiInfinite):
     """
-    This class contains methods concerning the Chi-square distribution [#]_ [#]_.
+    This class contains methods concerning the Chi-square distribution [#]_ [#]_ [#]_.
 
     .. math:: 
-        \\text{ChiSquare}(x;k) = {\\frac{1}{2^{k/2}\\Gamma(k/2)}\\ x^{k/2-1}e^{-x/2}}
+        \\text{ChiSquare}(x;k) = \\frac{2^{-k/2} e^{-x/2} x^{k/2 - 1}}{\\Gamma\\Big(\\frac{k}{2} \\Big)}
 
     Args:
 
@@ -718,6 +734,7 @@ class ChiSquare(SemiInfinite):
         x(float): random variable.
 
     References:
+        .. [#] Wolfram Alpha (2020). Chi-squared distribution. https://www.wolframalpha.com/input/?i=chi+squared+distribution.
         .. [#] Weisstein, Eric W. "Chi-Squared Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/Chi-SquaredDistribution.html
         .. [#] Wikipedia contributors. (2020, December 13). Chi-square distribution. https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&oldid=994056539
     """
@@ -745,16 +762,16 @@ class ChiSquare(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError(
                     'random variables are only valid for positive real numbers')
-            return (1 / (np.power(2, (df / 2) - 1) * ss.gamma(df / 2))) * np.power(x, df - 1) * np.exp(-np.power(x, 2) / 2)
+            return np.power(x, df/2 - 1) * np.exp(-x / 2) * pow(2, -df/2) / ss.gamma(df / 2)
 
         if x < 0:
             raise ValueError(
                 'random variable are only valid for positive real numbers')
-        return (1 / (pow(2, (df / 2) - 1) * ss.gamma(df / 2))) * pow(x, df - 1) * np.exp(-pow(x, 2) / 2)
+        return pow(x, df/2 - 1) * m.exp(-x / 2) * pow(2, -df/2) / ss.gamma(df / 2)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -771,7 +788,7 @@ class ChiSquare(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError(
                     'data point(s) are only valid for positive real numbers')
@@ -838,13 +855,13 @@ class ChiSquare(SemiInfinite):
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
 
-
+# cdf seem to be inconsistent
 class Erlang(SemiInfinite):
     """
-    This class contains methods concerning Erlang Distirbution [#]_ [#]_.
+    This class contains methods concerning Erlang Distirbution [#]_ [#]_ [#]_.
 
     .. math:: 
-        \\text{Erlang}(x; k, \\lambda) = \\frac{\\lambda^{k} x^{k-1} e^{\\lambda x}}{(k-1)!}
+        \\text{Erlang}(x; k, \\lambda) = \\frac{\\lambda^{k} x^{k-1} e^{-\\lambda x}}{\\Gamma(k)}
 
     Args:
 
@@ -853,6 +870,7 @@ class Erlang(SemiInfinite):
         x(float): random variable where x >= 0
 
     Reference:
+        .. [#] Wolfram Alpha (2021). Erlang Distribution. https://www.wolframalpha.com/input/?i=erlang+distribution. 
         .. [#] Wikipedia contributors. (2021, January 6). Erlang distribution. https://en.wikipedia.org/w/index.php?title=Erlang_distribution&oldid=998655107
         .. [#] Weisstein, Eric W. "Erlang Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ErlangDistribution.html
     """
@@ -884,16 +902,10 @@ class Erlang(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any((x < 0)|(x > 1)):
-                raise ValueError(
-                    'random variable should only be in between 0 and 1')
-            return pow(rate, shape) * np.power(x, shape-1)*np.exp(-rate*x) / m.factorial(shape-1)
+                x = np.array(x, dtype=np.float64)
+            return pow(rate, shape) * np.power(x, shape-1)*np.exp(-rate*x) / ss.gamma(shape)
 
-        if x < 0 or x > 1:
-            raise ValueError(
-                'random variable should only be in between 0 and 1')
-        return pow(rate, shape)*pow(x, shape-1)*m.exp(-rate*x)/m.factorial(shape-1)
+        return pow(rate, shape)*pow(x, shape-1)*m.exp(-rate*x)/ss.gamma(shape)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -911,15 +923,9 @@ class Erlang(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any((x < 0)|(x > 1)):
-                raise ValueError(
-                    'random variable should only be in between 0 and 1')
+                x = np.array(x, dtype=np.float64)
             return ss.gammainc(shape, rate*x)/m.factorial(shape-1)
 
-        if x < 0 or x > 1:
-            raise ValueError(
-                'random variable should only be in between 0 and 1')
         return ss.gammainc(shape, rate*x)/m.factorial(shape-1)
 
     def mean(self) -> float:
@@ -938,7 +944,7 @@ class Erlang(SemiInfinite):
         """
         Returns: Mode of the Erlang distribution.
         """
-        return (1/self.rate)*(self.shape-1)
+        return (self.shape-1)/ self.rate
 
     def var(self) -> float:
         """
@@ -988,9 +994,10 @@ class Erlang(SemiInfinite):
 
 class Rayleigh(SemiInfinite):
     """
-    This class contains methods concerning Rayleigh Distirbution [#]_ [#]_.
+    This class contains methods concerning Rayleigh Distirbution [#]_ [#]_ [#]_.
 
-    .. math:: \\text{Rayleigh}(x;\\sigma) = \\frac{x}{\\sigma^2} \\exp{-(x^2/(2\\sigma^2))}
+    .. math:: 
+        \\text{Rayleigh}(x;\\sigma) = \\frac{x}{\\sigma^2} \\exp{-(x^2/(2\\sigma^2))}
 
     Args:
 
@@ -998,6 +1005,8 @@ class Rayleigh(SemiInfinite):
         x(float): random variable where x >= 0
 
     Reference:
+
+        .. [#] Wolfram Alpha (2021). Rayleigh distribution. https://www.wolframalpha.com/input/?i=rayleigh+distribution.
         .. [#] Wikipedia contributors. (2020, December 30). Rayleigh distribution. https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&oldid=997166230
         .. [#] Weisstein, Eric W. "Rayleigh Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/RayleighDistribution.html
     """
@@ -1019,18 +1028,21 @@ class Rayleigh(SemiInfinite):
         Returns:
             Union[float, numpy.ndarray]: evaluation of pdf at x
         """
-        sig = self.scale  # scale to sig
+        sig = self.scale 
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError('random variable must be a positive number')
-            return x/pow(sig, 2) * np.exp(np.power(-x, 2)/(2*pow(sig, 2)))
+            x0 = pow(sig, 2)
+            return x * np.exp(-x**2/(2*x0)) /x0 
 
         if x < 0:
             raise ValueError('random variable must be a positive number')
-        return x/pow(sig, 2) * m.exp(pow(-x, 2)/(2*pow(sig, 2)))
+        
+        x0 = pow(sig, 2)
+        return x * m.exp(-x**2/(2*x0)) /x0 
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -1044,7 +1056,7 @@ class Rayleigh(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             return 1-np.exp(-np.power(x, 2)/(2*sig**2))
 
         return 1-m.exp(-x**2/(2*sig**2))
@@ -1083,7 +1095,8 @@ class Rayleigh(SemiInfinite):
         """
         Returns: Skewness of the Rayleigh distribution.
         """
-        return (2*m.sqrt(m.pi)*(m.pi-3))/pow((4-m.pi), 3/2)
+        # (2*m.sqrt(m.pi)*(m.pi-3))/pow((4-m.pi), 3/2)
+        return 0.6311106578189364
 
     def kurtosis(self) -> float:
         """
@@ -1128,14 +1141,11 @@ class Pareto(SemiInfinite):
         .. [#] Wikipedia contributors. (2020, December 1). Pareto distribution. https://en.wikipedia.org/w/index.php?title=Pareto_distribution&oldid=991727349
     """
 
-    def __init__(self, shape: float, scale: float, x: float):
+    def __init__(self, shape: float, scale: float):
         if scale < 0:
             raise ValueError('scale should be greater than 0.')
         if shape < 0:
             raise ValueError('shape should be greater than 0.')
-        if x > shape:
-            raise ValueError(
-                'random variable x should be greater than or equal to shape.')
 
         self.shape = shape
         self.scale = scale
@@ -1156,15 +1166,15 @@ class Pareto(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any(x > alpha):
+                x = np.array(x, dtype=np.float64)
+            if np.any(x < alpha):
                 raise ValueError(
-                    'random variable should be greater thaan or equal to the value of shape')
-            return np.piecewise(x, [x >= x_m, x < x_m], [lambda x: alpha*np.power(x_m, alpha)/np.power(x, alpha + 1), lambda x: 0.0])
+                    'random variable should be greater than or equal to the value of shape')
+            return alpha*np.power(x_m, alpha)/np.power(x, alpha + 1)
 
-        if x > alpha:
+        if x < alpha:
             raise ValueError(
-                'random variable should be greater thaan or equal to the value of shape')
+                'random variable should be greater than or equal to the value of shape')
         return alpha*np.power(x_m, alpha)/np.power(x, alpha + 1) if x >= x_m else 0.0
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
@@ -1181,8 +1191,8 @@ class Pareto(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return np.piecewise(x, [x >= x_m, x < x_m], [lambda x: 1 - np.power(x_m/x, alpha), lambda x: 0.0])
+                x = np.array(x, dtype=np.float64)
+            return 1 - np.power(x_m/x, alpha)
 
         return 1 - pow(x_m/x, alpha) if x >= x_m else 0.0
 
@@ -1232,7 +1242,6 @@ class Pareto(SemiInfinite):
         Returns: Skewness of the Pareto distribution.
         """
         a = self.shape
-        x_m = self.scale
         if a > 3:
             scale = (2 * (1 + a)) / (a - 3)
             return scale * m.sqrt((a - 2) / a)
@@ -1243,7 +1252,6 @@ class Pareto(SemiInfinite):
         Returns: Kurtosis of the Pareto distribution.
         """
         a = self.shape
-        x_m = self.scale
         if a > 4:
             return (6 * (a**3 + a**2 - 6 * a - 2)) / (a * (a - 3) * (a - 4))
         return "undefined"
@@ -1272,7 +1280,7 @@ class Pareto(SemiInfinite):
 
 class MaxwellBoltzmann(SemiInfinite):
     """
-    This class contains methods concerning Maxwell-Boltzmann Distirbution [#]_.
+    This class contains methods concerning Maxwell-Boltzmann Distirbution [#]_ [#]_.
 
     .. math::
         \\text{MaxwellBoltzmann}(x;a) = \\sqrt{\\frac{2}{\\pi}} \\frac{x^2 \\exp{-x^2/(2a^2)}}{a^3}
@@ -1284,6 +1292,7 @@ class MaxwellBoltzmann(SemiInfinite):
 
     Reference:
         .. [#] Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&oldid=999883013
+        .. [#] Wolfram Alpha (2021). Maxwell Distribution. https://www.wolframalpha.com/input/?i=maxwelldistribution.
     """
 
     def __init__(self, a: int):
@@ -1310,7 +1319,7 @@ class MaxwellBoltzmann(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError('random values must not be lesser than 0')
             return m.sqrt(2/m.pi)*(x**2*np.exp(-x**2/(2*a**2)))/a**3
@@ -1331,11 +1340,13 @@ class MaxwellBoltzmann(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            x0 = np.power(x, 2)
-            return ss.erf(x/(m.sqrt(2)*a))-m.sqrt(2/m.pi)*(x0*np.exp(-x0/(2*a**2)))/(a)
+                x = np.array(x, dtype=np.float64)
+            
+            x0 = m.sqrt(2/m.pi) * x *np.exp(-x**2/(2*a**2))
+            return ss.erf(x/(m.sqrt(2)*a))  - x0/a
 
-        return ss.erf(x/(m.sqrt(2)*a)) - m.sqrt(2/m.pi)*(x**2*m.exp(-x**2/(2*a**2)))/(a)
+        x0 = m.sqrt(2/m.pi) * x *m.exp(-x**2/(2*a**2))
+        return ss.erf(x/(m.sqrt(2)*a))  - x0/a
 
     def mean(self) -> float:
         """
@@ -1371,13 +1382,15 @@ class MaxwellBoltzmann(SemiInfinite):
         """
         Returns: Skewness of the Maxwell-Boltzmann distribution.
         """
-        return (2*m.sqrt(2)*(16-5*m.pi))/np.power((3*m.pi-8), 3/2)
+        # (2*m.sqrt(2)*(16-5*m.pi))/pow((3*m.pi-8), 3/2)
+        return 0.4856928280495921
 
     def kurtosis(self) -> float:
         """
         Returns: Kurtosis of the Maxwell-Boltzmann distribution.
         """
-        return 4*((-96+40*m.pi-3*m.pi**2)/(3*m.pi-8)**2)
+        # 4*((-96+40*m.pi-3*m.pi**2)/(3*m.pi-8)**2)
+        return 0.10816384281628826
 
     def entropy(self) -> float:
         """
@@ -1418,13 +1431,10 @@ class LogNormal(SemiInfinite):
         .. [#] Wikipedia contributors. (2020, December 18). Log-normal distribution. https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&oldid=994919804
     """
 
-    def __init__(self, mean: float, std: float, randvar: float):
-        if randvar < 0:
-            raise ValueError('random variable should be greater than 0.')
+    def __init__(self, mean: float, std: float):
         if std < 0:
             raise ValueError('random variable should be greater than 0.')
 
-        self.randvar = randvar
         self.mean_val = mean
         self.stdev = std
 
@@ -1444,7 +1454,7 @@ class LogNormal(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError('random variable should be greater than 0.')
             return 1 / (x * stdev * m.sqrt(2 * m.pi)) * np.exp(-(np.log(x - mean)**2) / (2 * stdev**2))
@@ -1466,11 +1476,8 @@ class LogNormal(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return 0.5 + 0.5*ss.erfc(-np.log(x - mean)/(std * m.sqrt(2)))
-
-        return 0.5 + 0.5*ss.erfc(-np.log(x - mean)/(std * m.sqrt(2)))
-
+                x = np.array(x, dtype=np.float64)
+        return 0.5*ss.erfc((mean - np.log(x))/(std * m.sqrt(2)))
     def mean(self) -> float:
         """
         Returns: Mean of the log normal distribution.
@@ -1582,7 +1589,7 @@ class BetaPrime(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError('random variable should not be less then 0.')
             return np.power(x, a-1)*np.power(1+x, -a-b)/ss.beta(a, b)
@@ -1607,14 +1614,12 @@ class BetaPrime(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             if np.any(x < 0):
                 raise ValueError(
                     'evaluation of cdf is not supported for values less than 0')
-            return ss.betainc(a, b, x/(1+x))
 
         return ss.betainc(a, b, x/(1+x))
-
     def mean(self) -> Union[float, str]:
         """
         Returns: Mean of the Beta prime distribution.
@@ -1733,12 +1738,9 @@ class Gumbell(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            z = (x-mu)/beta
-            return (1/beta)*np.exp(-(z+np.exp(-z)))
-
+                x = np.array(x, dtype=np.float64)
         z = (x-mu)/beta
-        return (1/beta)*m.exp(-(z+m.exp(-z)))
+        return (1/beta)*np.exp(-(z+np.exp(-z)))
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
@@ -1753,9 +1755,8 @@ class Gumbell(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return np.exp(-np.exp(-(x-mu)/beta))
-        return m.exp(-m.exp(-(x - mu)/beta))
+                x = np.array(x, dtype=np.float64)
+        return np.exp(-np.exp(-(x-mu)/beta))
 
     def mean(self) -> float:
         """
@@ -1812,7 +1813,7 @@ class Gumbell(SemiInfinite):
 
 class Exponential(SemiInfinite):
     """
-    This class contans methods for evaluating Exponential Distirbution [#]_ [#]_.
+    This class contans methods for evaluating Exponential Distirbution [#]_ [#]_ [#]_.
 
     .. math:: \\text{Exponential}(x;\\lambda) = \\lambda e^{-\\lambda x}
 
@@ -1822,6 +1823,7 @@ class Exponential(SemiInfinite):
         - x (float): random variable where x > 0
 
     References:
+        .. [#] Wolfram Alpha (2021). Exponential Distirbution. https://www.wolframalpha.com/input/?i=exponential+distribution.
         .. [#] Weisstein, Eric W. "Exponential Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/ExponentialDistribution.html
         .. [#] Wikipedia contributors. (2020, December 17). Exponential distribution. https://en.wikipedia.org/w/index.php?title=Exponential_distribution&oldid=994779060
     """
@@ -1844,7 +1846,7 @@ class Exponential(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             return np.piecewise(x, [x >= 0, x < 0], [lambda x: rate*np.exp(-(rate*(x))), lambda x: 0.0])
 
         return rate*m.exp(-rate*x) if x >= 0 else 0.0
@@ -1861,7 +1863,7 @@ class Exponential(SemiInfinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64)
             return np.piecewise(x, [x > 0, x <= 0], [lambda x: 1 - np.exp(-rate*x), lambda x: 0.0])
 
         return 1 - m.exp(-rate*x) if x > 0 else 0.0
@@ -1894,7 +1896,7 @@ class Exponential(SemiInfinite):
         """
         Returns: Standard deviation of the Exponential distribution
         """
-        return m.sqrt(self.var())
+        return 1 / self.rate
 
     def skewness(self) -> float:
         """
@@ -1917,7 +1919,7 @@ class Exponential(SemiInfinite):
         """
         return 1 - m.log(self.rate)
 
-    def summary(self) -> Dict[str, Union[float, int]]:
+    def summary(self) -> Dict[str, float]:
         """
         Returns:
             Dictionary of Exponential distirbution moments. This includes standard deviation. 
@@ -1928,14 +1930,272 @@ class Exponential(SemiInfinite):
         }
 
 
+class Benini(SemiInfinite):
+    """This class contains methods concerning the Benini Distribution [#]_ [#]_.
 
-# class Benini(SemiInfinite): ...
+    .. math::
+        \\text{Benini}(x;\\alpha,\\beta,\\sigma) = e^{\\alpha \\log(x/\\alpha) - \\beta[\\log(x/\\sigma)]^2} \\Big(\\frac{\\alpha}{x} + \\frac{2 \\beta \\log(x/\\sigma)}{x} \\Big)
 
+    Args:
+        shape_a (float): shape parameter :math:`\\alpha > 0`
+        shape_b (float): shape parameter :math:`\\beta > 0`
+        scale (float): scale parameter :math:`\\sigma > 0`
+        x (float): random variables
 
-# class Burr(SemiInfinite): ...
+    References:
+        .. [#] Wikipedia Contributors (2021). Benini Distribution. https://en.wikipedia.org/wiki/Benini_distribution.
+        .. [#] Wolfram Research (2010), BeniniDistribution, Wolfram Language function, https://reference.wolfram.com/language/ref/BeniniDistribution.html (updated 2016).
 
+    """    
+    def __init__(self, shape_a:float, shape_b:float, scale:float): 
+        if shape_a <= 0 or shape_a <= 0 or scale <= 0:
+            raise ValueError('parmeters are expected to be greater than 0')
+        
+        self.shape_a = shape_a
+        self.shape_b = shape_b
+        self.scale = scale
 
-# class Dagum(SemiInfinite): ...
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x <= sigma
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
+        alpha, beta, sigma = self.shape_a, self.shape_b, self.scale
+        
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+            if np.any(x<=sigma):
+                raise ValueError('random variables are expected to take values greater than the scale parameter')
+        else:
+            if x <= sigma:
+                raise ValueError('random variables are expected to take values greater than the scale parameter')
+        
+        x0 = np.exp(-alpha*np.log(x/sigma)-beta*np.power(np.log(x/sigma),2))
+        x1 = alpha/x+(2*beta*np.log(x/sigma))/x
+        return x0*x1
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) or interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """        
+        alpha, beta, sigma = self.shape_a, self.shape_b, self.scale
+        
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+        return 1 - np.exp(-alpha*np.log(x/sigma) - np.power(beta*np.log(x/sigma),2))
+
+    def mean(self) -> float: 
+        sigma, alpha, beta = self.scale, self.shape_a, self.shape_b
+        x0 = m.exp(pow(-1+alpha,2)/(4*beta))*m.sqrt(m.pi)*ss.erfc((-1+alpha)/(2*m.sqrt(beta)))
+        return sigma + x0/(2*m.sqrt(beta))
+    
+    def median(self) -> float: 
+        alpha, beta = self.shape_a, self.shape_b
+        return m.exp(-alpha+m.sqrt(alpha**2 + beta*m.log(16))/(2*beta))*self.scale
+
+    def var(self) -> float: 
+        """
+        Returns: Variance of Benini distribution
+        Reference: Wolfram (2021). BeniniDistribution. https://reference.wolfram.com/language/ref/BeniniDistribution.html.
+        """
+        sigma, alpha, beta = self.scale, self.shape_a, self.shape_b
+        x0 = -1 + alpha
+        x1 = 2*m.sqrt(beta)
+        x2 = ss.erfc(x0/(x1))
+        x3 = 4*m.exp(pow(-2+alpha,2)/(4*beta)) * m.sqrt(beta)* ss.erfc((-2+alpha)/(x1)) - \
+            4*m.exp(pow(x0,2)/(4*beta)) * m.sqrt(beta) * x2 - \
+            m.exp(pow(x0,2)/(2*beta)) * m.sqrt(m.pi) * x2**2
+        return 1/(4*beta)*m.sqrt(m.pi)*pow(sigma,2)*x3
+
+    def std(self) -> float: 
+        return m.sqrt(self.var())
+
+    def summary(self) -> Dict[str, float]:
+        """
+        Returns:
+            Dictionary of Benini distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
+
+# incomplete implementation
+class BurrXII(SemiInfinite): 
+    def __init__(self, c:float, k:float):
+        if c <= 0 or k <= 0:
+            raise ValueError('parameters are expected to take values greater thn 0.')
+        
+        self.c, self.k = c,k
+
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:  
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x <= 0
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
+        c,k = self.c, self.k
+        
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+            if np.any(x <= 0):
+                raise ValueError('random variables are expected to have values > 0')
+        else:
+            if x <= 0:
+                raise ValueError('random variables are expected to have values > 0')
+        return c*k*(x**(-c)/(1+x**c)**(k+1))
+    
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """        
+        c,k = self.c, self.k
+        
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+        return 1 - (1 + x**c)**(-k)
+
+    def mean(self) -> float: ...
+    def median(self) -> float: ...
+    def mode(self) -> float: ...
+    def var(self) -> float: ...
+    def skewness(self) -> float: ...
+    def kurtosis(self) -> float: ...
+
+    def summary(self) -> Dict[str, float]:
+        """
+        Returns:
+            Dictionary of Burr distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
+
+# incomplete sk, ku implementation
+class Dagum(SemiInfinite): 
+    """This class contains methods concerning Dagum Distribution [#]_.
+
+    .. math::
+        \\text{Dagum}(x;a,p,b) = \\frac{ap}{x} \\Bigg(\\frac{\\frac{x}{b}^{ap}}{\\Big(\\frac{x}{b}^a + 1\\Big)^{p+1}}\\Bigg)
+
+    Args:
+        shape_p (float): shape parameter :math:`p > 0`
+        shape_a (float): shape parameter :math:`a > 0`
+        scale (float): scale parameter :math:`b > 0`
+        x (float): random variables
+
+    References: 
+        .. [#] Wikipedia Contributors (2021). Dagum Distribution. https://en.wikipedia.org/wiki/Dagum_distribution.
+
+    """    
+    def __init__(self, shape_p:float, shape_a:float, scale:float):
+        if shape_p <= 0 or shape_a <= 0 or scale <= 0:
+            raise ValueError('parameters are expected to be greater than 0')
+        
+        self.shape_p, self.shape_a, self.scale = shape_p, shape_a, scale
+
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variable(s)
+
+        Raises:
+            ValueError: when there exist a value of x <= 0
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """         
+        p,a,b = self.shape_p, self.shape_a, self.scale
+        
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+            if np.any(x <= 0):
+                raise ValueError('random variables are expected to be greater than 0')
+        else:
+            if x <= 0:
+                raise ValueError('random variables are expected to be greater than 0')
+
+        ap = a*p
+        return (ap)/x*((x/b)**ap/((x/b)**a+1)**(p+1))    
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:  
+        """
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of cdf at x
+        """        
+        p, a, b = self.shape_p, self.shape_a, self.scale
+        
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+
+        return (1+(x/b)**(-a))**-p
+
+    def mean(self) -> Union[float, str]: 
+        p, a, b = self.shape_p, self.shape_a, self.scale
+        if a <= 1:
+            return 'Indeterminate'
+        return -b/a*((ss.gamma(-1/a)*ss.gamma(1/a+p))/ss.gamma(p))
+
+    def median(self) -> float: 
+        return self.scale*pow(-1+pow(2,1/self.shape_p), -1/self.shape_a)
+
+    def mode(self) -> float: 
+        p,a = self.shape_p, self.shape_a
+        return self.scale*pow((a*p-1)/(a+1), 1/a)
+    
+    def var(self) -> Union[float, str]: 
+        p, a, b = self.shape_p, self.shape_a, self.scale
+        if a <= 2:
+            return 'Indeterminate'
+        
+        x0 = 2*a*(ss.gamma(-2/a)*ss.gamma(2/a+p)/ss.gamma(p))
+        x1 = pow(2*a*(ss.gamma(-1/a)*ss.gamma(1/a+p)/ss.gamma(p)), 2)
+        return -b**2/a**2*(x0+x1)
+    
+    def std(self) -> Union[float, str]: 
+        var = self.var()
+        if type(var) is str:
+            return 'Indeterminate'
+        return m.sqrt(var)
+
+    def summary(self) -> Dict[str, Union[float, str]]:
+        """
+        Returns:
+            Dictionary of Dagum distirbution moments. This includes standard deviation. 
+        """
+        return {
+            'mean': self.mean(), 'median': self.median(), 'mode': self.mode(),
+            'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
+        }
 
 
 # class Davis(SemiInfinite): ...

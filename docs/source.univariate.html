@@ -3002,7 +3002,7 @@ Returns NotImplemented.</p>
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.Infinite.</span></span><span class="sig-name descname"><span class="pre">Slash</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/Infinite.html#Slash"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.Infinite.Slash" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.Infinite.Infinite" title="source.univariate.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.Infinite.Infinite</span></code></a></p>
 <blockquote>
-<div><p>This class contains methods concerning to Slash Distribution <a class="footnote-reference brackets" href="#id69" id="id62">33</a>.</p>
+<div><p>This class contains methods concerning to Slash Distribution <a class="footnote-reference brackets" href="#id70" id="id62">33</a>.</p>
 <div class="math notranslate nohighlight">
 \[ext{Slash}(x) = {egin{cases}{\]</div>
 </div></blockquote>
@@ -3108,7 +3108,7 @@ Returns NotImplemented.</p>
 <p>This class contains implementation of the Student's Distribution for calculating the
 probablity density function and cumulative distribution function. Additionally,
 a t-table __generator is also provided by p-value method. Note that the implementation
-of T(Student's) distribution is defined by beta-functions <a class="footnote-reference brackets" href="#id72" id="id64">34</a>.</p>
+of T(Student's) distribution is defined by beta-functions <a class="footnote-reference brackets" href="#id71" id="id64">34</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{T}(x;\nu) = \frac{1}{\sqrt{\nu}\text{B}\Big(\frac{1}{2}, \frac{\nu}{2}\Big)} \Big(1 + \frac{t^2}{\nu}\Big) ^{-\frac{\nu+1}{2}}\]</div>
 <div class="math notranslate nohighlight">
@@ -3322,10 +3322,111 @@ Returns NotImplemented.</p>
 <div class="section" id="module-source.univariate.SemiInfinite">
 <span id="source-univariate-semiinfinite-module"></span><h2>source.univariate.SemiInfinite module<a class="headerlink" href="#module-source.univariate.SemiInfinite" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Benini</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
+<p>This class contains methods concerning the Benini Distribution <a class="footnote-reference brackets" href="#id76" id="id68">36</a> <a class="footnote-reference brackets" href="#id77" id="id69">37</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Benini}(x;\alpha,\beta,\sigma) = e^{\alpha \log(x/\alpha) - \beta[\log(x/\sigma)]^2} \Big(\frac{\alpha}{x} + \frac{2 \beta \log(x/\sigma)}{x} \Big)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape_a</strong> (<em>float</em>) -- shape parameter <span class="math notranslate nohighlight">\(\alpha &gt; 0\)</span></p></li>
+<li><p><strong>shape_b</strong> (<em>float</em>) -- shape parameter <span class="math notranslate nohighlight">\(\beta &gt; 0\)</span></p></li>
+<li><p><strong>scale</strong> (<em>float</em>) -- scale parameter <span class="math notranslate nohighlight">\(\sigma &gt; 0\)</span></p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variables</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id70"><span class="brackets"><a class="fn-backref" href="#id62">33</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). Benini Distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Benini_distribution">https://en.wikipedia.org/wiki/Benini_distribution</a>.</p>
+</dd>
+<dt class="label" id="id71"><span class="brackets"><a class="fn-backref" href="#id64">34</a></span></dt>
+<dd><p>Wolfram Research (2010), BeniniDistribution, Wolfram Language function, <a class="reference external" href="https://reference.wolfram.com/language/ref/BeniniDistribution.html">https://reference.wolfram.com/language/ref/BeniniDistribution.html</a> (updated 2016).</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) or interest</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt;= sigma</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of Benini distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Benini.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Benini.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Benini.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns: Variance of Benini distribution
+Reference: Wolfram (2021). BeniniDistribution. <a class="reference external" href="https://reference.wolfram.com/language/ref/BeniniDistribution.html">https://reference.wolfram.com/language/ref/BeniniDistribution.html</a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.BetaPrime">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">BetaPrime</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BetaPrime"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BetaPrime" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Beta prime Distirbution <a class="footnote-reference brackets" href="#id76" id="id68">36</a> .</p>
+<p>This class contains methods concerning Beta prime Distirbution <a class="footnote-reference brackets" href="#id81" id="id72">38</a> .</p>
 <div class="math notranslate nohighlight">
 \[\text{BetaPrime}(x;\alpha,\beta) = \frac{x^{\alpha -1}(1+x)^{-\alpha -\beta}}{\text{B}(\alpha ,\beta )}\]</div>
 <dl class="field-list simple">
@@ -3339,7 +3440,7 @@ Returns NotImplemented.</p>
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id69"><span class="brackets"><a class="fn-backref" href="#id62">33</a></span></dt>
+<dt class="label" id="id73"><span class="brackets"><a class="fn-backref" href="#id67">35</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, October 8). Beta prime distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&amp;oldid=982458594">https://en.wikipedia.org/w/index.php?title=Beta_prime_distribution&amp;oldid=982458594</a></p>
 </dd>
 </dl>
@@ -3446,12 +3547,105 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">BurrXII</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">c</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.kurtosis">
+<span class="sig-name descname"><span class="pre">kurtosis</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.kurtosis"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.kurtosis" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of kurtosis.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mode.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt;= 0</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of skewness.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of Burr distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.BurrXII.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#BurrXII.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.BurrXII.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the variance.
+Returns NotImplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Chi">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Chi</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Chi"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Chi" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Chi distribution <a class="footnote-reference brackets" href="#id77" id="id70">37</a> <a class="footnote-reference brackets" href="#id80" id="id71">38</a>.</p>
+<p>This class contains methods concerning the Chi distribution <a class="footnote-reference brackets" href="#id82" id="id74">39</a> <a class="footnote-reference brackets" href="#id83" id="id75">40</a>.</p>
 <div class="math notranslate nohighlight">
-\[\text{Chi}(x;df) = {\frac{1}{2^{(df/2)-1}\Gamma(df/2)} \cdot x^{df-1} e^{-x^2/2}}\]</div>
+\[\text{Chi}(x; k) = \frac{2^{1-k/2} e^{-\frac{x^2}{2}} x^{k-1}}{\Gamma \Big(\frac{k}{2} \Big)}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -3462,10 +3656,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id72"><span class="brackets"><a class="fn-backref" href="#id64">34</a></span></dt>
+<dt class="label" id="id76"><span class="brackets"><a class="fn-backref" href="#id68">36</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Chi Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/ChiDistribution.html">https://mathworld.wolfram.com/ChiDistribution.html</a></p>
 </dd>
-<dt class="label" id="id73"><span class="brackets"><a class="fn-backref" href="#id67">35</a></span></dt>
+<dt class="label" id="id77"><span class="brackets"><a class="fn-backref" href="#id69">37</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, October 16). Chi distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Chi_distribution&amp;oldid=983750392">https://en.wikipedia.org/w/index.php?title=Chi_distribution&amp;oldid=983750392</a></p>
 </dd>
 </dl>
@@ -3522,13 +3716,16 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Chi.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Chi.pdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>np.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
 </dd>
-<dt class="field-even">Returns</dt>
-<dd class="field-even"><p>evaluation of pdf at x</p>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt;= 0</p>
 </dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, np.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -3567,9 +3764,9 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.ChiSquare">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">ChiSquare</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#ChiSquare"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.ChiSquare" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Chi-square distribution <a class="footnote-reference brackets" href="#id81" id="id74">39</a> <a class="footnote-reference brackets" href="#id84" id="id75">40</a>.</p>
+<p>This class contains methods concerning the Chi-square distribution <a class="footnote-reference brackets" href="#id85" id="id78">41</a> <a class="footnote-reference brackets" href="#id89" id="id79">42</a> <a class="footnote-reference brackets" href="#id90" id="id80">43</a>.</p>
 <div class="math notranslate nohighlight">
-\[\text{ChiSquare}(x;k) = {\frac{1}{2^{k/2}\Gamma(k/2)}\ x^{k/2-1}e^{-x/2}}\]</div>
+\[\text{ChiSquare}(x;k) = \frac{2^{-k/2} e^{-x/2} x^{k/2 - 1}}{\Gamma\Big(\frac{k}{2} \Big)}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -3580,10 +3777,13 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id76"><span class="brackets"><a class="fn-backref" href="#id68">36</a></span></dt>
+<dt class="label" id="id81"><span class="brackets"><a class="fn-backref" href="#id72">38</a></span></dt>
+<dd><p>Wolfram Alpha (2020). Chi-squared distribution. <a class="reference external" href="https://www.wolframalpha.com/input/?i=chi+squared+distribution">https://www.wolframalpha.com/input/?i=chi+squared+distribution</a>.</p>
+</dd>
+<dt class="label" id="id82"><span class="brackets"><a class="fn-backref" href="#id74">39</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Chi-Squared Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/Chi-SquaredDistribution.html">https://mathworld.wolfram.com/Chi-SquaredDistribution.html</a></p>
 </dd>
-<dt class="label" id="id77"><span class="brackets"><a class="fn-backref" href="#id70">37</a></span></dt>
+<dt class="label" id="id83"><span class="brackets"><a class="fn-backref" href="#id75">40</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 13). Chi-square distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&amp;oldid=994056539">https://en.wikipedia.org/w/index.php?title=Chi-square_distribution&amp;oldid=994056539</a></p>
 </dd>
 </dl>
@@ -3682,12 +3882,117 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dd></dl>
 
 <dl class="py class">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Dagum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape_p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape_a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
+<p>This class contains methods concerning Dagum Distribution <a class="footnote-reference brackets" href="#id91" id="id84">44</a>.</p>
+<div class="math notranslate nohighlight">
+\[\text{Dagum}(x;a,p,b) = \frac{ap}{x} \Bigg(\frac{\frac{x}{b}^{ap}}{\Big(\frac{x}{b}^a + 1\Big)^{p+1}}\Bigg)\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape_p</strong> (<em>float</em>) -- shape parameter <span class="math notranslate nohighlight">\(p &gt; 0\)</span></p></li>
+<li><p><strong>shape_a</strong> (<em>float</em>) -- shape parameter <span class="math notranslate nohighlight">\(a &gt; 0\)</span></p></li>
+<li><p><strong>scale</strong> (<em>float</em>) -- scale parameter <span class="math notranslate nohighlight">\(b &gt; 0\)</span></p></li>
+<li><p><strong>x</strong> (<em>float</em>) -- random variables</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">References</p>
+<dl class="footnote brackets">
+<dt class="label" id="id85"><span class="brackets"><a class="fn-backref" href="#id78">41</a></span></dt>
+<dd><p>Wikipedia Contributors (2021). Dagum Distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Dagum_distribution">https://en.wikipedia.org/wiki/Dagum_distribution</a>.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.cdf">
+<span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.cdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.mean">
+<span class="sig-name descname"><span class="pre">mean</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.mean"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.mean" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mean.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.median">
+<span class="sig-name descname"><span class="pre">median</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.median"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.median" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the median.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.mode">
+<span class="sig-name descname"><span class="pre">mode</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.mode"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.mode" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the mode.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.pdf">
+<span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.pdf" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><strong>ValueError</strong> -- when there exist a value of x &lt;= 0</p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Union[float, numpy.ndarray]</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.std">
+<span class="sig-name descname"><span class="pre">std</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the standard deviation.
+Returns NotImplemented.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.summary">
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.summary" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>Dictionary of Dagum distirbution moments. This includes standard deviation.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Dagum.var">
+<span class="sig-name descname"><span class="pre">var</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">str</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Dagum.var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Dagum.var" title="Permalink to this definition">¶</a></dt>
+<dd><p>Default implementation of the variance.
+Returns NotImplemented.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Erlang">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Erlang</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Erlang"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Erlang" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Erlang Distirbution <a class="footnote-reference brackets" href="#id85" id="id78">41</a> <a class="footnote-reference brackets" href="#id89" id="id79">42</a>.</p>
+<p>This class contains methods concerning Erlang Distirbution <a class="footnote-reference brackets" href="#id95" id="id86">45</a> <a class="footnote-reference brackets" href="#id96" id="id87">46</a> <a class="footnote-reference brackets" href="#id97" id="id88">47</a>.</p>
 <div class="math notranslate nohighlight">
-\[\text{Erlang}(x; k, \lambda) = \frac{\lambda^{k} x^{k-1} e^{\lambda x}}{(k-1)!}\]</div>
+\[\text{Erlang}(x; k, \lambda) = \frac{\lambda^{k} x^{k-1} e^{-\lambda x}}{\Gamma(k)}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -3699,10 +4004,13 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id80"><span class="brackets"><a class="fn-backref" href="#id71">38</a></span></dt>
+<dt class="label" id="id89"><span class="brackets"><a class="fn-backref" href="#id79">42</a></span></dt>
+<dd><p>Wolfram Alpha (2021). Erlang Distribution. <a class="reference external" href="https://www.wolframalpha.com/input/?i=erlang+distribution">https://www.wolframalpha.com/input/?i=erlang+distribution</a>.</p>
+</dd>
+<dt class="label" id="id90"><span class="brackets"><a class="fn-backref" href="#id80">43</a></span></dt>
 <dd><p>Wikipedia contributors. (2021, January 6). Erlang distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Erlang_distribution&amp;oldid=998655107">https://en.wikipedia.org/w/index.php?title=Erlang_distribution&amp;oldid=998655107</a></p>
 </dd>
-<dt class="label" id="id81"><span class="brackets"><a class="fn-backref" href="#id74">39</a></span></dt>
+<dt class="label" id="id91"><span class="brackets"><a class="fn-backref" href="#id84">44</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Erlang Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/ErlangDistribution.html">https://mathworld.wolfram.com/ErlangDistribution.html</a></p>
 </dd>
 </dl>
@@ -3812,7 +4120,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Exponential">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Exponential</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rate</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Exponential"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Exponential" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contans methods for evaluating Exponential Distirbution <a class="footnote-reference brackets" href="#id90" id="id82">43</a> <a class="footnote-reference brackets" href="#id91" id="id83">44</a>.</p>
+<p>This class contans methods for evaluating Exponential Distirbution <a class="footnote-reference brackets" href="#id101" id="id92">48</a> <a class="footnote-reference brackets" href="#id102" id="id93">49</a> <a class="footnote-reference brackets" href="#id103" id="id94">50</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Exponential}(x;\lambda) = \lambda e^{-\lambda x}\]</div>
 <dl class="field-list simple">
@@ -3825,10 +4133,13 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id84"><span class="brackets"><a class="fn-backref" href="#id75">40</a></span></dt>
+<dt class="label" id="id95"><span class="brackets"><a class="fn-backref" href="#id86">45</a></span></dt>
+<dd><p>Wolfram Alpha (2021). Exponential Distirbution. <a class="reference external" href="https://www.wolframalpha.com/input/?i=exponential+distribution">https://www.wolframalpha.com/input/?i=exponential+distribution</a>.</p>
+</dd>
+<dt class="label" id="id96"><span class="brackets"><a class="fn-backref" href="#id87">46</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Exponential Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/ExponentialDistribution.html">https://mathworld.wolfram.com/ExponentialDistribution.html</a></p>
 </dd>
-<dt class="label" id="id85"><span class="brackets"><a class="fn-backref" href="#id78">41</a></span></dt>
+<dt class="label" id="id97"><span class="brackets"><a class="fn-backref" href="#id88">47</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 17). Exponential distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Exponential_distribution&amp;oldid=994779060">https://en.wikipedia.org/w/index.php?title=Exponential_distribution&amp;oldid=994779060</a></p>
 </dd>
 </dl>
@@ -3910,7 +4221,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Exponential.summary">
-<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">int</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Exponential.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Exponential.summary" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">summary</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Dict</span><span class="p"><span class="pre">[</span></span><span class="pre">str</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Exponential.summary"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Exponential.summary" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>Dictionary of Exponential distirbution moments. This includes standard deviation.</p>
@@ -3930,7 +4241,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.F">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">F</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df1</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">df2</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#F"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.F" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the F-distribution <a class="footnote-reference brackets" href="#id93" id="id86">45</a> <a class="footnote-reference brackets" href="#id95" id="id87">46</a> <a class="footnote-reference brackets" href="#id98" id="id88">47</a>.</p>
+<p>This class contains methods concerning the F-distribution <a class="footnote-reference brackets" href="#id105" id="id98">51</a> <a class="footnote-reference brackets" href="#id107" id="id99">52</a> <a class="footnote-reference brackets" href="#id110" id="id100">53</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{F}(x;d_1, d_2) = \frac{1}{\text{B}(d_1/2,d_2/2)} \Big( \frac{d_1}{d_2} \Big)^{d_1/2} x^{d_1/2 - 1} \Big(1 + \frac{d_1}{d_2}x\Big) ^{-(d_1+d_2)/2}\]</div>
 <dl class="field-list simple">
@@ -3944,13 +4255,13 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id89"><span class="brackets"><a class="fn-backref" href="#id79">42</a></span></dt>
+<dt class="label" id="id101"><span class="brackets"><a class="fn-backref" href="#id92">48</a></span></dt>
 <dd><p>Mood, Alexander; Franklin A. Graybill; Duane C. Boes (1974). Introduction to the Theory of Statistics (Third ed.). McGraw-Hill. pp. 246–249. ISBN 0-07-042864-6.</p>
 </dd>
-<dt class="label" id="id90"><span class="brackets"><a class="fn-backref" href="#id82">43</a></span></dt>
+<dt class="label" id="id102"><span class="brackets"><a class="fn-backref" href="#id93">49</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;F-Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/F-Distribution.html">https://mathworld.wolfram.com/F-Distribution.html</a></p>
 </dd>
-<dt class="label" id="id91"><span class="brackets"><a class="fn-backref" href="#id83">44</a></span></dt>
+<dt class="label" id="id103"><span class="brackets"><a class="fn-backref" href="#id94">50</a></span></dt>
 <dd><p>NIST SemaTech (n.d.). F-Distribution. Retrived from <a class="reference external" href="https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm">https://www.itl.nist.gov/div898/handbook/eda/section3/eda3665.htm</a></p>
 </dd>
 </dl>
@@ -4040,9 +4351,9 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Gamma">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Gamma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Gamma" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Gamma</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Gamma"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Gamma" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning a variant of Gamma distribution <a class="footnote-reference brackets" href="#id99" id="id92">48</a>.</p>
+<p>This class contains methods concerning a variant of Gamma distribution <a class="footnote-reference brackets" href="#id111" id="id104">54</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Gamma}(x;a,b) = \frac{1}{b^a \Gamma(a)} \ x^{a-1} e^{\frac{-x}{b}}\]</div>
 <dl class="field-list simple">
@@ -4056,7 +4367,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id93"><span class="brackets"><a class="fn-backref" href="#id86">45</a></span></dt>
+<dt class="label" id="id105"><span class="brackets"><a class="fn-backref" href="#id98">51</a></span></dt>
 <dd><p>Matlab(2020). Gamma Distribution. <a class="reference external" href="https://www.mathworks.com/help/stats/gamma-distribution.html">https://www.mathworks.com/help/stats/gamma-distribution.html</a></p>
 </dd>
 </dl>
@@ -4161,7 +4472,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Gumbell">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Gumbell</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">location</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Gumbell"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Gumbell" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Gumbel Distirbution <a class="footnote-reference brackets" href="#id101" id="id94">49</a>.</p>
+<p>This class contains methods concerning Gumbel Distirbution <a class="footnote-reference brackets" href="#id114" id="id106">55</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Gumbel}(x;\mu,\beta) = \frac{1}{\beta} \exp{-\Big( \frac{x-\mu}{\beta} + \exp{ \frac{x-\mu}{\beta}} \Big)}\]</div>
 <dl class="field-list simple">
@@ -4175,7 +4486,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id95"><span class="brackets"><a class="fn-backref" href="#id87">46</a></span></dt>
+<dt class="label" id="id107"><span class="brackets"><a class="fn-backref" href="#id99">52</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, November 26). Gumbel distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&amp;oldid=990718796">https://en.wikipedia.org/w/index.php?title=Gumbel_distribution&amp;oldid=990718796</a></p>
 </dd>
 </dl>
@@ -4269,9 +4580,9 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.LogNormal">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">LogNormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">randvar</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#LogNormal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.LogNormal" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">LogNormal</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mean</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#LogNormal"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.LogNormal" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Log Normal Distribution <a class="footnote-reference brackets" href="#id104" id="id96">50</a> <a class="footnote-reference brackets" href="#id105" id="id97">51</a>.</p>
+<p>This class contains methods concerning the Log Normal Distribution <a class="footnote-reference brackets" href="#id115" id="id108">56</a> <a class="footnote-reference brackets" href="#id118" id="id109">57</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{LogNormal}(x;\mu,\sigma) = \frac{1}{x\sigma\sqrt{2\pi}} \exp{\Big( - \frac{(\ln x - \mu)^2}{2\sigma^2} \Big)}\]</div>
 <dl class="field-list simple">
@@ -4285,10 +4596,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id98"><span class="brackets"><a class="fn-backref" href="#id88">47</a></span></dt>
+<dt class="label" id="id110"><span class="brackets"><a class="fn-backref" href="#id100">53</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Log Normal Distribution.&quot; From MathWorld--A Wolfram Web Resource.https://mathworld.wolfram.com/LogNormalDistribution.html</p>
 </dd>
-<dt class="label" id="id99"><span class="brackets"><a class="fn-backref" href="#id92">48</a></span></dt>
+<dt class="label" id="id111"><span class="brackets"><a class="fn-backref" href="#id104">54</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 18). Log-normal distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&amp;oldid=994919804">https://en.wikipedia.org/w/index.php?title=Log-normal_distribution&amp;oldid=994919804</a></p>
 </dd>
 </dl>
@@ -4393,7 +4704,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.MaxwellBoltzmann">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">MaxwellBoltzmann</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#MaxwellBoltzmann"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.MaxwellBoltzmann" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Maxwell-Boltzmann Distirbution <a class="footnote-reference brackets" href="#id108" id="id100">52</a>.</p>
+<p>This class contains methods concerning Maxwell-Boltzmann Distirbution <a class="footnote-reference brackets" href="#id119" id="id112">58</a> <a class="footnote-reference brackets" href="#id123" id="id113">59</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{MaxwellBoltzmann}(x;a) = \sqrt{\frac{2}{\pi}} \frac{x^2 \exp{-x^2/(2a^2)}}{a^3}\]</div>
 <dl class="field-list simple">
@@ -4406,8 +4717,11 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id101"><span class="brackets"><a class="fn-backref" href="#id94">49</a></span></dt>
+<dt class="label" id="id114"><span class="brackets"><a class="fn-backref" href="#id106">55</a></span></dt>
 <dd><p>Wikipedia contributors. (2021, January 12). Maxwell–Boltzmann distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&amp;oldid=999883013">https://en.wikipedia.org/w/index.php?title=Maxwell%E2%80%93Boltzmann_distribution&amp;oldid=999883013</a></p>
+</dd>
+<dt class="label" id="id115"><span class="brackets"><a class="fn-backref" href="#id108">56</a></span></dt>
+<dd><p>Wolfram Alpha (2021). Maxwell Distribution. <a class="reference external" href="https://www.wolframalpha.com/input/?i=maxwelldistribution">https://www.wolframalpha.com/input/?i=maxwelldistribution</a>.</p>
 </dd>
 </dl>
 </dd>
@@ -4511,9 +4825,9 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 
 <dl class="py class">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Pareto">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Pareto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Pareto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Pareto" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Pareto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Pareto"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Pareto" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning the Pareto Distribution Type 1 <a class="footnote-reference brackets" href="#id109" id="id102">53</a> <a class="footnote-reference brackets" href="#id111" id="id103">54</a>.</p>
+<p>This class contains methods concerning the Pareto Distribution Type 1 <a class="footnote-reference brackets" href="#id124" id="id116">60</a> <a class="footnote-reference brackets" href="#id125" id="id117">61</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Pareto}(x;x_m, a) = \frac{a x_m^a}{x^{a+1}}\]</div>
 <dl class="field-list simple">
@@ -4527,10 +4841,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id104"><span class="brackets"><a class="fn-backref" href="#id96">50</a></span></dt>
+<dt class="label" id="id118"><span class="brackets"><a class="fn-backref" href="#id109">57</a></span></dt>
 <dd><p>Barry C. Arnold (1983). Pareto Distributions. International Co-operative Publishing House. ISBN 978-0-89974-012-6.</p>
 </dd>
-<dt class="label" id="id105"><span class="brackets"><a class="fn-backref" href="#id97">51</a></span></dt>
+<dt class="label" id="id119"><span class="brackets"><a class="fn-backref" href="#id112">58</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 1). Pareto distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Pareto_distribution&amp;oldid=991727349">https://en.wikipedia.org/w/index.php?title=Pareto_distribution&amp;oldid=991727349</a></p>
 </dd>
 </dl>
@@ -4635,7 +4949,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Rayleigh">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Rayleigh</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Rayleigh"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Rayleigh" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Rayleigh Distirbution <a class="footnote-reference brackets" href="#id113" id="id106">55</a> <a href="#id114"><span class="problematic" id="id115"><span id="id107"></span>[#]_</span></a>.</p>
+<p>This class contains methods concerning Rayleigh Distirbution <a class="footnote-reference brackets" href="#id128" id="id120">62</a> <a class="footnote-reference brackets" href="#id129" id="id121">63</a> <a class="footnote-reference brackets" href="#id131" id="id122">64</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Rayleigh}(x;\sigma) = \frac{x}{\sigma^2} \exp{-(x^2/(2\sigma^2))}\]</div>
 <dl class="field-list simple">
@@ -4646,17 +4960,20 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </ul>
 </dd>
 </dl>
-<dl>
-<dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id108"><span class="brackets"><a class="fn-backref" href="#id100">52</a></span></dt>
+<p>Reference:</p>
+<blockquote>
+<div><dl class="footnote brackets">
+<dt class="label" id="id123"><span class="brackets"><a class="fn-backref" href="#id113">59</a></span></dt>
+<dd><p>Wolfram Alpha (2021). Rayleigh distribution. <a class="reference external" href="https://www.wolframalpha.com/input/?i=rayleigh+distribution">https://www.wolframalpha.com/input/?i=rayleigh+distribution</a>.</p>
+</dd>
+<dt class="label" id="id124"><span class="brackets"><a class="fn-backref" href="#id116">60</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 30). Rayleigh distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&amp;oldid=997166230">https://en.wikipedia.org/w/index.php?title=Rayleigh_distribution&amp;oldid=997166230</a></p>
 </dd>
-<dt class="label" id="id109"><span class="brackets"><a class="fn-backref" href="#id102">53</a></span></dt>
+<dt class="label" id="id125"><span class="brackets"><a class="fn-backref" href="#id117">61</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Rayleigh Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/RayleighDistribution.html">https://mathworld.wolfram.com/RayleighDistribution.html</a></p>
 </dd>
 </dl>
-</dd>
-</dl>
+</div></blockquote>
 <dl class="py method">
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Rayleigh.cdf">
 <span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Rayleigh.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Rayleigh.cdf" title="Permalink to this definition">¶</a></dt>
@@ -4768,7 +5085,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.Weibull">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">Weibull</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Weibull"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Weibull" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning Weibull Distirbution <a href="#id114"><span class="problematic" id="id116"><span id="id110"></span>[#]_</span></a>.</p>
+<p>This class contains methods concerning Weibull Distirbution <a href="#id132"><span class="problematic" id="id133"><span id="id126"></span>[#]_</span></a> <a href="#id132"><span class="problematic" id="id134"><span id="id127"></span>[#]_</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Weibull}(x;\lambda, k)  = \frac{k}{\lambda} \Big( \frac{x}{\lambda}\Big)^{k-1} \exp(-(x/\lambda)^k)\]</div>
 <dl class="field-list simple">
@@ -4782,7 +5099,10 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id111"><span class="brackets"><a class="fn-backref" href="#id103">54</a></span></dt>
+<dt class="label" id="id128"><span class="brackets"><a class="fn-backref" href="#id120">62</a></span></dt>
+<dd><p>Wolfram Alpha (2021). Weibull Distribution. <a class="reference external" href="https://www.wolframalpha.com/input/?i=weibul+distribution">https://www.wolframalpha.com/input/?i=weibul+distribution</a>.</p>
+</dd>
+<dt class="label" id="id129"><span class="brackets"><a class="fn-backref" href="#id121">63</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 13). Weibull distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Weibull_distribution&amp;oldid=993879185">https://en.wikipedia.org/w/index.php?title=Weibull_distribution&amp;oldid=993879185</a></p>
 </dd>
 </dl>
@@ -4793,10 +5113,13 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <span class="sig-name descname"><span class="pre">cdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Weibull.cdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Weibull.cdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- data point(s) of interest</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either cumulative distribution evaluation for some point or plot of Weibull distribution.</p>
+<dd class="field-even"><p>evaluation of cdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
 </dd></dl>
@@ -4832,12 +5155,21 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <span class="sig-name descname"><span class="pre">pdf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">]</span></span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">float</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Weibull.pdf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Weibull.pdf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>x</strong> (<em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em>) -- random variable or list of random variables</p>
+<dd class="field-odd"><p><strong>x</strong> (<em>Union</em><em>[</em><em>List</em><em>[</em><em>float</em><em>]</em><em>, </em><em>numpy.ndarray</em><em>, </em><em>float</em><em>]</em>) -- random variable(s)</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>either probability density evaluation for some point or plot of Weibull distribution.</p>
+<dd class="field-even"><p>evaluation of pdf at x</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Union[float, numpy.ndarray]</p>
 </dd>
 </dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="source.univariate.SemiInfinite.Weibull.skewness">
+<span class="sig-name descname"><span class="pre">skewness</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#Weibull.skewness"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.Weibull.skewness" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns: Skewness of the Weilbull distribution</p>
 </dd></dl>
 
 <dl class="py method">
@@ -4868,7 +5200,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 <dt class="sig sig-object py" id="source.univariate.SemiInfinite.WeibullInverse">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.univariate.SemiInfinite.</span></span><span class="sig-name descname"><span class="pre">WeibullInverse</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loc</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/univariate/SemiInfinite.html#WeibullInverse"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.univariate.SemiInfinite.WeibullInverse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.univariate.SemiInfinite.SemiInfinite" title="source.univariate.SemiInfinite.SemiInfinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.univariate.SemiInfinite.SemiInfinite</span></code></a></p>
-<p>This class contains methods concerning inverse Weilbull or the Fréchet Distirbution <a href="#id114"><span class="problematic" id="id117"><span id="id112"></span>[#]_</span></a>.</p>
+<p>This class contains methods concerning inverse Weilbull or the Fréchet Distirbution <a href="#id132"><span class="problematic" id="id135"><span id="id130"></span>[#]_</span></a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{WeibullInverse}(x;a,s,m) = \frac{a}{s} \Big(\frac{x-m}{s} \Big) ^{-1-a} \exp{\Big(-\frac{x-m}{s} \Big)^{-a}}\]</div>
 <dl class="field-list simple">
@@ -4883,7 +5215,7 @@ link: <a class="reference external" href="http://wise.xmu.edu.cn/uploadfiles/pap
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id113"><span class="brackets"><a class="fn-backref" href="#id106">55</a></span></dt>
+<dt class="label" id="id131"><span class="brackets"><a class="fn-backref" href="#id122">64</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 7). Fréchet distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&amp;oldid=992938143">https://en.wikipedia.org/w/index.php?title=Fr%C3%A9chet_distribution&amp;oldid=992938143</a></p>
 </dd>
 </dl>
