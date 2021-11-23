@@ -60,7 +60,8 @@ Efforts on maintaining class invariance
 - [ ] random number generator
 - [ ] point-percentage function 
 - [ ] string representation, pretty printing
-
+- [ ] ppf and pvalue
+- [ ] higher moments function
 
 ## New Design Proposal
 Proceed only if:

@@ -17,10 +17,7 @@ currently supported features:
 - skewness
 - kurtosis
 - standard deviation
-- p value
 - entropy
-- changed
-
 
 ----
 

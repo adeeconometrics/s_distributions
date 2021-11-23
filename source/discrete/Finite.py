@@ -214,7 +214,7 @@ class Binomial(Finite):
 
     References:
         .. [#] NIST/SEMATECH e-Handbook of Statistical Methods (2012). Binomial Distribution. Retrieved at http://www.itl.nist.gov/div898/handbook/, December 26, 2000.
-        .. [#] Wikipedia contributors. (2020, December 19). Binomial distribution. In Wikipedia, The Free Encyclopedia. Retrieved 07:24, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Binomial_distribution&oldid=995095096
+        .. [#] Wikipedia contributors. (2020, December 19). Binomial distribution. https://en.wikipedia.org/w/index.php?title=Binomial_distribution&oldid=995095096
         .. [#] Weisstein, Eric W. "Binomial Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/BinomialDistribution.html
     """
 
@@ -342,7 +342,7 @@ class Geometric(Finite):
 
     References:
         .. [#] Weisstein, Eric W. "Geometric Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/GeometricDistribution.html
-        .. [#] Wikipedia contributors. (2020, December 27). Geometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 12:05, December 27, 2020, from https://en.wikipedia.org/w/index.php?title=Geometric_distribution&oldid=996517676
+        .. [#] Wikipedia contributors. (2020, December 27). Geometric distribution. https://en.wikipedia.org/w/index.php?title=Geometric_distribution&oldid=996517676
 
     Note: Geometric distribution can be configured based through `_type` parameter in `pmf`, `cdf` and moments of the distribution, including the `std`. 
     The default type is `_type='first'`, or :math:`\\text{Geometric_1}(x;p)`.
@@ -516,47 +516,52 @@ class Hypergeometric(Finite):
     This class contains methods concerning pmf and cdf evaluation of the hypergeometric distribution. 
     Describes the probability if k successes (random draws for which the objsect drawn has specified deature)
     in n draws, without replacement, from a finite population size N that contains exactly K objects with that
-    feature, wherein each draw is either a success or a failure [#]_ [#]_. 
+    feature, wherein each draw is either a success or a failure [#]_ [#]_ [#]_. 
 
-    .. math:: \\text{Hypergeometric}(N,K,k,n) = {{{K \\choose k}{{N-K} \\choose {n-k}}} \\over {N \\choose n}}
+    .. math:: \\text{Hypergeometric}(x;N,K,n) = {{{K \\choose x}{{N-K} \\choose {n-x}}} \\over {N \\choose n}}
 
     Args:
 
-        N(int): population size
-        K(int): number of success states in the population
-        k(int): number of observed successes
-        n(int): number of draws 
+        N(int): population size  :math:`N > 0`
+        K(int): number of success states in the population :math:`K > 0`
+        n(int): number of draws  :math:`n > 0`
+        k(int): number of observed successes :math:`x > 0`
 
     References:
         .. [#] Weisstein, Eric W. "Hypergeometric Distribution." From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/HypergeometricDistribution.html
-        .. [#] Wikipedia contributors. (2020, December 22). Hypergeometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:38, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&oldid=995715954
-
+        .. [#] Wikipedia contributors. (2020, December 22). Hypergeometric distribution. https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&oldid=995715954
+        .. [#] Wolfram Research (2007). HypergeometricDistribution. https://reference.wolfram.com/language/ref/HypergeometricDistribution.html.
     """
 
-    def __init__(self, N: int, K: int, k: int, n: int):
-        if type(N) and type(n) and type(K) and type(k) is not int:
+    def __init__(self, N: int, K: int, n: int):
+        if type(N) and type(n) and type(K) is not int:
             raise TypeError('all parameters must be of type int')
 
-        if any(i < 0 for i in [N, K, k, n]):
+        if any(i < 0 for i in [N, K, n]):
             raise ValueError('parameters must be positive integer')
 
         self.N = N
         self.K = K
-        self.k = k
         self.n = n
 
-    def pmf(self) -> float:
+    def pmf(self, x:Union[List, np.ndarray, float]) -> Union[np.ndarray, float]:
         """
         Returns:
             float: evaluation of pmf
         """
         n = self.n
-        k = self.k
         N = self.N
         K = self.K
 
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x)
+            if np.any(x < 0):
+                raise ValueError('random variables are expected to be greater than or equal to 0')
+        if x < 0:
+            raise ValueError('random variables are expected to be greater than or equal to 0')
         # assumes n>k
-        return ss.binom(K, k)*ss.binom(N-K, n-k)/ss.binom(N, n)
+        return ss.binom(K, x)*ss.binom(N-K, n-x)/ss.binom(N, n)
 
     def cdf(self):
         """
