@@ -1,7 +1,6 @@
 try:
     import numpy as np
     import scipy.special as ss
-    from scipy.integrate import quad
     from typing import Union, Optional, Dict, List
     import math as m
     from univariate._base import Base
@@ -46,6 +45,9 @@ class Cauchy(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/CauchyPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -57,13 +59,16 @@ class Cauchy(Infinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             return 1/(m.pi * scale * (1 + np.power((x - loc) / scale, 2)))
 
         return 1/(m.pi * scale * (1 + pow((x - loc) / scale, 2)))
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/CauchyCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -75,7 +80,7 @@ class Cauchy(Infinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             return (1 / m.pi) * np.arctan((x - loc) / scale) + 0.5
 
         return (1 / m.pi) * m.atan((x - loc) / scale) + 0.5
@@ -84,7 +89,7 @@ class Cauchy(Infinite):
         """
         Returns: Mean of the Cauchy distribution. Mean is Undefined.
         """
-        return "undefined"
+        return "Indeterminate"
 
     def median(self) -> float:
         """
@@ -102,19 +107,19 @@ class Cauchy(Infinite):
         """
         Returns: Variance of the Cauchy distribution.
         """
-        return "undefined"
+        return "Indeterminate"
 
     def std(self) -> str:
         """
         Returns: Standard Deviation of the Cauchy Distribution.
         """
-        return "undefined"
+        return "Indeterminate"
 
     def skewness(self) -> str:
         """
         Returns: Skewness of the Cauchy distribution.
         """
-        return "undefined"
+        return "Indeterminate"
 
     def kurtosis(self) -> float:
         """
@@ -147,7 +152,7 @@ class T(Infinite):
     This class contains implementation of the Student's Distribution for calculating the
     probablity density function and cumulative distribution function. Additionally,
     a t-table __generator is also provided by p-value method. Note that the implementation
-    of T(Student's) distribution is defined by beta-functions [#]_.
+    of T(Student's) distribution is defined by beta-functions [#]_ [#]_.
 
     .. math::
         \\text{T}(x;\\nu) = \\frac{1}{\\sqrt{\\nu}\\text{B}\\Big(\\frac{1}{2}, \\frac{\\nu}{2}\\Big)} \\Big(1 + \\frac{t^2}{\\nu}\\Big) ^{-\\frac{\\nu+1}{2}}
@@ -176,6 +181,9 @@ class T(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/TPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -186,13 +194,16 @@ class T(Infinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             return (1 / (m.sqrt(df) * ss.beta(0.5, df / 2))) * np.power((1 + np.power(x, 2) / df), -(df + 1) / 2)
 
         return (1 / (m.sqrt(df) * ss.beta(0.5, df / 2))) * pow((1 + pow(x, 2) / df), -(df + 1) / 2)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/TCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -200,30 +211,26 @@ class T(Infinite):
             Union[float, numpy.ndarray]: evaluation of cdf at x
         """
         df = self.df
-        # Test this for possible performance penalty. See if there is better way to do this.
-
-        def pdf(x, df): return (1 / (m.sqrt(df) * ss.beta(0.5, df / 2))) * \
-            pow(1 + pow(x, 2) / df, -(df + 1) / 2)
-
-        def d_pdf(x, df): return quad(pdf, -np.inf, x, args=df)[0]
+        f1 = lambda x: 0.5*ss.betainc(df/2, 0.5, df/(x**2 + df))
+        f2 = lambda x: 0.5*(ss.betainc(0.5, df/2, pow(x,2)/(x**2 + df)) + 1)
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return np.vectorize(d_pdf)(x, df)
+                x = np.array(x, dtype=np.float64) 
+            return np.piecewise(x, [x <= 0, x > 0], [f1, f2])
 
-        return d_pdf(x, df)
+        return f1(x) if x <= 0 else f2(x)
 
     def mean(self) -> Union[float, str]:
         """
         Mean of the T-distribution.
         Returns:
-            0 for df > 1, otherwise undefined.
+            0 for df > 1, otherwise Indeterminate.
         """
         df = self.df
         if df > 1:
             return 0.0
-        return "undefined"
+        return "Indeterminate"
 
     def median(self) -> float:
         """
@@ -246,7 +253,7 @@ class T(Infinite):
             return df / (df - 2)
         if df > 1 and df <= 2:
             return np.inf
-        return "undefined"
+        return "Indeterminate"
 
     def std(self) -> Union[float, str]:
         """
@@ -255,7 +262,7 @@ class T(Infinite):
         var = self.var()
         if type(var) is float:
             return m.sqrt(var)
-        return "undefined"
+        return "Indeterminate"
 
     def skewness(self) -> Union[float, str]:
         """
@@ -264,7 +271,7 @@ class T(Infinite):
         df = self.df
         if df > 3:
             return 0.0
-        return "undefined"
+        return "Indeterminate"
 
     def kurtosis(self) -> Union[float, str]:
         """
@@ -275,7 +282,7 @@ class T(Infinite):
             return 6 / (df - 4)
         if df > 2 and df <= 4:
             return float('inf')
-        return "undefined"
+        return "Indeterminate"
 
     def entropy(self) -> float:
         """
@@ -303,7 +310,7 @@ class Gaussian(Infinite):
     This class contains methods concerning the Gaussian Distribution [#]_ [#]_.
 
     .. math::
-        \\text{Gaussian}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt(2 \\pi)} e^{\\frac{1}{2}\\big( \\frac{x-\\mu}{\\sigma}\\big)^2}
+        \\text{Gaussian}(x;\\mu,\\sigma) = \\frac{1}{\\sigma \\sqrt{2 \\pi}} e^{-\\frac{1}{2}\\big( \\frac{x-\\mu}{\\sigma}\\big)^2}
 
     Args:
 
@@ -326,6 +333,9 @@ class Gaussian(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/GaussianPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -334,30 +344,32 @@ class Gaussian(Infinite):
         """
         mean = self.mean_val
         std = self.stdev
+        c0 = 2.5066282746310002  # m.sqrt(2*m.pi)
+        x0 = std*c0
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return np.power(1 / (std * m.sqrt(2 * m.pi)), np.exp(((x - mean) / 2 * std)**2))
+                x = np.array(x, dtype=np.float64) 
+            return np.exp(-0.5*np.power((x-mean)/std, 2))/x0
 
-        return pow(1 / (std * m.sqrt(2 * m.pi)), m.exp(((x - mean) / 2 * std)**2))
+        return m.exp(-0.5*pow((x-mean)/std, 2))/x0
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/GaussianCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
             Union[float, numpy.ndarray]: evaluation of cdf at x
         """
-        def __generator(mu: float, sig: float, x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
-            return 1/2*(1+ss.erf((x-mu)/(sig*m.sqrt(2))))
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return __generator(self.mean_val, self.stdev, x)
-        return __generator(self.mean_val, self.stdev, x)
+                x = np.array(x, dtype=np.float64) 
+        return 0.5*(1+ss.erf((x-self.mean_val)/(self.stdev*m.sqrt(2))))
 
     def mean(self) -> float:
         """
@@ -423,19 +435,20 @@ class Gaussian(Infinite):
 
 class Laplace(Infinite):
     """
-    This class contains methods concerning Laplace Distirbution [#]_.
+    This class contains methods concerning Laplace Distirbution [#]_ [#]_.
 
     .. math::
-        \\text{Laplace}(x;\\mu, b) = \\frac{1}{2b} \\exp{- \\frac{|x - \\mu}{b}}
+        \\text{Laplace}(x;\\mu, b) = \\frac{1}{2b} \\exp{- \\frac{|x - \\mu |}{b}}
 
     Args:
 
         loc(float): loc parameter (:math:`\\mu`)
-        scale(float): scale parameter (:math:`b`) where scale > 0
+        scale(float): scale parameter (:math:`b > 0`) 
         x(float): random variable
 
     Reference:
         .. [#] Wikipedia contributors. (2020, December 21). Laplace distribution. https://en.wikipedia.org/w/index.php?title=Laplace_distribution&oldid=995563221
+        .. [#] Wolfram Research (2007), LaplaceDistribution, Wolfram Language function, https://reference.wolfram.com/language/ref/LaplaceDistribution.html (updated 2016).
     """
 
     def __init__(self, loc: float, scale: float):
@@ -447,6 +460,9 @@ class Laplace(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/LaplacePDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -458,12 +474,15 @@ class Laplace(Infinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             return (1 / (2 * b)) * np.exp(- np.abs(x - mu) / b)
         return (1 / (2 * b)) * m.exp(- abs(x - mu) / b)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/LaplaceCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -473,16 +492,15 @@ class Laplace(Infinite):
         mu = self.loc
         b = self.scale
 
-        # a generator function is chosen as numpy.exp can handle larger vaues compared to math.exp
-        def __generator(mu: float, b: float, x: Union[float, np.ndarray]) -> Union[float, np.ndarray]:
-            return 0.5 + ((0.5) * np.sign(x - mu) * (1 - np.exp(np.abs(x - mu) / b)))
+        f0 = lambda x: 1 - 0.5*np.exp(-(x-mu)/b)
+        f1 = lambda x: 0.5*np.exp((x-mu)/b)
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return __generator(mu, b, x)
+                x = np.array(x, dtype=np.float64) 
+            return np.piecewise(x, [x >= mu, x < mu], [f0,f1])
 
-        return __generator(mu, b, x)
+        return f0(x) if x >= mu else f1(x)
 
     def mean(self) -> float:
         """
@@ -548,7 +566,7 @@ class Laplace(Infinite):
 
 class Logistic(Infinite):
     """
-    This class contains methods concerning Logistic Distirbution [#]_.
+    This class contains methods concerning Logistic Distirbution [#]_ [#]_.
 
     .. math::
         \\text{Logistic}(x;\\mu,s) = \\frac{\\exp{(-(x-\\mu)/s)}} {s(1+\\exp(-(x-\\mu)/s)^2)}
@@ -561,6 +579,7 @@ class Logistic(Infinite):
 
     Reference:
         .. [#] Wikipedia contributors. (2020, December 12). Logistic distribution. https://en.wikipedia.org/w/index.php?title=Logistic_distribution&oldid=993793195
+        .. [#] Wolfram Research (2007), LogisticDistribution, Wolfram Language function, https://reference.wolfram.com/language/ref/LogisticDistribution.html (updated 2016).
     """
 
     def __init__(self, location: float, scale: float):
@@ -572,6 +591,9 @@ class Logistic(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/LogisticPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -583,12 +605,15 @@ class Logistic(Infinite):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             return np.exp(-(x - mu) / s) / (s * (1 + np.exp(-(x - mu) / s))**2)
         return m.exp(-(x - mu) / s) / (s * (1 + m.exp(-(x - mu) / s))**2)
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/LogisticCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -599,7 +624,7 @@ class Logistic(Infinite):
         s = self.scale
 
         if isinstance(x, (np.ndarray, List)):
-            x = np.array(x)
+            x = np.array(x, dtype=np.float64) 
             return 1 / (1 + np.exp(-(x - mu) / s))
         return 1 / (1 + m.exp(-(x - mu) / s))
 
@@ -664,10 +689,10 @@ class Logistic(Infinite):
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
 
-
-class Fisher(Infinite):
+# Todo: Implement moments of Fisher-Z Distribution. 
+class FisherZ(Infinite):
     """
-    This class contains methods concerning Fisher's z-Distribution [#]_.
+    This class contains methods concerning Fisher's z-Distribution [#]_ [#]_ [#]_.
 
     .. math:: 
         \\text{Fisher}(x;d_1, d_2) = \\frac{2d_2^{d_1/2} d_2^{d_2/2}}{\\text{B}\\Big(\\frac{d_1}{2}, \\frac{d_2}{2}\\Big)} \\frac{e^{d_1 x}}{(d_1 e^{2x} + d_2)^{(d_1+d_2)/2}}
@@ -682,7 +707,9 @@ class Fisher(Infinite):
     z = 1/2*log(F)
 
     Reference:
-        .. [#] Wikipedia contributors. (2020, December 15). Fisher's z-distribution. https://en.wikipedia.org/w/index.php?title=Fisher%27s_z-distribution&oldid=994427156
+        .. [#] Wikipedia contributors. (2020, December 15). Fisher's z-distribution. https://en.wikipedia.org/w/index.php?title=Fisher%27s_z-distribution&oldid=994427156.
+        .. [#] Wolfram Research (2010), FisherZDistribution, Wolfram Language function, https://reference.wolfram.com/language/ref/FisherZDistribution.html (updated 2016).
+        .. [#] Wolfram Alpha (2021). Fisher Distribution. https://www.wolframalpha.com/input/?i=Fisher+distribution.
     """
 
     def __init__(self, df1: float, df2: float):
@@ -694,6 +721,9 @@ class Fisher(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/FisherZPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -705,7 +735,7 @@ class Fisher(Infinite):
         x0 = (2*pow(df1, df1/2)*pow(df2, df2/2))
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             x1 = x0*np.exp(df1*x)
             x2 = ss.beta(df1/2, df2/2) * np.power(df1 *
                                                   np.exp(2*x)+df2, (df1+df2)*0.5)
@@ -714,6 +744,25 @@ class Fisher(Infinite):
         x1 = x0*m.exp(df1*x)
         x2 = ss.beta(df1/2, df2/2) * pow(df1*m.exp(2*x)+df2, (df1+df2)*0.5)
         return x1/x2
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
+        """
+        .. image:: ../docs/img/Infinite/FisherZCDF.png
+            :width: 500
+
+        Args:
+            x (Union[List[float], np.ndarray, float]): data point(s) of interest   
+
+        Returns:
+            Union[float, np.ndarray]: evaluation of cdf at x 
+        """
+        df1, df2 = self.df1, self.df2
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, np.float64)
+
+        return ss.betainc(df1/2, df2/2, df1*np.exp(2*x)/(df2 + df1*np.exp(2*x)))
 
     def summary(self) -> Dict[str, float]:
         """
@@ -735,7 +784,7 @@ class AssymetricLaplace(Infinite):
 
     Args:
         loc (float): location parameter :math:`m`
-        sclae (float): scale parameter :math:`\\lambda > 0`
+        scale (float): scale parameter :math:`\\lambda > 0`
         asym (float): assymetry parameter :math:`\\kappa > 0`
         x (float): random variable
 
@@ -754,6 +803,9 @@ class AssymetricLaplace(Infinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/AssymetricLaplacePDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -765,7 +817,7 @@ class AssymetricLaplace(Infinite):
         x0 = l/(k+1/k)
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
 
             def f01(x): return np.exp(l/k*(x-loc))
             def f02(x): return np.exp(-l*k*(x-loc))
@@ -778,6 +830,9 @@ class AssymetricLaplace(Infinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/AssymetricLaplaceCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -788,7 +843,7 @@ class AssymetricLaplace(Infinite):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
 
             def f01(x): return k**2/(1+k**2)*np.exp(l/k*(x-loc))
             def f02(x): return 1 - 1/(1+k**2)*np.exp(-l*k*(x-loc))
@@ -799,13 +854,17 @@ class AssymetricLaplace(Infinite):
         return f1(x) if x <= loc else f2(x)
 
     def mean(self) -> float:
-
+        """
+        Returns: Mean of the Assymetric Laplace distribution.
+        """
         k = self.asym
 
         return self.loc + (1+k**2)/(self.scale*k)
 
     def median(self) -> Optional[float]:
-
+        """
+        Returns: Median of the Assymetric Laplace distribution.
+        """
         loc = self.loc
         k = self.asym
         l = self.scale
@@ -816,22 +875,37 @@ class AssymetricLaplace(Infinite):
             return loc + 1/(l*k)*m.log((1+k**2)/2)
 
     def var(self) -> float:
+        """
+        Returns: Variance of the Assymetric Laplace distribution.
+        """
         k = self.asym
         return (1+k**4)/(self.scale**2*k**2)
 
     def std(self) -> float:
+        """
+        Returns: Standard Deviation of the Assymetric Laplace distribution.
+        """
         k = self.asym
         return m.sqrt((1+k**4)/(self.scale**2*k**2))
 
     def skewness(self) -> float:
+        """
+        Returns: Skewness of the Assymetric Laplace distribution.
+        """
         k = self.asym
         return (2*(1-k**6))/pow(k**4+1, 1.5)
 
     def kurtosis(self) -> float:
+        """
+        Returns: Kurtosis of the Assymetric Laplace distribution.
+        """
         k = self.asym
         return 6*(1+k**8)/pow(1+k**4, 2)
 
     def entropy(self) -> float:
+        """
+        Returns: entropy of the Assymetric Laplace distribution.
+        """
         k = self.asym
         return m.log(m.e*(1+k**2)/(k*self.scale))
 
@@ -881,7 +955,7 @@ class GNV1(Infinite):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             return x0*np.exp(np.power(-np.abs(x-mu)/a, b))
         return x0*m.exp(pow(-abs(x-mu)/a, b))
 
@@ -889,30 +963,54 @@ class GNV1(Infinite):
             ) -> Union[float, np.ndarray]: ...
 
     def mean(self) -> float:
+        """
+        Returns: Mean of the GNV1 distribution.
+        """
         return self.loc
 
     def median(self) -> float:
+        """
+        Returns: Median of the GNV1 distribution.
+        """
         return self.loc
 
     def mode(self) -> float:
+        """
+        Returns: Mode of the GNV1 distribution.
+        """
         return self.loc
 
     def var(self) -> float:
+        """
+        Returns: Variance of the GNV1 distribution.
+        """
         a, b = self.scale, self.shape
         return a**2*ss.gamma(3/b)/ss.gamma(1/b)
 
     def std(self) -> float:
+        """
+        Returns: Standard Deviation of the GNV1 distribution.
+        """
         a, b = self.scale, self.shape
         return m.sqrt(a**2*ss.gamma(3/b)/ss.gamma(1/b))
 
     def skewness(self) -> float:
+        """
+        Returns: Skewness of the GNV1 distribution.
+        """
         return 0.0
 
     def kurtosis(self) -> float:
+        """
+        Returns: Kurtosis of the GNV1 distribution.
+        """
         b = self.shape
         return ss.gamma(5/b)*ss.gamma(1/b)/ss.gamma(3/b)**2 - 3
 
     def entropy(self) -> float:
+        """
+        Returns: Entropy of the GNV1 distribution.
+        """
         b = self.shape
         return 1/b - m.log(b/(2*self.scale*ss.gamma(1/b)))
 
@@ -1013,72 +1111,102 @@ class GH(Infinite):
 
 class HyperbolicSecant(Infinite):
     """
-    This class contains methods concerning to Hyperbolic Secant [#]_. 
+    This class contains methods concerning to Hyperbolic Secant [#]_ [#]_ . 
 
     .. math::
-        \\text{HyperbolicSecant}(x) = \\frac{1}{2} sech \\Big(\\frac{\\pi}{2} x \\Big)
+        \\text{HyperbolicSecant}(x; \\mu, \\sigma) = \\frac{\\text{sech} \\Big( \\frac{\\pi (x - \\mu)}{2 \\sigma} \\Big)}{2 \\sigma}
 
     Args:
+        loc (float): location parameter :math:`\\mu`
+        scale (float): scale parameter :math:`\\sigma > 0`
         x (float): random variable
 
     Referneces: 
-        .. [#] Wikipedia Contributors (2020). Hyperbolic secant Distirbution. https://en.wikipedia.org/wiki/Hyperbolic_secant_distribution.
+        .. [#] Seigrist, K. (n.d.) The Hyperbolic Secant Distribution. https://www.randomservices.org/random/special/HyperbolicSecant.html.
+        .. [#] Wolfram Alpha(2021). Hyperbolic Secant. https://www.wolframalpha.com/input/?i=hyberbolic+secant+distribution.
+        
     """
+
+    def __init__(self, loc:float, scale:float): 
+        if scale <= 0:
+            raise ValueError('scale parameter is expected to be a positive real number')
+
+        self.loc, self.scale = loc, scale
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/HyperbolicSecantPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
         Returns:
             Union[float, numpy.ndarray]: evaluation of pdf at x
         """
+        mu, sigma = self.loc, self.scale
+
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return 0.5*(1/np.cosh(m.pi/2*x))
-
-        return 0.5*(1/m.cosh(m.pi/2*x))
+                x = np.array(x, dtype=np.float64) 
+        
+        x0 = 2*sigma
+        x1 = 1/np.cosh(m.pi*(x-mu)/(x0))
+        return x1 / x0
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/Infinite/HyperbolicSecantCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
         Returns:
             Union[float, numpy.ndarray]: evaluation of cdf at x
         """
+        mu, sigma = self.loc, self.scale
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            return 2/m.pi*np.arctanh(np.exp(m.pi/2*x))
+                x = np.array(x, dtype=np.float64) 
 
-        return 2/m.pi*m.atanh(m.exp(m.pi/2*x))
+        return 2*np.arctan(np.exp(m.pi*(x - mu)/ (2*sigma)))/ m.pi
 
-    def mean(self) -> float:
-        return 0.0
+    def mean(self) -> float: 
+        """
+        Returns: Mean of Hyperbolic Secant Distribution.
+        """
+        return self.loc
 
-    def median(self) -> float:
-        return 0.0
+    def mode(self) -> float: 
+        """
+        Returns: Mode of Hyperbolic Secant Distribution.
+        """
+        return self.loc
 
-    def mode(self) -> float:
-        return 0.0
+    def var(self) -> float: 
+        """
+        Returns: Variance of Hyperbolic Secant Distribution.
+        """
+        return self.scale**2
 
-    def var(self) -> float:
-        return 1.0
+    def std(self) -> float: 
+        """
+        Returns: Standard Deviation of Hyperbolic Secant Distribution.
+        """
+        return self.scale
 
-    def std(self) -> float:
-        return 1.0
-
-    def skewness(self) -> float:
+    def skewness(self) -> float: 
+        """
+        Returns: Skewness of Hyperbolic Secant Distribution.
+        """
         return 0.0
 
     def kurtosis(self) -> float:
-        return 2.0
-
-    def entropy(self) -> float:
-        # 4/pi*CatalanConstant
-        return 1.16624
+        """
+        Returns: Kurtosis of Hyperbolic Secant Distribution.
+        """
+        return 5.0
 
     def summary(self) -> Dict[str, float]:
         """
@@ -1096,7 +1224,7 @@ class Slash(Infinite):
     This class contains methods concerning to Slash Distribution [#]_. 
 
     .. math:: 
-        \text{Slash}(x) = {\begin{cases}{\frac {\varphi (0)-\varphi (x)}{x^{2}}}&x\neq 0\\{\frac {1}{2{\sqrt {2\pi }}}}&x=0\\\end{cases}}
+        \text{Slash}(x) = {\displaystyle {\begin{cases}{\frac {\varphi (0)-\varphi (x)}{x^{2}}}&x\neq 0\\{\frac {1}{2{\sqrt {2\pi }}}}&x=0\\\end{cases}}}
     
     Args:
         x (float): random variable
@@ -1117,24 +1245,45 @@ class Slash(Infinite):
             ) -> Union[float, np.ndarray]: ...
 
     def mean(self) -> str:
+        """
+        Returns: Mean of the Slash distribution.
+        """
         return 'Does not Exist'
 
     def median(self) -> float:
+        """
+        Returns: Median of the Slash distribution.
+        """
         return 0.0
 
     def mode(self) -> float:
+        """
+        Returns: Mode of the Slash distribution.
+        """
         return 0.0
 
     def var(self) -> str:
+        """
+        Returns: Variance of the Slash distribution.
+        """
         return 'Does not Exist'
 
     def std(self) -> str:
+        """
+        Returns: Standard Deviation of the Slash distribution.
+        """
         return 'Does not Exist'
 
     def skewness(self) -> str:
+        """
+        Returns: Skewness of the Slash distribution.
+        """
         return 'Does not Exist'
 
     def kurtosis(self) -> str:
+        """
+        Returns: Kurtosis of the Slash distribution.
+        """
         return 'Does not Exist'
 
     def entropy(self) -> float: ...
@@ -1152,10 +1301,10 @@ class Slash(Infinite):
 
 class SkewNormal(Infinite):
     """
-    This class contains methods concerning to Generalized Normal Distribution V1 [#]_. 
+    This class contains methods concerning to Generalized Normal Distribution V1 [#]_ [#]_. 
 
     .. math::
-        \\text{SkewNormal}(x;\\xi,\\omega,\\alpha) = \\frac{2}{\\omega \\sqrt{2\\pi}} e^{-\\frac{(x-\\xi)^2}{2\\omega^2}} \\int_{-\\infty}^{1\\Big(\\frac{x-\\xi}{\\omega}\\Big)} \\frac{1}{\\sqrt{2\\pi}} e^{-\\frac{t^2}{2}} \\ dt
+        \\text{SkewNormal}(x;\\xi,\\omega,\\alpha) = \\frac{e^{\\frac{-(x-\\xi)^2}{2 \\omega^2} \\text{erfc} \\Big( - \\frac{a(x-\\xi)}{\\sqrt{2} \\omega} \\Big) }}{ \\sqrt{2\\pi} \\omega}
 
     Args:
         loc (float): location parameter :math:`\\xi`
@@ -1165,32 +1314,99 @@ class SkewNormal(Infinite):
 
     Reference: 
         .. [#] Wikipedia Contributors (2021). Skew Normal Distribution. https://en.wikipedia.org/wiki/Skew_normal_distribution.
+        .. [#] Wolfram Research (2010), SkewNormalDistribution, Wolfram Language function, https://reference.wolfram.com/language/ref/SkewNormalDistribution.html (updated 2016).
+
     """
 
     def __init__(self, loc: float, scale: float, shape: float) -> None:
+        if scale <= 0:
+            raise ValueError(
+                'scale parameter is expected to be a positive real number')
+
         self.loc = loc
         self.scale = scale
         self.shape = shape
 
-    def pdf(self, x: Union[List[float], np.ndarray, float]
-            ) -> Union[float, np.ndarray]: ...
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
+        """
+        .. image:: ../docs/img/Infinite/SkewNormalPDF.png
+            :width: 500
 
-    def cdf(self, x: Union[List[float], np.ndarray, float]
-            ) -> Union[float, np.ndarray]: ...
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): random variables
 
-    def mean(self) -> float: ...
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """
+        loc, scale, shape = self.loc, self.scale, self.shape
+        # x0 = m.sqrt(2*m.pi)*scale
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+        return np.exp(-(x-loc)**2/(2*scale**2))*ss.erfc(-(shape*(x-loc)/(m.sqrt(2)*scale)))
+
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
+        """
+        .. image:: ../docs/img/Infinite/SkewNormalPDF.png
+            :width: 500
+
+        Args:
+            x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
+
+        Returns:
+            Union[float, numpy.ndarray]: evaluation of pdf at x
+        """        
+        loc, scale, shape = self.loc, self.scale, self.shape
+
+        if isinstance(x, (List, np.ndarray)):
+            if not type(x) is np.ndarray:
+                x = np.array(x, dtype=np.float64)
+        return 0.5*ss.erfc(-(x-loc)/(m.sqrt(2)*scale)) - 2*ss.owens_t((x-loc)/scale, shape)
+
+    def mean(self) -> float:
+        """
+        Returns: Mean of the Skew Normal distribution.
+        """
+        a, o, u = self.shape, self.scale, self.loc
+        x0 = m.sqrt(2/m.pi)*a*o
+        return x0/(m.sqrt(a**2 + 1)) + u
 
     def median(self) -> float: ...
 
     def mode(self) -> float: ...
 
-    def var(self) -> float: ...
+    def var(self) -> float:
+        """
+        Returns: Variance of the Skew Normal distribution.
+        """
+        shape, scale = self.shape, self.scale
+        x0 = 1 - 2*shape**2/(m.pi*(shape**2+1))
+        return x0*pow(scale, 2)
 
-    def std(self) -> float: ...
+    def std(self) -> float:
+        """
+        Returns: Standard Deviation of the Skew Normal distribution.
+        """
+        shape, scale = self.shape, self.scale
+        x0 = 1 - 2*shape**2/(m.pi*(shape**2+1))
+        return m.sqrt(x0*pow(scale, 2))
 
-    def skewness(self) -> float: ...
+    def skewness(self) -> float:
+        """
+        Returns: Skewness of the Skew Normal distribution.
+        """
+        shape = self.shape
+        x0 = m.sqrt(2)*(4-m.pi)*pow(shape, 3)
+        return x0/pow((m.pi-2)*shape**2 + m.pi, 3/2)
 
-    def kurtosis(self) -> float: ...
+    def kurtosis(self) -> float:
+        """
+        Returns: Kurtosis of the Skew Normal distribution.
+        """
+        shape = self.shape
+        x0 = 8*(m.pi-3)*pow(shape, 4)
+        return x0/pow((m.pi-2)*shape**2 + m.pi, 2) + 3
 
     def summary(self) -> Dict[str, Optional[float]]:
         """
@@ -1202,7 +1418,7 @@ class SkewNormal(Infinite):
             'var': self.var(), 'std': self.std(), 'skewness': self.skewness(), 'kurtosis': self.kurtosis()
         }
 
-
+# todo: PDF and CDF implementation
 class Landau(Infinite):
     """
     This class contains methods concerning to Generalized Normal Distribution V1 [#]_. 
@@ -1224,13 +1440,34 @@ class Landau(Infinite):
         return NotImplemented
 
     def mean(self) -> str:
-        return 'Undefined'
+        """
+        Returns: Variance of the Landau distribution.
+        """
+        return 'Indeterminate'
 
     def var(self) -> str:
-        return 'Undefined'
+        """
+        Returns: Variance of the Landau distribution.
+        """
+        return 'Indeterminate'
 
     def std(self) -> str:
-        return 'Undefined'
+        """
+        Returns: Variance of the Landau distribution.
+        """
+        return 'Indeterminate'
+
+    def skewness(self) -> str:
+        """
+        Returns: Variance of the Landau distribution.
+        """
+        return 'Indeterminate'
+    
+    def kurtosis(self) -> str:
+        """
+        Returns: Variance of the Landau distribution.
+        """
+        return 'Indeterminate'
 
     def summary(self) -> Dict[str, str]:
         """
@@ -1288,29 +1525,42 @@ class JohnsonSU(Infinite):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype=np.float64) 
             x1 = 1/np.sqrt(1+np.power((x-xi)/lmbda, 2))
             return x0*x1*np.exp(-0.5*np.power(gamma + delta*np.arcsinh((x-xi)/lmbda), 2))
 
         x1 = 1/m.sqrt(1+pow((x-xi)/lmbda, 2))
         return x0*x1*m.exp(-0.5*pow(gamma + delta*m.asinh((x-xi)/lmbda), 2))
 
-    def cdf(self, x: Union[List[float], np.ndarray, float]
-            ) -> Union[float, np.ndarray]: ...
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+        if isinstance(x, (List, np.ndarray)):
+            x = np.array(x, dtype=np.float64) 
 
     def mean(self) -> float:
+        """
+        Returns: Variance of the JohnsonSU distribution.
+        """
         delta = self.delta
         return self.xi - self.lmbda * m.exp(pow(delta, -2)/2)*m.sinh(self.gamma/delta)
 
     def median(self) -> float:
+        """
+        Returns: Variance of the JohnsonSU distribution.
+        """
         return self.xi + self.lmbda*m.sinh(-self.gamma/self.delta)
 
     def var(self) -> float:
+        """
+        Returns: Variance of the JohnsonSU distribution.
+        """
         delta = self.delta
         x0 = pow(self.lmbda, 2)/2*(m.exp(delta**-2) - 1)
         return x0*m.exp(pow(delta, -2)*m.cosh(2*self.gamma/delta) + 1)
 
     def std(self) -> float:
+        """
+        Returns: Variance of the JohnsonSU distribution.
+        """
         return m.sqrt(self.var())
 
     def summary(self) -> Dict[str, Optional[float]]:
@@ -1329,7 +1579,7 @@ class VarianceGamma(Infinite):
     This class contains methods concerning to Generalized Normal Distribution V1 [#]_. 
 
     Args:
-        loc (float): location parameter :math:`\\mean`
+        loc (float): location parameter :math:`\\mu`
         scale (float): scale parameter :math:`\\alpha`
         shape (float): shape parameter :math:`\\beta`
         x (float): random variable

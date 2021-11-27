@@ -46,6 +46,9 @@ class Weibull(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/WeibullPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -64,6 +67,9 @@ class Weibull(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/WeibullCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -175,6 +181,9 @@ class WeibullInverse(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/WeibullInversePDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -203,6 +212,9 @@ class WeibullInverse(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/WeibullInverseCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -319,6 +331,9 @@ class Gamma(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/GammaPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -344,6 +359,9 @@ class Gamma(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/GammaCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -455,6 +473,9 @@ class F(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/FPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -490,6 +511,9 @@ class F(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/FCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s)
 
@@ -608,6 +632,9 @@ class Chi(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ChiPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], np.ndarray, float]): random variable(s)
 
@@ -634,6 +661,9 @@ class Chi(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ChiCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray]): data point(s) of interest
 
@@ -749,6 +779,9 @@ class ChiSquare(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ChiSquarePDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -775,6 +808,9 @@ class ChiSquare(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ChiSquareCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -888,6 +924,9 @@ class Erlang(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ErlangPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -909,6 +948,9 @@ class Erlang(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ErlangCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -1019,6 +1061,9 @@ class Rayleigh(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/RayleighPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1046,6 +1091,8 @@ class Rayleigh(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/RayleighCDF.png
+            :width: 500
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -1152,6 +1199,9 @@ class Pareto(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ParetoPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1179,6 +1229,8 @@ class Pareto(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ParetoCDF.png
+            :width: 500
 
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
@@ -1306,6 +1358,9 @@ class MaxwellBoltzmann(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/MaxwellBoltzmannPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1330,6 +1385,9 @@ class MaxwellBoltzmann(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/MaxwellBoltzmannCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) or interest
 
@@ -1440,6 +1498,9 @@ class LogNormal(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/LogNormalPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1465,6 +1526,9 @@ class LogNormal(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/LogNormalCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -1478,6 +1542,7 @@ class LogNormal(SemiInfinite):
             if not type(x) is np.ndarray:
                 x = np.array(x, dtype=np.float64)
         return 0.5*ss.erfc((mean - np.log(x))/(std * m.sqrt(2)))
+
     def mean(self) -> float:
         """
         Returns: Mean of the log normal distribution.
@@ -1575,6 +1640,9 @@ class BetaPrime(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/BetaPrimePDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1600,6 +1668,9 @@ class BetaPrime(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/BetaPrimeCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -1726,6 +1797,8 @@ class Gumbell(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/GumbellPDF.png
+            :width: 500
 
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
@@ -1744,6 +1817,9 @@ class Gumbell(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/GumbellCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -1836,6 +1912,9 @@ class Exponential(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ExponentialPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1853,6 +1932,9 @@ class Exponential(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/ExponentialCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -1957,6 +2039,9 @@ class Benini(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/BeniniPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -1983,6 +2068,9 @@ class Benini(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/BeniniCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) or interest
 
@@ -2120,6 +2208,9 @@ class Dagum(SemiInfinite):
 
     def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/DagumPDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variable(s)
 
@@ -2145,6 +2236,9 @@ class Dagum(SemiInfinite):
 
     def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:  
         """
+        .. image:: ../docs/img/ContinuousSemiInfinite/DagumCDF.png
+            :width: 500
+
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
 
@@ -2160,19 +2254,31 @@ class Dagum(SemiInfinite):
         return (1+(x/b)**(-a))**-p
 
     def mean(self) -> Union[float, str]: 
+        """
+        Returns: Mean of the Dagum distribution.
+        """
         p, a, b = self.shape_p, self.shape_a, self.scale
         if a <= 1:
             return 'Indeterminate'
         return -b/a*((ss.gamma(-1/a)*ss.gamma(1/a+p))/ss.gamma(p))
 
     def median(self) -> float: 
+        """
+        Returns: Median of the Dagum distribution.
+        """
         return self.scale*pow(-1+pow(2,1/self.shape_p), -1/self.shape_a)
 
     def mode(self) -> float: 
+        """
+        Returns: Mode of the Dagum distribution.
+        """
         p,a = self.shape_p, self.shape_a
         return self.scale*pow((a*p-1)/(a+1), 1/a)
     
     def var(self) -> Union[float, str]: 
+        """
+        Returns: Variance of the Dagum distribution.
+        """
         p, a, b = self.shape_p, self.shape_a, self.scale
         if a <= 2:
             return 'Indeterminate'
@@ -2182,6 +2288,9 @@ class Dagum(SemiInfinite):
         return -b**2/a**2*(x0+x1)
     
     def std(self) -> Union[float, str]: 
+        """
+        Returns: Standard Deviation of the Dagum distribution.
+        """
         var = self.var()
         if type(var) is str:
             return 'Indeterminate'

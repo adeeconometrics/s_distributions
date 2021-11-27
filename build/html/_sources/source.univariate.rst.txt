@@ -1,8 +1,6 @@
 source.univariate package
 =========================
-
-Submodules
-----------
+This package a collection of continuous univariate distributions.
 
 source.univariate.BoundedInterval module
 ----------------------------------------

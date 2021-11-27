@@ -335,7 +335,7 @@
 
 <span class="sd">    References:</span>
 <span class="sd">        .. [#] NIST/SEMATECH e-Handbook of Statistical Methods (2012). Binomial Distribution. Retrieved at http://www.itl.nist.gov/div898/handbook/, December 26, 2000.</span>
-<span class="sd">        .. [#] Wikipedia contributors. (2020, December 19). Binomial distribution. In Wikipedia, The Free Encyclopedia. Retrieved 07:24, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096</span>
+<span class="sd">        .. [#] Wikipedia contributors. (2020, December 19). Binomial distribution. https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096</span>
 <span class="sd">        .. [#] Weisstein, Eric W. &quot;Binomial Distribution.&quot; From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/BinomialDistribution.html</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
@@ -463,7 +463,7 @@
 
 <span class="sd">    References:</span>
 <span class="sd">        .. [#] Weisstein, Eric W. &quot;Geometric Distribution.&quot; From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/GeometricDistribution.html</span>
-<span class="sd">        .. [#] Wikipedia contributors. (2020, December 27). Geometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 12:05, December 27, 2020, from https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676</span>
+<span class="sd">        .. [#] Wikipedia contributors. (2020, December 27). Geometric distribution. https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676</span>
 
 <span class="sd">    Note: Geometric distribution can be configured based through `_type` parameter in `pmf`, `cdf` and moments of the distribution, including the `std`. </span>
 <span class="sd">    The default type is `_type=&#39;first&#39;`, or :math:`\\text{Geometric_1}(x;p)`.</span>
@@ -637,47 +637,52 @@
 <span class="sd">    This class contains methods concerning pmf and cdf evaluation of the hypergeometric distribution. </span>
 <span class="sd">    Describes the probability if k successes (random draws for which the objsect drawn has specified deature)</span>
 <span class="sd">    in n draws, without replacement, from a finite population size N that contains exactly K objects with that</span>
-<span class="sd">    feature, wherein each draw is either a success or a failure [#]_ [#]_. </span>
+<span class="sd">    feature, wherein each draw is either a success or a failure [#]_ [#]_ [#]_. </span>
 
-<span class="sd">    .. math:: \\text{Hypergeometric}(N,K,k,n) = {{{K \\choose k}{{N-K} \\choose {n-k}}} \\over {N \\choose n}}</span>
+<span class="sd">    .. math:: \\text{Hypergeometric}(x;N,K,n) = {{{K \\choose x}{{N-K} \\choose {n-x}}} \\over {N \\choose n}}</span>
 
 <span class="sd">    Args:</span>
 
-<span class="sd">        N(int): population size</span>
-<span class="sd">        K(int): number of success states in the population</span>
-<span class="sd">        k(int): number of observed successes</span>
-<span class="sd">        n(int): number of draws </span>
+<span class="sd">        N(int): population size  :math:`N &gt; 0`</span>
+<span class="sd">        K(int): number of success states in the population :math:`K &gt; 0`</span>
+<span class="sd">        n(int): number of draws  :math:`n &gt; 0`</span>
+<span class="sd">        k(int): number of observed successes :math:`x &gt; 0`</span>
 
 <span class="sd">    References:</span>
 <span class="sd">        .. [#] Weisstein, Eric W. &quot;Hypergeometric Distribution.&quot; From MathWorld--A Wolfram Web Resource. https://mathworld.wolfram.com/HypergeometricDistribution.html</span>
-<span class="sd">        .. [#] Wikipedia contributors. (2020, December 22). Hypergeometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:38, December 26, 2020, from https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954</span>
-
+<span class="sd">        .. [#] Wikipedia contributors. (2020, December 22). Hypergeometric distribution. https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954</span>
+<span class="sd">        .. [#] Wolfram Research (2007). HypergeometricDistribution. https://reference.wolfram.com/language/ref/HypergeometricDistribution.html.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">k</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">K</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">k</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">N</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">K</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">n</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="n">K</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s1">&#39;all parameters must be of type int&#39;</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">n</span><span class="p">]):</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">i</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="p">[</span><span class="n">N</span><span class="p">,</span> <span class="n">K</span><span class="p">,</span> <span class="n">n</span><span class="p">]):</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;parameters must be positive integer&#39;</span><span class="p">)</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">K</span> <span class="o">=</span> <span class="n">K</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">k</span> <span class="o">=</span> <span class="n">k</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">n</span> <span class="o">=</span> <span class="n">n</span>
 
-<div class="viewcode-block" id="Hypergeometric.pmf"><a class="viewcode-back" href="../../../source.discrete.html#source.discrete.Finite.Hypergeometric.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<div class="viewcode-block" id="Hypergeometric.pmf"><a class="viewcode-back" href="../../../source.discrete.html#source.discrete.Finite.Hypergeometric.pmf">[docs]</a>    <span class="k">def</span> <span class="nf">pmf</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span><span class="n">Union</span><span class="p">[</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="nb">float</span><span class="p">]:</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Returns:</span>
 <span class="sd">            float: evaluation of pmf</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">n</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n</span>
-        <span class="n">k</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">k</span>
         <span class="n">N</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span>
         <span class="n">K</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">K</span>
 
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="nb">type</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="ow">is</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">:</span>
+                <span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">any</span><span class="p">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variables are expected to be greater than or equal to 0&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">x</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;random variables are expected to be greater than or equal to 0&#39;</span><span class="p">)</span>
         <span class="c1"># assumes n&gt;k</span>
-        <span class="k">return</span> <span class="n">ss</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">k</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="n">K</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">k</span><span class="p">)</span><span class="o">/</span><span class="n">ss</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="n">ss</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">K</span><span class="p">,</span> <span class="n">x</span><span class="p">)</span><span class="o">*</span><span class="n">ss</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">N</span><span class="o">-</span><span class="n">K</span><span class="p">,</span> <span class="n">n</span><span class="o">-</span><span class="n">x</span><span class="p">)</span><span class="o">/</span><span class="n">ss</span><span class="o">.</span><span class="n">binom</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="Hypergeometric.cdf"><a class="viewcode-back" href="../../../source.discrete.html#source.discrete.Finite.Hypergeometric.cdf">[docs]</a>    <span class="k">def</span> <span class="nf">cdf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>

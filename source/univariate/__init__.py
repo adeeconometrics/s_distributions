@@ -12,7 +12,7 @@ from univariate.BoundedInterval import (BoundedInterval, Arcsine, Beta,
                                         RaisedCosine, UQuadratic)
 
 from univariate.Infinite import (Infinite, Cauchy, T, Gaussian, 
-                                Laplace, Logistic, Fisher, AssymetricLaplace,
+                                Laplace, Logistic, FisherZ, AssymetricLaplace,
                                 GNV1, GNV2, GH, HyperbolicSecant,
                                 Slash, SkewNormal, Landau, JohnsonSU, VarianceGamma)
 

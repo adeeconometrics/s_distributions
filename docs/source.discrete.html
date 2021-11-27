@@ -379,7 +379,7 @@ cumulative distribution function for binomial distirbution <a class="footnote-re
 <dd><p>NIST/SEMATECH e-Handbook of Statistical Methods (2012). Binomial Distribution. Retrieved at <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/">http://www.itl.nist.gov/div898/handbook/</a>, December 26, 2000.</p>
 </dd>
 <dt class="label" id="id9"><span class="brackets"><a class="fn-backref" href="#id6">4</a></span></dt>
-<dd><p>Wikipedia contributors. (2020, December 19). Binomial distribution. In Wikipedia, The Free Encyclopedia. Retrieved 07:24, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096">https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096</a></p>
+<dd><p>Wikipedia contributors. (2020, December 19). Binomial distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096">https://en.wikipedia.org/w/index.php?title=Binomial_distribution&amp;oldid=995095096</a></p>
 </dd>
 <dt class="label" id="id10"><span class="brackets"><a class="fn-backref" href="#id7">5</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Binomial Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/BinomialDistribution.html">https://mathworld.wolfram.com/BinomialDistribution.html</a></p>
@@ -526,7 +526,7 @@ Y=X-1 of failures before the first success, supported on the set {0,1,2,3,...} <
 <dd><p>Weisstein, Eric W. &quot;Geometric Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/GeometricDistribution.html">https://mathworld.wolfram.com/GeometricDistribution.html</a></p>
 </dd>
 <dt class="label" id="id14"><span class="brackets"><a class="fn-backref" href="#id12">7</a></span></dt>
-<dd><p>Wikipedia contributors. (2020, December 27). Geometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 12:05, December 27, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676">https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676</a></p>
+<dd><p>Wikipedia contributors. (2020, December 27). Geometric distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676">https://en.wikipedia.org/w/index.php?title=Geometric_distribution&amp;oldid=996517676</a></p>
 </dd>
 </dl>
 <p>Note: Geometric distribution can be configured based through <cite>_type</cite> parameter in <cite>pmf</cite>, <cite>cdf</cite> and moments of the distribution, including the <cite>std</cite>.
@@ -691,31 +691,34 @@ The default type is <cite>_type='first'</cite>, or <span class="math notranslate
 
 <dl class="py class">
 <dt class="sig sig-object py" id="source.discrete.Finite.Hypergeometric">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Finite.</span></span><span class="sig-name descname"><span class="pre">Hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">k</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Finite.html#Hypergeometric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Finite.Hypergeometric" title="Permalink to this definition">¶</a></dt>
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Finite.</span></span><span class="sig-name descname"><span class="pre">Hypergeometric</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">N</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">K</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Finite.html#Hypergeometric"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Finite.Hypergeometric" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Finite.Finite" title="source.discrete.Finite.Finite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Finite.Finite</span></code></a></p>
 <p>This class contains methods concerning pmf and cdf evaluation of the hypergeometric distribution.
 Describes the probability if k successes (random draws for which the objsect drawn has specified deature)
 in n draws, without replacement, from a finite population size N that contains exactly K objects with that
-feature, wherein each draw is either a success or a failure <a class="footnote-reference brackets" href="#id17" id="id15">8</a> <a class="footnote-reference brackets" href="#id18" id="id16">9</a>.</p>
+feature, wherein each draw is either a success or a failure <a class="footnote-reference brackets" href="#id18" id="id15">8</a> <a class="footnote-reference brackets" href="#id19" id="id16">9</a> <a class="footnote-reference brackets" href="#id20" id="id17">10</a>.</p>
 <div class="math notranslate nohighlight">
-\[\text{Hypergeometric}(N,K,k,n) = {{{K \choose k}{{N-K} \choose {n-k}}} \over {N \choose n}}\]</div>
+\[\text{Hypergeometric}(x;N,K,n) = {{{K \choose x}{{N-K} \choose {n-x}}} \over {N \choose n}}\]</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>N</strong> (<em>int</em>) -- population size</p></li>
-<li><p><strong>K</strong> (<em>int</em>) -- number of success states in the population</p></li>
-<li><p><strong>k</strong> (<em>int</em>) -- number of observed successes</p></li>
-<li><p><strong>n</strong> (<em>int</em>) -- number of draws</p></li>
+<li><p><strong>N</strong> (<em>int</em>) -- population size  <span class="math notranslate nohighlight">\(N &gt; 0\)</span></p></li>
+<li><p><strong>K</strong> (<em>int</em>) -- number of success states in the population <span class="math notranslate nohighlight">\(K &gt; 0\)</span></p></li>
+<li><p><strong>n</strong> (<em>int</em>) -- number of draws  <span class="math notranslate nohighlight">\(n &gt; 0\)</span></p></li>
+<li><p><strong>k</strong> (<em>int</em>) -- number of observed successes <span class="math notranslate nohighlight">\(x &gt; 0\)</span></p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id17"><span class="brackets"><a class="fn-backref" href="#id15">8</a></span></dt>
+<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id15">8</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Hypergeometric Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/HypergeometricDistribution.html">https://mathworld.wolfram.com/HypergeometricDistribution.html</a></p>
 </dd>
-<dt class="label" id="id18"><span class="brackets"><a class="fn-backref" href="#id16">9</a></span></dt>
-<dd><p>Wikipedia contributors. (2020, December 22). Hypergeometric distribution. In Wikipedia, The Free Encyclopedia. Retrieved 08:38, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954">https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954</a></p>
+<dt class="label" id="id19"><span class="brackets"><a class="fn-backref" href="#id16">9</a></span></dt>
+<dd><p>Wikipedia contributors. (2020, December 22). Hypergeometric distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954">https://en.wikipedia.org/w/index.php?title=Hypergeometric_distribution&amp;oldid=995715954</a></p>
+</dd>
+<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id17">10</a></span></dt>
+<dd><p>Wolfram Research (2007). HypergeometricDistribution. <a class="reference external" href="https://reference.wolfram.com/language/ref/HypergeometricDistribution.html">https://reference.wolfram.com/language/ref/HypergeometricDistribution.html</a>.</p>
 </dd>
 </dl>
 <dl class="py method">
@@ -779,7 +782,7 @@ feature, wherein each draw is either a success or a failure <a class="footnote-r
 
 <dl class="py method">
 <dt class="sig sig-object py" id="source.discrete.Finite.Hypergeometric.pmf">
-<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">float</span></span></span><a class="reference internal" href="_modules/source/discrete/Finite.html#Hypergeometric.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Finite.Hypergeometric.pmf" title="Permalink to this definition">¶</a></dt>
+<span class="sig-name descname"><span class="pre">pmf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">List</span><span class="p"><span class="pre">,</span> </span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Union</span><span class="p"><span class="pre">[</span></span><span class="pre">numpy.ndarray</span><span class="p"><span class="pre">,</span> </span><span class="pre">float</span><span class="p"><span class="pre">]</span></span></span></span><a class="reference internal" href="_modules/source/discrete/Finite.html#Hypergeometric.pmf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Finite.Hypergeometric.pmf" title="Permalink to this definition">¶</a></dt>
 <dd><dl class="field-list simple">
 <dt class="field-odd">Returns</dt>
 <dd class="field-odd"><p>evaluation of pmf</p>
@@ -833,7 +836,7 @@ feature, wherein each draw is either a success or a failure <a class="footnote-r
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Finite.</span></span><span class="sig-name descname"><span class="pre">Uniform</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">b</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Finite.html#Uniform"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Finite.Uniform" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Finite.Finite" title="source.discrete.Finite.Finite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Finite.Finite</span></code></a></p>
 <p>This contains methods for finding the probability mass function and
-cumulative distribution function of Uniform distribution. Incudes scatter plot <a class="footnote-reference brackets" href="#id20" id="id19">10</a>.</p>
+cumulative distribution function of Uniform distribution. Incudes scatter plot <a class="footnote-reference brackets" href="#id22" id="id21">11</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Uniform} (a,b) = {\begin{cases}{\frac {1}{b-a}}&amp;\mathrm {for} \ a\leq x\leq b,\ \[8pt]0&amp;\mathrm {for} \ x&lt;a\ \mathrm {or} \ x&gt;b\end{cases}}\]</div>
 <dl class="field-list simple">
@@ -843,7 +846,7 @@ cumulative distribution function of Uniform distribution. Incudes scatter plot <
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id20"><span class="brackets"><a class="fn-backref" href="#id19">10</a></span></dt>
+<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id21">11</a></span></dt>
 <dd><p>NIST/SEMATECH e-Handbook of Statistical Methods (2012). Uniform Distribution. Retrieved from <a class="reference external" href="http://www.itl.nist.gov/div898/handbook/">http://www.itl.nist.gov/div898/handbook/</a>, December 26, 2020.</p>
 </dd>
 </dl>
@@ -960,7 +963,7 @@ cumulative distribution function of Uniform distribution. Incudes scatter plot <
 <dt class="sig sig-object py" id="source.discrete.Infinite.Borel">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Infinite.</span></span><span class="sig-name descname"><span class="pre">Borel</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mu</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Infinite.html#Borel"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Infinite.Borel" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Infinite.Infinite" title="source.discrete.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning the Borel Distribution <a class="footnote-reference brackets" href="#id22" id="id21">11</a>.</p>
+<p>This class contains methods concerning the Borel Distribution <a class="footnote-reference brackets" href="#id24" id="id23">12</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Borel}(x;\mu) = \frac{e^{-\mu x}(\mu x)^{x-1}}{x!}\]</div>
 <dl class="field-list simple">
@@ -973,7 +976,7 @@ cumulative distribution function of Uniform distribution. Incudes scatter plot <
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id22"><span class="brackets"><a class="fn-backref" href="#id21">11</a></span></dt>
+<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id23">12</a></span></dt>
 <dd><p>Wikipedia Contributors (2021). Borel Distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Borel_distribution">https://en.wikipedia.org/wiki/Borel_distribution</a></p>
 </dd>
 </dl>
@@ -1021,7 +1024,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.discrete.Infinite.GaussKuzmin">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Infinite.</span></span><span class="sig-name descname"><span class="pre">GaussKuzmin</span></span><a class="reference internal" href="_modules/source/discrete/Infinite.html#GaussKuzmin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Infinite.GaussKuzmin" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Infinite.Infinite" title="source.discrete.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning the Gauss-Kuzmin distribution <a class="footnote-reference brackets" href="#id24" id="id23">12</a> .</p>
+<p>This class contains methods concerning the Gauss-Kuzmin distribution <a class="footnote-reference brackets" href="#id26" id="id25">13</a> .</p>
 <div class="math notranslate nohighlight">
 \[\text{GaussKuzmin}(x) = -\log_2 \Big[ 1- \frac{1}{(k+1)^2}\Big]\]</div>
 <dl class="field-list simple">
@@ -1031,7 +1034,7 @@ Returns NotImplemented.</p>
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id24"><span class="brackets"><a class="fn-backref" href="#id23">12</a></span></dt>
+<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id25">13</a></span></dt>
 <dd><p>Wikipedia Contributors (2021). Gauss-Kuzmin distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Gauss%E2%80%93Kuzmin_distribution">https://en.wikipedia.org/wiki/Gauss%E2%80%93Kuzmin_distribution</a>.</p>
 </dd>
 </dl>
@@ -1130,7 +1133,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.discrete.Infinite.Logarithmic">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Infinite.</span></span><span class="sig-name descname"><span class="pre">Logarithmic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">p</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Infinite.html#Logarithmic"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Infinite.Logarithmic" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Infinite.Infinite" title="source.discrete.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning Logarithmic distirbution <a class="footnote-reference brackets" href="#id26" id="id25">13</a>.</p>
+<p>This class contains methods concerning Logarithmic distirbution <a class="footnote-reference brackets" href="#id28" id="id27">14</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Logarithmic}(x;p) = \frac{-1}{\ln(1-p)} \ \frac{p^k}{k}\]</div>
 <dl class="field-list simple">
@@ -1143,7 +1146,7 @@ Returns NotImplemented.</p>
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id26"><span class="brackets"><a class="fn-backref" href="#id25">13</a></span></dt>
+<dt class="label" id="id28"><span class="brackets"><a class="fn-backref" href="#id27">14</a></span></dt>
 <dd><p>Wikipedia Contributors (2020). Logarithmic distirbution. <a class="reference external" href="https://en.wikipedia.org/wiki/Logarithmic_distribution">https://en.wikipedia.org/wiki/Logarithmic_distribution</a>.</p>
 </dd>
 </dl>
@@ -1205,7 +1208,7 @@ Returns NotImplemented.</p>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Infinite.Infinite" title="source.discrete.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Infinite.Infinite</span></code></a></p>
 <p>This class contains methods for evaluating some properties of the poisson distribution.
 As lambda increases to sufficiently large values, the normal distribution (λ, λ) may be used to
-approximate the Poisson distribution <a class="footnote-reference brackets" href="#id30" id="id27">14</a> <a class="footnote-reference brackets" href="#id31" id="id28">15</a> <a class="footnote-reference brackets" href="#id32" id="id29">16</a>.</p>
+approximate the Poisson distribution <a class="footnote-reference brackets" href="#id32" id="id29">15</a> <a class="footnote-reference brackets" href="#id33" id="id30">16</a> <a class="footnote-reference brackets" href="#id34" id="id31">17</a>.</p>
 <p>Use the Poisson distribution to describe the number of times an event occurs in a finite observation space.</p>
 <div class="math notranslate nohighlight">
 \[\text{Poisson}(x;\lambda) = \frac{\lambda ^{x} e^{- \lambda}}{x!}\]</div>
@@ -1219,13 +1222,13 @@ approximate the Poisson distribution <a class="footnote-reference brackets" href
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id30"><span class="brackets"><a class="fn-backref" href="#id27">14</a></span></dt>
+<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id29">15</a></span></dt>
 <dd><p>Minitab (2019). Poisson Distribution. <a class="reference external" href="https://bityl.co/4uYc">https://bityl.co/4uYc</a></p>
 </dd>
-<dt class="label" id="id31"><span class="brackets"><a class="fn-backref" href="#id28">15</a></span></dt>
+<dt class="label" id="id33"><span class="brackets"><a class="fn-backref" href="#id30">16</a></span></dt>
 <dd><p>Weisstein, Eric W. &quot;Poisson Distribution.&quot; From MathWorld--A Wolfram Web Resource. <a class="reference external" href="https://mathworld.wolfram.com/PoissonDistribution.html">https://mathworld.wolfram.com/PoissonDistribution.html</a>.</p>
 </dd>
-<dt class="label" id="id32"><span class="brackets"><a class="fn-backref" href="#id29">16</a></span></dt>
+<dt class="label" id="id34"><span class="brackets"><a class="fn-backref" href="#id31">17</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, December 16). Poisson distribution. <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766">https://en.wikipedia.org/w/index.php?title=Poisson_distribution&amp;oldid=994605766</a></p>
 </dd>
 </dl>
@@ -1349,7 +1352,7 @@ approximate the Poisson distribution <a class="footnote-reference brackets" href
 <dt class="sig sig-object py" id="source.discrete.Infinite.YulleSimon">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Infinite.</span></span><span class="sig-name descname"><span class="pre">YulleSimon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Infinite.html#YulleSimon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Infinite.YulleSimon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Infinite.Infinite" title="source.discrete.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning the Yulle-Simon Distribution <a class="footnote-reference brackets" href="#id34" id="id33">17</a>.</p>
+<p>This class contains methods concerning the Yulle-Simon Distribution <a class="footnote-reference brackets" href="#id36" id="id35">18</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{YulleSimon}(x;\rho) = \rho\text{B}(x,\rho+1)\]</div>
 <dl class="field-list simple">
@@ -1362,7 +1365,7 @@ approximate the Poisson distribution <a class="footnote-reference brackets" href
 </dl>
 <dl>
 <dt>Reference:</dt><dd><dl class="footnote brackets">
-<dt class="label" id="id34"><span class="brackets"><a class="fn-backref" href="#id33">17</a></span></dt>
+<dt class="label" id="id36"><span class="brackets"><a class="fn-backref" href="#id35">18</a></span></dt>
 <dd><p>Wikipedia Contributors (2021). Yulle-Simon distribution. <a class="reference external" href="https://en.wikipedia.org/wiki/Yule%E2%80%93Simon_distribution">https://en.wikipedia.org/wiki/Yule%E2%80%93Simon_distribution</a>.</p>
 </dd>
 </dl>
@@ -1436,7 +1439,7 @@ Returns NotImplemented.</p>
 <dt class="sig sig-object py" id="source.discrete.Infinite.Zeta">
 <em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">source.discrete.Infinite.</span></span><span class="sig-name descname"><span class="pre">Zeta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">s</span></span><span class="p"><span class="pre">:</span></span> <span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/source/discrete/Infinite.html#Zeta"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#source.discrete.Infinite.Zeta" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#source.discrete.Infinite.Infinite" title="source.discrete.Infinite.Infinite"><code class="xref py py-class docutils literal notranslate"><span class="pre">source.discrete.Infinite.Infinite</span></code></a></p>
-<p>This class contains methods concerning the Zeta Distribution <a class="footnote-reference brackets" href="#id37" id="id35">18</a> <a class="footnote-reference brackets" href="#id38" id="id36">19</a>.</p>
+<p>This class contains methods concerning the Zeta Distribution <a class="footnote-reference brackets" href="#id39" id="id37">19</a> <a class="footnote-reference brackets" href="#id40" id="id38">20</a>.</p>
 <div class="math notranslate nohighlight">
 \[\text{Zeta}(x;s) =\frac{\frac{1}{x^s}}{\zeta(s)}\]</div>
 <dl class="field-list simple">
@@ -1449,10 +1452,10 @@ Returns NotImplemented.</p>
 </dl>
 <p class="rubric">References</p>
 <dl class="footnote brackets">
-<dt class="label" id="id37"><span class="brackets"><a class="fn-backref" href="#id35">18</a></span></dt>
+<dt class="label" id="id39"><span class="brackets"><a class="fn-backref" href="#id37">19</a></span></dt>
 <dd><p>Wikipedia contributors. (2020, November 6). Zeta distribution. In Wikipedia, The Free Encyclopedia. Retrieved 10:24, December 26, 2020, from <a class="reference external" href="https://en.wikipedia.org/w/index.php?title=Zeta_distribution&amp;oldid=987351423">https://en.wikipedia.org/w/index.php?title=Zeta_distribution&amp;oldid=987351423</a></p>
 </dd>
-<dt class="label" id="id38"><span class="brackets"><a class="fn-backref" href="#id36">19</a></span></dt>
+<dt class="label" id="id40"><span class="brackets"><a class="fn-backref" href="#id38">20</a></span></dt>
 <dd><p>The Zeta Distribution. (2021, February 3). <a class="reference external" href="https://stats.libretexts.org/&#64;go/page/10473">https://stats.libretexts.org/&#64;go/page/10473</a></p>
 </dd>
 </dl>
