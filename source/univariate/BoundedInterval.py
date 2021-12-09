@@ -47,8 +47,8 @@ class Arcsine(BoundedInterval):
         """
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any((x <= 0) | (x >= 1)):
+                x = np.array(x, dtype = np.float64)
+            if np.any((x < 0) | (x > 1)):
                 raise ValueError(
                     f'random variable should have values between [0,1].')
             return 1/(m.pi * np.sqrt(x*(1-x)))
@@ -76,20 +76,16 @@ class Arcsine(BoundedInterval):
         """
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
-            if np.any((x <= 0) | (x >= 1)):
+                x = np.array(x, dtype = np.float64)
+            if np.any((x < 0) | (x > 1)):
                 raise ValueError(
                     f'values can only be evaluated in the domain [0,1]')
-            return 1/(m.pi)*np.arcsin(np.sqrt(x))
+            return 2/(m.pi)*np.arcsin(np.sqrt(x))
 
-        if type(x) is float:
-            if x <= 0 or x >= 1:
-                raise ValueError(
-                    f'values can only be evaluated in the domain [0,1]')
-            return 1/m.pi * m.asin(m.sqrt(x))
-
-        raise TypeError(
-            'parameter x is expected to be of type float | List[float] | numpy.ndarray')
+        if x <= 0 or x >= 1:
+            raise ValueError(
+                f'values can only be evaluated in the domain [0,1]')
+        return 2/m.pi * m.asin(m.sqrt(x))
 
     def mean(self) -> float:
         """
@@ -138,7 +134,7 @@ class Arcsine(BoundedInterval):
         Returns:
             kurtosis of Arcsine distribution
         """
-        return 1.5
+        return -1.5
 
     def entropy(self) -> float:
         """
@@ -202,7 +198,7 @@ class Beta(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x <= 0) | (x >= 1)):
                 raise ValueError(
                     'random variables should only be between 0 and 1')
@@ -225,16 +221,17 @@ class Beta(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return ss.betainc(a, b, x)
 
         return ss.betainc(a, b, x)
 
-    def mean(self) -> str:
+    def mean(self) -> float:
         """
         Returns: Mean of the Beta distribution.
         """
-        return "currently unsupported."
+        a = self.alpha
+        return a/(a+self.beta)
 
     def median(self) -> float:
         """
@@ -243,23 +240,26 @@ class Beta(BoundedInterval):
         # warning: not yet validated.
         return ss.betainc(self.alpha, self.beta, 0.5)
 
-    def mode(self) -> str:
+    def mode(self) -> float:
         """
         Returns: Mode of the Beta distribution.
         """
-        return "currently unsupported"
+        a = self.alpha
+        return (a-1)/(a + self.beta -2)
 
-    def var(self) -> str:
+    def var(self) -> float:
         """
         Returns: Variance of the Beta distribution.
         """
-        return "currently unsupported"
+        a,b = self.alpha, self.beta
+        return a*b/((a+b)**2*m.sqrt(a+b+1))
 
-    def std(self) -> str:
+    def std(self) -> float:
         """
         Returns: Variance of the Beta distribution.
         """
-        return "currently unsupported"
+        a,b = self.alpha, self.beta
+        return m.sqrt(a*b/((a+b)**2*m.sqrt(a+b+1)))
 
     def skewness(self) -> float:
         """
@@ -289,7 +289,7 @@ class Beta(BoundedInterval):
         beta = self.beta
         return m.log(ss.beta(alpha, beta))-(alpha-1)*(ss.digamma(alpha)-ss.digamma(alpha+beta))-(beta-1)*(ss.digamma(beta)-ss.digamma(alpha+beta))
 
-    def summary(self) -> Dict[str, Union[float, str]]:
+    def summary(self) -> Dict[str, float]:
         """
         Returns:
             Dictionary of Beta distirbution moments. This includes standard deviation. 
@@ -433,7 +433,7 @@ class Bernoulli(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x <= 0)|(x >= 1)):
                 raise ValueError('random variable must be between 0 and 1')
             return __C(self.shape) * np.power(shape, x)*np.power(1-shape, 1-x)
@@ -457,7 +457,7 @@ class Bernoulli(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x <= 0)|(x >= 1)):
                 raise ValueError('values must be between 0 and 1')
             return (np.power(shape, x)*np.power(1-shape, 1-x) + shape - 1)/(1-2*shape) if shape != 0.5 else x
@@ -642,7 +642,7 @@ class Triangular(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((a > x) | (x > b)):
                 raise ValueError(
                     'all random variables are expected to be between a and b parameters')
@@ -676,7 +676,7 @@ class Triangular(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return np.vectorize(__generator)(a, b, c, x)
 
         return __generator(a, b, c, x)
@@ -793,7 +793,7 @@ class LogitNormal(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x < 0) | (x > 1)):
                 raise ValueError(
                     'random variable should only be in between 0 and 1')
@@ -820,7 +820,7 @@ class LogitNormal(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return __generator(mu, sig, x)
 
         return __generator(mu, sig, x)
@@ -903,7 +903,7 @@ class Uniform(BoundedInterval):
         if isinstance(x, (np.ndarray, List)):
             x0 = 1/(b-a)
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return np.piecewise(x, [(a <= x) & (x <= b), (a > x) | (x > b)], [x0, 0.0])
 
         return 1 / (b - a) if a <= x and x <= b else 0.0
@@ -929,7 +929,7 @@ class Uniform(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             # performance could be improved with np.piecewise
             return np.vectorize(__generator)(a, b, x)
 
@@ -1054,7 +1054,7 @@ class Trapezoidal(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return np.vectorize(__generator)(a, b, c, d, x)
 
         return __generator(a, b, c, d, x)
@@ -1080,7 +1080,7 @@ class Trapezoidal(BoundedInterval):
 
         if isinstance(x, (np.ndarray, List)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return np.vectorize(__generator)(a, b, c, d, x)
 
         return __generator(a, b, c, d, x)
@@ -1098,7 +1098,7 @@ class Trapezoidal(BoundedInterval):
 
     def var(self) -> float:
         """
-        Returns: Variance of the Trapezoidal distribution. Currently Unsupported.
+        Returns: Variance of the Trapezoidal distribution.
         """
         a = self.a
         b = self.b
@@ -1107,6 +1107,24 @@ class Trapezoidal(BoundedInterval):
 
         mean = 1/(3*(d+c-b-a)) * ((d**3 - c**3)/(d-c) - (b**3 - a**3)/(b-a))
         return 1/(6*(d+c-b-a)) * ((d**4 - c**4)/(d-c) - (b**4 - a**4)/(b-a)) - pow(mean, 2)
+
+    def std(self) -> float:
+        """
+        Returns: Variance of the Trapezoidal distribution.
+        """
+        return m.sqrt(self.var())
+       
+    def entropy(self) -> float:
+        """
+        Returns: Entropy of the Trapezoidal distribution.
+        """
+        a = self.a
+        b = self.b
+        c = self.c
+        d = self.d
+
+        x0 = d + c - b - a
+        return (d-c+b-a)/(2*x0) + m.log(x0/2)
 
     def summary(self) -> Dict[str, Union[float, Tuple[float]]]:
         """
@@ -1132,13 +1150,14 @@ class WignerSemiCircle(BoundedInterval):
     Reference:
         .. [#] Wikipedia Contributors (2021). Wigner semicircle distribution. https://en.wikipedia.org/wiki/Wigner_semicircle_distribution.
     """
-    def __init__(self, radius:float):
+
+    def __init__(self, radius: float):
         if radius <= 0:
-            raise ValueError('')
+            raise ValueError('radius is expected to be greater than 0')
 
         self.radius = radius
 
-    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+    def pdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
         Args:
             x (Union[List[float], numpy.ndarray, float]): random variables
@@ -1148,23 +1167,21 @@ class WignerSemiCircle(BoundedInterval):
 
         Returns:
             Union[float, numpy.ndarray]: evaluation of pdf at x
-        """        
+        """
         rad = self.radius
         x0 = 2/(m.pi*rad**2)
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
 
-            # checks x <= R; x >= -R
-            if np.any((x < -rad) | (x > rad)):
-                raise ValueError(f'random variable is expected to be defined within [-{rad},{rad}]')
-            return x0 * np.sqrt(rad**2 - np.power(x,2))
-        
+            return x0 * np.sqrt(rad**2 - np.power(x, 2))
+
         if x < -rad or x > rad:
-            raise ValueError(f'random variable is expected to be defined within [-{rad},{rad}]')
+            raise ValueError(
+                f'random variable is expected to be defined within [-{rad},{rad}]')
         return x0*m.sqrt(rad**2 - x**2)
 
-    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]: 
+    def cdf(self, x: Union[List[float], np.ndarray, float]) -> Union[float, np.ndarray]:
         """
         Args:
             x (Union[List[float], numpy.ndarray, float]): data point(s) of interest
@@ -1178,13 +1195,9 @@ class WignerSemiCircle(BoundedInterval):
         rad = self.radius
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
 
-            # checks x <= R; x >= -R
-            if np.any((x < -rad) | (x > rad)):
-                raise ValueError(
-                    f'data points are expected to be defined within [-{rad},{rad}]')
-            return 0.5 + (x*np.sqrt(rad**2 - x**2))/(m.pi*rad**2) + np.arcsin(1/rad)/m.pi
+            return 0.5 + (x*np.sqrt(rad**2 - x**2))/(m.pi*rad**2) + np.arcsin(x/rad)/m.pi
 
         if x < -rad or x > rad:
             raise ValueError(
@@ -1263,7 +1276,7 @@ class Kumaraswamy(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x<=0) | (x >= 1)):
                 raise ValueError('random variables are expected to be within (0,1)')
         else:
@@ -1287,7 +1300,7 @@ class Kumaraswamy(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x<=0) | (x >= 1)):
                 raise ValueError('data points are expected to be within (0,1)')
         else:
@@ -1362,7 +1375,7 @@ class Reciprocal(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
 
         return 1/(x*m.log(b/a))
 
@@ -1378,7 +1391,7 @@ class Reciprocal(BoundedInterval):
         x0 = (m.log(b/a))
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             return np.log(x/a)/x0
         return m.log(x/a)/x0
 
@@ -1442,7 +1455,7 @@ class RaisedCosine(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)            
+                x = np.array(x, dtype = np.float64)            
             if np.any((x< l_bound) | (x>u_bound)):
                 raise ValueError(f'random variables are expected to be in [{l_bound},{u_bound}]')
         else:
@@ -1462,7 +1475,7 @@ class RaisedCosine(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)            
+                x = np.array(x, dtype = np.float64)            
         return 0.5*(1 + (x-mu)/s + 1/m.pi*np.sin(m.pi*(x-mu)/s))
 
     def mean(self) -> float: 
@@ -1535,7 +1548,7 @@ class UQuadratic(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x<a) | (x>b)):
                 raise ValueError(f'random variables are expected to be within [{a},{b}].')
         else:
@@ -1560,7 +1573,7 @@ class UQuadratic(BoundedInterval):
 
         if isinstance(x, (List, np.ndarray)):
             if not type(x) is np.ndarray:
-                x = np.array(x)
+                x = np.array(x, dtype = np.float64)
             if np.any((x<a) | (x>b)):
                 raise ValueError(f'data points are expected to be within [{a}, {b}]')
         else:
